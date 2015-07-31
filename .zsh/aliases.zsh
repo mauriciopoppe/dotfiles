@@ -33,5 +33,4 @@ alias pre-version='git diff --exit-code && npm prune && npm install -q && npm te
 alias post-version='npm run --if-present build && git diff --exit-code && git push && git push --tags && npm publish'
 
 # alias to reload zsh
-alias reload='~/dotfiles/sync.sh'
-
+alias reload='~/.zsh/sync.sh'
