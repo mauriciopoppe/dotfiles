@@ -4,9 +4,7 @@ Powered by antigen
 
 ## Installation
 
-```
-zsh -c "$(curl -fsSL https://raw.github.com/maurizzzio/dotfiles/install.zsh)"
-```
+Clone and run `install.zsh`
 
 ## Notes
 

@@ -20,7 +20,3 @@ for f in $INSTALLDIR/.vim/bundle/Vundle.vim; do
 done
 pip install --user powerline-status
 vim +PluginInstall +qall
-
-# install git submodules e.g. antigen
-echo -e "\nInitializing submodules..."
-git submodule update --init --recursive
