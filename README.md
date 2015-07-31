@@ -4,10 +4,8 @@ Powered by antigen
 
 ## Installation
 
-NOTE: Creates the directory `~/dotfiles`
-
 ```
-sh -c "$(curl -fsSL https://raw.github.com/maurizzzio/dotfiles/install.sh)"
+zsh -c "$(curl -fsSL https://raw.github.com/maurizzzio/dotfiles/install.zsh)"
 ```
 
 ## Notes
