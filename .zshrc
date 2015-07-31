@@ -22,7 +22,7 @@ antigen bundle rupa/z
 antigen bundle pip
 
 # mine
-antigen bundle $HOME/dotfiles/scripts
+antigen bundle $HOME/.zsh
 
 # Theme
 antigen theme agnoster

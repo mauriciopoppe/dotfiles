@@ -3,13 +3,10 @@
 INSTALLDIR=${1:-$HOME}
 
 echo -e "\nsymlinking dotfiles..."
-for i in .zshrc .vimrc .vim .gitconfig bin antigen; do
+for i in .zshrc .zsh .vimrc .vim .gitconfig bin antigen; do
 	mv $INSTALLDIR/$i $INSTALLDIR/$i.old 2> /dev/null
 	ln -s $PWD/$i $INSTALLDIR/$i;
 done
-
-# some symlinks to know programs
-ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ~/bin/subl
 
 # install git submodules
 echo -e "\nInitializing submodules..."

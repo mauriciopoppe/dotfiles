@@ -22,3 +22,7 @@ budoLive() {
 gi() {
 	curl https://www.gitignore.io/api/"$@";
 }
+
+hsearch() { 
+	history | grep $1 | grep -v hsearch; 
+}
