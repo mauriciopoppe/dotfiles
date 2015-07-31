@@ -14,6 +14,7 @@ done
 for f in $INSTALLDIR/.vim/bundle/Vundle.vim; do 
 	if ! [[ -e $f ]] then
 		git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+		git clone https://github.com/zsh-users/antigen.git ~/antigen
 	fi
 	break
 done
@@ -22,4 +23,4 @@ vim +PluginInstall +qall
 
 # install git submodules e.g. antigen
 echo -e "\nInitializing submodules..."
-git submodule init && git submodule update
+git submodule update --init --recursive
