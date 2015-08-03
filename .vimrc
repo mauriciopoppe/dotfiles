@@ -16,6 +16,12 @@ Plugin 'digitaltoad/vim-jade'
 Plugin 'pangloss/vim-javascript'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'AutoClose'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'vim-scripts/vim-auto-save'
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -31,3 +37,35 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['standard']
+
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+"let g:auto_save = 1  " enable AutoSave on Vim startup"
+let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option"
+let g:auto_save_in_insert_mode = 0  " do not save while in insert mode"
+
+set number
+set numberwidth=4
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+" change the color of the matching paren "
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+
+" removes trailing whitespace on save"
+autocmd BufWritePre * :%s/\s\+$//e
+
+" remapping control + movement to move between split panes"
+noremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>

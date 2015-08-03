@@ -25,6 +25,7 @@ antigen bundle pip
 antigen bundle $HOME/.zsh
 
 # Theme
-antigen theme agnoster
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
 
 antigen apply

@@ -1,8 +1,4 @@
 # Automatically run ls when cd-ing into a directory
-cd() {
-    builtin cd $* && ls;
-}
-
 crun() {
  	g++ "$1" && ./a.out
 }
