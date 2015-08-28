@@ -15,7 +15,7 @@ alias gst='git status'
 alias glg='git log --date-order --all --graph --format="%C(green)%h%Creset %C(yellow)%an%Creset %C(blue bold)%ar%Creset %C(red bold)%d%Creset%s"'
 
 # my blog runs in npm 0.10
-alias blog='cd ~/blog-jekyll && make'
+alias blog='z blog-jekyll && make'
 
 alias gcc='gcc-4.9'
 alias cc='gcc-4.9'
@@ -33,4 +33,4 @@ alias pre-version='git diff --exit-code && npm prune && npm install -q && npm te
 alias post-version='npm run --if-present build && git diff --exit-code && git push && git push --tags && npm publish'
 
 # alias to reload zsh
-alias reload='~/.zsh/sync.sh'
+alias reload='source ~/.zshrc'

@@ -8,24 +8,28 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'gmarik/vundle.vim'
 
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-sensible'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-commentary'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
-Plugin 'AutoClose'
+Plugin 'autoclose'
 Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/vim-auto-save'
-Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'terryma/vim-expand-region'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'bling/vim-airline'
 
-" All of your Plugins must be added before the following line
+" all of your plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" ##### Plugin configuration ######
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -37,8 +41,6 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -51,21 +53,59 @@ let g:syntastic_javascript_checkers = ['standard']
 
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-"let g:auto_save = 1  " enable AutoSave on Vim startup"
+let g:auto_save = 1  " enable AutoSave on Vim startup"
 let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option"
 let g:auto_save_in_insert_mode = 0  " do not save while in insert mode"
 
+let g:airline_powerline_fonts = 1
+
+"  ##### Editor configurations #####
 set number
 set numberwidth=4
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 " change the color of the matching paren "
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
-
 " removes trailing whitespace on save"
 autocmd BufWritePre * :%s/\s\+$//e
+
+" ##### Custom mappings #####
+" space ftw "
+let mapleader = "\<Space>"
+
+" quick save with space + w"
+nnoremap <Leader>w :w<CR>
+" copy and paste with <Space>y, <Space>p"
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" easymotion 2-word search
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+
+" jump to the end of a pasted text
+vnoremap <silent> y y`
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
 
 " remapping control + movement to move between split panes"
 noremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" terryma/vim-expand-region override
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" moving with commands only!!!! wtf mode!!!"
+noremap h <NOP>
+noremap j <NOP>
+noremap k <NOP>
+noremap l <NOP>
+
+" remap Esc to jj in insert mode"
+inoremap jj <Esc>

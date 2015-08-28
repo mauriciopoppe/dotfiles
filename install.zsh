@@ -12,7 +12,7 @@ done
 echo "installing vim plugins..."
 # additional vim plugins
 # status bar in the lower section of the screen
-for f in $INSTALLDIR/.vim/bundle/Vundle.vim; do 
+for f in $INSTALLDIR/.vim/bundle/Vundle.vim; do
 	if ! [[ -e $f ]] then
 		git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 		git clone https://github.com/zsh-users/antigen.git ~/antigen
@@ -21,7 +21,6 @@ for f in $INSTALLDIR/.vim/bundle/Vundle.vim; do
 done
 brew install macvim --override-system-vim
 brew install python ruby
-pip install --user powerline-status
 vim +PluginInstall +qall
 
 echo "done!"
