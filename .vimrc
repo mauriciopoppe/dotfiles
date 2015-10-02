@@ -18,7 +18,6 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'kien/ctrlp.vim'
 Plugin 'autoclose'
 Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/vim-auto-save'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'terryma/vim-expand-region'
@@ -29,7 +28,7 @@ Plugin 'bling/vim-airline'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" ##### Plugin configuration ######
+" ##### plugin configuration ######
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -68,7 +67,20 @@ hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 " removes trailing whitespace on save"
 autocmd BufWritePre * :%s/\s\+$//e
 
-" ##### Custom mappings #####
+" Turn backup off
+set nobackup
+set nowritebackup
+set noswapfile
+
+" ##### command-line mappings ##### "
+" Ctrl-Space: Show history
+cnoremap <c-@> <c-f>
+cnoremap <c-j> <down>
+cnoremap <c-k> <up>
+cnoremap <c-f> <left>
+cnoremap <c-g> <right>
+
+" ##### custom mappings #####
 " space ftw "
 let mapleader = "\<Space>"
 
@@ -96,16 +108,22 @@ noremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+nnoremap <leader>v <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s
 
 " terryma/vim-expand-region override
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-" moving with commands only!!!! wtf mode!!!"
-noremap h <NOP>
-noremap j <NOP>
-noremap k <NOP>
-noremap l <NOP>
-
 " remap Esc to jj in insert mode"
-inoremap jj <Esc>
+inoremap jk <Esc>
+inoremap kj  <Esc>
+
+" Y: yank til $"
+nnoremap Y y$
+
+" Q: closes the window"
+nnoremap Q :q<cr>
+
+" U: Redos since 'u' undos
+nnoremap U :redo<cr>

@@ -9,18 +9,30 @@ for i in .zshrc .zsh .vimrc .vim .gitconfig bin; do
 	ln -s $PWD/$i $INSTALLDIR
 done
 
-echo "installing vim plugins..."
-# additional vim plugins
-# status bar in the lower section of the screen
-for f in $INSTALLDIR/.vim/bundle/Vundle.vim; do
-	if ! [[ -e $f ]] then
-		git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-		git clone https://github.com/zsh-users/antigen.git ~/antigen
-	fi
-	break
-done
+echo "installing antigen..."
+if ! [[ -d ~/antigen ]] then
+	git clone https://github.com/zsh-users/antigen.git ~/antigen
+fi
+
+echo "installing vundle..."
+if ! [[ -d ~/.vim/bundle/Vundle.vim ]] then
+	git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+
+echo "installing brew..."
+if ! type "brew" > /dev/null; then
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# see http://sourabhbajaj.com/mac-setup/Homebrew/Cask.html
+echo "installing apps..."
 brew install macvim --override-system-vim
 brew install python ruby
+brew install caskroom/cask/brew-cask
+
+echo "installing vim plugins..."
 vim +PluginInstall +qall
+
+source ~/.zshrc
 
 echo "done!"

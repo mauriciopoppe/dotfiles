@@ -1,8 +1,3 @@
-# IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
-alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
-
 # osx
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
@@ -33,4 +28,10 @@ alias pre-version='git diff --exit-code && npm prune && npm install -q && npm te
 alias post-version='npm run --if-present build && git diff --exit-code && git push && git push --tags && npm publish'
 
 # alias to reload zsh
-alias reload='source ~/.zshrc'
+alias reload='echo "reloading zsh..." && source ~/.zshrc'
+
+# utilities
+alias path="echo $PATH | awk -v RS=: '1'"
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
