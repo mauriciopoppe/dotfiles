@@ -28,7 +28,12 @@ fi
 echo "installing apps..."
 brew install macvim --override-system-vim
 brew install python ruby
+brew install the_silver_searcher
+
 brew install caskroom/cask/brew-cask
+brew tap caskroom/versions
+brew cask install qlstephen qlmarkdown
+brew cask install iterm2
 
 echo "installing vim plugins..."
 vim +PluginInstall +qall

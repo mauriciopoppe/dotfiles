@@ -4,7 +4,7 @@
 
 path=(/usr/local/bin "$path[@]")
 
-path+=( 
-  ~/bin
-)
-
+# path+=( 
+  # /usr/local/bin
+  # $HOME/.rvm/bin # Add RVM to PATH for scripting
+# )

@@ -13,12 +13,13 @@ Plugin 'gmarik/vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'kien/ctrlp.vim'
 Plugin 'autoclose'
 Plugin 'scrooloose/syntastic'
-Plugin 'vim-scripts/vim-auto-save'
+Plugin 'vim-scripts/Solarized'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'terryma/vim-expand-region'
 Plugin 'airblade/vim-gitgutter'
@@ -28,7 +29,7 @@ Plugin 'bling/vim-airline'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" ##### plugin configuration ######
+" ##### plugins configuration ######
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -40,9 +41,21 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+
+" kien/ctrlp.vim
+" taken from https://github.com/thoughtbot/dotfiles/blob/master/vimrc
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -50,27 +63,49 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['standard']
 
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" autosave
+" http://blog.unixphilosopher.com/2015/02/a-more-betterer-autosave-in-vim.html
+autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
 
-let g:auto_save = 1  " enable AutoSave on Vim startup"
-let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option"
-let g:auto_save_in_insert_mode = 0  " do not save while in insert mode"
-
+" bling/vim-airline
 let g:airline_powerline_fonts = 1
 
+" vim-scripts/Solarized
+syntax on
+set background=dark
+let g:solarized_termtrans = 1
+let g:solarized_visibility = "low"
+let g:solarized_contrast = "low"
+let g:solarized_termcolors = 16
+colorscheme solarized
+
 "  ##### Editor configurations #####
+" show line numbers "
 set number
-set numberwidth=4
+" line numbers go from 0 to 99999 "
+set numberwidth=5
+" tab space set equal to 2 spaces "
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 " change the color of the matching paren "
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
-" removes trailing whitespace on save"
+" removes trailing whitespace on save "
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Turn backup off
+" Turn backup off (no .swap files)
 set nobackup
 set nowritebackup
 set noswapfile
+
+" Make it obvious where 80 characters is
+set textwidth=80
+set colorcolumn=+1
+
+" set syntax highlighting for specific file types
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+" Enable spellchecking for Markdown
+autocmd FileType markdown setlocal spell
+" Automatically wrap at 80 characters for Markdown
+autocmd BufRead,BufNewFile *.md setlocal textwidth=80
 
 " ##### command-line mappings ##### "
 " Ctrl-Space: Show history
@@ -81,7 +116,7 @@ cnoremap <c-f> <left>
 cnoremap <c-g> <right>
 
 " ##### custom mappings #####
-" space ftw "
+" space is my leader "
 let mapleader = "\<Space>"
 
 " quick save with space + w"

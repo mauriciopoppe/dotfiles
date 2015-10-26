@@ -5,11 +5,14 @@ alias showhiddenfiles='defaults write com.apple.finder AppleShowAllFiles TRUE &&
 alias hidehiddenfiles='defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder'
 alias finder='open -a Finder '
 
-# git 
+# git
 alias gst='git status'
 alias glg='git log --date-order --all --graph --format="%C(green)%h%Creset %C(yellow)%an%Creset %C(blue bold)%ar%Creset %C(red bold)%d%Creset%s"'
+alias git-ammend='git commit --amend -C HEAD'
+alias git-undo='git reset --soft HEAD^'
+alias search='ag -i $1'
 
-# my blog runs in npm 0.10
+# blog runs in npm 0.10
 alias blog='z blog-jekyll && make'
 
 alias gcc='gcc-4.9'
@@ -29,9 +32,11 @@ alias post-version='npm run --if-present build && git diff --exit-code && git pu
 
 # alias to reload zsh
 alias reload='echo "reloading zsh..." && source ~/.zshrc'
+alias reloadvim='vim +PluginInstall +qall'
 
 # utilities
-alias path="echo $PATH | awk -v RS=: '1'"
+alias path='echo $PATH | tr ":" "\n"'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+
