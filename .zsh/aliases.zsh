@@ -37,12 +37,13 @@ alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
 # reload aliases
-alias rzsh='source ~/.zshrc'
-alias rvim='vim +PluginInstall +qall'
+alias reload='reloadzsh && reloadtmux && reloadvim'
+alias reloadvim='vim +PluginInstall +qall'
+alias reloadzsh='source ~/.zshrc'
+alias reloadtmux='tmux source-file ~/.tmux.conf'
 
 # tmux aliases
-alias ta='tmux attach'
+alias ta='tmux attach -t'
+alias td='tmux detach'
 alias tls='tmux ls'
-alias tat='tmux attach -t'
 alias tns='tmux new-session -s'
-

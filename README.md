@@ -1,42 +1,55 @@
 # dotfiles
 
-Powered by antigen
+:) http://www.drbunsen.org/the-text-triumvirate/
+
+- iTerm2
+- zsh + antigen
+- tmux + tpm
+- vim + Vundle
 
 ## Installation
 
-Clone and run `install.zsh`
+- Clone and run `install.zsh`
+- Install powerline fonts
+  - https://github.com/powerline/fonts
+- Set up iterm2 colors and a patched font
+  - https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized
+  - https://gist.github.com/kevin-smets/8568070#install-a-patched-font
+- Install tmux plugins (unfortunately it's not automated yet)
+  - Open tmux, hit `<C-space>I` to fetch all the plugins
 
-## Notes
+### Useful links
 
-### iTerm2 setup
+- [vim primer](https://danielmiessler.com/study/vim/)
+- [tmux primer](https://danielmiessler.com/study/tmux/)
 
-- https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized
-- http://rottmann.net/2013/03/launch-iterm-2-on-startup-without-opening-a-terminal-window/
-- http://apple.stackexchange.com/questions/92004/is-there-a-way-to-hide-certain-apps-from-the-cmdtab-menu
+### Cheatsheet
 
-### Vim
+#### tmux
 
-[primer](https://danielmiessler.com/study/vim/)
+Prefix: `<C-space>`
 
-#### Movement
+- new session: `tns dotfiles`
+- detach session: `td`
+- attach session: `ta`
+- list sessions: `tls`
 
-- Among the places where the cursor was: `<c-i>`, `<c-o>`
-- Scroll Forward/Backward `<c-f>`, `<c-b>`
-- Moving between paragraphs `<shift-{`, `<shift-}>`
+#### Vim
 
-#### Remaps
-
-In normal mode
-
-- Save a file `<Space>w`
+- Movement
+  - Among the places where the cursor was: `<c-i>`, `<c-o>`
+  - Scroll Forward/Backward `<c-f>`, `<c-b>`
+  - Moving between paragraphs `<shift-{`, `<shift-}>`
 - Copy/paste to system clipboard `<Space>y`, `<Space>p`
-- `<Escape>` is remapped in insert mode to `jj`
+- `<Escape>` is remapped in insert mode to `jk` or `kj`
 
-#### Plugins
+Spell checking
+- Cycle through misspelled words: `]s`, `[s`
+- On a misspelled word get suggestions: `z=`
 
+Plugins
 - Git wrapper (tpope/vim-fugitive), `:Git, :Gstatus, :Gread, :GWrite`
   - `:Gstatus` cheatsheet http://vimcasts.org/episodes/fugitive-vim-working-with-the-git-index/
-- Opening files `<c-p>` (kien/ctrlp)
 - Visual selection (terryma/vim-expand-region)
   - `v` expands the selection
   - `<c-v>` shrinks the selection
@@ -51,6 +64,6 @@ In normal mode
   - `4gcc` comments the following 4 lines (including the current line)
   - `gcap` comments a paragraph
 - Multiple cursors (terryma/vim-multiple-cursors)
-  - `<c-n>` to highlight the current word, pressing it again finds the next ocurrence and places another virtual cursor
+  - `<c-n>` to highlight the current word, pressing it again finds the next occurrence and places another virtual cursor
   - `<c-p>` remove the current virtual cursor and go back to the previous virtual cursor location
 

@@ -20,6 +20,8 @@ brew install the_silver_searcher # ag
 # apps
 brew install caskroom/cask/brew-cask
 brew tap caskroom/versions
+brew tap caskroom/fonts
 brew cask install qlstephen qlmarkdown
 brew cask install iterm2
+brew cask install karabiner                 # remaps caps to ctrl or esc
 

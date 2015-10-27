@@ -17,9 +17,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'kien/ctrlp.vim'
-Plugin 'autoclose'
+Plugin 'vim-scripts/AutoClose'
 Plugin 'scrooloose/syntastic'
-Plugin 'vim-scripts/Solarized'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'terryma/vim-expand-region'
 Plugin 'airblade/vim-gitgutter'
@@ -64,19 +64,13 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['standard']
 
-" autosave
-" http://blog.unixphilosopher.com/2015/02/a-more-betterer-autosave-in-vim.html
-autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
-
 " bling/vim-airline
+set laststatus=2
 let g:airline_powerline_fonts = 1
 
-" vim-scripts/Solarized
-syntax on
+" altercation/vim-colors-solarized
+syntax enable
 set background=dark
-let g:solarized_termtrans = 1
-let g:solarized_visibility = "low"
-let g:solarized_contrast = "low"
 let g:solarized_termcolors = 16
 colorscheme solarized
 
@@ -91,6 +85,9 @@ set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
 " removes trailing whitespace on save "
 autocmd BufWritePre * :%s/\s\+$//e
+" autosave
+" http://blog.unixphilosopher.com/2015/02/a-more-betterer-autosave-in-vim.html
+autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
 
 " Turn backup off (no .swap files)
 set nobackup
@@ -101,7 +98,6 @@ let g:netrw_dirhistmax = 0
 " Make it obvious where 80 characters is
 set textwidth=80
 set colorcolumn=+1
-
 
 " set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
@@ -165,3 +161,13 @@ nnoremap Q :q<cr>
 
 " U: Redos since 'u' undos
 nnoremap U :redo<cr>
+
+" http://vimrcfu.com/snippet/77
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" http://vimrcfu.com/snippet/14
+" keep the selection after indenting
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <LT>gv

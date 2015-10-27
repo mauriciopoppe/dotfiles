@@ -336,9 +336,9 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>590 405 924 485 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>255 177 1410 826 0 0 1920 1177 </string>
+	<string>3 4 1914 1173 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>199 213 1410 826 0 0 1920 1177 </string>
+	<string>0 351 1410 826 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>296 100 990 586 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -539,7 +539,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>80</integer>
+			<integer>90</integer>
 			<key>Command</key>
 			<string></string>
 			<key>Cursor Color</key>
@@ -906,7 +906,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>25</integer>
+			<integer>30</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -1249,7 +1249,7 @@
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
-			<real>13.898617744445801</real>
+			<real>10.48908519744873</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1264,7 +1264,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>200</integer>
+			<integer>220</integer>
 			<key>Command</key>
 			<string></string>
 			<key>Cursor Color</key>
@@ -1631,7 +1631,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>50</integer>
+			<integer>60</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
