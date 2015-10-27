@@ -16,6 +16,8 @@ Clone and run `install.zsh`
 
 ### Vim
 
+[primer](https://danielmiessler.com/study/vim/)
+
 #### Movement
 
 - Among the places where the cursor was: `<c-i>`, `<c-o>`

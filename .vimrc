@@ -24,6 +24,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'terryma/vim-expand-region'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " all of your plugins must be added before the following line
 call vundle#end()            " required
@@ -95,10 +96,12 @@ autocmd BufWritePre * :%s/\s\+$//e
 set nobackup
 set nowritebackup
 set noswapfile
+let g:netrw_dirhistmax = 0
 
 " Make it obvious where 80 characters is
 set textwidth=80
 set colorcolumn=+1
+
 
 " set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
@@ -121,28 +124,28 @@ let mapleader = "\<Space>"
 
 " quick save with space + w"
 nnoremap <Leader>w :w<CR>
-" copy and paste with <Space>y, <Space>p"
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
+" Yank text to the OS X clipboard
+noremap <leader>y "*y
+noremap <leader>yy "*Y
+" Preserve indentation while pasting text from the OS X clipboard
+noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
 
 " easymotion 2-word search
 nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
 
 " jump to the end of a pasted text
-vnoremap <silent> y y`
-vnoremap <silent> p p`]
-nnoremap <silent> p p`]
+" vnoremap <silent> y y`
+" vnoremap <silent> p p`]
+" nnoremap <silent> p p`]
 
-" remapping control + movement to move between split panes"
-noremap <C-J> <C-W><C-J>
+" remapping control + movement to move between split panes
+nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" space + v = create a new vertical pane
+" space + s = create a new horizontal pane
 nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s
 
