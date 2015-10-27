@@ -30,20 +30,19 @@ alias major='pre-version && npm version major && post-version'
 alias pre-version='git diff --exit-code && npm prune && npm install -q && npm test'
 alias post-version='npm run --if-present build && git diff --exit-code && git push && git push --tags && npm publish'
 
-# alias to reload zsh
-alias reload='echo "reloading zsh..." && source ~/.zshrc'
-alias reloadvim='vim +PluginInstall +qall'
-
 # utilities
 alias path='echo $PATH | tr ":" "\n"'
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
+# reload aliases
+alias rzsh='source ~/.zshrc'
+alias rvim='vim +PluginInstall +qall'
+
 # tmux aliases
 alias ta='tmux attach'
 alias tls='tmux ls'
 alias tat='tmux attach -t'
 alias tns='tmux new-session -s'
-
 
