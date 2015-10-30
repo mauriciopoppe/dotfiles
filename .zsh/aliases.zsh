@@ -47,3 +47,5 @@ alias ta='tmux attach -t'
 alias td='tmux detach'
 alias tls='tmux ls'
 alias tns='tmux new-session -s'
+alias tks='tmux kill-server'
+

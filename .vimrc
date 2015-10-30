@@ -6,7 +6,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
-
 " let Vundle manage Vundle, required
 Plugin 'gmarik/vundle.vim'
 
@@ -15,18 +14,29 @@ Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'xolox/vim-session'
+Plugin 'xolox/vim-misc'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'kien/ctrlp.vim'
-Plugin 'vim-scripts/AutoClose'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/syntastic'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'terryma/vim-expand-region'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-tmux-navigator'
 
-" all of your plugins must be added before the following line
+" Themes
+Plugin 'flazz/vim-colorschemes'
+
+" first time installation see
+" https://github.com/Valloric/YouCompleteMe#mac-os-x-installation
+Plugin 'Valloric/YouCompleteMe'
+
+" snippets
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -67,38 +77,55 @@ let g:syntastic_javascript_checkers = ['standard']
 " bling/vim-airline
 set laststatus=2
 let g:airline_powerline_fonts = 1
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 
-" altercation/vim-colors-solarized
+" xolox/vim-session
+let g:session_autosave = 0
+
+" airblade/vim-gitgutter
+let g:gitgutter_map_keys = 0
+
+" Valloric/YouCompleteMe
+let g:UltiSnipsExpandTrigger='<c-e>'
+let g:UltiSnipsJumpForwardTrigger='<c-b>'
+let g:UltiSnipsJumpBackwardTrigger='<c-z>'
+
+" themes
 syntax enable
 set background=dark
-let g:solarized_termcolors = 16
-colorscheme solarized
+colorscheme hybrid
 
 "  ##### Editor configurations #####
-" show line numbers "
+set relativenumber
 set number
 " line numbers go from 0 to 99999 "
 set numberwidth=5
 " tab space set equal to 2 spaces "
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
-" change the color of the matching paren "
-hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+" mouse support
+set mouse=a
+" Turn backup off (no .swap files)
+set noswapfile
+let g:netrw_dirhistmax = 0
+" Make it obvious where 80 characters is
+set textwidth=80
+set colorcolumn=+1
+" avoid creating a wrap when the code goes +80 chars, just do it for comments
+set wrap linebreak nolist
+" show matching brackets
+set showmatch
+" splits are below and right
+set splitbelow
+set splitright
+
 " removes trailing whitespace on save "
 autocmd BufWritePre * :%s/\s\+$//e
 " autosave
 " http://blog.unixphilosopher.com/2015/02/a-more-betterer-autosave-in-vim.html
 autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
-
-" Turn backup off (no .swap files)
-set nobackup
-set nowritebackup
-set noswapfile
-let g:netrw_dirhistmax = 0
-
-" Make it obvious where 80 characters is
-set textwidth=80
-set colorcolumn=+1
-
 " set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 " Enable spellchecking for Markdown
@@ -118,11 +145,8 @@ cnoremap <c-g> <right>
 " space is my leader "
 let mapleader = "\<Space>"
 
-" quick save with space + w"
-nnoremap <Leader>w :w<CR>
 " Yank text to the OS X clipboard
 noremap <leader>y "*y
-noremap <leader>yy "*Y
 " Preserve indentation while pasting text from the OS X clipboard
 noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
 
@@ -150,8 +174,8 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " remap Esc to jj in insert mode"
-inoremap jk <Esc>
-inoremap kj  <Esc>
+inoremap jk <esc>
+inoremap kj <esc>
 
 " Y: yank til $"
 nnoremap Y y$
@@ -169,5 +193,28 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " http://vimrcfu.com/snippet/14
 " keep the selection after indenting
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <LT>gv
+vnoremap > >gv
+vnoremap <LT> <LT>gv
+
+" from: https://joshldavis.com/2015/04/05/vim-tab-madness-buffers-vs-tabs/
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+" To open a new empty buffer
+nmap <leader>T :enew<cr>
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
+
+" window resizing
+nmap <leader><Up> :resize +5<cr>
+nmap <leader><Down> :resize +5<cr>
+nmap <leader><Left> :vertical resize -5<cr>
+nmap <leader><Right> :vertical resize +5<cr>
+

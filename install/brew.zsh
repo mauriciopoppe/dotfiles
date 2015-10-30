@@ -13,9 +13,12 @@ brew install tree ack wget
 # vim + tmux ftw
 brew install macvim --override-system-vim
 brew install tmux
-brew install reattach-to-user-namespace
 brew install python ruby node
 brew install the_silver_searcher # ag
+
+# neovim
+brew tap neovim/neovim
+brew install --HEAD neovim
 
 # apps
 brew install caskroom/cask/brew-cask
@@ -23,5 +26,4 @@ brew tap caskroom/versions
 brew tap caskroom/fonts
 brew cask install qlstephen qlmarkdown
 brew cask install iterm2
-brew cask install karabiner                 # remaps caps to ctrl or esc
 

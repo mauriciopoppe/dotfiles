@@ -1,6 +1,4 @@
-# Automatically run ls when cd-ing into a directory
-crun() {
- 	g++ "$1" && ./a.out
+crun() { g++ "$1" && ./a.out
 }
 
 server() {
@@ -22,3 +20,4 @@ gi() {
 hsearch() { 
 	history | grep $1 | grep -v hsearch; 
 }
+
