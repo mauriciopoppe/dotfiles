@@ -41,6 +41,7 @@ Prefix: `<C-space>`
 - detach session: `td`
 - attach session: `ta`
 - list sessions: `tls`
+- navigate through sessions `prefix + <C-[>` and `prefix + <C-]>`
 
 Plugins
 - sidebar (opens a tree dir listing for the current path) `prefix + tab`
@@ -52,9 +53,18 @@ Plugins
 #### Vim
 
 Movement
-- Among the places where the cursor was: `<c-i>`, `<c-o>`
+- Through the change list (list of changes that can be undone)
+  - previous change `g;`
+  - next change `g,`
+  - list of all change `:changes`
+- Through the jump list (places where the cursor jumped rather than scrolled
+  i.e. without using hjkl)
+  - previous jump `<c-o>`
+  - next jump `<c-i>`
+  - list of all jumps `:jumps`
 - Scroll Forward/Backward `<c-f>`, `<c-b>`
 - Moving between paragraphs `<shift-{`, `<shift-}>`
+- In a splat line `g-hjkl`
 
 Useful remaps
 - Copy/paste to system clipboard `<Space>y`, `<Space>p`

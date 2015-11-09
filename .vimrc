@@ -25,9 +25,17 @@ Plugin 'terryma/vim-expand-region'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'sjl/gundo.vim'
+
+" markdown https://github.com/plasticboy/vim-markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 " Themes
 Plugin 'flazz/vim-colorschemes'
+" note to self: generates a bar for tmux similar to the current one
+" on vim, see the repo to generate a theme
+" Plugin 'edkolev/tmuxline.vim'
 
 " first time installation see
 " https://github.com/Valloric/YouCompleteMe#mac-os-x-installation
@@ -81,17 +89,26 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_theme='bubblegum'
 
 " xolox/vim-session
-let g:session_autosave = 0
+let g:session_autosave = 'yes'
 
 " airblade/vim-gitgutter
 let g:gitgutter_map_keys = 0
+
+" plasticboy/vim-markdown
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_folding_disabled = 1
 
 " Valloric/YouCompleteMe
 let g:UltiSnipsExpandTrigger='<c-e>'
 let g:UltiSnipsJumpForwardTrigger='<c-b>'
 let g:UltiSnipsJumpBackwardTrigger='<c-z>'
+
+" sjl/gundo.vim
+nnoremap gu :GundoToggle<cr>
 
 " themes
 syntax enable
@@ -110,28 +127,56 @@ set mouse=a
 " Turn backup off (no .swap files)
 set noswapfile
 let g:netrw_dirhistmax = 0
+
+" - word wrapping
+set wrap
+set linebreak
+set nolist
 " Make it obvious where 80 characters is
-set textwidth=80
+set textwidth=0
+set wrapmargin=0
+set formatoptions+=l
 set colorcolumn=+1
-" avoid creating a wrap when the code goes +80 chars, just do it for comments
-set wrap linebreak nolist
+
 " show matching brackets
 set showmatch
 " splits are below and right
 set splitbelow
 set splitright
 
-" removes trailing whitespace on save "
-autocmd BufWritePre * :%s/\s\+$//e
+" removes trailing whitespace on save
+" http://vimcasts.org/episodes/tidying-whitespace/
+function! <SID>StripTrailingWhitespaces()
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  %s/\s\+$//e
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
 " autosave
 " http://blog.unixphilosopher.com/2015/02/a-more-betterer-autosave-in-vim.html
-autocmd InsertLeave,TextChanged * if expand('%') != '' | update | endif
+function! <SID>autosave()
+  let name = expand('%')
+  if name != '' && name != '[Command Line]'
+    update
+  endif
+endfunction
+autocmd InsertLeave,TextChanged * :call <SID>autosave()
+
 " set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
-" Enable spellchecking for Markdown
-autocmd FileType markdown setlocal spell
 " Automatically wrap at 80 characters for Markdown
 autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+" Enable spellchecking for Markdown
+autocmd FileType markdown setlocal spell
+" Enable .vimrc autoreload.vimrc
+autocmd BufWritePost .vimrc source $MYVIMRC
 
 " ##### command-line mappings ##### "
 " Ctrl-Space: Show history
@@ -173,7 +218,7 @@ nnoremap <leader>s <C-w>s
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-" remap Esc to jj in insert mode"
+" remap jk and kj to exit insert mode
 inoremap jk <esc>
 inoremap kj <esc>
 
@@ -196,6 +241,10 @@ vnoremap K :m '<-2<CR>gv=gv
 vnoremap > >gv
 vnoremap <LT> <LT>gv
 
+" edit last selection gv
+" visually select the text that was recently edited/pasted
+nmap gV `[v`]
+
 " from: https://joshldavis.com/2015/04/05/vim-tab-madness-buffers-vs-tabs/
 " This allows buffers to be hidden if you've modified a buffer.
 " This is almost a must if you wish to use buffers in this way.
@@ -214,7 +263,7 @@ nmap <leader>bl :ls<CR>
 
 " window resizing
 nmap <leader><Up> :resize +5<cr>
-nmap <leader><Down> :resize +5<cr>
+nmap <leader><Down> :resize -5<cr>
 nmap <leader><Left> :vertical resize -5<cr>
 nmap <leader><Right> :vertical resize +5<cr>
 
