@@ -1,6 +1,7 @@
 " Awesome .vimrc files from
 "
 "     yadr - https://github.com/skwp/dotfiles/blob/master/vimrc
+"     amix/vimrc - https://github.com/amix/vimrc
 "     Terry Ma - https://github.com/terryma/dotfiles/blob/master/.vimrc
 
 set nocompatible
@@ -45,6 +46,9 @@ call plug#end()
 " mouse support (scroll :D)
 set mouse=a
 
+" one more space at the end of line
+set virtualedit=onemore
+
 " line numbering
 set number
 
@@ -58,10 +62,10 @@ set t_Co=256
 " lines of history vim has to remember
 set history=10000
 
-" when a file is changed from the outside update what's shown on vim
+" when a file is changed from the outside (sort of)
 set autoread
 
-" display newline/tabs and so on
+" display invisible characters
 set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
 set showbreak=↪
@@ -103,12 +107,16 @@ set noswapfile
 set nobackup
 set nowritebackup
 
-" tab space set equal to 2 spaces "
+" spaces instead of tabs
 set expandtab
-set shiftwidth=2
-set tabstop=8
-set softtabstop=2
+
+" be smart when using tabs
 set smarttab
+
+" tab space set equal to 2 spaces
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
 
 " display settings
 set linebreak
@@ -122,6 +130,10 @@ set undodir=~/.vim/backups
 set undofile
 
 set background=dark
+
+" buffer screen updates instead of a continuous update (performance improvement
+" while scrolling)
+set lazyredraw
 
 " disable matching paren it for now, it's making vim slow
 let loaded_matchparen = 1
@@ -169,6 +181,10 @@ cnoremap <c-g> <right>
 let mapleader = "\<Space>"
 
 " ## normal mode ##
+" Treat long lines as break lines (useful when moving around in them)
+map j gj
+map k gk
+
 " Y: yank til $
 nnoremap Y y$
 
@@ -192,10 +208,6 @@ nnoremap <c-h> <c-w><c-h>
 " # leader mappings (in normal mode)
 " from: https://joshldavis.com/2015/04/05/vim-tab-madness-buffers-vs-tabs/
 nmap <leader>T :enew<cr>
-" Move to the next buffer
-nmap <leader>l :bnext<cr>
-" Move to the previous buffer
-nmap <leader>h :bprevious<cr>
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
 nmap <leader>bq :bp <BAR> bd #<cr>
@@ -221,20 +233,27 @@ noremap <leader>p :set paste<cr>:put  *<cr>:set nopaste<cr>
 nnoremap <leader>\ <c-w>v<c-w>l
 nnoremap <leader>- <c-w>s
 
+" # meta mappings (in normal mode) (mauricio)
+" source http://stackoverflow.com/questions/7501092/can-i-map-alt-key-in-vim
+" ˙ = alt + h
+nnoremap ˙ :bprevious<CR>
+" ¬ = alt + l
+nnoremap ¬ :bnext<CR>
+
 " ## insert mode ##
 " remap jk and kj to exit insert mode
 inoremap jk <esc>
 inoremap kj <esc>
 " move word back
-inoremap <c-h> <c-o>b
+inoremap <c-b> <c-o>b
 " move word forward
-inoremap <c-l> <c-o>w
+inoremap <c-w> <c-o>w
 " move to the beginning of the line
-inoremap <c-i> <esc>I 
+imap <c-i> <esc>I
 " move to the end of the line
-inoremap <c-a> <esc>A 
+imap <c-a> <esc>A
 
-" ## visual mode ## 
+" ## visual mode ##
 " Move visual block (source http://vimrcfu.com/snippet/77)
 vnoremap J :m '>+1<cr>gv=gv
 vnoremap K :m '<-2<cr>gv=gv
