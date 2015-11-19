@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+dotfiles-git() {
+  print-header "git"
+  
+  print-step "git symlinks..."
+  symlink "git/gitignore" "${HOME}/.gitignore"
+  symlink "git/gitconfig" "${HOME}/.gitconfig"
+}
+
