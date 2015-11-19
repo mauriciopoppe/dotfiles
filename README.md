@@ -1,4 +1,4 @@
-# dotfiles
+# dotfiles (osx)
 
 :) http://www.drbunsen.org/the-text-triumvirate/
 
@@ -6,6 +6,11 @@
 - zsh + antigen
 - tmux + tpm
 - vim + Vundle
+
+## Requirements
+
+- XCode Command Line Tools, if you don't have it install it with `$ xcode-select --install`
+- ZSH (installed by default on OSX)
 
 ## Installation
 
@@ -30,6 +35,12 @@ Additional notes
 
 - [vim primer](https://danielmiessler.com/study/vim/)
 - [tmux primer](https://danielmiessler.com/study/tmux/)
+
+## Inspiration dotfiles
+
+- [Bruno Sutic](https://github.com/nicknisi/dotfiles)
+- [Nick Nisi](https://github.com/bruno-/dotfiles)
+- [Mislav Marohnić](https://github.com/mislav/dotfiles)
 
 ### Cheatsheet
 

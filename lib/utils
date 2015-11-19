@@ -1,0 +1,75 @@
+#!/bin/zsh
+
+# Header logging
+print-header() {
+  printf "\n$(tput setaf 15)%s$(tput sgr0)\n\n" "$@"
+}
+
+print-step() {
+  printf "$(tput setaf 15)  %s$(tput sgr0)\n" "$@"
+}
+
+print-message() {
+  printf "$(tput setaf 5)    %s$(tput sgr0)\n" "$@"
+}
+
+# Success logging
+print-success() {
+  printf "$(tput setaf 64)✓ %s$(tput sgr0)\n" "$@"
+}
+
+# Error logging
+print-error() {
+  printf "$(tput setaf 1)x %s$(tput sgr0)\n" "$@"
+}
+
+# Warning logging
+print-warning() {
+  printf "$(tput setaf 136)! %s$(tput sgr0)\n" "$@"
+}
+
+command-exists() {
+  type $1 > /dev/null
+}
+
+formula-exists() {
+  if ! command-exists "brew"; then
+    print-error "make sure that 'brew' is installed"
+  else
+    brew list $1 > /dev/null
+  fi
+}
+
+cask-exists() {
+  if ! command-exists "brew"; then
+    print-error "make sure that 'brew' is installed"
+  else
+    brew cask list $1 > /dev/null
+  fi
+}
+
+symlink() {
+  if [[ $# -lt 2 ]]; then
+    print-warning "symlink requires a source and a target, aborting"
+    return 1
+  fi
+
+  local src=${1:a}
+  local tgt=${2:a}
+
+  if [[ ! -e $src ]]; then
+    print-warning "the file ${src} does not exist, aborting"
+    return 1
+  fi
+
+  print-success "symlinking ${src} as ${tgt}"
+
+  # backup file
+  if [[ -e $tgt ]]; then
+    print-warning "[FILE EXISTS] ${tgt} ... leaving original at ${tgt}.backup"
+    mv ${tgt} ${tgt}.backup
+  fi
+
+  ln -nfs $src $tgt
+}
+

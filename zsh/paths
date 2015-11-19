@@ -1,10 +1,11 @@
 # http://unix.stackexchange.com/questions/62579/is-there-a-way-to-add-a-directory-to-my-path-in-zsh-only-if-its-not-already-pre
 # force $PATH to have unique values
-# typeset -U path
-
+typeset -U path
+# fix brew path
 path=(/usr/local/bin "$path[@]")
+path+=(
+  # path to my binaries
+  ${DOTFILES_DIRECTORY}/bin
+)
 
-# path+=( 
-  # /usr/local/bin
-  # $HOME/.rvm/bin # Add RVM to PATH for scripting
-# )
+export PATH

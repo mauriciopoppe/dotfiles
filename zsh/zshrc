@@ -1,0 +1,40 @@
+warn() {
+  printf "$(tput setaf 136)! %s(tput sgr0)" "$@"
+}
+
+source ${HOME}/antigen/antigen.zsh
+
+# Load the oh-my-zsh's library
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh)
+antigen bundle dirhistory
+antigen bundle encode64
+antigen bundle git
+antigen bundle node
+antigen bundle npm
+antigen bundle osx
+antigen bundle pip
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
+
+antigen apply
+
+# nvm
+export NVM_DIR="${HOME}/.nvm"
+[[ -s $NVM_DIR/nvm.sh ]] && . "$NVM_DIR/nvm.sh"
+
+# my stuff
+if [[ ! -e ${HOME}/.envvars.rc ]]; then
+  warn "Warning: dotfiles path is not set, verify that the file ${HOME}/.envvars.rc exists, if not run 'source install.zsh' in your dotfiles clone"
+else
+  # exports $DOTFILES_DIRECTORY
+  source ${HOME}/.envvars.rc
+  source ${DOTFILES_DIRECTORY}/zsh/paths
+  source ${DOTFILES_DIRECTORY}/zsh/aliases
+  source ${DOTFILES_DIRECTORY}/zsh/functions
+fi
+
+unset -f warn

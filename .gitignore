@@ -1,6 +1,4 @@
 .DS_Store
-.vim/bundle
-.vim/sessions
-.tmux/
-antigen
-*.swp
+vim/backups/**
+vim/sessions/**
+

@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+crun() {
+	g++ $1 && ./a.out
+}
+
+budoLive() {
+	budo ${1:=index.js} --live | garnish -- -t babelify
+}
+
+gi() {
+	curl https://www.gitignore.io/api/$@
+}

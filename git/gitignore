@@ -1,0 +1,15 @@
+# OS or Editor files
+._*
+.DS_Store
+
+# known debug extensions
+*~
+*.diff
+*.err
+*.log
+*.orig
+*.pyc
+*.rej
+*.sass-cache
+*.sw?
+*.vi

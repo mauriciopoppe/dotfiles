@@ -1,0 +1,241 @@
+#!/bin/zsh
+
+dotfiles---help() {
+cat << EOF
+  usage: dotfiles all|npm|brew|tmux|vim|zsh
+EOF
+}
+
+dotfiles-temp-fix-path() {
+  # it's possible that brew is already installed but the path is not set correctly
+  # fix the path for the current script
+  if [[ ! $PATH == *"/usr/local/bin"* ]]; then
+    path=(/usr/local/bin $path)
+    export PATH
+  fi
+
+  path=(${DOTFILES_DIRECTORY}/bin $path)
+}
+
+dotfiles-pre() {
+  dotfiles-temp-fix-path
+
+  if ! command-exists "gcc"; then
+    print-error "The XCode Command Line Tools must be installed first."
+    printf "  Download them from: https://developer.apple.com/downloads\n"
+    printf "  Or install them with: xcode-select --install\n"
+    exit 1
+  fi
+
+  # install brew
+  if ! command-exists "brew"; then
+    print-header "Installing Homebrew..." 
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+}
+
+dotfiles-git() {
+  print-header "git"
+  
+  print-step "git symlinks..."
+  symlink "git/gitignore" "${HOME}/.gitignore"
+}
+
+dotfiles-zsh() {
+  print-header "zsh"
+
+  print-step "installing antigen..."
+  if [[ ! -d ${HOME}/antigen ]]; then
+    git clone https://github.com/zsh-users/antigen.git ${HOME}/antigen
+  else
+    print-message "antigen already installed"
+  fi
+
+  print-step "zsh symlinks..."
+  symlink "zsh/zshrc" "${HOME}/.zshrc"
+
+  print-step "changing default shell to zsh..."
+  if [[ $SHELL == *"zsh"* ]]; then
+    print-message "zsh is already configured as the default shell"
+  else
+    print-message "setting zsh as your default shell"
+    chsh -s /bin/zsh
+  fi
+
+  print-step "complete!"
+
+  printf "\n"  
+  print-message "restart your session to load the new settings"
+  printf "\n\t"
+  print-message "$ source ~/.zshrc"
+  printf "\n"
+}
+
+dotfiles-tmux() {
+  print-header "tmux"
+
+  print-step "setting up directories..."
+  mkdir -p ${HOME}/.tmux/plugins 2> /dev/null
+
+  print-step "installing tmux..."
+  if ! formula-exists "tmux"; then
+    brew install tmux
+  else
+    print-message "tmux already installed"
+  fi
+
+  print-step "installing tmux plugin manager..."
+  if [[ ! -d ${HOME}/.tmux/plugins/tpm ]]; then
+    git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
+  else
+    print-message "tpm already installed"
+  fi
+
+  print-step "tmux symlinks..."
+  symlink "tmux/tmux.conf" "${HOME}/.tmux.conf"
+
+  print-step "installing plugins..."
+  ${HOME}/.tmux/plugins/tpm/bin/install_plugins > /dev/null
+
+  print-step "complete!"
+}
+
+dotfiles-vim() {
+  print-header "vim"
+  
+  print-step "setting up directories..."
+  mkdir -p ${HOME}/.vim 2> /dev/null
+
+  print-step "installing macvim..."
+  if ! formula-exists macvim; then
+    brew install macvim --override-system-vim
+  else
+    print-message "macvim already installed"
+  fi
+
+  print-step "installing vim-plug..."
+  if [[ ! -e ${HOME}/.vim/autoload/plug.vim ]]; then
+    curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  else
+    print-message "vim-plug already installed"
+  fi
+
+  print-step "vim symlinks..."
+  symlink "vim/vimrc" "${HOME}/.vimrc"
+  symlink "vim/UltiSnips" "${HOME}/.vim/UltiSnips"
+  symlink "vim/backups" "${HOME}/.vim/backups"
+  symlink "vim/sessions" "${HOME}/.vim/sessions"
+  symlink "vim/spell" "${HOME}/.vim/spell"
+
+  print-step "installing plugins..."
+  vim +PlugInstall +qall
+
+  print-step "complete!"
+}
+
+dotfiles-brew() {
+  print-header "brew"
+
+  print-step "installing formulas..."
+
+  local formulas
+  formulas=(
+    python
+    ruby
+    tree
+    the_silver_searcher
+  ) 
+  for formula in $formulas; do
+    brew install $formula
+  done
+
+  print-step "installing apps..."
+
+  brew install caskroom/cask/brew-cask
+  brew tap caskroom/versions
+  brew tap caskroom/fonts
+  brew cask install qlstephen qlmarkdown
+  brew cask install iterm2
+}
+
+dotfiles-node() {
+  # version to install 4.2
+  local NODE_VERSION=${1:-4.2}
+
+  print-header "node"
+
+  print-step "installing nvm..."
+  if [[ ! -d ${HOME}/.nvm ]]; then
+    git clone https://github.com/creationix/nvm.git ${HOME}/.nvm
+  else
+    print-message "nvm already installed"
+  fi
+
+  # activate nvm for the current subprocess
+  NVM_DIR="${HOME}/.nvm"
+  [[ -s $NVM_DIR/nvm.sh ]] && . "$NVM_DIR/nvm.sh"
+
+  print-step "installing node ${NODE_VERSION}..."
+  nvm install ${NODE_VERSION}
+
+  print-step "making ${NODE_VERSION} the default node..."
+  nvm use ${NODE_VERSION}
+  nvm alias default ${NODE_VERSION}
+
+  print-step "updating to the latest version of npm..."
+  npm install -g --quiet npm
+
+  # npm global modules
+  print-step "installing node modules..."
+
+  local modules
+  modules=(
+    browserify
+    githubrepo
+    mocha
+    standard
+    trash-cli
+    live-server
+    ghrepo
+    travisjs
+    yo
+    modhelp
+    wzrd
+  )
+  for module in $modules; do
+    npm install -g --quiet $module
+  done
+}
+
+dotfiles-all() {
+  dotfiles-brew
+  dotfiles-node
+  dotfiles-tmux
+  dotfiles-vim
+  dotfiles-zsh
+}
+
+dotfiles-main() {
+  local cmd=$1
+
+  if [[ -z $DOTFILES_DIRECTORY ]]; then
+    echo "dotfiles: DOTFILES_DIRECTORY is not set, execute 'source install.zsh' on the dotfiles directory"
+    exit 1
+  fi
+
+  cd $DOTFILES_DIRECTORY
+  source lib/utils
+
+  # check that brew exists
+  dotfiles-pre
+
+  if  [[ -z $cmd ]] || ! functions "dotfiles-${cmd}" > /dev/null; then
+    dotfiles---help
+  else
+    shift
+    "dotfiles-${cmd}" $@
+  fi
+}
+
+dotfiles-main $@
