@@ -1,6 +1,14 @@
-# OS or Editor files
+# OS
 ._*
 .DS_Store
+
+# compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
 
 # known debug extensions
 *~
