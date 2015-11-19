@@ -7,7 +7,7 @@
 	<key>AllowClipboardAccess</key>
 	<true/>
 	<key>AnimateDimming</key>
-	<true/>
+	<false/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>AppleScrollAnimationEnabled</key>
@@ -668,9 +668,9 @@
 	<key>DimBackgroundWindows</key>
 	<false/>
 	<key>DimInactiveSplitPanes</key>
-	<true/>
+	<false/>
 	<key>DimOnlyText</key>
-	<true/>
+	<false/>
 	<key>DisableFullscreenTransparency</key>
 	<true/>
 	<key>EnableRendezvous</key>
@@ -720,7 +720,7 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dotfiles/iTerm2</string>
+	<string>~</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 459}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -754,11 +754,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>999 225 772 380 0 0 1920 1177 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>590 405 924 485 0 0 1920 1177 </string>
+	<string>492 402 924 485 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 12 1914 1165 0 0 1920 1177 </string>
+	<string>0 15 1914 1162 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>143 47 1550 986 0 0 1920 1177 </string>
+	<string>0 4 1550 1046 0 0 1920 1200 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>296 100 990 586 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -944,7 +944,7 @@
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
-			<real>2</real>
+			<real>0.10000000149011612</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1308,7 +1308,7 @@
 			<key>Log Directory</key>
 			<string></string>
 			<key>Minimum Contrast</key>
-			<real>0.85536456108093262</real>
+			<real>1</real>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -1470,7 +1470,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.13398899137973785</real>
+			<real>0.0</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -1669,7 +1669,7 @@
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
-			<real>10.48908519744873</real>
+			<real>0.10000000149011612</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2993,7 +2993,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/mauricio/dotfiles/iTerm2</string>
+	<string>/Users/mauricio/.dotfiles/iTerm2</string>
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
@@ -3013,9 +3013,9 @@
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SmartPlacement</key>
-	<false/>
+	<true/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.38019832968711853</real>
+	<real>0.10000000149011612</real>
 	<key>SwitchTabModifier</key>
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
@@ -3035,7 +3035,7 @@
 	<key>UseCompactLabel</key>
 	<false/>
 	<key>UseLionStyleFullscreen</key>
-	<true/>
+	<false/>
 	<key>Window Arrangements</key>
 	<dict>
 		<key>Fullscreen</key>
