@@ -316,5 +316,10 @@ let g:UltiSnipsJumpBackwardTrigger='<c-z>'
 " themes
 let g:enable_bold_font=1
 syntax enable
-colorscheme hybrid_reverse
+
+try
+  " on first install the colorscheme is not available yet
+  colorscheme hybrid_reverse
+catch
+endtry
 

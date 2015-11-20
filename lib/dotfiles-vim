@@ -23,10 +23,6 @@ dotfiles-vim() {
 
   print-step "vim symlinks..."
   symlink "vim/vimrc" "${HOME}/.vimrc"
-  symlink "vim/UltiSnips" "${HOME}/.vim/UltiSnips"
-  symlink "vim/backups" "${HOME}/.vim/backups"
-  symlink "vim/sessions" "${HOME}/.vim/sessions"
-  symlink "vim/spell" "${HOME}/.vim/spell"
 
   print-step "installing plugins..."
   vim +PlugInstall +qall
