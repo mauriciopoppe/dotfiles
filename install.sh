@@ -1,13 +1,14 @@
-#!/bin/zsh
+#!/bin/bash
 
-local DOTFILES_REMOTE="maurizzzio/dotfiles"
+DOTFILES_REMOTE="maurizzzio/dotfiles"
 export DOTFILES_DIRECTORY="${HOME}/.dotfiles"
 
 # cloning the remote repo if ${DOTFILES_DIRECTORY} isn't a git repo
 if [[ ! -d ${DOTFILES_DIRECTORY}/.git ]]; then
   echo "dotfiles copy not found, cloning from remote"
   git clone "https://github.com/${DOTFILES_REMOTE}" "${DOTFILES_DIRECTORY}"
-  zsh -c "source ${DOTFILES_DIRECTORY}/install.zsh"
+  source ${DOTFILES_DIRECTORY}/install.sh
+  return
 fi
 
 # DOTFILES_DIRECTORY must persist upon restart
@@ -28,8 +29,7 @@ else
 fi
 
 # temporarily add ./bin to $PATH 
-path+=(${DOTFILES_DIRECTORY}/bin)
-export PATH
+export PATH=$PATH:"${DOTFILES_DIRECTORY}/bin"
 
 # now dotfiles is ready!
 #       
