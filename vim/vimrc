@@ -115,7 +115,7 @@ set smarttab
 
 " tab space set equal to 2 spaces
 set shiftwidth=2
-set tabstop=2
+set tabstop=8
 set softtabstop=2
 
 " display settings
@@ -248,10 +248,10 @@ inoremap kj <esc>
 inoremap <c-b> <c-o>b
 " move word forward
 inoremap <c-w> <c-o>w
-" move to the beginning of the line
-imap <c-i> <esc>I
-" move to the end of the line
-imap <c-a> <esc>A
+" " move to the beginning of the line
+" inoremap <c-i> <c-o>I
+" " move to the end of the line
+" inoremap <c-a> <c-o>A
 
 " ## visual mode ##
 " Move visual block (source http://vimrcfu.com/snippet/77)
