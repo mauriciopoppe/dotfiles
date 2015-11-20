@@ -1,13 +1,16 @@
-language: objective-c   # force osx
 os: osx
 
 before_install:
   - brew install zsh
-  - zsh -c "source $(curl -fsSL raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)"
+  - source $(curl -fsSL raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)
 
 script:
   - dotfiles --help
+    # vim
   - dotfiles vim
-  # check that .vimrc exists
   - [[ ! -e ~/.vimrc ]] && exit 1
+    # zsh
+  - dotfiles zsh
+  - source ~/.zshrc
+  - ! functions gi && exit 1 
 

@@ -1,5 +1,8 @@
 # dotfiles (osx)
 
+[![travis](https://travis-ci.org/maurizzzio/dotfiles.svg?branch=master)](https://travis-ci.org/maurizzzio/dotfiles)
+![platform osx](https://img.shields.io/badge/platform-osx-orange.svg)
+
 :) http://www.drbunsen.org/the-text-triumvirate/
 
 - zsh + [antigen][antigen]
