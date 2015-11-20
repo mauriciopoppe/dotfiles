@@ -1,13 +1,13 @@
 #!/bin/zsh
 
 local DOTFILES_REMOTE="maurizzzio/dotfiles"
+local DOTFILES_LOCAL="${1:-${HOME}/.dotfiles}"
 
 # export the dotfiles directory
 export DOTFILES_DIRECTORY=${0:a:h}
 
 # cloning the remote repo if ${DOTFILES_DIRECTORY} isn't a git repo
 if [[ ! -d ${DOTFILES_DIRECTORY}/.git ]]; then
-  local DOTFILES_LOCAL="${1:-${HOME}/.dotfiles}"
   echo "dotfiles copy not found, cloning from remote"
   git clone "https://github.com/${DOTFILES_REMOTE}" "${DOTFILES_LOCAL}"
   zsh -c "source ${DOTFILES_LOCAL}/install.zsh"
