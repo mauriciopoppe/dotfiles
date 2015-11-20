@@ -7,8 +7,3 @@ before_install:
 
 script:
   - dotfiles --help
-  - dotfiles vim
-  - zsh -c "[[ ! -e ~/.vimrc ]] && exit 1"
-  - dotfiles zsh
-  - source ~/.zshrc
-  - zsh -c "! functions gi && exit 1"
