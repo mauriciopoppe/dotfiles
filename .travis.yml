@@ -1,16 +1,14 @@
+language: objective-c
 os: osx
 
 before_install:
   - brew install zsh
-  - source $(curl -fsSL raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)
+  - source "$(curl -fssl raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)"
 
 script:
   - dotfiles --help
-    # vim
   - dotfiles vim
-  - [[ ! -e ~/.vimrc ]] && exit 1
-    # zsh
+  - zsh -c "[[ ! -e ~/.vimrc ]] && exit 1"
   - dotfiles zsh
   - source ~/.zshrc
-  - ! functions gi && exit 1 
-
+  - zsh -c "! functions gi && exit 1"
