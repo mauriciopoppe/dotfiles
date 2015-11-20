@@ -2,10 +2,9 @@
 
 :) http://www.drbunsen.org/the-text-triumvirate/
 
-- iTerm2
-- zsh + antigen
-- tmux + tpm
-- vim + Vundle
+- zsh + [antigen][antigen]
+- tmux + [tpm][tpm]
+- vim + [vim-plug][vim-plug]
 
 ## Requirements
 
@@ -14,18 +13,21 @@
 
 ## Installation
 
-- Clone and run `install.zsh`
+```sh
+zsh -c "source $(curl -fsSL raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)"
+```
+
+WIP
+
 - Install powerline fonts
   - https://github.com/powerline/fonts
 - Set up iterm2 colors and a patched font
   - https://github.com/mbadolato/iTerm2-Color-Schemes (currently I'm using Monokai dimmed)
   - https://gist.github.com/kevin-smets/8568070#install-a-patched-font
-- Install tmux plugins (unfortunately it's not automated yet)
-  - Open tmux, hit `<C-space>I` to fetch all the plugins
 
-Additional notes
-- First time installation
-  - See https://github.com/Valloric/YouCompleteMe#mac-os-x-installation
+## Workflow
+
+WIP
 
 ## Screenshot
 
@@ -109,3 +111,6 @@ Plugins
   - Restore a session `:OpenSesssion name` or `:OpenSession` to get the list of saved sessions
   - Sessions are saved inside `~/.vim/sessions/{name}` to make `tmux-resurrect` restore the session properly initialize vim with `vim -S ~/.vim/sessions/{name}`
 
+[antigen]: https://github.com/zsh-users/antigen
+[tpm]: https://github.com/tmux-plugins/tpm
+[vim-plug]: https://github.com/junegunn/vim-plug
