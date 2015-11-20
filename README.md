@@ -17,7 +17,7 @@
 ## Installation
 
 ```sh
-zsh -c "source $(curl -fsSL raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)"
+source <(curl -s raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)
 ```
 
 WIP
