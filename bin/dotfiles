@@ -2,7 +2,7 @@
 
 dotfiles---help() {
 cat << EOF
-  usage: dotfiles all|npm|brew|tmux|vim|zsh
+  usage: dotfiles all|git|node|python|brew|tmux|vim|zsh
 EOF
 }
 
@@ -37,6 +37,7 @@ dotfiles-pre() {
 dotfiles-all() {
   dotfiles-git
   dotfiles-brew
+  dotfiles-python
   dotfiles-node
   dotfiles-tmux
   dotfiles-vim
@@ -55,6 +56,7 @@ dotfiles-main() {
   source lib/utils
   source lib/dotfiles-git
   source lib/dotfiles-brew
+  source lib/dotfiles-python
   source lib/dotfiles-node
   source lib/dotfiles-tmux
   source lib/dotfiles-zsh

@@ -25,7 +25,7 @@ dotfiles-node() {
   nvm alias default ${NODE_VERSION}
 
   print-step "updating to the latest version of npm..."
-  npm install -g --quiet npm
+  npm update -g --quiet npm
 
   # npm global modules
   print-step "installing node modules..."
@@ -46,7 +46,7 @@ dotfiles-node() {
     wzrd
   )
   for module in $modules; do
-    npm install -g --quiet $module
+    npm update -g --quiet $module
   done
 }
 

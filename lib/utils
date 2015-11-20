@@ -62,13 +62,21 @@ symlink() {
     return 1
   fi
 
-  print-success "symlinking ${src} as ${tgt}"
-
   # backup file
   if [[ -e $tgt ]]; then
-    print-warning "[FILE EXISTS] ${tgt} ... leaving original at ${tgt}.backup"
-    mv ${tgt} ${tgt}.backup
+    if [[ ! -e ${tgt}.backup ]]; then
+      # only move the file if it the backup doesn't exist, that
+      # way multiple calls with the same args won't override
+      # the first file
+      print-warning "[FILE EXISTS] ${tgt} ... leaving original at ${tgt}.backup"
+      mv ${tgt} ${tgt}.backup
+    else
+      print-warning "[BACKUP EXISTS] ${tgt}.backup ... leaving it untouched and removing ${tgt}"
+      rm -f ${tgt}
+    fi
   fi
+
+  print-success "symlinking ${src} as ${tgt}"
 
   ln -nfs $src $tgt
 }

@@ -7,7 +7,6 @@ dotfiles-brew() {
 
   local formulas
   formulas=(
-    python
     ruby
     tree
     the_silver_searcher
