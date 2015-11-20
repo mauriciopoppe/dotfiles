@@ -3,7 +3,7 @@ os: osx
 
 before_install:
   - brew install zsh
-  - source <(curl -q https://raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)
+  - zsh -c "source <(curl -q https://raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)"
 
 script:
   - dotfiles --help
