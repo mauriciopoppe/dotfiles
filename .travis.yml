@@ -5,3 +5,9 @@ before_install:
   - brew install zsh
   - zsh -c "source $(curl -fsSL raw.githubusercontent.com/maurizzzio/dotfiles/master/install.zsh)"
 
+script:
+  - dotfiles --help
+  - dotfiles vim
+  # check that .vimrc exists
+  - [[ ! -e ~/.vimrc ]] && exit 1
+
