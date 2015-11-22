@@ -1,8 +1,8 @@
 #!/bin/zsh
 
 -install-vim-plug() {
-  if [[ ! -e ${HOME}/.vim/autoload/plug.vim ]]; then
-    curl -fLo ${HOME}/.vim/autoload/plug.vim --create-dirs \
+  if [[ ! -e $1 ]]; then
+    curl -fLo $1 --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   else
     print-message "vim-plug already installed"
@@ -23,7 +23,7 @@ dotfiles-vim() {
   fi
 
   print-step "installing vim-plug..."
-  -install-vim-plug
+  -install-vim-plug ${HOME}/.vim/autoload/plug.vim
 
   print-step "vim symlinks..."
   symlink "vim/vimrc" "${HOME}/.vimrc"
@@ -36,17 +36,32 @@ dotfiles-neovim() {
   print-header "neovim"
 
   print-step "setting up directories..."
-  mkdir -p ${HOME/.config/nvim/autoload} 2> /dev/null
+  mkdir -p ${HOME}/.config/nvim/{autoload,sessions,undo,plugged} 2> /dev/null
+
+  print-step "installing neovim..."
+  if ! formula-exists neovim; then
+    brew install neovim/neovim/neovim
+  else
+    print-message "neovim already installed"
+  fi
+
+  print-step "install neovim pypi package..."
+  pip install neovim
 
   print-step "installing vim-plug..."
-  -install-vim-plug
+  -install-vim-plug ${HOME}/.config/nvim/autoload/plug.vim
 
   print-step "neovim symlinks..."
   symlink "neovim/init.vim" "${HOME}/.config/nvim/init.vim"
+  symlink "neovim/autoload/utils.vim" "${HOME}/.config/nvim/autoload/utils.vim"
   symlink "neovim/UltiSnips" "${HOME}/.config/nvim/UltiSnips"
-  symlink "neovim/spell" "${HOME}/.config/nvim/spell"
+  # symlink "neovim/spell" "${HOME}/.config/nvim/spell"
 
-  # print-step "installing plugins..."
-  # vim +PlugInstall +qall
+  print-step "installing plugins..."
+  nvim +PlugInstall +qall
+
+  # IMPORTANT
+  # fix <C-h> not working well within nvim
+  # see https://github.com/christoomey/vim-tmux-navigator/issues/61#issuecomment-87284887
 }
 
