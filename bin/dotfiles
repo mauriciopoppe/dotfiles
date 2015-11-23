@@ -1,8 +1,21 @@
 #!/bin/zsh
 
-dotfiles---help() {
+dotfiles-help() {
 cat << EOF
-  usage: dotfiles all|git|node|python|brew|tmux|vim|zsh
+
+  usage: dotfiles [installer|essential|complete]
+
+    [installer]
+      One of: zsh|neovim|tmux|applications|brew|node|git|python|alfred
+
+    [essential]
+      tmux + tpm
+      vim + vim-plug
+      zsh + antigen
+
+    [complete]
+      All the installers listed above
+
 EOF
 }
 
@@ -34,14 +47,26 @@ dotfiles-pre() {
   fi
 }
 
-dotfiles-all() {
-  dotfiles-git
-  dotfiles-brew
-  dotfiles-python
-  dotfiles-node
-  dotfiles-tmux
-  dotfiles-vim
-  dotfiles-zsh
+dotfiles-essential() {
+  zsh tmux/install.zsh
+  zsh neovim/install.zsh
+  zsh zsh/install.zsh
+}
+
+dotfiles-complete() {
+  dotfiles-essential
+
+  zsh git/install.zsh
+  zsh brew/install.zsh
+  zsh applications/install.zsh
+  zsh node/install.zsh
+  zsh python/install.zsh
+
+  # neovim is recommended
+  zsh vim/install.zsh
+
+  # workflows
+  zsh alfred/install.zsh
 }
 
 dotfiles-main() {
@@ -54,22 +79,20 @@ dotfiles-main() {
 
   cd $DOTFILES_DIRECTORY
   source lib/utils
-  source lib/dotfiles-git
-  source lib/dotfiles-brew
-  source lib/dotfiles-python
-  source lib/dotfiles-node
-  source lib/dotfiles-tmux
-  source lib/dotfiles-zsh
-  source lib/dotfiles-vim
 
   # check that brew exists
   dotfiles-pre
 
-  if  [[ -z $cmd ]] || ! functions "dotfiles-${cmd}" > /dev/null; then
-    dotfiles---help
-  else
+  if [[ -z $cmd ]] || [[ $cmd == "--help" ]]; then
+    dotfiles-help
+  elif [[ -e $cmd/install.zsh ]]; then
+    shift
+    zsh $cmd/install.zsh $@
+  elif functions "dotfiles-${cmd}" > /dev/null; then
     shift
     "dotfiles-${cmd}" $@
+  else
+    dotfiles-help
   fi
 }
 

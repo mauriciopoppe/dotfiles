@@ -3,7 +3,8 @@ os: osx
 
 before_install:
   - brew install zsh
-  - curl -q https://raw.githubusercontent.com/maurizzzio/dotfiles/master/install.sh -o install.sh && source install.sh && rm install.sh
-
+  - curl -q https://raw.githubusercontent.com/maurizzzio/dotfiles/master/install.sh -o $TMPDIR/install.sh && source $TMPDIR/install.sh
 script:
   - dotfiles --help
+  - dotfiles neovim
+
