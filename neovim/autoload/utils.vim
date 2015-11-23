@@ -20,7 +20,7 @@ function! utils#uniteSources()
 endfunction
 
 function! utils#uniteFileRecursive()
-  execute 'Unite -no-split -buffer-name=file-recursive-search -start-insert file_rec/async:!'
+  execute 'Unite -no-split -buffer-name=files -start-insert file_rec/async:!'
 endfunction
 
 function! utils#uniteFileBrowse()
@@ -71,8 +71,8 @@ function! utils#uniteSnippets()
   execute 'Unite -no-split -buffer-name=snippets -start-insert ultisnips'
 endfunction
 
-function! utils#uniteCustomMenu()
-  execute 'Unite -no-split -buffer-name=menu -start-insert menu'
+function! utils#uniteFugitive()
+  execute 'Unite -no-split -buffer-name=menu -start-insert menu:git'
 endfunction
 
 function! utils#uniteJumps()

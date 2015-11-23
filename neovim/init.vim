@@ -1,4 +1,5 @@
-" Date created:  Sat Nov 21 09:40:56 BOT 2015
+" Date created:  21/11/2015
+" Last date updated: 23/11/2015
 "
 " NeoVim configuration file
 "
@@ -101,7 +102,7 @@ Plug 'tpope/vim-fugitive'
 
 " multiple cursors
 Plug 'terryma/vim-multiple-cursors'
-" additional text objects
+" additional text objects (like [n]ext and [l]ast)
 Plug 'wellle/targets.vim'
 " surround
 Plug 'tpope/vim-surround'
@@ -132,6 +133,8 @@ Plug 'christoomey/vim-tmux-navigator'
 " session management
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
+" fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 call plug#end()
 
@@ -176,8 +179,10 @@ set t_Co=256
 " show incomplete commands
 set showcmd
 " time to wait for a mapped sequence to complete
-" e.g. wait 300ms when typing `j` and after `k` to exit from insert mode
-set timeoutlen=300
+" e.g. wait 500ms when typing `j` and after `k` to exit from insert mode
+set timeoutlen=500
+" word completion :D
+set complete+=kspell
 
 " ------------------------------------------------------------------------------
 " Indentation settings
@@ -226,7 +231,7 @@ set nobackup
 " ------------------------------------------------------------------------------
 
 " spellfile location
-set spellfile=~/.config/nvim/dictionary.utf-8.add
+set spellfile=~/.config/nvim/spell/dictionary.utf-8.add
 " language is US english
 set spelllang=en_us
 
@@ -389,7 +394,7 @@ vnoremap <LT> <LT>gv
 " Working on insert mode
 " ------------------------------------------------------------------------------
 
-" exit from insert mode
+" exit from insert, visual mode
 inoremap jk <ESC>
 inoremap kj <ESC>
 
@@ -468,6 +473,7 @@ let g:unite_source_menu_menus.unite.command_candidates = [
       \       ['Unite yank history', 'call utils#uniteYankHistory()'],
       \       ['Unite jump history', 'call utils#uniteJumps()'],
       \     ]
+
 " ------------------------------------------------------------------------------
 " Lightline
 " ------------------------------------------------------------------------------
@@ -545,6 +551,8 @@ function! s:unite_settings()
   imap <buffer> <C-j> <Plug>(unite_select_next_line)
   imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 
+  imap <buffer> <C-l> <Plug>(unite_redraw)
+
   " exit with escape
   nmap <buffer> Q <Plug>(unite_exit)
   nmap <buffer> <ESC> <Plug>(unite_exit)
@@ -570,8 +578,8 @@ nnoremap <silent> <leader>f :call utils#uniteFileBrowse()<CR>
 nnoremap <silent> <leader>b :call utils#uniteBuffers()<CR>
 " search in current outline ([t]ags)
 nnoremap <silent> <leader>t :call utils#uniteOutline()<CR>
-" search for term ([g]rep)
-nnoremap <silent> <leader>g :call utils#uniteGrep()<CR>
+" search for term (grep)
+nnoremap <silent> <leader>/ :call utils#uniteGrep()<CR>
 " search in edit [h]istory
 nnoremap <silent> <leader>h :call utils#uniteHistory()<CR>
 " search in [l]ines on current buffer
@@ -579,15 +587,15 @@ nnoremap <silent> <leader>l :call utils#uniteLineSearch()<CR>
 " search in [y]ank history
 nnoremap <silent> <leader>y :call utils#uniteYankHistory()<CR>
 " search in [r]egisters
-nnoremap <silent> <leader>r :call utils#uniteRegisters()<CR>
+nnoremap <silent> <leader>'r :call utils#uniteRegisters()<CR>
 " search in opened [w]indow splits
 nnoremap <silent> <leader>w :call utils#uniteWindows()<CR>
 " Search in ultisnips [s]nippets
 nnoremap <silent> <leader>s :call utils#uniteSnippets()<CR>
 " search in latest [j]ump positions
 nnoremap <silent> <leader>j :call utils#uniteJumps()<CR>
-" My custom unite [m]enu with commonly used commands not mapped to keys
-nnoremap <silent> <leader>m :call utils#uniteCustomMenu()<CR>
+" unite menu for fugitive
+nnoremap <silent> <leader>g :call utils#uniteFugitive()<CR>
 
 " ------------------------------------------------------------------------------
 " Expand region
@@ -595,6 +603,14 @@ nnoremap <silent> <leader>m :call utils#uniteCustomMenu()<CR>
 
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+
+" ------------------------------------------------------------------------------
+" Tabular
+" ------------------------------------------------------------------------------
+
+nnoremap <Leader>a= :Tabularize /=<CR>
+nnoremap <Leader>a: :Tabularize /:\zs<CR>
+nnoremap <Leader>a\| :Tabularize /\|<CR>
 
 "}}}
 
@@ -634,7 +650,7 @@ syntax on
 
 let g:enable_bold_font=1
 set background=dark
-try 
+try
   colorscheme hybrid_reverse
 catch
 endtry
@@ -650,7 +666,7 @@ hi! link BufTabLineFill Comment
 " 7. File agnostic settings
 " ==============================================================================
 "{{{
- 
+
 augroup mine
   autocmd!
   autocmd InsertLeave,TextChanged * silent! :update
