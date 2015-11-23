@@ -76,7 +76,7 @@ symlink() {
     fi
   fi
 
-  print-success "symlinking ${src} as ${tgt}"
+  print-success "${src} -> ${tgt}"
 
   ln -nfs $src $tgt
 }

@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-dotfiles-zsh() {
+local base=${0:h}
+source ${base}/../lib/utils
+
+main() {
   print-header "zsh"
 
   print-step "installing antigen..."
@@ -29,4 +32,6 @@ dotfiles-zsh() {
   print-message "$ source ~/.zshrc"
   printf "\n"
 }
+
+main $@
 

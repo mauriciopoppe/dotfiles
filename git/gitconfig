@@ -2,7 +2,7 @@
 	name = Mauricio Poppe
 	email = mauricio.poppe@gmail.com
 [core]
-	editor = vim
+	editor = nvim
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
 [push]

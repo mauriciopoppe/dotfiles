@@ -28,9 +28,10 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'md'] }
 
-" Themes
-" Plug 'flazz/vim-colorschemes'
+" theme
 Plug 'kristijanhusak/vim-hybrid-material'
+
+" tmux status bar
 " note to self: generates a bar for tmux similar to the current one
 " on vim, see the repo to generate a theme
 " Plug 'edkolev/tmuxline.vim'

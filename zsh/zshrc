@@ -26,6 +26,9 @@ antigen apply
 export NVM_DIR="${HOME}/.nvm"
 [[ -s $NVM_DIR/nvm.sh ]] && . "$NVM_DIR/nvm.sh"
 
+# fuzzy finder
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
+
 # my stuff
 if [[ ! -e ${HOME}/.envvars.rc ]]; then
   warn "Warning: dotfiles path is not set, verify that the file ${HOME}/.envvars.rc exists, if not run 'source install.zsh' in your dotfiles clone"
@@ -38,3 +41,4 @@ else
 fi
 
 unset -f warn
+

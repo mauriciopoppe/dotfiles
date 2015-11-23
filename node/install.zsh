@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-dotfiles-node() {
+local base=${0:h}
+source ${base}/../lib/utils
+
+main() {
   # version to install 4.2
   local NODE_VERSION=${1:-4.2}
 
@@ -49,4 +52,6 @@ dotfiles-node() {
     npm update -g --quiet $module
   done
 }
+
+main $@
 

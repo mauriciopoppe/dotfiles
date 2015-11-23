@@ -43,10 +43,8 @@ alias reloadzsh='source ~/.zshrc'
 alias reloadtmux='tmux source-file ~/.tmux.conf'
 
 # tmux aliases
+# also check `functions` to switch/kill sessions
 alias ta='tmux attach -t'
 alias td='tmux detach'
-alias tls='tmux ls'
 alias tns='tmux new-session -s'
-alias tksv='tmux kill-server'
-alias tkss='tmux kill-session -t'
 

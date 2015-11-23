@@ -1,11 +1,20 @@
-# http://unix.stackexchange.com/questions/62579/is-there-a-way-to-add-a-directory-to-my-path-in-zsh-only-if-its-not-already-pre
 # force $PATH to have unique values
 typeset -U path
 # fix brew path
 path=(/usr/local/bin "$path[@]")
 path+=(
-  # path to my binaries
+  # path to my scripts
   ${DOTFILES_DIRECTORY}/bin
 )
-
 export PATH
+
+# neovim
+export VISUAL=nvim
+
+# default editor
+export EDITOR="$VISUAL"
+
+# `fzf` default stdin command
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
+# vim: syn=zsh

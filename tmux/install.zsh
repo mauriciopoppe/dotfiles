@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-dotfiles-tmux() {
+local base=${0:h}
+source ${base}/../lib/utils
+
+main() {
   print-header "tmux"
 
   print-step "setting up directories..."
@@ -21,10 +24,13 @@ dotfiles-tmux() {
   fi
 
   print-step "tmux symlinks..."
-  symlink "tmux/tmux.conf" "${HOME}/.tmux.conf"
+  symlink "${base}/tmux.conf" "${HOME}/.tmux.conf"
 
   print-step "installing plugins..."
   ${HOME}/.tmux/plugins/tpm/bin/install_plugins > /dev/null
 
   print-step "complete!"
 }
+
+main $@
+

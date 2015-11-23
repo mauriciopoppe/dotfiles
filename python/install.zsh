@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-dotfiles-python() {
+local base=${0:h}
+source ${base}/../lib/utils
+
+main() {
   print-header "python"
 
   print-step "installing python..."
@@ -18,4 +21,6 @@ dotfiles-python() {
     pip install grip
   done
 }
+
+main $@
 
