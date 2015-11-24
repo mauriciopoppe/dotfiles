@@ -9,9 +9,9 @@ cat << EOF
       One of: zsh|neovim|tmux|applications|brew|node|git|python|alfred
 
     [essential]
-      tmux + tpm
-      vim + vim-plug
       zsh + antigen
+      tmux + tpm
+      nvim + vim-plug
 
     [complete]
       All the installers listed above
