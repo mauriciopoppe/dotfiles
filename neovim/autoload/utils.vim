@@ -14,7 +14,6 @@ function! utils#stripTrailingWhitespaces()
 endfunction
 
 " unite
-
 function! utils#uniteSources()
   execute 'Unite -no-split -buffer-name=sources -start-insert source'
 endfunction
