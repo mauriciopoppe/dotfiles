@@ -350,12 +350,6 @@ vnoremap ,y "+y
 nnoremap ,yy "+yy
 nnoremap ,p "+p
 
-" move to the first/last characters of a line
-nnoremap H ^
-nnoremap L $
-vnoremap H ^
-vnoremap L g_
-
 " ------------------------------------------------------------------------------
 " Panes and buffers
 " ------------------------------------------------------------------------------
