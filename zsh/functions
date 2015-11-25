@@ -11,11 +11,15 @@ gi() {
   curl https://www.gitignore.io/api/$@
 }
 
+gitignore() {
+  gi $@ >> .gitignore
+  echo "appending output to .gitignore"
+}
+
 ################################################################################
 # fzf magic functions
 # from: https://github.com/junegunn/fzf/wiki/examples
 ################################################################################
-
 # [f]ile [e]dit
 #   
 #     $ fe [fuzzy pattern]
@@ -51,19 +55,6 @@ fo() {
 # Awesome integration between fasd and fzf
 # source http://seanbowman.me/blog/fzf-fasd-and-bash-aliases/
 ################################################################################
-# [j]ump
-#
-#     $ j [directory]
-# 
-# Jumps to a directory in the frecency list
-# - remember to use:
-#     alt + ←   to move backward in the directory stack
-#     alt + →   to move forward in the directory stack
-j() {
-  local dir="$(fasd -ld $@)"
-  [[ -d "$dir" ]] && cd $dir
-}
-
 # [j]ump in frecency list
 #
 #     $ jj [fuzzy pattern]
@@ -85,7 +76,6 @@ jj() {
 ################################################################################
 # tmux functions
 ################################################################################
-
 tmux-session-fzf() {
   echo $(tmux list-sessions -F "#{session_name}" |\
     fzf --query="$1" --select-1 --exit-0)
@@ -98,9 +88,8 @@ tmux-session-fzf() {
 # - Bypass fuzzy finder if there's only one match
 # - Exit if there's no match
 tss() {
-  local session
-  session=$(tmux-session-fzf $@)
-  [[ -n session  ]] && tmux switch-client -t "$session"
+  local session=$(tmux-session-fzf $@)
+  [[ -n $session ]] && tmux switch-client -t "$session"
 }
 
 # Kills a session
@@ -110,9 +99,8 @@ tss() {
 # - Bypass fuzzy finder if there's only one match
 # - Exit if there's no match
 tks() {
-  local session
-  session=$(tmux-session-fzf $@)
-  [[ -n session  ]] && tmux kill-session -t "$session"
+  local session=$(tmux-session-fzf $@)
+  [[ -n $session ]] && tmux kill-session -t "$session"
 }
 
 # vim: syn=zsh

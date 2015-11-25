@@ -27,7 +27,10 @@ export NVM_DIR="${HOME}/.nvm"
 [[ -s $NVM_DIR/nvm.sh ]] && . "$NVM_DIR/nvm.sh"
 
 # fuzzy finder
-[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
+[[ -f ${HOME}/.fzf.zsh ] && . ${HOME}/.fzf.zsh
+
+# fasd
+type fasd > /dev/null && eval "$(fasd --init auto)"
 
 # my stuff
 if [[ ! -e ${HOME}/.envvars.rc ]]; then
