@@ -6,7 +6,7 @@
 ## Features
 
 - Installation fully automated with a simple [script](https://github.com/maurizzzio/dotfiles/blob/master/bin/dotfiles)
-- Install only what you need e.g. if you want to test my NeoVim configuration just execute `dotfiles neovim`
+- Install only what you need e.g. if you want to test my Neovim configuration execute `dotfiles neovim`
 
 ## Requirements
 

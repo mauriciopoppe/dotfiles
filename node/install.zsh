@@ -35,7 +35,7 @@ main() {
 
   local modules
   modules=(
-    # osx cli
+    # osx
     trash-cli
     modhelp
 
@@ -47,6 +47,7 @@ main() {
     travisjs
     yo
     wzrd
+    generator-mnm
   )
   for module in $modules; do
     npm update -g --quiet $module
