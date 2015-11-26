@@ -1,6 +1,7 @@
 # force $PATH to have unique values
 typeset -U path
-# fix brew path
+# fix path
+# - /usr/local/bin should be first (brew)
 path=(/usr/local/bin "$path[@]")
 path+=(
   # path to my scripts

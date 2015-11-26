@@ -22,16 +22,6 @@ antigen bundle sindresorhus/pure
 
 antigen apply
 
-# nvm
-export NVM_DIR="${HOME}/.nvm"
-[[ -s $NVM_DIR/nvm.sh ]] && . "$NVM_DIR/nvm.sh"
-
-# fuzzy finder
-[[ -f ${HOME}/.fzf.zsh ] && . ${HOME}/.fzf.zsh
-
-# fasd
-type fasd > /dev/null && eval "$(fasd --init auto)"
-
 # my stuff
 if [[ ! -e ${HOME}/.envvars.rc ]]; then
   warn "Warning: dotfiles path is not set, verify that the file ${HOME}/.envvars.rc exists, if not run 'source install.zsh' in your dotfiles clone"
@@ -44,4 +34,23 @@ else
 fi
 
 unset -f warn
+
+# fasd
+type fasd > /dev/null && eval "$(fasd --init auto)"
+
+# fuzzy finder
+[[ -f ${HOME}/.fzf.zsh ]] && . ${HOME}/.fzf.zsh
+
+# nvm
+export NVM_DIR=${HOME}/.nvm
+[[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
+
+# IMPORTANT NOTE: rvm must be sourced after zsh/paths because
+# rvm wants to be first on the PATH ._.
+# workaround: source it last or source it on .zshlogin
+# rvm
+[[ -s ${HOME}/.rvm/scripts/rvm ]] && . ${HOME}/.rvm/scripts/rvm
+
+# IMPORTANT NOTE: make sure that the following scripts don't add paths
+# to $PATH since rvm complains ._. it's better to put them above rvm
 
