@@ -6,7 +6,7 @@ cat << EOF
   usage: dotfiles [installer|essential|complete]
 
     [installer]
-      One of: zsh|neovim|tmux|applications|brew|node|git|python|alfred
+      One of: zsh|neovim|tmux|git|brew|node|ruby|python|alfred|applications
 
     [essential]
       zsh + antigen
@@ -60,6 +60,7 @@ dotfiles-complete() {
   zsh brew/install.zsh
   zsh applications/install.zsh
   zsh node/install.zsh
+  zsh ruby/install.zsh
   zsh python/install.zsh
 
   # neovim is recommended

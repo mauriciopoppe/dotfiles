@@ -28,6 +28,7 @@ main() {
   local gems
   gems=(
     rake
+    jekyll
   )
   for gem in $gems; do
     gem install $gem
