@@ -29,6 +29,7 @@ main() {
   gems=(
     rake
     jekyll
+    travis
   )
   for gem in $gems; do
     gem install $gem

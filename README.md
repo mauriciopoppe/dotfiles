@@ -108,8 +108,7 @@ can add whatever you need inside each script
 
 ## Credits
 
-Big parts of my dotfiles were inspired (in most cases copied :P) from other
-dotfiles, all the credit belongs to them
+Big parts of my dotfiles were inspired (in most cases copied :P) from other dotfiles, all the credit belongs to them
 
 In particular I was inspired by the following dotfiles
 
@@ -120,6 +119,8 @@ In particular I was inspired by the following dotfiles
 - [b4b4r07](https://github.com/b4b4r07/dotfiles)
 - [Martin Toma](https://github.com/martin-svk/dot-files)
 - [Terry Ma](https://github.com/terryma/dotfiles)
+
+Thank you all!
 
 2015 @ MIT license
 
