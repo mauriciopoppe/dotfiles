@@ -1,7 +1,5 @@
-" Date created:  21/11/2015
-" Last date updated: 23/11/2015
-"
-" NeoVim configuration file
+" Date created: 21/11/2015
+" Last updated: 26/11/2015
 "
 " - Before upgrading check https://github.com/neovim/neovim/wiki/Following-HEAD
 "   and :h nvim-from-vim
@@ -25,9 +23,11 @@ call plug#begin('~/.config/nvim/plugged')
 " Language agnostic
 " ------------------------------------------------------------------------------
 
+" code completion
+" TODO: add deoplete when stable
 " asynchronous maker and linter
 Plug 'benekastah/neomake', { 'on': ['Neomake']  }
-" snippets (TODO: consider adding honza/vim-snippets)
+" snippets
 Plug 'SirVer/ultisnips'
 " commenting stuff
 Plug 'tpope/vim-commentary'
@@ -35,18 +35,13 @@ Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 
 " ------------------------------------------------------------------------------
-" JS
+" Languages
 " ------------------------------------------------------------------------------
 
 " JS syntax
-Plug 'othree/yajs.vim'
+Plug 'pangloss/vim-javascript'
 " JSON syntax
 Plug 'sheerun/vim-json'
-
-" ------------------------------------------------------------------------------
-" HTML/CSS
-" ------------------------------------------------------------------------------
-
 " HTML syntax
 Plug 'othree/html5.vim'
 " SCSS syntax
@@ -55,11 +50,6 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'digitaltoad/vim-jade'
 " CSS color highlighter
 Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'sass', 'scss', 'less'] }
-
-" ------------------------------------------------------------------------------
-" Other languages
-" ------------------------------------------------------------------------------
-
 " markdown
 Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'md'] }
 " tmux syntax
@@ -81,6 +71,17 @@ Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/neomru.vim'
 
 " ------------------------------------------------------------------------------
+" Navigation
+" ------------------------------------------------------------------------------
+
+" nerd tree
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" `gof` opens finder and `got` terminal
+Plug 'justinmk/vim-gtfo'
+" navigate to any visible part with 2-keystrokes
+Plug 'easymotion/vim-easymotion'
+
+" ------------------------------------------------------------------------------
 " Interface
 " ------------------------------------------------------------------------------
 
@@ -88,6 +89,13 @@ Plug 'Shougo/neomru.vim'
 Plug 'itchyny/lightline.vim'
 " buffers tabline
 Plug 'ap/vim-buftabline'
+" tmux status line
+" - install it once, run :TmuxlineSnapshot [file]
+Plug 'edkolev/tmuxline.vim'
+" hybrid extended
+Plug 'kristijanhusak/vim-hybrid-material'
+" svn diff sidebar
+Plug 'mhinz/vim-signify'
 
 " ------------------------------------------------------------------------------
 " External tools integration
@@ -95,6 +103,12 @@ Plug 'ap/vim-buftabline'
 
 " git wrapper
 Plug 'tpope/vim-fugitive'
+" tmux integration
+Plug 'benmills/vimux'
+" completion on insert mode from a visible tmux pane
+Plug 'wellle/tmux-complete.vim'
+" Tmux navigation
+Plug 'christoomey/vim-tmux-navigator'
 
 " ------------------------------------------------------------------------------
 " Text manipulation
@@ -107,14 +121,7 @@ Plug 'wellle/targets.vim'
 " surround
 Plug 'tpope/vim-surround'
 " alignment
-Plug 'godlygeek/tabular', { 'on':  'Tabularize' }
-
-" ------------------------------------------------------------------------------
-" Colorschemes
-" ------------------------------------------------------------------------------
-
-" hybrid extended
-Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'junegunn/vim-easy-align'
 
 " ------------------------------------------------------------------------------
 " Other
@@ -128,8 +135,6 @@ Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'chip/vim-fat-finger'
 " . improved
 Plug 'tpope/vim-repeat'
-" Tmux navigation
-Plug 'christoomey/vim-tmux-navigator'
 " session management
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
@@ -528,6 +533,20 @@ let g:session_directory='~/.config/nvim/sessions'
 let g:session_persist_font=0
 let g:session_persist_colors=0
 
+
+" ------------------------------------------------------------------------------
+" Tmuxline
+" ------------------------------------------------------------------------------
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'b'    : '#I #W',
+      \'x'    : [
+      \'#(osascript ${DOTFILES_DIRECTORY}/applescripts/spotify.scpt)',
+      \'#(bash ${DOTFILES_DIRECTORY}/bin/battery_left.sh)'
+      \],
+      \'y'    : ['%a %b %d', '%R'],
+      \'z'    : '#H'}
+
 "}}}
 
 " ==============================================================================
@@ -539,7 +558,6 @@ let g:session_persist_colors=0
 " Unite
 " ------------------------------------------------------------------------------
 
-" TODO: augroup the following
 function! s:unite_settings()
   " navigation with <c-j> and <c-k> on insert mode
   imap <buffer> <C-j> <Plug>(unite_select_next_line)
@@ -562,34 +580,44 @@ endfunction
 autocmd FileType unite call s:unite_settings()
 
 " sources (all menus available)
-nnoremap <silent> <leader>s :call utils#uniteSources()<CR>
+nnoremap <silent> <leader>u :call utils#uniteSources()<CR>
 
 " search files recursively ([o]pen files)
 nnoremap <silent> <leader>o :call utils#uniteFileRecursive()<CR>
-" search [f]iles in cwd (doesn't search inside folders)
-nnoremap <silent> <leader>f :call utils#uniteFileBrowse()<CR>
 " search between open [b]uffers
 nnoremap <silent> <leader>b :call utils#uniteBuffers()<CR>
 " search in current outline ([t]ags)
 nnoremap <silent> <leader>t :call utils#uniteOutline()<CR>
 " search for term (grep)
 nnoremap <silent> <leader>/ :call utils#uniteGrep()<CR>
-" search in edit [h]istory
-nnoremap <silent> <leader>h :call utils#uniteHistory()<CR>
 " search in [l]ines on current buffer
 nnoremap <silent> <leader>l :call utils#uniteLineSearch()<CR>
 " search in [y]ank history
 nnoremap <silent> <leader>y :call utils#uniteYankHistory()<CR>
-" search in [r]egisters
-nnoremap <silent> <leader>'r :call utils#uniteRegisters()<CR>
 " search in opened [w]indow splits
 nnoremap <silent> <leader>w :call utils#uniteWindows()<CR>
-" Search in ultisnips [s]nippets
-nnoremap <silent> <leader>s :call utils#uniteSnippets()<CR>
-" search in latest [j]ump positions
-nnoremap <silent> <leader>j :call utils#uniteJumps()<CR>
 " unite menu for fugitive
 nnoremap <silent> <leader>g :call utils#uniteFugitive()<CR>
+
+" not that useful in my workflow
+"
+" search in [r]egisters
+" nnoremap <silent> <leader>r :call utils#uniteRegisters()<CR>
+" search in edit [h]istory
+" nnoremap <silent> <leader>h :call utils#uniteHistory()<CR>
+" search [f]iles in cwd (doesn't search inside folders)
+" nnoremap <silent> <leader>f :call utils#uniteFileBrowse()<CR>
+" Search in ultisnips [s]nippets
+" nnoremap <silent> <leader>s :call utils#uniteSnippets()<CR>
+" search in latest [j]ump positions
+" nnoremap <silent> <leader>j :call utils#uniteJumps()<CR>
+
+" ------------------------------------------------------------------------------
+" Easymotion
+" ------------------------------------------------------------------------------
+
+let g:EasyMotion_do_mapping=0 " Disable default mappings
+nmap <Leader>s <Plug>(easymotion-s2)
 
 " ------------------------------------------------------------------------------
 " Expand region
@@ -599,14 +627,35 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " ------------------------------------------------------------------------------
-" Tabular
+" Vimux
 " ------------------------------------------------------------------------------
 
-nnoremap <Leader>a= :Tabularize /=<CR>
-nnoremap <Leader>a: :Tabularize /:\zs<CR>
-nnoremap <Leader>a\| :Tabularize /\|<CR>
+let g:VimuxUseNearestPane=1
+" Executes a command in a tmux split, if there's one available run it there
+noremap <Leader>vp :VimuxPromptCommand<CR>
+" Execute last command
+noremap <Leader>vl :VimuxRunLastCommand<CR>
+" Moves to the pane created by tmux and enters copy mode
+noremap <Leader>vi :VimuxInspectRunner<CR>
 
-"}}}
+" vimux - npm test
+noremap <Leader>nt :VimuxRunCommand("clear; npm test")<CR>
+
+" ------------------------------------------------------------------------------
+" Tmux-complete
+" ------------------------------------------------------------------------------
+
+" On insert mode press <C-x><C-u>
+" TODO: when deoplete is complete replace with empty
+let g:tmuxcomplete#trigger = 'completefunc'
+
+" ------------------------------------------------------------------------------
+" NERDTree
+" ------------------------------------------------------------------------------
+
+" similar to sublime text
+nnoremap <Leader>kb :NERDTreeToggle<CR>
+nnoremap <Leader>kr :NERDTreeFind<CR>
 
 " ------------------------------------------------------------------------------
 " Ultisnips
@@ -634,6 +683,8 @@ endfunction
 
 autocmd BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 
+"}}}
+
 " ==============================================================================
 " 6. Color and highlight settings
 " ==============================================================================
@@ -655,6 +706,10 @@ hi! link BufTabLineActive Comment
 hi! link BufTabLineHidden Comment
 hi! link BufTabLineFill Comment
 
+highlight SignifySignAdd    cterm=NONE ctermbg=NONE  ctermfg=119
+highlight SignifySignDelete cterm=NONE ctermbg=NONE  ctermfg=167
+highlight SignifySignChange cterm=NONE ctermbg=NONE  ctermfg=227
+
 "}}}
 " ==============================================================================
 " 7. File agnostic settings
@@ -662,9 +717,10 @@ hi! link BufTabLineFill Comment
 "{{{
 
 augroup mine
-  autocmd!
   autocmd InsertLeave,TextChanged * silent! :update
   autocmd BufWritePre * call utils#stripTrailingWhitespaces()
+  "jump to last cursor position when opening a file
+  autocmd BufReadPost * call utils#cursorJumpToLastPosition()
 augroup END
 
 "}}}
@@ -673,15 +729,15 @@ augroup END
 " 8. File specific settings
 " ==============================================================================
 
-augroup markdown
-  autocmd!
+augroup mine
   " spell check is on for markdown
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd FileType markdown setlocal spell
+  "spell check when writing commit logs
+  autocmd filetype svn,*commit* setlocal spell
 augroup END
 
-augroup vimrc
-  autocmd!
+augroup mine
   " the black screen happens because of the plugins
   autocmd BufWritePost init.vim source %
 augroup END

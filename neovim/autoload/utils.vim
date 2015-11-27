@@ -13,6 +13,17 @@ function! utils#stripTrailingWhitespaces()
   call cursor(l, c)
 endfunction
 
+"jump to last cursor position when opening a file
+"dont do it when writing a commit log entry
+function! utils#cursorJumpToLastPosition()
+  if &filetype !~ 'svn\|commit\c'
+    if line("'\"") > 0 && line("'\"") <= line("$")
+      exe "normal! g`\""
+      normal! zz
+    endif
+  end
+endfunction
+
 " unite
 function! utils#uniteSources()
   execute 'Unite -no-split -buffer-name=sources -start-insert source'
