@@ -13,12 +13,16 @@ main() {
   print-step "installing formulas..."
 
   brew install tree
+  brew install figlet
   brew install youtube-dl
   brew install the_silver_searcher
   brew install fasd
+
   # terminal gifs (it's kinda slow)
   brew install imagemagick ttyrec
   brew install https://raw.githubusercontent.com/icholy/ttygif/master/ttygif.rb
+
+  brew install hub
 }
 
 main $@
