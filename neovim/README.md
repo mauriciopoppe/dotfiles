@@ -1,6 +1,16 @@
 NeoVim's configuration
 ======
 
+Awesome mappings I found in the `:h quickref.txt`
+
+## Insert mode
+
+| keys | description |
+| --- | --- |
+| <kbd>C-o</kbd> `command` | executes `command` and return to Insert Mode |
+| <kbd>C-w</kbd> | deletes a word before the cursor |
+| <kbd>C-u</kbd> | deletes all the inserted characters in the current line |
+
 - [Vim cheatsheet](https://cdn.shopify.com/s/files/1/0165/4168/files/preview.png)
 - [Vimscript cheatsheet](http://ricostacruz.com/cheatsheets/vimscript.html)
 

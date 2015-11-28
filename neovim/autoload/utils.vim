@@ -1,5 +1,5 @@
 " strip trailing whitespaces
-" source: 
+" source:
 "   http://vimcasts.org/episodes/tidying-whitespace/
 function! utils#stripTrailingWhitespaces()
   " Preparation: save last search, and cursor position.
@@ -22,6 +22,28 @@ function! utils#cursorJumpToLastPosition()
       normal! zz
     endif
   end
+endfunction
+
+function! utils#kbd()
+  let tokens = split(expand("<cWORD>"), '\zs')
+  let keys = []
+  let ltopen = 0
+  let current = ""
+  for letter in tokens
+    if letter == "<"
+      let ltopen = 1
+    elseif letter == ">"
+      let ltopen = 0
+    else
+      let current .= letter
+    endif
+    if ltopen == 0
+      let keys = add(keys, "<kbd>" . current . "</kbd>")
+      let current = ""
+    endif
+  endfor
+  let joined = join(keys)
+  execute 'normal! ciW'.joined
 endfunction
 
 " unite

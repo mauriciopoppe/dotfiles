@@ -1,5 +1,5 @@
 " Date created: 21/11/2015
-" Last updated: 26/11/2015
+" Last updated: 27/11/2015
 "
 " - Before upgrading check https://github.com/neovim/neovim/wiki/Following-HEAD
 "   and :h nvim-from-vim
@@ -56,6 +56,13 @@ Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'md'] }
 Plug 'tejr/vim-tmux'
 " python syntax
 Plug 'mitsuhiko/vim-python-combined'
+
+" ------------------------------------------------------------------------------
+" JavaScript
+" ------------------------------------------------------------------------------
+
+" superb development with nodejs
+Plug 'moll/vim-node'
 
 " ------------------------------------------------------------------------------
 " Unite
@@ -349,11 +356,8 @@ nnoremap Q :q<CR>
 " since `u` undos `U` redos
 nnoremap U :redo<CR>
 
-" yank/paste from the system clipboard
-nnoremap ,y "+y
-vnoremap ,y "+y
-nnoremap ,yy "+yy
-nnoremap ,p "+p
+" paste from the system clipboard
+map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 
 " ------------------------------------------------------------------------------
 " Panes and buffers
@@ -393,10 +397,13 @@ vnoremap <LT> <LT>gv
 " Working on insert mode
 " ------------------------------------------------------------------------------
 
-" exit from insert, visual mode
+" exit from insert mode (note to self: do it with <C-c> instead)
 inoremap jk <ESC>
 inoremap kj <ESC>
 
+inoremap <C-c> <ESC>
+vnoremap <C-c> <ESC>
+nnoremap <C-c> <ESC>
 "}}}
 
 " ==============================================================================
@@ -451,6 +458,7 @@ let g:unite_source_menu_menus.git.command_candidates = [
       \       ['Log', 'Glog'],
       \       ['Visual Log', 'Gitv'],
       \     ]
+
 let g:unite_source_menu_menus.unite = {
       \     'description' : 'Unite actions',
       \ }
@@ -471,6 +479,13 @@ let g:unite_source_menu_menus.unite.command_candidates = [
       \       ['Unite windows', 'call utils#uniteWindows()'],
       \       ['Unite yank history', 'call utils#uniteYankHistory()'],
       \       ['Unite jump history', 'call utils#uniteJumps()'],
+      \     ]
+
+let g:unite_source_menu_menus.mine = {
+      \     'description' : 'utility stuff'
+      \}
+let g:unite_source_menu_menus.mine.command_candidates = [
+      \       ['Markdown keyboard', 'call utils#kbd()']
       \     ]
 
 " ------------------------------------------------------------------------------
@@ -532,7 +547,6 @@ let g:session_autosave='yes'
 let g:session_directory='~/.config/nvim/sessions'
 let g:session_persist_font=0
 let g:session_persist_colors=0
-
 
 " ------------------------------------------------------------------------------
 " Tmuxline
@@ -598,6 +612,8 @@ nnoremap <silent> <leader>y :call utils#uniteYankHistory()<CR>
 nnoremap <silent> <leader>w :call utils#uniteWindows()<CR>
 " unite menu for fugitive
 nnoremap <silent> <leader>g :call utils#uniteFugitive()<CR>
+" unite menu for my stuff
+nnoremap <silent> <leader>m :Unite -no-split -buffer-name=menu -start-insert menu:mine<CR>
 
 " not that useful in my workflow
 "
@@ -639,7 +655,7 @@ noremap <Leader>vl :VimuxRunLastCommand<CR>
 noremap <Leader>vi :VimuxInspectRunner<CR>
 
 " vimux - npm test
-noremap <Leader>nt :VimuxRunCommand("clear; npm test")<CR>
+noremap <Leader>n :VimuxRunCommand("clear; npm test")<CR>
 
 " ------------------------------------------------------------------------------
 " Tmux-complete
