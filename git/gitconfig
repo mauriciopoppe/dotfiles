@@ -25,3 +25,7 @@
 	untracked = red bold
 [credential]
 	helper = osxkeychain
+[alias]
+	st = status
+	co = checkout
+	unstage = 'reset HEAD --'
