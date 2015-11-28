@@ -48,6 +48,9 @@ main() {
     yo
     wzrd
     generator-mnm
+
+    # debugger
+    vimdebug
   )
   for module in $modules; do
     npm update -g --quiet $module
