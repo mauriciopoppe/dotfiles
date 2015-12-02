@@ -91,8 +91,10 @@ curl -O https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/
 - Set the downloaded font on iTerm *iTerm > preferences > profiles > text* (change it for both regular and non-ascii fonts)
 - Uncheck *use lion-style full screen* on General
 - Load preferences from the custom folder `dotfiles/iTerm2`
+- Reattach to an existing tmux session, *iTerm > profiles > general > send text
+    at start* `tmux attach -t base || tmux new -s base`
 
-## What's included? And how to customize?
+## What's included? And how to customize it?
 
 Refer to the file `install.zsh` that each folder has, after cloning the repo you
 can add whatever you need inside each script
