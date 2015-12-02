@@ -1,5 +1,4 @@
-" Date created: 21/11/2015
-" Last updated: 27/11/2015
+" Date Created: 21/11/2015
 "
 " - Before upgrading check https://github.com/neovim/neovim/wiki/Following-HEAD
 "   and :h nvim-from-vim
@@ -11,7 +10,7 @@
 "     amix/vimrc - https://github.com/amix/vimrc
 "     Terry Ma - https://github.com/terryma/dotfiles/blob/master/.vimrc
 "     Martin Toma - https://github.com/martin-svk/dot-files/blob/master/neovim/init.vim
-
+"
 " ==============================================================================
 " 1 Plugin manager
 " ==============================================================================
@@ -39,11 +38,15 @@ Plug 'jiangmiao/auto-pairs'
 " ------------------------------------------------------------------------------
 
 " JS syntax
-Plug 'pangloss/vim-javascript'
+Plug 'othree/yajs.vim'
+Plug 'isRuslan/vim-es6'
+Plug 'gavocanov/vim-js-indent'
 " JSON syntax
 Plug 'sheerun/vim-json'
 " HTML syntax
 Plug 'othree/html5.vim'
+" emmet
+Plug 'mattn/emmet-vim'
 " SCSS syntax
 Plug 'cakebaker/scss-syntax.vim'
 " Jade syntax
@@ -186,8 +189,6 @@ set scrolloff=5
 set virtualedit=block
 " time to send the CursorHold autocommand event
 set updatetime=300
-" use 256 colors
-set t_Co=256
 " show incomplete commands
 set showcmd
 " time to wait for a mapped sequence to complete
@@ -327,13 +328,12 @@ noremap n nzz
 noremap N Nzz
 
 " when jumping forward/backward center the screen
-noremap <C-f> <C-f>zz
-noremap <C-b> <C-b>zz
+nnoremap <C-f> <C-f>zz
+nnoremap <C-b> <C-b>zz
 
 " move to the end of the pasted text on copy/paste
 vnoremap y y`]
 vnoremap p "_dP`]
-nnoremap p p
 
 " avoid `c` from yanking to the default register
 nnoremap c "xc
@@ -357,7 +357,7 @@ nnoremap Q :q<CR>
 nnoremap U :redo<CR>
 
 " paste from the system clipboard
-map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
+map <Leader>p :set paste<CR>"*]p:set nopaste<cr>
 
 " ------------------------------------------------------------------------------
 " Panes and buffers
@@ -379,19 +379,19 @@ nnoremap ˙ :bprevious<CR>
 " ¬ = alt + l (switch to the next buffer)
 nnoremap ¬ :bnext<CR>
 
-" TODO: pane resizing
+" move a line in normal mode while fixing the indentation
+nnoremap <silent> ∆ :m .+1<CR>==
+nnoremap <silent> ˚ :m .-2<CR>==
 
-" ------------------------------------------------------------------------------
-" Working on visual mode
-" ------------------------------------------------------------------------------
-
-" move a block while fixing the indentation
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+" move lines in visual mode while fixing the indentation
+vnoremap <silent> ∆ :m '>+1<CR>gv=gv
+vnoremap <silent> ˚ :m '<-2<CR>gv=gv
 
 " keep the selection after an indent operation
 vnoremap > >gv
 vnoremap <LT> <LT>gv
+
+" TODO: pane resizing
 
 " ------------------------------------------------------------------------------
 " Working on insert mode
@@ -404,6 +404,8 @@ inoremap kj <ESC>
 inoremap <C-c> <ESC>
 vnoremap <C-c> <ESC>
 nnoremap <C-c> <ESC>
+cnoremap <C-c> <ESC>
+
 "}}}
 
 " ==============================================================================
@@ -488,6 +490,62 @@ let g:unite_source_menu_menus.mine.command_candidates = [
       \       ['Markdown keyboard', 'call utils#kbd()']
       \     ]
 
+function! s:unite_settings()
+  " navigation with <c-j> and <c-k> on insert mode
+  imap <buffer> <C-j> <Plug>(unite_select_next_line)
+  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+
+  imap <buffer> <C-l> <Plug>(unite_redraw)
+
+  " exit with escape
+  nmap <buffer> Q <Plug>(unite_exit)
+  nmap <buffer> <ESC> <Plug>(unite_exit)
+  imap <buffer> <ESC> <Plug>(unite_exit)
+
+  " preview
+  nmap <buffer> <C-p> <Plug>(unite_toggle_auto_preview)
+
+  " mark candidates
+  vmap <buffer> m <Plug>(unite_toggle_mark_selected_candidates)
+  nmap <buffer> m <Plug>(unite_toggle_mark_current_candidates)
+endfunction
+autocmd FileType unite call s:unite_settings()
+
+" sources (all menus available)
+nnoremap <silent> <leader>u :call utils#uniteSources()<CR>
+
+" search files recursively ([o]pen files)
+nnoremap <silent> <leader>o :call utils#uniteFileRecursive()<CR>
+" search between open [b]uffers
+nnoremap <silent> <leader>b :call utils#uniteBuffers()<CR>
+" search in current outline ([t]ags)
+nnoremap <silent> <leader>t :call utils#uniteOutline()<CR>
+" search for term (grep)
+nnoremap <silent> <leader>/ :call utils#uniteGrep()<CR>
+" search in [l]ines on current buffer
+nnoremap <silent> <leader>l :call utils#uniteLineSearch()<CR>
+" search in [y]ank history
+nnoremap <silent> <leader>y :call utils#uniteYankHistory()<CR>
+" search in opened [w]indow splits
+nnoremap <silent> <leader>w :call utils#uniteWindows()<CR>
+" unite menu for fugitive
+nnoremap <silent> <leader>g :call utils#uniteFugitive()<CR>
+" unite menu for my stuff
+nnoremap <silent> <leader>m :Unite -no-split -buffer-name=menu -start-insert menu:mine<CR>
+" search in [r]egisters
+nnoremap <silent> <leader>r :call utils#uniteRegisters()<CR>
+
+" not that useful in my workflow
+"
+" search in edit [h]istory
+" nnoremap <silent> <leader>h :call utils#uniteHistory()<CR>
+" search [f]iles in cwd (doesn't search inside folders)
+" nnoremap <silent> <leader>f :call utils#uniteFileBrowse()<CR>
+" Search in ultisnips [s]nippets
+" nnoremap <silent> <leader>s :call utils#uniteSnippets()<CR>
+" search in latest [j]ump positions
+" nnoremap <silent> <leader>j :call utils#uniteJumps()<CR>
+
 " ------------------------------------------------------------------------------
 " Lightline
 " ------------------------------------------------------------------------------
@@ -551,6 +609,7 @@ let g:session_persist_colors=0
 " ------------------------------------------------------------------------------
 " Tmuxline
 " ------------------------------------------------------------------------------
+
 let g:tmuxline_preset = {
       \'a'    : '#S',
       \'b'    : '#I #W',
@@ -560,73 +619,6 @@ let g:tmuxline_preset = {
       \],
       \'y'    : ['%a %b %d', '%R'],
       \'z'    : '#H'}
-
-"}}}
-
-" ==============================================================================
-" 5. Plugin mappings
-" ==============================================================================
-"{{{
-
-" ------------------------------------------------------------------------------
-" Unite
-" ------------------------------------------------------------------------------
-
-function! s:unite_settings()
-  " navigation with <c-j> and <c-k> on insert mode
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-
-  imap <buffer> <C-l> <Plug>(unite_redraw)
-
-  " exit with escape
-  nmap <buffer> Q <Plug>(unite_exit)
-  nmap <buffer> <ESC> <Plug>(unite_exit)
-  imap <buffer> <ESC> <Plug>(unite_exit)
-
-  " preview
-  nmap <buffer> <C-p> <Plug>(unite_toggle_auto_preview)
-
-  " mark candidates
-  vmap <buffer> m <Plug>(unite_toggle_mark_selected_candidates)
-  nmap <buffer> m <Plug>(unite_toggle_mark_current_candidates)
-endfunction
-autocmd FileType unite call s:unite_settings()
-
-" sources (all menus available)
-nnoremap <silent> <leader>u :call utils#uniteSources()<CR>
-
-" search files recursively ([o]pen files)
-nnoremap <silent> <leader>o :call utils#uniteFileRecursive()<CR>
-" search between open [b]uffers
-nnoremap <silent> <leader>b :call utils#uniteBuffers()<CR>
-" search in current outline ([t]ags)
-nnoremap <silent> <leader>t :call utils#uniteOutline()<CR>
-" search for term (grep)
-nnoremap <silent> <leader>/ :call utils#uniteGrep()<CR>
-" search in [l]ines on current buffer
-nnoremap <silent> <leader>l :call utils#uniteLineSearch()<CR>
-" search in [y]ank history
-nnoremap <silent> <leader>y :call utils#uniteYankHistory()<CR>
-" search in opened [w]indow splits
-nnoremap <silent> <leader>w :call utils#uniteWindows()<CR>
-" unite menu for fugitive
-nnoremap <silent> <leader>g :call utils#uniteFugitive()<CR>
-" unite menu for my stuff
-nnoremap <silent> <leader>m :Unite -no-split -buffer-name=menu -start-insert menu:mine<CR>
-
-" not that useful in my workflow
-"
-" search in [r]egisters
-" nnoremap <silent> <leader>r :call utils#uniteRegisters()<CR>
-" search in edit [h]istory
-" nnoremap <silent> <leader>h :call utils#uniteHistory()<CR>
-" search [f]iles in cwd (doesn't search inside folders)
-" nnoremap <silent> <leader>f :call utils#uniteFileBrowse()<CR>
-" Search in ultisnips [s]nippets
-" nnoremap <silent> <leader>s :call utils#uniteSnippets()<CR>
-" search in latest [j]ump positions
-" nnoremap <silent> <leader>j :call utils#uniteJumps()<CR>
 
 " ------------------------------------------------------------------------------
 " Easymotion
@@ -646,7 +638,6 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " Vimux
 " ------------------------------------------------------------------------------
 
-let g:VimuxUseNearestPane=1
 " Executes a command in a tmux split, if there's one available run it there
 noremap <Leader>vp :VimuxPromptCommand<CR>
 " Execute last command
@@ -656,6 +647,14 @@ noremap <Leader>vi :VimuxInspectRunner<CR>
 
 " vimux - npm test
 noremap <Leader>n :VimuxRunCommand("clear; npm test")<CR>
+
+" ------------------------------------------------------------------------------
+" Autopairs
+" ------------------------------------------------------------------------------
+
+" allows moving from anywhere inside (  ) to the end of the brackets
+" let g:AutoPairsFlyMode = 1
+" let g:AutoPairsShortcutBackInsert = '∫'
 
 " ------------------------------------------------------------------------------
 " Tmux-complete
@@ -702,7 +701,7 @@ autocmd BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R
 "}}}
 
 " ==============================================================================
-" 6. Color and highlight settings
+" 5. Color and highlight settings
 " ==============================================================================
 "{{{
 
@@ -722,30 +721,30 @@ hi! link BufTabLineActive Comment
 hi! link BufTabLineHidden Comment
 hi! link BufTabLineFill Comment
 
+" delete git signs background
 highlight SignifySignAdd    cterm=NONE ctermbg=NONE  ctermfg=119
 highlight SignifySignDelete cterm=NONE ctermbg=NONE  ctermfg=167
 highlight SignifySignChange cterm=NONE ctermbg=NONE  ctermfg=227
 
 "}}}
+
 " ==============================================================================
-" 7. File agnostic settings
+" 6. Autocommand
 " ==============================================================================
 "{{{
 
-augroup mine
-  autocmd InsertLeave,TextChanged * silent! :update
-  autocmd BufWritePre * call utils#stripTrailingWhitespaces()
-  "jump to last cursor position when opening a file
-  autocmd BufReadPost * call utils#cursorJumpToLastPosition()
+augroup fileagnostic
+  au!
+  " autocmd BufWritePre * call utils#preserve("%s/\\s\\+$//e")<CR>
 augroup END
 
-"}}}
+augroup autosave
+  au!
+  autocmd InsertLeave,TextChanged * nested silent! :update
+augroup END
 
-" ==============================================================================
-" 8. File specific settings
-" ==============================================================================
-
-augroup mine
+augroup markdown
+  au!
   " spell check is on for markdown
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd FileType markdown setlocal spell
@@ -753,8 +752,5 @@ augroup mine
   autocmd filetype svn,*commit* setlocal spell
 augroup END
 
-augroup mine
-  " the black screen happens because of the plugins
-  autocmd BufWritePost init.vim source %
-augroup END
+"}}}
 

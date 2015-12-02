@@ -1,16 +1,24 @@
 " strip trailing whitespaces
 " source:
 "   http://vimcasts.org/episodes/tidying-whitespace/
-function! utils#stripTrailingWhitespaces()
+function! utils#preserve(command)
   " Preparation: save last search, and cursor position.
   let _s=@/
   let l = line(".")
   let c = col(".")
   " Do the business:
-  %s/\s\+$//e
+  execute a:command
   " Clean up: restore previous search history, and cursor position
   let @/=_s
   call cursor(l, c)
+endfunction
+
+function! utils#forgetUndo(command)
+  let old_undolevels = &undolevels
+  set undolevels=-1
+  execute a:command
+  let &undolevels = old_undolevels
+  unlet old_undolevels
 endfunction
 
 "jump to last cursor position when opening a file
@@ -19,11 +27,22 @@ function! utils#cursorJumpToLastPosition()
   if &filetype !~ 'svn\|commit\c'
     if line("'\"") > 0 && line("'\"") <= line("$")
       exe "normal! g`\""
-      normal! zz
     endif
   end
 endfunction
 
+" creates html <kbd> tags out of vim's key combinations
+"
+" input:
+"
+"     noremap <C-y>,
+"               |
+"             cursor
+"
+" output:
+"
+"     <kbd>C-y></kbd> <kbd>,</kbd>
+"
 function! utils#kbd()
   let tokens = split(expand("<cWORD>"), '\zs')
   let keys = []
