@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOTFILES_REMOTE="maurizzzio/dotfiles"
-export DOTFILES_DIRECTORY="~/.dotfiles"
+export DOTFILES_DIRECTORY="${HOME}/.dotfiles"
 
 # cloning the remote repo if ${DOTFILES_DIRECTORY} isn't a git repo
 if [[ ! -d ${DOTFILES_DIRECTORY}/.git ]]; then
@@ -15,16 +15,16 @@ fi
 # executing './install.sh' won't save it since it's a script that is 
 # running as a child process
 #
-# The solution is to source ~/.envvars.rc on restart
-if [[ ! -f ~/.envvars.rc ]]; then
-  echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" > ~/.envvars.rc
+# The solution is to source ${HOME}/.envvars.rc on restart
+if [[ ! -f ${HOME}/.envvars.rc ]]; then
+  echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" > ${HOME}/.envvars.rc
 else 
-  if [[ $(cat ~/.envvars.rc | grep DOTFILES_DIRECTORY) ]]; then
+  if [[ $(cat ${HOME}/.envvars.rc | grep DOTFILES_DIRECTORY) ]]; then
     # the file exists but it doesn't have the dotfiles dir
-    echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" >> ~/.envvars.rc
+    echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" >> ${HOME}/.envvars.rc
   else
     # the file exists but it's value needs to be updated
-    sed -i ~/.envvars.rc -e "s/export\sDOTFILES_DIRECTORY=.*$/export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}/"
+    sed -i ${HOME}/.envvars.rc -e "s/export\sDOTFILES_DIRECTORY=.*$/export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}/"
   fi
 fi
 
@@ -49,4 +49,3 @@ Note: nothing was changed yet, you need to interact with the dotfiles binary
           $ dotfiles --help
 
 EOF
-
