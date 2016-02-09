@@ -2,6 +2,12 @@ warn() {
   printf "$(tput setaf 136)! %s(tput sgr0)" "$@"
 }
 
+# zsh options
+# better handling of history duplicates
+setopt HIST_IGNORE_ALL_DUPS
+# 10 second wait if you do something that will delete everything
+setopt RM_STAR_WAIT
+
 source ${HOME}/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library
@@ -22,6 +28,19 @@ antigen bundle sindresorhus/pure
 
 antigen apply
 
+# fasd
+type fasd > /dev/null && eval "$(fasd --init auto)"
+
+# fuzzy finder
+[[ -f ${HOME}/.fzf.zsh ]] && . ${HOME}/.fzf.zsh
+
+# nvm
+export NVM_DIR=${HOME}/.nvm
+[[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
+
+# added by travis gem
+[ -f /Users/mauricio/.travis/travis.sh ] && source /Users/mauricio/.travis/travis.sh
+
 # my stuff
 if [[ ! -e ${HOME}/.envvars.rc ]]; then
   warn "Warning: dotfiles path is not set, verify that the file ${HOME}/.envvars.rc exists, if not run 'source install.zsh' in your dotfiles clone"
@@ -35,25 +54,7 @@ fi
 
 unset -f warn
 
-# fasd
-type fasd > /dev/null && eval "$(fasd --init auto)"
-
-# fuzzy finder
-[[ -f ${HOME}/.fzf.zsh ]] && . ${HOME}/.fzf.zsh
-
-# nvm
-export NVM_DIR=${HOME}/.nvm
-[[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
-
-# IMPORTANT NOTE: rvm must be sourced after zsh/paths because
+# Note: rvm must be sourced after zsh/paths because
 # rvm wants to be first on the PATH ._.
-# workaround: source it last or source it on .zshlogin
-# rvm
 [[ -s ${HOME}/.rvm/scripts/rvm ]] && . ${HOME}/.rvm/scripts/rvm
 
-# IMPORTANT NOTE: make sure that the following scripts don't add paths
-# to $PATH since rvm complains ._. it's better to put them above rvm
-
-
-# added by travis gem
-[ -f /Users/mauricio/.travis/travis.sh ] && source /Users/mauricio/.travis/travis.sh

@@ -9,6 +9,8 @@ main() {
   print-step "git symlinks..."
   symlink "${base}/gitignore" "${HOME}/.gitignore"
   symlink "${base}/gitconfig" "${HOME}/.gitconfig"
+
+  print-message "remember to update the contents of .gitconfig"
 }
 
 main $@

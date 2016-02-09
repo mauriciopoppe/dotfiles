@@ -17,11 +17,15 @@ main() {
     "${zeno_rocha}/dash/dash.alfredworkflow"
     "${zeno_rocha}/stack-overflow/stack-overflow.alfredworkflow"
     "https://github.com/packal/repository/raw/master/com.vdesabou.spotify.mini.player/spotifyminiplayer.alfredworkflow"
+    "https://github.com/packal/repository/raw/master/net.deanishe.alfred-convert/convert-2.5.alfredworkflow"
+    "https://github.com/packal/repository/raw/master/com.eunjae.alfred.simpletimer/simple_timer.alfredworkflow"
   )
 
   for workflow in $workflows; do
-    curl -o "$TMPDIR/${workflow:t}" "{$workflow}"
+    curl -L -o "$TMPDIR/${workflow:t}" "${workflow}"
     open "$TMPDIR/${workflow:t}"
+    # time to accept the import in Alfred
+    sleep 5
   done
 }
 

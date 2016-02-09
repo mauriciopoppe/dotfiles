@@ -78,18 +78,7 @@ jj() {
 ################################################################################
 tmux-session-fzf() {
   echo $(tmux list-sessions -F "#{session_name}" |\
-    fzf --query="$1" --select-1 --exit-0)
-}
-
-# Jump to session
-#
-#   $ tss [fuzzy pattern]
-#
-# - Bypass fuzzy finder if there's only one match
-# - Exit if there's no match
-tss() {
-  local session=$(tmux-session-fzf $@)
-  [[ -n $session ]] && tmux switch-client -t "$session"
+    fzf-tmux --query="$1" --select-1 --exit-0)
 }
 
 # Kills a session

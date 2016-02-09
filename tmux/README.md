@@ -7,7 +7,8 @@ Prefix: `<C-space>`
 - detach session: `td`
 - attach session: `ta`
 - navigate through sessions `prefix + <C-[>` and `prefix + <C-]>`
-- quick switch session `tss [name]`
+- quick switch session `prefix + j [name]`
+- switch to the last session `prefix + space`
 
 From the plugins
 

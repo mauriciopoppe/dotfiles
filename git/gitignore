@@ -21,3 +21,6 @@
 *.sass-cache
 *.sw?
 *.vi
+
+# vim session
+Session.vim

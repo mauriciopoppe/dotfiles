@@ -588,7 +588,7 @@
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string>tmux attach -t base || tmux new -s base</string>
+			<string></string>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -1805,7 +1805,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>469981713.55180198</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>470680909.47845697</real>
+	<real>472412550.30439103</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -1870,7 +1870,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-12-01T16:40:06Z</date>
+	<date>2015-12-21T17:40:42Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>

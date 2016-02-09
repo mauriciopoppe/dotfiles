@@ -15,17 +15,17 @@ print-message() {
 
 # Success logging
 print-success() {
-  printf "$(tput setaf 64)✓ %s$(tput sgr0)\n" "$@"
+  printf "$(tput setaf 64)Success: %s$(tput sgr0)%s\n" "$@"
 }
 
 # Error logging
 print-error() {
-  printf "$(tput setaf 1)x %s$(tput sgr0)\n" "$@"
+  printf "$(tput setaf 1)Error: %s$(tput sgr0)%s\n" "$@"
 }
 
 # Warning logging
 print-warning() {
-  printf "$(tput setaf 136)! %s$(tput sgr0)\n" "$@"
+  printf "$(tput setaf 136)Warning: $(tput sgr0)%s\n" "$@"
 }
 
 command-exists() {
@@ -66,7 +66,7 @@ symlink() {
   if [[ -e $tgt ]]; then
     if [[ ! -e ${tgt}.backup ]]; then
       # only move the file if it the backup doesn't exist, that
-      # way multiple calls with the same args won't override
+      # way multiple calls with the same args won't overwrite
       # the first file
       print-warning "[FILE EXISTS] ${tgt} ... leaving original at ${tgt}.backup"
       mv ${tgt} ${tgt}.backup

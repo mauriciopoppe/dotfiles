@@ -1,0 +1,51 @@
+cask_args appdir: '/Applications'
+
+tap 'homebrew/bundle'
+tap 'homebrew/versions'
+
+if RUBY_PLATFORM =~ /darwin/
+  brew 'fasd'
+  brew 'figlet'
+  brew 'hub'
+  brew 'imgur-screenshot'
+  brew 'tree'
+  brew 'youtube-dl'
+  brew 'terminal-notifier'
+  brew 'the_silver_searcher'
+  brew 'wget'
+
+  # casks
+  tap 'caskroom/cask'
+  tap 'caskroom/fonts'
+  tap 'caskroom/versions'
+
+  ## apps
+  cask 'appcleaner'
+  cask 'cheatsheet'
+  cask 'dash'
+  cask 'diffmerge'
+  cask 'flux'
+  cask 'free-ruler'
+  cask 'google-chrome'
+  cask 'google-drive'
+  cask 'google-photos-backup'
+  cask 'iterm2'
+  cask 'licecap'
+  cask 'skim'
+  cask 'spotify'
+  cask 'sublime-text3'
+  cask 'the-unarchiver'
+  cask 'utorrent'
+  cask 'vlc'
+
+  # https://github.com/sindresorhus/quick-look-plugins
+  cask 'betterzipql'
+  cask 'qlcolorcode'
+  cask 'qlimagesize'
+  cask 'qlmarkdown'
+  cask 'qlprettypatch'
+  cask 'qlstephen'
+  cask 'quicklook-csv'
+  cask 'quicklook-json'
+  cask 'webpquicklook'
+end

@@ -5,7 +5,7 @@ source ${base}/../lib/utils
 
 main() {
   # version to install 4.2
-  local NODE_VERSION=${1:-4.2}
+  local NODE_VERSION=${1:-4.2.3}
 
   print-header "node"
 
@@ -28,7 +28,7 @@ main() {
   nvm alias default ${NODE_VERSION}
 
   print-step "updating to the latest version of npm..."
-  npm update -g --quiet npm
+  npm install -g --quiet npm
 
   # npm global modules
   print-step "installing node modules..."
@@ -43,8 +43,8 @@ main() {
     browserify
     standard
     live-server
+    conventional-changelog
     ghrepo
-    travisjs
     yo
     wzrd
     generator-mnm
@@ -53,7 +53,7 @@ main() {
     vimdebug
   )
   for module in $modules; do
-    npm update -g --quiet $module
+    npm install -g --quiet $module
   done
 }
 

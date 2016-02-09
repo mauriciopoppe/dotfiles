@@ -23,7 +23,7 @@ call plug#begin('~/.config/nvim/plugged')
 " ------------------------------------------------------------------------------
 
 " code completion
-" TODO: add deoplete when stable
+Plug 'Shougo/deoplete.nvim'
 " asynchronous maker and linter
 Plug 'benekastah/neomake', { 'on': ['Neomake']  }
 " snippets
@@ -146,8 +146,9 @@ Plug 'chip/vim-fat-finger'
 " . improved
 Plug 'tpope/vim-repeat'
 " session management
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
+" Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-session'
+Plug 'tpope/vim-obsession'
 " fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
@@ -311,6 +312,7 @@ set wildignore+=*.png,*.jpg,*.gif
 " ==============================================================================
 " 3. Mapping settings
 " ==============================================================================
+
 "{{{
 
 let mapleader = "\<space>"
@@ -406,6 +408,8 @@ vnoremap <C-c> <ESC>
 nnoremap <C-c> <ESC>
 cnoremap <C-c> <ESC>
 
+" disable parenthesis matching (improve scroll performance a little bit)
+let loaded_matchparen = 1
 "}}}
 
 " ==============================================================================
@@ -487,7 +491,8 @@ let g:unite_source_menu_menus.mine = {
       \     'description' : 'utility stuff'
       \}
 let g:unite_source_menu_menus.mine.command_candidates = [
-      \       ['Markdown keyboard', 'call utils#kbd()']
+      \       ['Markdown keyboard', 'call utils#kbd()'],
+      \       ['Strip trailing whitespace', 'call utils#preserve("%s/\\s\\+$//e")']
       \     ]
 
 function! s:unite_settings()
@@ -598,15 +603,6 @@ let g:vim_markdown_frontmatter=1
 let g:vim_markdown_folding_disabled=1
 
 " ------------------------------------------------------------------------------
-" Session management
-" ------------------------------------------------------------------------------
-
-let g:session_autosave='yes'
-let g:session_directory='~/.config/nvim/sessions'
-let g:session_persist_font=0
-let g:session_persist_colors=0
-
-" ------------------------------------------------------------------------------
 " Tmuxline
 " ------------------------------------------------------------------------------
 
@@ -627,7 +623,7 @@ let g:tmuxline_preset = {
 let g:EasyMotion_do_mapping=0 " Disable default mappings
 nmap <Leader>s <Plug>(easymotion-s2)
 
-" ------------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " Expand region
 " ------------------------------------------------------------------------------
 
@@ -645,24 +641,41 @@ noremap <Leader>vl :VimuxRunLastCommand<CR>
 " Moves to the pane created by tmux and enters copy mode
 noremap <Leader>vi :VimuxInspectRunner<CR>
 
-" vimux - npm test
+" npm test
 noremap <Leader>n :VimuxRunCommand("clear; npm test")<CR>
-
-" ------------------------------------------------------------------------------
-" Autopairs
-" ------------------------------------------------------------------------------
-
-" allows moving from anywhere inside (  ) to the end of the brackets
-" let g:AutoPairsFlyMode = 1
-" let g:AutoPairsShortcutBackInsert = '∫'
 
 " ------------------------------------------------------------------------------
 " Tmux-complete
 " ------------------------------------------------------------------------------
 
 " On insert mode press <C-x><C-u>
-" TODO: when deoplete is complete replace with empty
-let g:tmuxcomplete#trigger = 'completefunc'
+let g:tmuxcomplete#trigger = ''
+
+" ------------------------------------------------------------------------------
+" Deoplete
+" ------------------------------------------------------------------------------
+let g:deoplete#enable_at_startup=1
+let g:deoplete#enable_smart_case=1
+let g:deoplete#auto_completion_start_length=3
+
+" movement inside the pum with tab and s-tab
+inoremap <silent><expr> <c-j> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+inoremap <silent><expr> <c-k> pumvisible() ? "\<C-p>" : deoplete#mappings#manual_complete()
+
+" erasing a character cloese the popup
+inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return deoplete#mappings#smart_close_popup() . "\<CR>"
+endfunction
+
+" quiet messages in auto completion
+if has("patch-7.4.314")
+  set shortmess+=c
+endif
 
 " ------------------------------------------------------------------------------
 " NERDTree
@@ -671,32 +684,21 @@ let g:tmuxcomplete#trigger = 'completefunc'
 " similar to sublime text
 nnoremap <Leader>kb :NERDTreeToggle<CR>
 nnoremap <Leader>kr :NERDTreeFind<CR>
+let g:NERDTreeShowHidden=1
+let g:NERDTreeMinimalUI=1
+let g:NERDTreeAutoDeleteBuffer=1
 
 " ------------------------------------------------------------------------------
 " Ultisnips
 " ------------------------------------------------------------------------------
+"
+let g:UltiSnipsUsePythonVersion=3
 
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-
-" Make UltiSnips works nicely with YCM
-function! g:UltiSnips_Complete()
-  call UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res == 0
-    if pumvisible()
-      return "\<C-n>"
-    else
-      call UltiSnips#JumpForwards()
-      if g:ulti_jump_forwards_res == 0
-        return "\<TAB>"
-      endif
-    endif
-  endif
-  return ""
-endfunction
-
-autocmd BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+" Disable built-in cx-ck to be able to go backward
+inoremap <C-x><C-k> <NOP>
+" snippet expansion
+let g:UltiSnipsExpandTrigger='<C-e>'
+let g:UltiSnipsListSnippets='<C-l>'
 
 "}}}
 
@@ -751,6 +753,30 @@ augroup markdown
   "spell check when writing commit logs
   autocmd filetype svn,*commit* setlocal spell
 augroup END
+
+" Enable omni completion.
+augroup omnicompletion
+  au!
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
+
+" close hidden buffers
+command! -nargs=* Only call CloseHiddenBuffers()
+function! CloseHiddenBuffers()
+  let i = 0
+  let n = bufnr('$')
+  echo n
+  while i < n
+    let i = i + 1
+    if bufloaded(i) == 0
+      exe 'bd ' . i
+    endif
+  endwhile
+endfun
 
 "}}}
 

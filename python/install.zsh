@@ -20,6 +20,9 @@ main() {
     # pip is already installed on python +3.4
     pip install grip
   done
+
+  # python 3
+  pip3 install neovim
 }
 
 main $@

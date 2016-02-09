@@ -1,0 +1,34 @@
+# mathjax
+
+snippet latexequation "single equation" b
+$$
+\begin{equation} \label{$1}
+$2
+\end{equation}
+$$
+endsnippet
+
+snippet latexalign "aligned set of equations" b
+$$
+\begin{align*}
+$1
+\end{align*}
+$$
+endsnippet
+
+# jekyll
+
+snippet jekyllpage "jekyll page" b
+---
+layout: page
+title: "$1"
+date: `date "+%Y-%m-%d %H:%M:%S"`
+---
+endsnippet
+
+snippet jekyllimage "jekyll image" b
+![$1]({{ site_url  }}/images/$2){: .center-image}
+endsnippet
+
+
+
