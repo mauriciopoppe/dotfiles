@@ -761,6 +761,11 @@ augroup autosave
   autocmd InsertLeave,TextChanged * nested silent! :update
 augroup END
 
+augroup autoread
+  au!
+  au FocusGained,BufEnter * :silent! !
+augroup END
+
 augroup markdown
   au!
   " spell check is on for markdown
