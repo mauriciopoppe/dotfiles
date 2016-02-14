@@ -21,6 +21,7 @@ if RUBY_PLATFORM =~ /darwin/
 
   ## apps
   cask 'appcleaner'
+  cask 'blender'
   cask 'cheatsheet'
   cask 'dash'
   cask 'diffmerge'

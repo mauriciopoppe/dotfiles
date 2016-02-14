@@ -25,7 +25,7 @@ main() {
     print-message "neovim already installed"
   fi
 
-  print-step "install neovim pypi package..."
+  print-step "installing neovim python package..."
   pip install neovim
 
   print-step "installing vim-plug..."

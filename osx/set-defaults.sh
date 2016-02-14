@@ -3,6 +3,7 @@
 # OSX defaults
 #
 # Original idea: https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+# Additional flags: https://github.com/herrbischoff/awesome-osx-command-line
 
 # Show the ~/Library folder.
 chflags nohidden ~/Library
@@ -16,7 +17,8 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 # Show path bar
 defaults write com.apple.finder ShowPathbar -bool true
-# Allow text selection in the Quick Look window
+# Allow text selection in the Quick Look window 
+# NOTE: highlight is disabled on some files https://discussions.apple.com/thread/7250702?start=15&tstart=0
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
 # Dock

@@ -146,8 +146,6 @@ Plug 'chip/vim-fat-finger'
 " . improved
 Plug 'tpope/vim-repeat'
 " session management
-" Plug 'xolox/vim-misc'
-" Plug 'xolox/vim-session'
 Plug 'tpope/vim-obsession'
 " fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -410,6 +408,7 @@ cnoremap <C-c> <ESC>
 
 " disable parenthesis matching (improve scroll performance a little bit)
 let loaded_matchparen = 1
+
 "}}}
 
 " ==============================================================================
@@ -542,14 +541,17 @@ nnoremap <silent> <leader>r :call utils#uniteRegisters()<CR>
 
 " not that useful in my workflow
 "
-" search in edit [h]istory
-" nnoremap <silent> <leader>h :call utils#uniteHistory()<CR>
 " search [f]iles in cwd (doesn't search inside folders)
 " nnoremap <silent> <leader>f :call utils#uniteFileBrowse()<CR>
-" Search in ultisnips [s]nippets
-" nnoremap <silent> <leader>s :call utils#uniteSnippets()<CR>
 " search in latest [j]ump positions
 " nnoremap <silent> <leader>j :call utils#uniteJumps()<CR>
+
+function! UltiSnipsCallUnite()
+  Unite -start-insert -winheight=100 -immediately -no-empty ultisnips
+  return ''
+endfunction
+
+inoremap <silent> <C-e> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 
 " ------------------------------------------------------------------------------
 " Lightline
@@ -621,7 +623,7 @@ let g:tmuxline_preset = {
 " ------------------------------------------------------------------------------
 
 let g:EasyMotion_do_mapping=0 " Disable default mappings
-nmap <Leader>s <Plug>(easymotion-s2)
+nmap <Leader>f <Plug>(easymotion-s2)
 
 " -----------------------------------------------------------------------------
 " Expand region
@@ -652,32 +654,6 @@ noremap <Leader>n :VimuxRunCommand("clear; npm test")<CR>
 let g:tmuxcomplete#trigger = ''
 
 " ------------------------------------------------------------------------------
-" Deoplete
-" ------------------------------------------------------------------------------
-let g:deoplete#enable_at_startup=1
-let g:deoplete#enable_smart_case=1
-let g:deoplete#auto_completion_start_length=3
-
-" movement inside the pum with tab and s-tab
-inoremap <silent><expr> <c-j> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
-inoremap <silent><expr> <c-k> pumvisible() ? "\<C-p>" : deoplete#mappings#manual_complete()
-
-" erasing a character cloese the popup
-inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return deoplete#mappings#smart_close_popup() . "\<CR>"
-endfunction
-
-" quiet messages in auto completion
-if has("patch-7.4.314")
-  set shortmess+=c
-endif
-
-" ------------------------------------------------------------------------------
 " NERDTree
 " ------------------------------------------------------------------------------
 
@@ -689,6 +665,42 @@ let g:NERDTreeMinimalUI=1
 let g:NERDTreeAutoDeleteBuffer=1
 
 " ------------------------------------------------------------------------------
+" Deoplete
+" ------------------------------------------------------------------------------
+let g:deoplete#enable_at_startup=1
+let g:deoplete#enable_smart_case=1
+let g:deoplete#max_list=50
+
+" Movement within 'ins-completion-menu'
+imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
+imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+
+" Redraw candidates
+inoremap <expr><C-l> deoplete#mappings#refresh()
+
+" quiet messages in auto completion
+if has("patch-7.4.314")
+  set shortmess+=c
+endif
+
+" let g:ulti_jump_forwards_res=0
+" function! Can_jump_forward()
+"   call UltiSnips#JumpForwards()
+"   return g:ulti_jump_forwards_res
+" endfunction
+
+" let g:ulti_jump_backwards_res=0
+" function! Can_jump_backward()
+"   call UltiSnips#JumpBackwards()
+"   return g:ulti_jump_backwards_res
+" endfunction
+
+" inoremap <silent><C-j> <C-R>=pumvisible() ? "\<lt>C-n>" 
+"       \ : (Can_jump_forward() ? "" : "")<CR>
+" inoremap <silent><C-k> <C-R>=pumvisible() ? "\<lt>C-p>" 
+"       \ : (Can_jump_backward() ? "" : "")<CR>
+
+" ------------------------------------------------------------------------------
 " Ultisnips
 " ------------------------------------------------------------------------------
 "
@@ -696,9 +708,13 @@ let g:UltiSnipsUsePythonVersion=3
 
 " Disable built-in cx-ck to be able to go backward
 inoremap <C-x><C-k> <NOP>
-" snippet expansion
-let g:UltiSnipsExpandTrigger='<C-e>'
-let g:UltiSnipsListSnippets='<C-l>'
+" snippet expansion, default triggers
+" - expand <tab>
+" - jump forward <c-j>
+" - jump backward <c-k>
+let g:UltiSnipsExpandTrigger="<C-q>"
+" let g:UltiSnipsJumpForwardTrigger="<NOP>"
+" let g:UltiSnipsJumpBackwardTrigger="<NOP>"
 
 "}}}
 
@@ -750,8 +766,12 @@ augroup markdown
   " spell check is on for markdown
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd FileType markdown setlocal spell
+  autocmd FileType markdown set textwidth=0
+augroup END
+
+augroup versioncontrol
   "spell check when writing commit logs
-  autocmd filetype svn,*commit* setlocal spell
+  autocmd FileType svn,*commit* setlocal spell
 augroup END
 
 " Enable omni completion.

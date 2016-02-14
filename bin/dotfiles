@@ -75,7 +75,7 @@ dotfiles-complete() {
   zsh iTerm2/install.zsh
 
   # osx defaults
-  bash ./osx/set-defaults.sh
+  zsh osx/install.sh
 
   # neovim is recommended
   zsh vim/install.zsh

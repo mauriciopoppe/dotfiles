@@ -5,7 +5,6 @@ source ${base}/../lib/utils
 
 main() {
   print-header "alfred workflows"
-  
   print-message "make sure you have alfred installed with the powerpack"
 
   local zeno_rocha="https://github.com/zenorocha/alfred-workflows/raw/master"
@@ -19,6 +18,8 @@ main() {
     "https://github.com/packal/repository/raw/master/com.vdesabou.spotify.mini.player/spotifyminiplayer.alfredworkflow"
     "https://github.com/packal/repository/raw/master/net.deanishe.alfred-convert/convert-2.5.alfredworkflow"
     "https://github.com/packal/repository/raw/master/com.eunjae.alfred.simpletimer/simple_timer.alfredworkflow"
+    "https://raw.github.com/willfarrell/alfred-github-workflow/master/Github.alfredworkflow"
+    "https://github.com/packal/repository/raw/master/com.groenewege.faker/faker.alfredworkflow"
   )
 
   for workflow in $workflows; do

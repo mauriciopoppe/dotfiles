@@ -28,18 +28,18 @@ antigen bundle sindresorhus/pure
 
 antigen apply
 
-# fasd
+# fasd (https://github.com/clvv/fasd)
 type fasd > /dev/null && eval "$(fasd --init auto)"
 
-# fuzzy finder
+# fuzzy finder (https://github.com/junegunn/fzf)
 [[ -f ${HOME}/.fzf.zsh ]] && . ${HOME}/.fzf.zsh
 
-# nvm
+# nvm (https://github.com/creationix/nvm)
 export NVM_DIR=${HOME}/.nvm
 [[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
 
-# added by travis gem
-[ -f /Users/mauricio/.travis/travis.sh ] && source /Users/mauricio/.travis/travis.sh
+# travis gem (https://github.com/travis-ci/travis.rb)
+[ -f ${HOME}/.travis/travis.sh ] && source ${HOME}/.travis/travis.sh
 
 # my stuff
 if [[ ! -e ${HOME}/.envvars.rc ]]; then
