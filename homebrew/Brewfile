@@ -8,11 +8,12 @@ if RUBY_PLATFORM =~ /darwin/
   brew 'figlet'
   brew 'hub'
   brew 'imgur-screenshot'
+  brew 'rmtrash'
   brew 'tree'
-  brew 'youtube-dl'
   brew 'terminal-notifier'
   brew 'the_silver_searcher'
   brew 'wget'
+  brew 'youtube-dl'
 
   # casks
   tap 'caskroom/cask'

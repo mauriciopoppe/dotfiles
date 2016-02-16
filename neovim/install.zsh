@@ -32,6 +32,7 @@ main() {
   -install-vim-plug ${HOME}/.config/nvim/autoload/plug.vim
 
   print-step "neovim symlinks..."
+  # this is done so that only these folders are synced
   symlink "${base}/init.vim" "${HOME}/.config/nvim/init.vim"
   symlink "${base}/autoload/utils.vim" "${HOME}/.config/nvim/autoload/utils.vim"
   symlink "${base}/UltiSnips" "${HOME}/.config/nvim/UltiSnips"

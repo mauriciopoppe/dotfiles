@@ -1,0 +1,16 @@
+let $VIMPATH = expand('$DOTFILES_DIRECTORY/neovim/')
+
+function! s:source_file(path)
+  execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
+endfunction
+
+" plug initialization
+call s:source_file('base.vim')
+call s:source_file('plugins-init.vim')
+call s:source_file('general.vim')
+call s:source_file('plugins-keys.vim')
+call s:source_file('keys.vim')
+call s:source_file('theme.vim')
+call s:source_file('autocommand.vim')
+
+" vim: set ts=2 sw=2 tw=80 noet :
