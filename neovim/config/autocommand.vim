@@ -1,16 +1,9 @@
 augroup fs
   au!
   autocmd InsertLeave,TextChanged * nested silent! :update
-  autocmd FocusGained,BufEnter * :silent! !
 augroup END
 
-augroup any
-  au!
-  " open vimfiler when nvim is initiated without args
-  " autocmd VimEnter * if !argc() | VimFiler | endif
-augroup END
-
-augroup markdown
+augroup ft
   au!
   " spell check is on for markdown
   autocmd BufRead,BufNewFile *.md set filetype=markdown
@@ -22,6 +15,12 @@ augroup versioncontrol
   "spell check when writing commit logs
   autocmd FileType svn,*commit* setlocal spell
 augroup END
+
+" vim whitespace per filetype
+augroup indentation
+  au!
+  " autocmd Filetype cpp,c,h,glsl* setlocal ts=4 sts=4 sw=4
+augroup end
 
 " Enable omni completion.
 augroup omnicompletion

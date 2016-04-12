@@ -3,6 +3,13 @@
 noremap j gj
 noremap k gk
 
+" movement inside a line 
+noremap H ^
+noremap L $
+
+" newline above/below the current doesn't put into insert mode
+noremap <Enter> o<ESC>
+
 " when jumping to the next match on search center the screen
 noremap n nzz
 noremap N Nzz
@@ -23,10 +30,10 @@ xnoremap c "xc
 nnoremap cw ce
 nnoremap dw de
 
-inoremap <C-c> <ESC>
-vnoremap <C-c> <ESC>
-nnoremap <C-c> <ESC>
-cnoremap <C-c> <ESC>
+imap <C-c> <ESC>
+vmap <C-c> <ESC>
+nmap <C-c> <ESC>
+cmap <C-c> <ESC>
 
 " }}}
 
@@ -43,6 +50,7 @@ nnoremap U :redo<CR>
 
 " paste from the system clipboard
 map <Leader>p :set paste<CR>"*]p:set nopaste<cr>
+nmap <Leader>vr :source $MYVIMRC<cr>
 
 " }}}
 
@@ -64,6 +72,10 @@ nnoremap ˙ :bprevious<CR>
 " ¬ = alt + l (switch to the next buffer)
 nnoremap ¬ :bnext<CR>
 
+" }}}
+
+" Moving lines of text {{{
+
 " move a line in normal mode while fixing the indentation
 nnoremap <silent> ∆ :m .+1<CR>==
 nnoremap <silent> ˚ :m .-2<CR>==
@@ -75,5 +87,7 @@ vnoremap <silent> ˚ :m '<-2<CR>gv=gv
 " keep the selection after an indent operation
 vnoremap > >gv
 vnoremap <LT> <LT>gv
+
 " }}}
+
 

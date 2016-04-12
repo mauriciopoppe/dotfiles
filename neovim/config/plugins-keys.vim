@@ -9,9 +9,13 @@ call unite#filters#matcher_default#use(['matcher_fuzzy', 'matcher_hide_current_f
 call unite#filters#sorter_default#use(['sorter_rank'])
 
 let g:ag_opts = get(g:, 'g:ag_opts', []) + [
-    \ '--vimgrep', '--smart-case', '--skip-vcs-ignores', '--hidden',
-    \ '--ignore', '.git', '--ignore', '.idea', '--ignore', '.stversions',
-    \ '--ignore', 'bower_modules', '--ignore', 'node_modules'
+    \ '--vimgrep', '--skip-vcs-ignores', '--hidden',
+    \ '--ignore', '.git',
+    \ '--ignore', '.idea',
+    \ '--ignore', '.stversions',
+    \ '--ignore', '.sass-cache',
+    \ '--ignore', 'bower_modules',
+    \ '--ignore', 'node_modules',
     \ ]
 
 if executable('ag')
@@ -134,28 +138,6 @@ let g:unite_source_menu_menus.git.command_candidates = [
       \       ['Visual Log', 'Gitv'],
       \     ]
 
-let g:unite_source_menu_menus.unite = {
-      \     'description' : 'Unite actions',
-      \ }
-let g:unite_source_menu_menus.unite.command_candidates = [
-      \       ['Unite MRUs', 'call utils#uniteMRUs()'],
-      \       ['Unite buffers', 'call utils#uniteBuffers()'],
-      \       ['Unite file browse', 'call utils#uniteFileBrowse()'],
-      \       ['Unite file search', 'call utils#uniteFileRec()'],
-      \       ['Unite grep', 'call utils#uniteGrep()'],
-      \       ['Unite history', 'call utils#uniteHistory()'],
-      \       ['Unite line search', 'call utils#uniteLineSearch()'],
-      \       ['Unite menu', 'call utils#uniteCustomMenu()'],
-      \       ['Unite registers', 'call utils#uniteRegisters()'],
-      \       ['Unite snippets', 'call utils#uniteSnippets()'],
-      \       ['Unite sources', 'call utils#uniteSources()'],
-      \       ['Unite file tags (symbols)', 'call utils#uniteOutline()'],
-      \       ['Unite tags', 'call utils#uniteTags()'],
-      \       ['Unite windows', 'call utils#uniteWindows()'],
-      \       ['Unite yank history', 'call utils#uniteYankHistory()'],
-      \       ['Unite jump history', 'call utils#uniteJumps()'],
-      \     ]
-
 let g:unite_source_menu_menus.mine = {
       \     'description' : 'utility stuff'
       \}
@@ -203,24 +185,22 @@ nnoremap <silent> <leader>o :Unite file_rec/async:!<CR>
 nnoremap <silent> <leader>b :Unite buffer file_mru bookmark<CR>
 " search in current outline ([t]ags)
 nnoremap <silent> <leader>t :Unite outline<CR>
-" search for term (grep)
-nnoremap <silent> <leader>g :Unite -silent grep:.<CR>
 " search in [l]ines on current buffer
 nnoremap <silent> <leader>l :Unite line<CR>
 " search in [y]ank history
 nnoremap <silent> <leader>y :Unite history/yank<CR>
 " search in opened [w]indow splits
 nnoremap <silent> <leader>w :Unite window<CR>
-" unite menu for fugitive
-" nnoremap <silent> <leader>m :Unite menu:git<CR>
 " unite menu for my stuff
 nnoremap <silent> <leader>m :Unite menu:mine<CR>
 " search in [r]egisters
 nnoremap <silent> <leader>r :Unite register<CR>
 
 " open Unite with word under the cursor
-nnoremap <silent> <Leader>go :UniteWithCursorWord file_rec/async -profile-name=navigate<CR>
-nnoremap <silent> <Leader>gg :UniteWithCursorWord grep:. -profile-name=navigate<CR>
+" search for term (grep)
+nnoremap <silent> <leader>/ :Unite -silent grep:.<CR>
+nnoremap <silent> <Leader>/o :UniteWithCursorWord file_rec/async -profile-name=navigate<CR>
+nnoremap <silent> <Leader>/w :UniteWithCursorWord grep:. -profile-name=navigate<CR>
 
 function! UltiSnipsCallUnite()
   Unite -immediately -no-empty ultisnips
@@ -288,7 +268,10 @@ autocmd mine FileType vimfiler call s:vimfiler_settings()
 
 " }}}
 
+" [e]xplorer
 nnoremap <silent> <leader>e :<C-u>execute 'VimFiler -buffer-name=explorer'<CR>
+" [f]ile [r]eveal in explorer
+nnoremap <silent> <leader>fr :<C-u>execute 'VimFiler -buffer-name=explorer -find'<CR>
 
 " }}}
 
@@ -359,7 +342,7 @@ let g:tmuxline_preset = {
 " Easymotion {{{
 
 let g:EasyMotion_do_mapping=0 " Disable default mappings
-nmap <Leader>f <Plug>(easymotion-s2)
+nmap <Leader>s <Plug>(easymotion-s2)
 
 " }}}
 
@@ -379,7 +362,9 @@ noremap <Leader>vl :VimuxRunLastCommand<CR>
 " Moves to the pane created by tmux and enters copy mode
 noremap <Leader>vi :VimuxInspectRunner<CR>
 " npm test
-noremap <Leader>n :VimuxRunCommand("clear; npm test")<CR>
+noremap <Leader>vnt :VimuxRunCommand("npm test")<CR>
+" make & run for learnopengl.com
+noremap <Leader>vm :VimuxRunCommand("make")<CR>
 
 " }}}
 
@@ -401,8 +386,8 @@ let g:deoplete#enable_smart_case=1
 let g:deoplete#max_list=50
 
 " Movement within 'ins-completion-menu'
-imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
-imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+" imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
+" imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " Redraw candidates
 inoremap <expr><C-l> deoplete#mappings#refresh()
@@ -430,9 +415,22 @@ endif
 "       \ : (Can_jump_backward() ? "" : "")<CR>
 " }}}
 
-" Ultisnips {{{
+" Fugitive {{{
 
-"
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gl :exe ':!cd ' . expand('%:p:h') . '; git lg'<CR>
+nnoremap <Leader>gh :Silent Glog<CR>
+nnoremap <Leader>gr :Gread<CR>
+nnoremap <Leader>gw :Gwrite<CR>
+nnoremap <Leader>gp :Git push<CR>
+nnoremap <Leader>g- :Silent Git stash<CR>:e<CR>
+nnoremap <Leader>g+ :Silent Git stash pop<CR>:e<CR>
+
+" }}}
+
+" Ultisnips {{{
 let g:UltiSnipsUsePythonVersion=3
 
 " Disable built-in cx-ck to be able to go backward
@@ -462,8 +460,49 @@ let g:clever_f_ignore_case=1
 
 " incsearch.vim {{{
 
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+" map /  <Plug>(incsearch-forward)
+" map ?  <Plug>(incsearch-backward)
+" map g/ <Plug>(incsearch-stay)
+
+" }}}
+
+" dash {{{
+
+nmap <silent> <leader>d <Plug>DashSearch
+
+" }}}
+
+" glsl {{{
+
+" NOTE: var set on ./base.vim
+" let g:glsl_file_extensions = '*.glsl,*.vert,*.frag'
+
+"}}}
+
+" vim-clang {{{
+
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+let g:clang_format_style = 'Google'
+
+"}}}
+
+" syntastic {{{
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_cursor_column = 0
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
+let g:syntastic_mode_map = { 
+  \ 'mode': 'passive',
+  \ 'active_filetypes': [],
+  \ 'passive_filetypes': [] }
+nnoremap <leader>c :SyntasticCheck<CR>
 
 " }}}

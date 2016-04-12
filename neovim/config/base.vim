@@ -11,6 +11,8 @@ xnoremap <Space>  <Nop>
 " set augroup "{{{
 augroup mine
   au!
+  " NOTE: glsl var set here because if set on the plugin-keys file it doesn't work
+  let g:glsl_file_extensions = '*.glsl,*.vert,*.frag'
 augroup END
 "}}}
 

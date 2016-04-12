@@ -28,6 +28,11 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 Plug 'tejr/vim-tmux', { 'for': 'tmux.conf' }
 
+Plug 'justmao945/vim-clang'
+
+Plug 'beyondmarc/opengl.vim'
+Plug 'beyondmarc/glsl.vim'
+
 "}}}
 
 " Interface {{{
@@ -48,11 +53,13 @@ Plug 'mhinz/vim-signify'
 " code completion
 Plug 'Shougo/deoplete.nvim'
 " snippets
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" syntax check
+Plug 'scrooloose/syntastic'
 
 "}}}
 
-" Navigation {{{
+" Navigation {{{"{{{
 
 " filesystem exploration (depends on unite)
 Plug 'Shougo/vimfiler.vim'
@@ -63,9 +70,9 @@ Plug 'christoomey/vim-tmux-navigator'
 " better f
 Plug 'rhysd/clever-f.vim'
 " better /
-Plug 'haya14busa/incsearch.vim'
-
-"}}}
+" Plug 'haya14busa/incsearch.vim'
+Plug 'rizzatti/dash.vim'
+"}}}"}}}
 
 " Commands {{{
 
@@ -75,8 +82,6 @@ Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-fugitive'
 " run commands from vim
 Plug 'benmills/vimux'
-" completion on insert mode from a visible tmux pane
-Plug 'wellle/tmux-complete.vim'
 " open browser
 Plug 'tyru/open-browser.vim'
 
@@ -108,7 +113,7 @@ Plug 'tpope/vim-surround'
 " alignment
 Plug 'junegunn/vim-easy-align'
 " highlight ocurrences of the current word
-Plug 'itchyny/vim-cursorword' 
+" Plug 'itchyny/vim-cursorword' 
 " commenting stuff
 Plug 'tpope/vim-commentary'
 " auto close (, [, {, ', ", `
@@ -135,8 +140,6 @@ Plug 'kana/vim-textobj-fold'
 Plug 'chip/vim-fat-finger'
 " session management
 Plug 'tpope/vim-obsession'
-" fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " }}}
 
