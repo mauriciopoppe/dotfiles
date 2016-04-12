@@ -1,15 +1,13 @@
 zsh
 ===
 
-On top of `antigen` and `oh my zsh`
+See [functions](./functions.zsh) and [aliases](./aliases.zsh)
 
-On the command line
-
-- move backward on the dir stack with `alt + ←`
-- move forward on the dir stack with `alt + →`
-- `cdf` cd to the folder selected on finder
-- `open .` open pwd on finder
-- if `fzf` is installed
+- move forward/backward on the dir stack with `alt + left arrow`, `alt + right arrow`
+- `cdf` cd to the frontmost finder folder
+- `open .` open current directory on finder
+- with `fzf`
   - `<C-r>` shows a list of the last commands used which can be filtered with a
       fuzzy pattern
+  - `kill <tab>` shows a list of the current processes, selected one's PID will be entered after it's chosen
 

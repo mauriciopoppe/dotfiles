@@ -26,7 +26,7 @@ Plug 'mitsuhiko/vim-python-combined', { 'for': 'python' }
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
-Plug 'tejr/vim-tmux', { 'for': 'tmux.conf' }
+Plug 'tejr/vim-tmux', { 'for': 'tmux.conf,tmux' }
 
 Plug 'justmao945/vim-clang'
 
