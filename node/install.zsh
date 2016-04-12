@@ -4,30 +4,20 @@ local base=${0:h}
 source ${base}/../lib/utils
 
 main() {
-  # version to install 4.2
-  local NODE_VERSION=${1:-4.2.3}
-
   print-header "node"
 
-  print-step "installing nvm..."
-  if [[ ! -d ${HOME}/.nvm ]]; then
-    git clone https://github.com/creationix/nvm.git ${HOME}/.nvm
+  print-step "installing n-install..."
+  if [[ -z $N_PREFIX ]]; then
+    curl -L http://git.io/n-install | bash
   else
-    print-message "nvm already installed"
+    print-message "n already installed"
   fi
 
   # activate nvm for the current subprocess
-  NVM_DIR="${HOME}/.nvm"
-  [[ -s $NVM_DIR/nvm.sh ]] && . "$NVM_DIR/nvm.sh"
+  export N_PREFIX="$HOME/n"
+  [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
-  print-step "installing node ${NODE_VERSION}..."
-  nvm install ${NODE_VERSION}
-
-  print-step "making ${NODE_VERSION} the default node..."
-  nvm use ${NODE_VERSION}
-  nvm alias default ${NODE_VERSION}
-
-  print-step "updating to the latest version of npm..."
+  # print-step "updating to the latest version of npm..."
   npm install -g --quiet npm
 
   # npm global modules
@@ -41,6 +31,8 @@ main() {
 
     # module helpers
     browserify
+    bower
+    gulp
     standard
     live-server
     conventional-changelog
