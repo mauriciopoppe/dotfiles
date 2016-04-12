@@ -10,7 +10,7 @@
 
 ## Requirements
 
-- XCode Command Line Tools, if you don't have it install it with `$ xcode-select --install`
+- XCode Command Line Tools, if you don't have it install it with `xcode-select --install`
 - ZSH (installed by default on OSX)
 
 ## Installation
