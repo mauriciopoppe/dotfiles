@@ -6,7 +6,7 @@ __warn() {
 
 # helper function to source file safely
 __safe_source() {
-  [[ -s $1 ]] && source $1 || __echo "I'm not existing file: $1"
+  [[ -s $1 ]] && source $1 || echo "I'm not existing file: $1"
 }
 
 ########
