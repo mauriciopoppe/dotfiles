@@ -16,10 +16,10 @@
 ## Installation
 
 ```sh
-curl -q https://raw.githubusercontent.com/maurizzzio/dotfiles/master/install.sh -o $TMPDIR/install.sh && source $TMPDIR/install.sh
+curl -q https://git.io/vVATE && source install.sh
 ```
 
-The script above clones the repository to `~/.dotfiles`, in addition the `bin/` directory will be added to your path for the current session
+The script above will clone the repository to `~/.dotfiles`, in addition the `~/.dotfiles/bin/` directory will be added to your `PATH` for the current session
 
 All operations are done through the `dotfiles` script
 
@@ -29,8 +29,8 @@ $ dotfiles --help
 
 | Important notes about the installer |
 | ---- |
-| make sure you read the `install.zsh` script and the README file included on each directory before executing `$ dotfiles [folder]` |
-| executing `$ dotfiles [folder]` might symlink some files of this repo to your dotfiles, this script makes a backup of your existing dotfiles with the name `[name].backup` |
+| make sure you read the `install.zsh` script and the README file included on each directory before executing `$ dotfiles <command>` |
+| executing `$ dotfiles <command>` might symlink some files of this repo to your dotfiles, this script makes a backup of your existing dotfiles with the name `[name].backup` |
 
 For example if you want to install my configuration of tmux execute
 
@@ -38,7 +38,7 @@ For example if you want to install my configuration of tmux execute
 $ dotfiles tmux
 ```
 
-Which calls the `install.zsh` script located inside the folder `tmux/`, you
+Which calls the `install.zsh` script located inside the `tmux/` folder, you
 can do this with all the first level directories of this repo e.g. `$ dotfiles
 [zsh|tmux|neovim|...]`
 
@@ -48,8 +48,7 @@ You can also install the triumvirate (zsh + tmux + neovim) with a single command
 dotfiles essential
 ```
 
-Additionally you can install brew formulas, applications, node.js/python global
-packages and alfred workflows with
+Additionally you can install brew formulas, applications, osx defaults, node.js/python global packages and alfred workflows with
 
 ```
 dotfiles complete
@@ -59,7 +58,7 @@ dotfiles complete
 
 #### General
 
-- Remap <kbd>caps lock</kbd> to <kbd>control</kbd> *preferences > keyboard > modifier keys* (if you're a neovim/vim fan)
+- Remap <kbd>caps lock</kbd> to <kbd>control</kbd> *preferences > keyboard > modifier keys*
 - Install your desired powerline from from [powerline/fonts](https://github.com/powerline/fonts) (I'm currently using *Inconsolata dz, 12px, line spacing 0.8*)
 
 ```sh
@@ -91,13 +90,11 @@ curl -O https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/
 - Set the downloaded font on iTerm *iTerm > preferences > profiles > text* (change it for both regular and non-ascii fonts)
 - Uncheck *use lion-style full screen* on General
 - Load preferences from the custom folder `dotfiles/iTerm2`
-- Reattach to an existing tmux session, *iTerm > profiles > general > send text
-    at start* `tmux attach -t base || tmux new -s base`
 
 ## What's included? And how to customize it?
 
 Refer to the file `install.zsh` that each folder has, after cloning the repo you
-can add whatever you need inside each script
+can add whatever you need inside each installation script
 
 ## Screenshot
 
@@ -110,7 +107,7 @@ can add whatever you need inside each script
 
 ## Credits
 
-Big parts of my dotfiles were inspired (in most cases copied :P) from other dotfiles, all the credit belongs to them
+Big parts of my dotfiles were inspired (in most cases copied :P) from other dotfiles
 
 In particular I was inspired by the following dotfiles
 

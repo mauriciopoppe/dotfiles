@@ -3,8 +3,9 @@ os: osx
 
 before_install:
   - brew install zsh
-  - curl -q https://raw.githubusercontent.com/maurizzzio/dotfiles/master/install.sh -o $TMPDIR/install.sh && source $TMPDIR/install.sh
+  - curl -q https://git.io/vVATE && source install.sh
 
 script:
   - dotfiles --help
+  - dotfiles essential
 
