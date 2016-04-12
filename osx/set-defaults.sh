@@ -40,3 +40,17 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 # Show hidden files by default
 defaults write com.apple.Finder AppleShowAllFiles -bool true
 
+# Screenshots
+# Screenshots folder inside ~/Pictures (default is the desktop)
+# make sure that the screenshots folder exists
+mkdir -p ~/Pictures/screenshots
+defaults write com.apple.screencapture location ~/Pictures/screenshots/
+# Screenshots file format is jpg
+defaults write com.apple.screencapture type jpg
+
+# apply changes
+killall Finder
+killall Dock
+killall cfprefsd
+killall SystemUIServer
+
