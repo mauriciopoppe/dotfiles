@@ -1,6 +1,17 @@
-warn() {
+#!/bin/zsh
+
+__warn() {
   printf "$(tput setaf 136)! %s(tput sgr0)" "$@"
 }
+
+# helper function to source file safely
+__safe_source() {
+  [[ -s $1 ]] && source $1 || __echo "I'm not existing file: $1"
+}
+
+########
+# init #
+########
 
 # zsh options
 # better handling of history duplicates
@@ -8,53 +19,70 @@ setopt HIST_IGNORE_ALL_DUPS
 # 10 second wait if you do something that will delete everything
 setopt RM_STAR_WAIT
 
-source ${HOME}/antigen/antigen.zsh
+#########
+# zplug #
+#########
 
-# Load the oh-my-zsh's library
-antigen use oh-my-zsh
+source ${HOME}/.zplug/zplug
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh)
-antigen bundle dirhistory
-antigen bundle encode64
-antigen bundle git
-antigen bundle node
-antigen bundle npm
-antigen bundle osx
-antigen bundle pip
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-completions"
+zplug "djui/alias-tips"
+zplug "b4b4r07/enhancd", of:enhancd.sh
+zplug "junegunn/fzf", do:"./install"
 
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
+zplug "plugins/dirhistory", from:"oh-my-zsh"
+zplug "plugins/git", from:"oh-my-zsh"
+zplug "plugins/osx", from:"oh-my-zsh"
 
-antigen apply
+zplug "mafredri/zsh-async"|zplug "sindresorhus/pure"
 
-# fasd (https://github.com/clvv/fasd)
-type fasd > /dev/null && eval "$(fasd --init auto)"
-
-# fuzzy finder (https://github.com/junegunn/fzf)
-[[ -f ${HOME}/.fzf.zsh ]] && . ${HOME}/.fzf.zsh
-
-# nvm (https://github.com/creationix/nvm)
-export NVM_DIR=${HOME}/.nvm
-[[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
-
-# travis gem (https://github.com/travis-ci/travis.rb)
-[ -f ${HOME}/.travis/travis.sh ] && source ${HOME}/.travis/travis.sh
-
-# my stuff
-if [[ ! -e ${HOME}/.envvars.rc ]]; then
-  warn "Warning: dotfiles path is not set, verify that the file ${HOME}/.envvars.rc exists, if not run 'source install.zsh' in your dotfiles clone"
-else
-  # exports $DOTFILES_DIRECTORY
-  source ${HOME}/.envvars.rc
-  source ${DOTFILES_DIRECTORY}/zsh/paths
-  source ${DOTFILES_DIRECTORY}/zsh/aliases
-  source ${DOTFILES_DIRECTORY}/zsh/functions
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
 fi
 
-unset -f warn
+# Then, source plugins and add commands to $PATH
+zplug load > /dev/null
 
-# Note: rvm must be sourced after zsh/paths because
-# rvm wants to be first on the PATH ._.
-[[ -s ${HOME}/.rvm/scripts/rvm ]] && . ${HOME}/.rvm/scripts/rvm
+#########################
+# script initialization #
+#########################
+
+# fasd (https://github.com/clvv/fasd)
+fasd_cache="${HOME}/.fasd-init-cache"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+  fasd --init auto >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+
+# travis gem (https://github.com/travis-ci/travis.rb)
+__safe_source ${HOME}/.travis/travis.sh
+
+# fzf (https://github.com/junegunn/fzf)
+__safe_source ${HOME}/.fzf.zsh
+
+# n (https://github.com/tj/n)
+export N_PREFIX="$HOME/n"
+[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+if [[ ! -e ${HOME}/.envvars.rc ]]; then
+  __warn "Warning: dotfiles path is not set, verify that the file ${HOME}/.envvars.rc exists"
+else
+  source ${HOME}/.envvars.rc
+  __safe_source ${DOTFILES_DIRECTORY}/zsh/exports.zsh
+  __safe_source ${DOTFILES_DIRECTORY}/zsh/functions.zsh
+  __safe_source ${DOTFILES_DIRECTORY}/zsh/aliases.zsh
+fi
+
+# Note: rvm must be sourced last or it will complain
+__safe_source ${HOME}/.rvm/scripts/rvm
+
+# remove functions from the global scope
+unset -f __warn
+unset -f __safe_source
 

@@ -1,11 +1,13 @@
+#!/bin/zsh
 # force $PATH to have unique values
-typeset -U path
+# typeset -U path
 # fix path
 # - /usr/local/bin should be first (brew)
 path=(/usr/local/bin "$path[@]")
 path+=(
   # path to my scripts
   ${DOTFILES_DIRECTORY}/bin
+  /Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
 )
 export PATH
 

@@ -1,3 +1,4 @@
+#!/bin/zsh
 crun() {
   g++ $1 && ./a.out
 }

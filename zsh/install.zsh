@@ -6,11 +6,11 @@ source ${base}/../lib/utils
 main() {
   print-header "zsh"
 
-  print-step "installing antigen..."
-  if [[ ! -d ${HOME}/antigen ]]; then
-    git clone https://github.com/zsh-users/antigen.git ${HOME}/antigen
+  print-step "installing zplug..."
+  if [[ ! -d ${HOME}/.zplug ]]; then
+    git clone https://github.com/b4b4r07/zplug ${HOME}/.zplug
   else
-    print-message "antigen already installed"
+    print-message "zplug already installed"
   fi
 
   print-step "zsh symlinks..."
