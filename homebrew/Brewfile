@@ -4,8 +4,11 @@ tap 'homebrew/bundle'
 tap 'homebrew/versions'
 
 if RUBY_PLATFORM =~ /darwin/
+  brew 'ctags'
   brew 'fasd'
   brew 'figlet'
+  brew 'fswatch'
+  brew 'gist'
   brew 'hub'
   brew 'imgur-screenshot'
   brew 'rmtrash'
@@ -15,6 +18,11 @@ if RUBY_PLATFORM =~ /darwin/
   brew 'wget'
   brew 'youtube-dl'
 
+  # build system
+  brew 'autoconf'
+  brew 'automake'
+  brew 'libtool'
+
   # casks
   tap 'caskroom/cask'
   tap 'caskroom/fonts'
@@ -22,6 +30,7 @@ if RUBY_PLATFORM =~ /darwin/
 
   ## apps
   cask 'appcleaner'
+  cask 'basictex'
   cask 'blender'
   cask 'cheatsheet'
   cask 'dash'
@@ -33,9 +42,11 @@ if RUBY_PLATFORM =~ /darwin/
   cask 'google-photos-backup'
   cask 'iterm2'
   cask 'licecap'
+  cask 'karabiner'
   cask 'skim'
   cask 'spotify'
   cask 'sublime-text3'
+  cask 'tex-live-utility'
   cask 'the-unarchiver'
   cask 'utorrent'
   cask 'vlc'
