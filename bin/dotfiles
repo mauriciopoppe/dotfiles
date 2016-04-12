@@ -13,15 +13,15 @@
 dotfiles-help() {
 cat << EOF
 
-  usage: dotfiles [installer|essential|complete]
+  usage: dotfiles [<package>|essential|complete]
 
-    [installer]
-      One of: zsh|neovim|tmux|git|homebrew|Iterm2|node|ruby|python|alfred
+    [<package>]
+      One of: zsh|neovim|tmux|git|osx|homebrew|Iterm2|node|ruby|python|alfred
 
     [essential]
       zsh
       tmux
-      nvim
+      nvim (requires pip)
 
     [complete]
       All the installers listed above
@@ -57,31 +57,28 @@ dotfiles-pre() {
   fi
 }
 
+-dotfiles-install() {
+  for i in $@; do
+    zsh ${i}/install.zsh
+  done
+}
+
 dotfiles-essential() {
-  zsh tmux/install.zsh
-  zsh neovim/install.zsh
-  zsh zsh/install.zsh
+  local list
+  list=(tmux neovim zsh)
+  -dotfiles-install ${list}
 }
 
 dotfiles-complete() {
   dotfiles-essential
 
-  zsh git/install.zsh
-  zsh homebrew/install.zsh
-  zsh applications/install.zsh install
-  zsh node/install.zsh
-  zsh ruby/install.zsh
-  zsh python/install.zsh
-  zsh iTerm2/install.zsh
-
-  # osx defaults
-  zsh osx/install.sh
-
-  # neovim is recommended
-  zsh vim/install.zsh
-
-  # workflows
-  zsh alfred/install.zsh
+  local list
+  list=(
+    homebrew 
+    node ruby python 
+    git iTerm2 osx alfred
+  )
+  -dotfiles-install ${list}
 }
 
 dotfiles-main() {
