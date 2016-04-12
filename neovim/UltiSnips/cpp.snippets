@@ -1,0 +1,12 @@
+snippet ifndef "#ifndef [VAR]"
+#ifndef $1
+#define $1
+$2
+#endif // $1
+endsnippet
+
+snippet namespace "namespace" b
+namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`} {
+  ${VISUAL}${0}
+} // namespace $1
+endsnippet
