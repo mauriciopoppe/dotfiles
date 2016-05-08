@@ -15,10 +15,11 @@ main() {
   local modules
   modules=(
     grip              # preview markdown files
+    Pygments          # syntax highlighter
   )
   for module in $modules; do
     # pip is already installed on python +3.4
-    pip install grip
+    pip install $module
   done
 
   # python 3
