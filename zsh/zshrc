@@ -35,7 +35,8 @@ zplug "plugins/dirhistory", from:"oh-my-zsh"
 zplug "plugins/git", from:"oh-my-zsh"
 zplug "plugins/osx", from:"oh-my-zsh"
 
-zplug "mafredri/zsh-async"|zplug "sindresorhus/pure"
+zplug "mafredri/zsh-async"
+zplug "sindresorhus/pure"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
