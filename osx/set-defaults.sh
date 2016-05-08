@@ -39,6 +39,9 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 defaults write com.apple.universalaccess reduceTransparency -bool true
 # Show hidden files by default
 defaults write com.apple.Finder AppleShowAllFiles -bool true
+# Play iOS sound when charging
+defaults write com.apple.PowerChime ChimeOnAllHardware -bool true && \
+open /System/Library/CoreServices/PowerChime.app
 
 # Screenshots
 # Screenshots folder inside ~/Pictures (default is the desktop)
