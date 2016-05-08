@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# new session from current directory
+#
+# args:
+#
+#    [name]  the name of the session, defaults to the
+#            basename of the current directory
+#
+# examples:
+#
+#    tmux-new-session
+#    tmux-new-session learn/opengl
+#
+TARGET_DIR=$PWD
+TARGET_NAME=${1:-$(basename $TARGET_DIR)}
+
+# echo ${TARGET_NAME}
+tmux new-session -d -s ${TARGET_NAME} -c ${TARGET_DIR}
+tmux switch-client -t ${TARGET_NAME}
+
+# vim: set ft=bash
+
