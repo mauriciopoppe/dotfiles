@@ -24,7 +24,7 @@ The script above will clone the repository to `~/.dotfiles`, in addition the `~/
 All operations are done through the `dotfiles` script
 
 ```
-$ dotfiles --help
+dotfiles --help
 ```
 
 | Important notes about the installer |
@@ -35,7 +35,7 @@ $ dotfiles --help
 For example if you want to install my configuration of tmux execute
 
 ```
-$ dotfiles tmux
+dotfiles tmux
 ```
 
 Which calls the `install.zsh` script located inside the `tmux/` folder, you
