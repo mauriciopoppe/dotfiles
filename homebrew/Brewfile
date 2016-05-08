@@ -31,10 +31,10 @@ if RUBY_PLATFORM =~ /darwin/
   ## apps
   cask 'basictex'
   cask 'blender'
-  cask 'cheatsheet'
   cask 'dash'
   cask 'flux'
   cask 'free-ruler'
+  cask 'github-desktop'
   cask 'google-chrome'
   cask 'google-drive'
   cask 'google-photos-backup'
