@@ -1,0 +1,155 @@
+global !p
+def to_camelcase(word):
+    return ''.join(x.capitalize() or '_' for x in word.split('-'))
+endglobal
+
+# es6 imports
+snippet imr "import React, {Component} from 'react'"
+import React, { Component } from 'react'
+endsnippet
+
+# react utils
+snippet cdm "React: componentDidMount() {…}" b
+componentDidMount() {
+	${0}
+}
+endsnippet
+
+snippet cdup "React: componentDidUpdate(pp, ps) {…}" b
+componentDidUpdate(prevProps, prevState) {
+	${0}
+}
+endsnippet
+
+snippet cwm "React: componentWillMount() {…}" b
+componentWillMount() {
+	${0}
+}
+endsnippet
+
+snippet cwr "React: componentWillReceiveProps(np) {…}" b
+componentWillReceiveProps(nextProps) {
+	${0}
+}
+endsnippet
+
+snippet cwum "React: componentWillUnmount() {…}" b
+componentWillUnmount() {
+	${0}
+}
+endsnippet
+
+snippet cwup "React: componentWillUpdate(np, ns) {…}" b
+componentWillUpdate(nextProps, nextState) {
+	${0}
+}
+endsnippet
+
+snippet rcc "React: class component" b
+class ${1:`!p snip.rv = to_camelcase(snip.basename)`} extends Component {
+	render() {
+		return ${2:(
+			${3:<div>${0}</div>}
+		)}
+	}
+}
+endsnippet
+
+snippet gdp "React: getDefaultProps() {…}" b
+getDefaultProps() {
+	${1:return \{${0}\}}
+}
+endsnippet
+
+snippet gis "React: getInitialState() {…}" b
+getInitialState() {
+	${1:return \{${0}\}}
+}
+endsnippet
+
+snippet ren "React: render() {…}" b
+render() {
+	return ${1:(
+		${2:<div>${0}</div>}
+	)}
+}
+endsnippet
+
+snippet scu "React: shouldComponentUpdate(np, ns) {…}" b
+shouldComponentUpdate(nextProps, nextState) {
+	${1:return ${2:false}}${0}
+}
+endsnippet
+
+snippet pt "React: propTypes { ... }" i
+propTypes: {
+	${1}: React.PropTypes.${2:string}
+}
+endsnippet
+
+snippet ptai "React: PropTypes.arrayOf (Instances)"
+${1}: React.PropTypes.arrayOf(React.PropTypes.instanceOf(${2:Class}))${3:.isRequired}$0
+endsnippet
+
+snippet pta "React: PropTypes.arrayOf"
+${1}: React.PropTypes.arrayOf(${2:propType})${3:.isRequired}$0
+endsnippet
+
+snippet ptb "React: PropTypes.bool"
+${1}: React.PropTypes.bool${2:.isRequired}$0
+endsnippet
+
+snippet pte "React: PropTypes.element"
+${1}: React.PropTypes.element${2:.isRequired}$0
+endsnippet
+
+snippet ptf "React: PropTypes.func"
+${1}: React.PropTypes.func${2:.isRequired}$0
+endsnippet
+
+snippet pti "React: PropTypes.instanceOf"
+${1}: React.PropTypes.instanceOf(${2:Class})${3:.isRequired}$0
+endsnippet
+
+snippet ptn "React: PropTypes.number"
+${1}: React.PropTypes.number${2:.isRequired}$0
+endsnippet
+
+snippet pto "React: PropTypes.object"
+${1}: React.PropTypes.object${2:.isRequired}$0
+endsnippet
+
+snippet ptof "React: PropTypes.objectOf"
+${1}: React.PropTypes.objectOf(${2:type})${3:.isRequired}$0
+endsnippet
+
+snippet ptof "React: PropTypes.oneOf (Enum)"
+${1}: React.PropTypes.oneOf([${2:value}, ${3:value}])${4:.isRequired}$0
+endsnippet
+
+snippet ptoft "React: PropTypes.oneOfType (Union)"
+${1}: React.PropTypes.oneOfType([${2:value}, ${3:value}])${4:.isRequired}$0
+endsnippet
+
+snippet ptsp "React: PropTypes.shape"
+${1}: React.PropTypes.shape({
+	$0
+})
+endsnippet
+
+snippet pts "React: PropTypes.string"
+${1}: React.PropTypes.string${2:.isRequired}$0
+endsnippet
+
+snippet sst "React: this.setState(…)" i
+this.setState(${1:(state, props) => ${0}})
+endsnippet
+
+snippet props "React: this.props" i
+this.props${1:.}
+endsnippet
+
+snippet state "React: this.state" i
+this.state${1:.}
+endsnippet
+

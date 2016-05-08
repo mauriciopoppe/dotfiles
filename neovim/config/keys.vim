@@ -4,8 +4,10 @@ noremap j gj
 noremap k gk
 
 " movement inside a line 
-noremap H ^
-noremap L $
+" ˙ = alt + h (move to the beginning of the line)
+noremap ˙ ^
+" ¬ = alt + l (move to the end of the line)
+noremap ¬ $
 
 " newline above/below the current doesn't put into insert mode
 noremap <Enter> o<ESC>
@@ -50,27 +52,27 @@ nnoremap U :redo<CR>
 
 " paste from the system clipboard
 map <Leader>p :set paste<CR>"*]p:set nopaste<cr>
-nmap <Leader>vr :source $MYVIMRC<cr>
 
+" higlight last inserted text
+nnoremap gV `[v`]
+
+" insert tab with <S-Tab>
+inoremap <S-Tab> <C-V><Tab>
 " }}}
 
 " Panes and buffers {{{
 
 " remapping control + movement to move between split panes
-nnoremap <c-j> <c-w><c-j>
-nnoremap <c-k> <c-w><c-k>
-nnoremap <c-l> <c-w><c-l>
-nnoremap <c-h> <c-w><c-h>
+" set by vim-tmux-navigation so there's not need to set them here
+" nnoremap <c-j> <c-w><c-j>
+" nnoremap <c-k> <c-w><c-k>
+" nnoremap <c-l> <c-w><c-l>
+" nnoremap <c-h> <c-w><c-h>
 
 " space + \ = create a new vertical pane (the | key is over \)
 " space + - = create a new horizontal pane
 nnoremap <leader>\ <c-w>v<c-w>l
 nnoremap <leader>- <c-w>s
-
-" ˙ = alt + h (switch to the previous buffer)
-nnoremap ˙ :bprevious<CR>
-" ¬ = alt + l (switch to the next buffer)
-nnoremap ¬ :bnext<CR>
 
 " }}}
 

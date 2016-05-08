@@ -11,12 +11,12 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'othree/csscomplete.vim', { 'for': 'css' }
 
-Plug 'othree/yajs.vim', { 'for': 'javascript' }
-Plug 'gavocanov/vim-js-indent', { 'for' : 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'othree/yajs.vim', { 'for': 'javascript' }
+" Plug 'gavocanov/vim-js-indent', { 'for' : 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for' : 'javascript' }
-Plug 'mxw/vim-jsx', { 'for' : 'jsx' }
-Plug 'othree/jspc.vim', { 'for' : 'javascript' }
-Plug 'heavenshell/vim-jsdoc', { 'for' : 'javascript' }
+" Plug 'othree/jspc.vim', { 'for' : 'javascript' }
 Plug 'moll/vim-node', { 'for' : 'javascript' }
 Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
 
@@ -27,8 +27,6 @@ Plug 'mitsuhiko/vim-python-combined', { 'for': 'python' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 
 Plug 'tejr/vim-tmux', { 'for': 'tmux.conf,tmux' }
-
-Plug 'justmao945/vim-clang'
 
 Plug 'beyondmarc/opengl.vim'
 Plug 'beyondmarc/glsl.vim'
@@ -52,15 +50,22 @@ Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'mhinz/vim-signify'
 " code completion
 Plug 'Shougo/deoplete.nvim'
-" snippets
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " syntax check
 Plug 'scrooloose/syntastic'
 
 "}}}
 
+" Snippets {{{
+" engine 
+Plug 'SirVer/ultisnips'
+" collection of snippets
+Plug 'honza/vim-snippets'
+" }}}
+
 " Navigation {{{"{{{
 
+" shortcuts
+Plug 'tpope/vim-unimpaired'
 " filesystem exploration (depends on unite)
 Plug 'Shougo/vimfiler.vim'
 " navigate to any visible part with 2-keystrokes
@@ -106,8 +111,6 @@ Plug 'Shougo/neomru.vim'
 Plug 'terryma/vim-expand-region'
 " multiple cursors
 Plug 'terryma/vim-multiple-cursors'
-" additional text objects (like [n]ext and [l]ast)
-Plug 'wellle/targets.vim'
 " surround
 Plug 'tpope/vim-surround'
 " alignment
@@ -125,6 +128,8 @@ Plug 'tpope/vim-repeat'
 
 " Text objects {{{
 
+" additional text objects (like [n]ext and [l]ast)
+Plug 'wellle/targets.vim'
 " allows the definition of custom text objects
 Plug 'kana/vim-textobj-user'
 " ae, ie (everything)

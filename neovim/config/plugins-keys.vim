@@ -207,7 +207,7 @@ function! UltiSnipsCallUnite()
   return ''
 endfunction
 
-inoremap <silent> <C-e> <C-R>=(pumvisible()? "\<LT>C-E>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
+" inoremap <silent> <C-s> <C-R>=(pumvisible()? "\<LT>C-s>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 " }}}
 
 " }}}
@@ -327,15 +327,17 @@ let g:vim_markdown_folding_disabled=1
 
 " Tmuxline {{{
 
+" Usage:
+"  :Tmuxline lightline
+"  :TmuxlineSnapshot ~/.tmux/theme
 let g:tmuxline_preset = {
       \'a'    : '#S',
       \'b'    : '#I #W',
       \'x'    : [
-      \'#(osascript ${DOTFILES_DIRECTORY}/applescripts/spotify.scpt)',
+      \'#(osascript ${DOTFILES_DIRECTORY}/lib/applescripts/spotify.scpt)',
       \'#(bash ${DOTFILES_DIRECTORY}/bin/battery_left.sh)'
       \],
-      \'y'    : ['%a %b %d', '%R'],
-      \'z'    : '#H'}
+      \'y'    : ['%a %b %d', '%R'] }
 
 " }}}
 
@@ -368,15 +370,9 @@ noremap <Leader>vm :VimuxRunCommand("make")<CR>
 
 " }}}
 
-" NERDTree {{{
 
-" similar to sublime text
-" nnoremap <Leader>kb :NERDTreeToggle<CR>
-" nnoremap <Leader>kr :NERDTreeFind<CR>
-" let g:NERDTreeShowHidden=1
-" let g:NERDTreeMinimalUI=1
-" let g:NERDTreeAutoDeleteBuffer=1
-
+" elzr/vim-json {{{
+let g:vim_json_syntax_conceal = 0
 " }}}
 
 " Deoplete {{{
@@ -397,22 +393,6 @@ if has("patch-7.4.314")
   set shortmess+=c
 endif
 
-" let g:ulti_jump_forwards_res=0
-" function! Can_jump_forward()
-"   call UltiSnips#JumpForwards()
-"   return g:ulti_jump_forwards_res
-" endfunction
-
-" let g:ulti_jump_backwards_res=0
-" function! Can_jump_backward()
-"   call UltiSnips#JumpBackwards()
-"   return g:ulti_jump_backwards_res
-" endfunction
-
-" inoremap <silent><C-j> <C-R>=pumvisible() ? "\<lt>C-n>"
-"       \ : (Can_jump_forward() ? "" : "")<CR>
-" inoremap <silent><C-k> <C-R>=pumvisible() ? "\<lt>C-p>"
-"       \ : (Can_jump_backward() ? "" : "")<CR>
 " }}}
 
 " Fugitive {{{
@@ -421,12 +401,9 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gl :exe ':!cd ' . expand('%:p:h') . '; git lg'<CR>
-nnoremap <Leader>gh :Silent Glog<CR>
 nnoremap <Leader>gr :Gread<CR>
 nnoremap <Leader>gw :Gwrite<CR>
-nnoremap <Leader>gp :Git push<CR>
-nnoremap <Leader>g- :Silent Git stash<CR>:e<CR>
-nnoremap <Leader>g+ :Silent Git stash pop<CR>:e<CR>
+nnoremap <Leader>gp :Git push --tags<CR>
 
 " }}}
 
@@ -439,7 +416,7 @@ inoremap <C-x><C-k> <NOP>
 " - expand <tab>
 " - jump forward <c-j>
 " - jump backward <c-k>
-let g:UltiSnipsExpandTrigger="<C-q>"
+" let g:UltiSnipsExpandTrigger="<C-q>"
 " let g:UltiSnipsJumpForwardTrigger="<NOP>"
 " let g:UltiSnipsJumpBackwardTrigger="<NOP>"
 
@@ -479,6 +456,24 @@ nmap <silent> <leader>d <Plug>DashSearch
 
 "}}}
 
+" vim-jsx {{{
+let g:jsx_ext_required = 0
+" }}}
+
+" emmet-vim {{{
+
+" let g:user_emmet_leader_key = '<C-e>'
+let g:user_emmet_settings = {
+\    'html': {
+\        'empty_element_suffix': ' />',
+\    },
+\}
+imap <C-e> <plug>(emmet-expand-abbr)
+imap <C-f> <plug>(emmet-expand-abbr) <plug>(emmet-split-join-tag)
+" imap <C-e>. <plug>(emmet-expand-abbr) <plug>(emmet-split-join-tag)
+
+" }}}
+
 " vim-clang {{{
 
 let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
@@ -506,3 +501,4 @@ let g:syntastic_mode_map = {
 nnoremap <leader>c :SyntasticCheck<CR>
 
 " }}}
+

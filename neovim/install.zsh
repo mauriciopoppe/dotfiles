@@ -41,9 +41,12 @@ main() {
   print-step "installing plugins..."
   nvim +PlugInstall +qall
 
-  # NOTE: first time installation
-  # fix <C-h> not working well within nvim
+  # NOTE: after install/reinstall of nvim
+  # fix for <C-h> not working well within nvim
   # see https://github.com/christoomey/vim-tmux-navigator/issues/61#issuecomment-87284887
+  #
+  #   infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti && tic $TERM.ti && rm $TERM.ti
+  #
 }
 
 main $@

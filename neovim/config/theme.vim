@@ -6,6 +6,7 @@ set background=dark
 try
   colorscheme hybrid_reverse
 catch
+  echo 'could not set theme'
 endtry
 
 " Link highlight groups to improve buftabline colors

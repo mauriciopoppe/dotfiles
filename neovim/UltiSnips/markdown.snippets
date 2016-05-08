@@ -1,23 +1,12 @@
-# mathjax
+# html
 
-snippet latexequation "single equation" b
-$$
-\begin{equation} \label{$1}
-$2
-\end{equation}
-$$
-endsnippet
-
-snippet latexalign "aligned set of equations" b
-$$
-\begin{align*}
-$1
-\end{align*}
-$$
-endsnippet
-
-snippet latexbmatrix "bracket matrix"
-\begin{bmatrix} $1 \end{bmatrix}
+snippet htmlimage "image with caption" b
+<figure>
+  <div class="figure-images">
+    <img src="${1}" alt="">
+  </div>
+  <figcaption>$2</figcaption>
+</figure>
 endsnippet
 
 # jekyll
@@ -30,11 +19,7 @@ date: `date "+%Y-%m-%d %H:%M:%S"`
 ---
 endsnippet
 
-snippet jekyllimage "jekyll image" b
-![$1]({{ site_url  }}/images/$2){: .center-image}
+snippet jekyllimage "jekyll image" i
+{{ site_url  }}/images/$1
 endsnippet
 
-snippet jekylltoc "jekyll table of contents (toc)" b
-* TOC
-{:toc}
-endsnippet

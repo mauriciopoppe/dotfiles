@@ -23,13 +23,15 @@ set scrolloff=5
 set virtualedit=block
 " time to send the CursorHold autocommand event
 set updatetime=300
+" read file changes on update
+set autoread
+" write the contents of a the file if it was modified because of some vim commands
+set autowriteall
 " show incomplete commands
 set showcmd
 " time to wait for a mapped sequence to complete
 " e.g. wait 500ms when typing `j` and after `k` to exit from insert mode
 set timeoutlen=500
-" word completion :D
-set complete+=kspell
 " }}}
 
 " Indentation settings {{{
@@ -87,6 +89,9 @@ set spelllang=en_us
 
 " Search settings {{{
 
+" -- default on
+" set incsearch
+
 " ignore case by default
 set ignorecase
 " make search case sensitive only if it contains uppercase letters
@@ -119,6 +124,12 @@ set fillchars="fold: "
 
 " Omni completion settings {{{
 
+" complete also from dictionary
+set complete+=kspell
+" insert the longest common text of the matches
+set completeopt+=longest
+
+" note set wildmenu is set by default
 set wildignore+=*vim/backups*
 set wildignore+=*sass-cache*
 set wildignore+=*DS_Store*
@@ -126,6 +137,7 @@ set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=.git\*,.hg\*,.svn\*
 
 " }}}
 
