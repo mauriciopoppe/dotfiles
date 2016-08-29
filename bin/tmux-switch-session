@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+
+import os
+import glob
+import subprocess
+import sys
+
+OPEN_SYMBOL = " (*)"
+
+def run(command):
+    return subprocess.run(command, shell=True, stdout=subprocess.PIPE)
+
+def get_saved_sessions():
+    session_path = os.path.join(os.path.expanduser('~'), '.tmuxp')
+    all_sessions = []
+    for file in glob.glob(os.path.join(session_path, '*.yaml')):
+        file = os.path.basename(file)
+        file = os.path.splitext(file)[0]
+        all_sessions.append(file)
+    return all_sessions
+
+def get_opened_sessions():
+    proc = run('tmux list-sessions -F "#{session_name}"')
+    output = proc.stdout.decode('utf-8').strip().split('\n')
+    return output
+
+def create_list(saved, opened):
+    sessions = []
+    for s in opened:
+        sessions.append("{0}{1}".format(s, OPEN_SYMBOL))
+    for s in saved:
+        if s not in opened:
+            sessions.append(s)
+    return sessions
+
+def ask_session_to_change(sessions):
+    chosen = run(
+        'echo "{0}" | fzf-tmux -d 15 --reverse --no-sort --header="Tmux sessions"'.format('\n'.join(sessions))
+    ).stdout.decode('utf-8').strip()
+    # strip additional symbols
+    return chosen.split(' ')[0]
+
+def switch_session(session):
+    # check if there's already a session created and named $session
+    # exit status = 1 means that the session doesn't exist
+    exit_status = run('tmux has-session -t {0} 2> /dev/null'.format(session)).returncode
+
+    # if the exit code is 1 then the session doesn't exist
+    if exit_status == 1:
+        run('tmuxp load -y "{0}"'.format(session))
+    else:
+        run('tmux switch-client -t "{0}"'.format(session))
+
+def main():
+    saved_sessions = get_saved_sessions()
+    opened_sessions = get_opened_sessions()
+    sessions = create_list(saved_sessions, opened_sessions)
+    chosen = ask_session_to_change(sessions)
+
+    # exit when an option isn't selected
+    if chosen == '':
+        sys.exit()
+
+    switch_session(chosen)
+
+if __name__ == '__main__':
+    main()
+
+# vim: set ft=py
+
