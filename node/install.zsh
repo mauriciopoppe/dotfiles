@@ -20,26 +20,27 @@ main() {
   print-step "updating to the latest version of npm..."
   npm install -g --quiet npm
 
-
   print-step "installing node modules..."
   local modules
   modules=(
     # essentials
     bower
     standard                  # lint
-    npm-check-updates         # ncu checks for updates
+    standard-format           # formats the easy cases
+    npm-check-updates         # `ncu` checks for updates
     pnpm                      # high performance npm
 
     # generators
     yo                        # yeoman
-    generator-mnm             # generates source file
+    generator-mnm             # generates source files
 
     # modules
     devtool                   # run node.js programs inside electron
-    conventional-changelog
+    conventional-changelog    # generates a changelog out of commits
     live-server               # static server with live-reload
     ghrepo                    # initializes a github repo
-    wzrd                      # minimalistic server that browserifies index.js
+    budo                      # minimalistic server that browserifies index.js
+    trash-cli                 # safe alternative to rm
 
     # build system/module bundlers
     browserify
