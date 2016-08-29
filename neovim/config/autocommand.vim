@@ -1,7 +1,13 @@
 augroup fs
   autocmd!
   " autosave
-  autocmd TextChangedI,TextChanged * nested silent! :update
+  " > mine
+  " autocmd TextChangedI,TextChanged * nested silent! :update
+  " > from vim-auto-save
+  " " the following makes autosave also work on Insert mode"
+  " autocmd CursorHoldI,CompleteDone * nested silent! :update
+  " " update the app on CursorHold and BufLeave "
+  autocmd CursorHold,BufLeave * nested silent! :update
   " autoread
   autocmd CursorHold * checktime
 augroup END

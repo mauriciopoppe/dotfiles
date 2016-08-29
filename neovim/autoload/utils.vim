@@ -13,14 +13,6 @@ function! utils#preserve(command)
   call cursor(l, c)
 endfunction
 
-function! utils#forgetUndo(command)
-  let old_undolevels = &undolevels
-  set undolevels=-1
-  execute a:command
-  let &undolevels = old_undolevels
-  unlet old_undolevels
-endfunction
-
 "jump to last cursor position when opening a file
 "dont do it when writing a commit log entry
 function! utils#cursorJumpToLastPosition()
@@ -63,5 +55,20 @@ function! utils#kbd()
   endfor
   let joined = join(keys)
   execute 'normal! ciW'.joined
+endfunction
+
+function! utils#standardFormat()
+  execute "!standard-format --write %" 
+endfunction
+
+function! utils#runLastCommand()
+  if !exists("g:VimuxRunnerIndex") || _VimuxHasRunner(g:VimuxRunnerIndex) == -1
+    call VimuxOpenRunner()
+  endif
+
+  let resetSequence = _VimuxOption("g:VimuxResetSequence", "q C-u")
+  call VimuxSendKeys(resetSequence)
+  call VimuxSendText('!!')
+  call VimuxSendKeys("Enter Enter")
 endfunction
 

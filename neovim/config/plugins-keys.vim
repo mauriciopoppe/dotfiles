@@ -8,27 +8,18 @@
 call unite#filters#matcher_default#use(['matcher_fuzzy', 'matcher_hide_current_file'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 
-let g:ag_opts = get(g:, 'g:ag_opts', []) + [
-    \ '--vimgrep', '--skip-vcs-ignores', '--hidden',
-    \ '--ignore', '.git',
-    \ '--ignore', '.idea',
-    \ '--ignore', '.stversions',
-    \ '--ignore', '.sass-cache',
-    \ '--ignore', 'bower_modules',
-    \ '--ignore', 'node_modules',
-    \ ]
-
 if executable('ag')
   let g:unite_source_grep_command='ag'
-  let g:unite_source_grep_default_opts=join(g:ag_opts)
+  let g:unite_source_grep_default_opts=
+    \ '-i --vimgrep --hidden --ignore ' .
+    \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
   let g:unite_source_grep_recursive_opts=''
-  let g:unite_source_rec_async_command = ['ag', '--follow', '-g', ''] + g:ag_opts
+  let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
 elseif executable('ack')
   let g:unite_source_rec_async_command = [ 'ack', '-f', '--nofilter' ]
 endif
 
 " General
-let g:unite_enable_auto_select = 1
 let g:unite_matcher_fuzzy_max_input_length = 25
 let g:unite_kind_jump_list_after_jump_scroll = 50
 
@@ -122,28 +113,13 @@ call unite#custom#profile('navigate,source/grep', 'context', {
 " Custom menus {{{
 let g:unite_source_menu_menus={}
 
-" Git menu
-let g:unite_source_menu_menus.git = {
-      \     'description' : 'Git commands',
-      \ }
-let g:unite_source_menu_menus.git.command_candidates = [
-      \       ['Stage hunk', 'GitGutterStageHunk'],
-      \       ['Unstage hunk', 'GitGutterRevertHunk'],
-      \       ['Stage', 'Gwrite'],
-      \       ['Status', 'Gstatus'],
-      \       ['Diff', 'Gvdiff'],
-      \       ['Commit', 'Gcommit --verbose'],
-      \       ['Revert', 'Gread'],
-      \       ['Log', 'Glog'],
-      \       ['Visual Log', 'Gitv'],
-      \     ]
-
 let g:unite_source_menu_menus.mine = {
       \     'description' : 'utility stuff'
       \}
 let g:unite_source_menu_menus.mine.command_candidates = [
       \       ['Markdown keyboard', 'call utils#kbd()'],
-      \       ['Strip trailing whitespace', 'call utils#preserve("%s/\\s\\+$//e")']
+      \       ['Strip trailing whitespace', 'call utils#preserve("%s/\\s\\+$//e")'],
+      \       ['Standard format', 'call utils#standardFormat()'],
       \     ]
 
 " }}}
@@ -367,6 +343,8 @@ noremap <Leader>vi :VimuxInspectRunner<CR>
 noremap <Leader>vnt :VimuxRunCommand("npm test")<CR>
 " make & run for learnopengl.com
 noremap <Leader>vm :VimuxRunCommand("make")<CR>
+" run last command (no need for an initial call to Vimux)
+noremap <silent> <Leader><CR> :call utils#runLastCommand()<CR>
 
 " }}}
 
@@ -392,6 +370,11 @@ inoremap <expr><C-l> deoplete#mappings#refresh()
 if has("patch-7.4.314")
   set shortmess+=c
 endif
+
+" Ternjs integration {{{
+let g:tern_request_timeout = 1
+"}}}
+
 
 " }}}
 
@@ -466,12 +449,11 @@ let g:jsx_ext_required = 0
 let g:user_emmet_settings = {
 \    'html': {
 \        'empty_element_suffix': ' />',
+\        'indent_blockelement': 1,
 \    },
 \}
-imap <C-e> <plug>(emmet-expand-abbr)
-imap <C-f> <plug>(emmet-expand-abbr) <plug>(emmet-split-join-tag)
-" imap <C-e>. <plug>(emmet-expand-abbr) <plug>(emmet-split-join-tag)
-
+imap <silent> <C-e>, <plug>(emmet-expand-abbr)
+imap <silent> <C-e>. <plug>(emmet-expand-abbr)<plug>(emmet-split-join-tag)f/i
 " }}}
 
 " vim-clang {{{
@@ -502,3 +484,14 @@ nnoremap <leader>c :SyntasticCheck<CR>
 
 " }}}
 
+" vim-auto-save {{{
+" let g:auto_save = 1 
+" let g:auto_save_no_updatetime = 1
+" let g:auto_save_in_insert_mode = 0
+" let g:auto_save_silent = 1
+" }}}
+
+" online thesaurus {{{
+let g:online_thesaurus_map_keys = 0
+nnoremap <leader>K :OnlineThesaurusCurrentWord<CR>
+" }}}

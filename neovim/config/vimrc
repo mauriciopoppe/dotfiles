@@ -1,7 +1,8 @@
-let $VIMPATH = expand('$DOTFILES_DIRECTORY/neovim/')
+" let $VIMPATH = expand('$DOTFILES_DIRECTORY/neovim/')
+let $CONFIGPATH = fnamemodify(expand('<sfile>'), ':h')
 
 function! s:source_file(path)
-  execute 'source' fnameescape($VIMPATH.'/config/'.a:path)
+	execute 'source ' $CONFIGPATH . '/' . a:path
 endfunction
 
 " plug initialization

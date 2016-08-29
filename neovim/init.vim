@@ -12,5 +12,5 @@
 "     Martin Toma - https://github.com/martin-svk/dot-files/blob/master/neovim/init.vimo
 "     rafi - https://github.com/rafi/vim-config
 
-source $DOTFILES_DIRECTORY/neovim/config/vimrc
+execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/vimrc'
 

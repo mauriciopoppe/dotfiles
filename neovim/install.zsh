@@ -32,16 +32,23 @@ main() {
   -install-vim-plug ${HOME}/.config/nvim/autoload/plug.vim
 
   print-step "neovim symlinks..."
-  # this is done so that only these folders are synced
+
+  # if the whole `neovim` folder is symlinked to `~/.config/nvim` then
+  # all the metadata created by neovim will also be shown as files of the 
+  # project
+  #
+  # To avoid this unwanted behavior just sync some files/folders
+  #
   symlink "${base}/init.vim" "${HOME}/.config/nvim/init.vim"
   symlink "${base}/autoload/utils.vim" "${HOME}/.config/nvim/autoload/utils.vim"
   symlink "${base}/UltiSnips" "${HOME}/.config/nvim/UltiSnips"
   symlink "${base}/spell" "${HOME}/.config/nvim/spell"
+  symlink "${base}/config" "${HOME}/.config/nvim/config"
 
   print-step "installing plugins..."
   nvim +PlugInstall +qall
 
-  # NOTE: after install/reinstall of nvim
+  # NOTE: after the installation of nvim
   # fix for <C-h> not working well within nvim
   # see https://github.com/christoomey/vim-tmux-navigator/issues/61#issuecomment-87284887
   #

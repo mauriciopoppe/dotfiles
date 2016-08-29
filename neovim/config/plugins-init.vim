@@ -35,6 +35,10 @@ Plug 'beyondmarc/glsl.vim'
 
 " Interface {{{
 
+" thesaurus
+Plug 'beloglazov/vim-online-thesaurus'
+" colors for variables
+Plug 'jaxbot/semantic-highlight.vim'
 " CSS color highlighter
 Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'sass', 'scss', 'less'] }
 " lightline (simple status line)
@@ -48,11 +52,15 @@ Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
 Plug 'kristijanhusak/vim-hybrid-material'
 " diff sidebar
 Plug 'mhinz/vim-signify'
-" code completion
-Plug 'Shougo/deoplete.nvim'
 " syntax check
 Plug 'scrooloose/syntastic'
 
+"}}}
+
+" Deoplete sources {{{
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/neoinclude.vim'
 "}}}
 
 " Snippets {{{
@@ -62,7 +70,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " }}}
 
-" Navigation {{{"{{{
+" Navigation {{{
 
 " shortcuts
 Plug 'tpope/vim-unimpaired'
@@ -77,7 +85,7 @@ Plug 'rhysd/clever-f.vim'
 " better /
 " Plug 'haya14busa/incsearch.vim'
 Plug 'rizzatti/dash.vim'
-"}}}"}}}
+"}}}
 
 " Commands {{{
 
@@ -145,7 +153,6 @@ Plug 'kana/vim-textobj-fold'
 Plug 'chip/vim-fat-finger'
 " session management
 Plug 'tpope/vim-obsession'
-
 " }}}
 
 call plug#end()
