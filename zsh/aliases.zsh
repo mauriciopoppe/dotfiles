@@ -13,17 +13,21 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias search='ag -i $1'
 alias reload='. ~/.zshrc'
 alias http-server='live-server'
+alias catc='pygmentize -g'
+alias sha1='openssl sha1'
 
-# shortcuts and remaps
+# aliases
 alias c='clear'
 alias l.='ls -d .*'
-alias sha1='openssl sha1'
+alias npmoffline='npm --cache-min 9999999 '
+
+# remaps
 alias mkdir='mkdir -pv'
-alias catc='pygmentize -g'
 
 # tmux aliases
 # also check out `./functions` to switch/kill sessions
 alias ta='tmux attach -t'
 alias td='tmux detach'
-alias tns='tmux new-session -s'
+alias tk='tmux kill-server'
+# alias tns='tmux new-session -s'
 

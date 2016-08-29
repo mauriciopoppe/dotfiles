@@ -6,7 +6,7 @@ __warn() {
 
 # helper function to source file safely
 __safe_source() {
-  [[ -s $1 ]] && source $1 || echo "I'm not existing file: $1"
+  [[ -s $1 ]] && source $1 || echo "Trying to load '$1' but it doesn't exist"
 }
 
 ########
@@ -65,25 +65,30 @@ unset fasd_cache
 __safe_source ${HOME}/.travis/travis.sh
 
 # fzf (https://github.com/junegunn/fzf)
-__safe_source ${HOME}/.fzf.zsh
+#
+# The following line is commented because fzf adds its own on install
+# __safe_source ${HOME}/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # n (https://github.com/tj/n)
 export N_PREFIX="$HOME/n"
 [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
-if [[ ! -e ${HOME}/.envvars.rc ]]; then
-  __warn "Warning: dotfiles path is not set, verify that the file ${HOME}/.envvars.rc exists"
-else
-  source ${HOME}/.envvars.rc
-  __safe_source ${DOTFILES_DIRECTORY}/zsh/exports.zsh
-  __safe_source ${DOTFILES_DIRECTORY}/zsh/functions.zsh
-  __safe_source ${DOTFILES_DIRECTORY}/zsh/aliases.zsh
-fi
+# $DOTFILES_DIRECTORY is exported on ~/.zshenv
+# see install.sh
+__safe_source ${DOTFILES_DIRECTORY}/zsh/exports.zsh
+__safe_source ${DOTFILES_DIRECTORY}/zsh/functions.zsh
+__safe_source ${DOTFILES_DIRECTORY}/zsh/aliases.zsh
 
-# Note: rvm must be sourced last or it will complain
+# Note: rvm must be sourced last or rvm will complain
 __safe_source ${HOME}/.rvm/scripts/rvm
 
 # remove functions from the global scope
 unset -f __warn
 unset -f __safe_source
+
+# http://unix.stackexchange.com/questions/43601/how-can-i-set-my-default-shell-to-start-up-tmux
+if command -v tmux>/dev/null; then
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux
+fi
 

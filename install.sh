@@ -15,16 +15,18 @@ fi
 # executing './install.sh' won't save it since it's a script that is 
 # running as a child process
 #
-# The solution is to source ${HOME}/.envvars.rc on restart
-if [[ ! -f ${HOME}/.envvars.rc ]]; then
-  echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" > ${HOME}/.envvars.rc
+# The solution is to add an ENV var called ${DOTFILES_DIRECTORY} to .zshenv
+# see http://zsh.sourceforge.net/Intro/intro_3.html
+ZENV=$HOME/.zshenv
+if [[ ! -f $ZENV ]]; then
+  echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" > $ZENV
 else 
-  if [[ $(cat ${HOME}/.envvars.rc | grep DOTFILES_DIRECTORY) ]]; then
+  if [[ -z $(cat $ZENV | grep DOTFILES_DIRECTORY) ]]; then
     # the file exists but it doesn't have the dotfiles dir
-    echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" >> ${HOME}/.envvars.rc
+    echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" >> $ZENV
   else
     # the file exists but it's value needs to be updated
-    sed -i ${HOME}/.envvars.rc -e "s/export\sDOTFILES_DIRECTORY=.*$/export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}/"
+    sed -e "s%export DOTFILES_DIRECTORY=.*$%export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}%" $ZENV
   fi
 fi
 
@@ -37,14 +39,20 @@ export PATH=$PATH:"${DOTFILES_DIRECTORY}/bin"
 #
 cat << EOF
 
-# dotfiles installation
+#      _       _    __ _ _
+#   __| | ___ | |_ / _(_) | ___  ___
+#  / _  |/ _ \\| __| |_| | |/ _ \\/ __|
+# | (_| | (_) | |_|  _| | |  __/\\__ \\
+#  \\__,_|\\___/ \\__|_| |_|_|\\___||___/
+#
 
 Summary of operations
 
 - Dotfiles repository cloned to ${DOTFILES_DIRECTORY}
-- Added ${DOTFILES_DIRECTORY}/bin to \$PATH
+- Line "exports \$DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" added to ~/.zshenv
+- Added ${DOTFILES_DIRECTORY}/bin to \$PATH (for the current process)
 
-Note: nothing was changed yet, you need to interact with the dotfiles binary
+Note: nothing was changed/installed yet, you need to interact with the dotfiles binary
 
           $ dotfiles --help
 
