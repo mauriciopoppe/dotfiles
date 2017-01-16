@@ -24,3 +24,7 @@
 
 # vim session
 Session.vim
+
+# ctags
+tags
+

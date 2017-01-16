@@ -16,7 +16,7 @@ cat << EOF
   usage: dotfiles [<package>|essential|complete]
 
     [<package>]
-      One of: zsh|neovim|tmux|git|osx|homebrew|Iterm2|node|ruby|python|alfred
+      One of: zsh|neovim|tmux|git|ctags|osx|homebrew|Iterm2|node|ruby|python|alfred
 
     [essential]
       zsh
@@ -76,7 +76,7 @@ dotfiles-complete() {
   list=(
     homebrew 
     node ruby python 
-    git iTerm2 osx alfred
+    git ctags iTerm2 osx alfred
   )
   -dotfiles-install ${list}
 }
