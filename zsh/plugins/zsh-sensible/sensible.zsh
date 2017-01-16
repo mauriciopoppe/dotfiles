@@ -1,0 +1,69 @@
+# man zshoptions
+
+########################
+# changing directories #
+########################
+
+# push old dir onto the dir stack
+setopt auto_pushd
+
+##############
+# completion #
+##############
+
+# enable menu completion on second consecutive request for completion (tab * 2)
+setopt automenu
+
+###########
+# history #
+###########
+
+# history sane defaults
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
+# zsh sessions will append history list to the history file, rather than replace it
+setopt append_history
+# save timestamp and the duration to the history file
+setopt extended_history
+# ignore duplicates
+setopt hist_ignore_dups
+# ignore commands that start with space
+setopt hist_ignore_space
+# perform history expansion first
+setopt hist_verify
+# append history lines incrementally rather than waiting for the shell to exit
+setopt inc_append_history
+# import/export history lines to the current zsh session
+setopt share_history
+
+################
+# input/output #
+################
+
+# try to correct the spelling of commands
+setopt correct
+# wait ten second to execute a `rm *` command
+setopt rm_star_wait
+
+#########
+# theme #
+#########
+
+export KEYTIMEOUT=1
+autoload -U promptinit; promptinit
+prompt pure
+
+###############################
+# zsh line editing mode (zle) #
+###############################
+
+# bindkey -v
+
+# forward-delete char on osx with fn + delete
+bindkey "^[[3~" delete-char
+
+# move between words with alt + <-, alt + ->
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+

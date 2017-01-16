@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+########
+# init #
+########
+
 __warn() {
   printf "$(tput setaf 136)! %s(tput sgr0)" "$@"
 }
@@ -9,34 +13,49 @@ __safe_source() {
   [[ -s $1 ]] && source $1 || echo "Trying to load '$1' but it doesn't exist"
 }
 
-########
-# init #
-########
+# fix colors when running tmux inside zsh
+export TERM=xterm-256color
+[ -n "$TMUX" ] && export TERM=screen-256color
 
-# zsh options
-# better handling of history duplicates
-setopt HIST_IGNORE_ALL_DUPS
-# 10 second wait if you do something that will delete everything
-setopt RM_STAR_WAIT
+# italic font on terminal
+# export TERM=xterm-256color-italic
+# [ -n "$TMUX" ] && export TERM=screen-256color-italic
 
 #########
 # zplug #
 #########
 
-source ${HOME}/.zplug/zplug
+# Check if zplug is installed
+export ZPLUG_HOME=~/.zplug
+if [[ ! -d $ZPLUG_HOME ]]; then
+  git clone https://github.com/zplug/zplug $ZPLUG_HOME
+fi
+source $ZPLUG_HOME/init.zsh && zplug update --self
+
+# NOTE: $DOTFILES_DIRECTORY is defined in .zshenv
+zplug "$DOTFILES_DIRECTORY/zsh/plugins/zsh-sensible", from:local
+
+# TODO: fix permissions on this project bin folder
+# workaround: save file in nvim with :w!
+zplug "$DOTFILES_DIRECTORY/zsh/plugins/bookmark", \
+  as:command, \
+  hook-build:"chmod +x bin/*", \
+  use:"bin/*", \
+  from:local
 
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-completions"
 zplug "djui/alias-tips"
-zplug "b4b4r07/enhancd", of:enhancd.sh
-zplug "junegunn/fzf", do:"./install"
+zplug "b4b4r07/enhancd", use:enhancd.sh
+zplug "junegunn/fzf", hook-build:"./install"
 
-zplug "plugins/dirhistory", from:"oh-my-zsh"
-zplug "plugins/git", from:"oh-my-zsh"
+# zplug "plugins/dirhistory", from:"oh-my-zsh"
+# zplug "plugins/git", from:"oh-my-zsh"
 zplug "plugins/osx", from:"oh-my-zsh"
 
-zplug "mafredri/zsh-async"
-zplug "sindresorhus/pure"
+# prompt
+# zplug "mafredri/zsh-async"
+# zplug "sindresorhus/pure"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -66,7 +85,8 @@ __safe_source ${HOME}/.travis/travis.sh
 
 # fzf (https://github.com/junegunn/fzf)
 #
-# The following line is commented because fzf adds its own on install
+# The following line is commented because fzf checks with the following line 
+# on install
 # __safe_source ${HOME}/.fzf.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -86,9 +106,4 @@ __safe_source ${HOME}/.rvm/scripts/rvm
 # remove functions from the global scope
 unset -f __warn
 unset -f __safe_source
-
-# http://unix.stackexchange.com/questions/43601/how-can-i-set-my-default-shell-to-start-up-tmux
-if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux
-fi
 
