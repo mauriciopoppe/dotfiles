@@ -1,0 +1,22 @@
+# ----------------------------------------------------
+#          FILE:  zshmarks.plugin.zsh
+#   DESCRIPTION:  oh-my-zsh plugin file.
+#        AUTHOR:  Jocelyn Mallon
+#       VERSION:  1.7.0
+# ----------------------------------------------------
+
+# Set BOOKMARKS_FILE if it doesn't exist to the default.
+# Allows for a user-configured BOOKMARKS_FILE.
+if [[ -z $BOOKMARKS_FILE ]] ; then
+  export BOOKMARKS_FILE="$DOTFILES_DIRECTORY/zsh/plugins/bookmark/bookmarks.data"
+fi
+
+cat $BOOKMARKS_FILE
+
+# bookmark_file="$(<"$BOOKMARKS_FILE")"
+# bookmark_array=(${(f)bookmark_file})
+# for bookmark_line in $bookmark_array; do
+#   printf "%s\n" "$bookmark_line"
+# done
+
+# vim: set ft=zsh

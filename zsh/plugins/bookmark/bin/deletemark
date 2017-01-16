@@ -1,0 +1,27 @@
+# ----------------------------------------------------
+#          FILE:  zshmarks.plugin.zsh
+#   DESCRIPTION:  oh-my-zsh plugin file.
+#        AUTHOR:  Jocelyn Mallon
+#       VERSION:  1.7.0
+# ----------------------------------------------------
+set -e
+
+# Set BOOKMARKS_FILE if it doesn't exist to the default.
+# Allows for a user-configured BOOKMARKS_FILE.
+if [[ -z $BOOKMARKS_FILE ]] ; then
+  export BOOKMARKS_FILE="$DOTFILES_DIRECTORY/zsh/plugins/bookmark/bookmarks.data"
+fi
+
+# bookmark definition is just the current dir
+cur_dir="$(pwd)"
+bookmark="$cur_dir"
+
+if [[ -z $(grep "^$bookmark$" $BOOKMARKS_FILE 2>/dev/null) ]]; then
+  echo "Directory '$bookmark' is not bookmarked"
+  exit 1
+else
+  sed -i .bak "\%$bookmark%d" $BOOKMARKS_FILE
+  echo "bookmark deleted"
+fi
+
+# vim: set ft=zsh
