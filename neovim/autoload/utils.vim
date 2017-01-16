@@ -3,19 +3,23 @@
 "   http://vimcasts.org/episodes/tidying-whitespace/
 function! utils#preserve(command)
   " Preparation: save last search, and cursor position.
-  let _s=@/
+  " let _s=@/
   let l = line(".")
   let c = col(".")
   " Do the business:
-  execute a:command
+  execute 'keeppatterns ' . a:command
   " Clean up: restore previous search history, and cursor position
-  let @/=_s
+  " let @/=_s
   call cursor(l, c)
+endfunction
+
+function! utils#whitespace()
+  call utils#preserve("%s/\\s\\+$//e")
 endfunction
 
 "jump to last cursor position when opening a file
 "dont do it when writing a commit log entry
-function! utils#cursorJumpToLastPosition()
+function! utils#cursorJumpToLastPosition()    
   if &filetype !~ 'svn\|commit\c'
     if line("'\"") > 0 && line("'\"") <= line("$")
       exe "normal! g`\""
@@ -71,4 +75,11 @@ function! utils#runLastCommand()
   call VimuxSendText('!!')
   call VimuxSendKeys("Enter Enter")
 endfunction
+
+" Simple re-format for minified Javascript
+function! utils#UnMinify()
+  " requires js-beautify
+  execute "!js-beautify --replace --indent-size 2 -a %"
+endfunction
+command! UnMinify call utils#UnMinify()
 

@@ -1,6 +1,6 @@
 " Global mappings {{{
 
-" spacebar is my leader
+" space is my leader
 let g:mapleader="\<Space>"
 
 " Release keymappings for plug-in.
@@ -8,12 +8,16 @@ nnoremap <Space>  <Nop>
 xnoremap <Space>  <Nop>
 "}}}
 
-" set augroup "{{{
+" plugin-pre {{{
+
+" set up my-auto-cmd
 augroup mine
   au!
-  " NOTE: glsl var set here because if set on the plugin-keys file it doesn't work
-  let g:glsl_file_extensions = '*.glsl,*.vert,*.frag'
 augroup END
+
+" NOTE: glsl extensions must be set before the plugin is initialized
+let g:glsl_file_extensions = '*.glsl,*.vert,*.frag'
+
 "}}}
 
 " Disable pre-bundled plugins {{{

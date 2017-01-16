@@ -7,10 +7,10 @@ endfunction
 
 " plug initialization
 call s:source_file('base.vim')
-call s:source_file('plugins-init.vim')
+call s:source_file('plugin-init.vim')
 call s:source_file('general.vim')
-call s:source_file('plugins-keys.vim')
-call s:source_file('keys.vim')
+call s:source_file('plugin-key-bindings.vim')
+call s:source_file('key-bindings.vim')
 call s:source_file('theme.vim')
 call s:source_file('autocommand.vim')
 

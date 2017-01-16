@@ -22,7 +22,8 @@ set scrolloff=5
 " allow positioning the cursor in places where there is no characters
 set virtualedit=block
 " time to send the CursorHold autocommand event
-set updatetime=700
+" NOTE: set on ./autocommand.vim
+" set updatetime=700
 " read file changes on update
 set autoread
 " write the contents of a the file if it was modified because of some vim commands
@@ -126,8 +127,12 @@ set fillchars="fold: "
 
 " complete also from dictionary
 set complete+=kspell
+" set the same default (menu,preview)
+set completeopt="menu,preview"
 " insert the longest common text of the matches
 set completeopt+=longest
+" avoid creating another buffer with the preview
+set completeopt-=preview
 
 " note set wildmenu is set by default
 set wildignore+=*vim/backups*

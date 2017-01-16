@@ -1,24 +1,22 @@
-" Remap of defaults {{{
+" Defaults remap {{{
+
 " treat long lines as break lines
-noremap j gj
-noremap k gk
-
-" movement inside a line 
-" ˙ = alt + h (move to the beginning of the line)
-noremap ˙ ^
-" ¬ = alt + l (move to the end of the line)
-noremap ¬ $
-
-" newline above/below the current doesn't put into insert mode
-noremap <Enter> o<ESC>
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 
 " when jumping to the next match on search center the screen
-noremap n nzz
-noremap N Nzz
+nnoremap n nzz
+nnoremap N Nzz
 
 " when jumping forward/backward center the screen
 nnoremap <C-f> <C-f>zz
 nnoremap <C-b> <C-b>zz
+
+" when deleting, don't use the same registy as yank
+" nnoremap d "xd
+" vnoremap d "xd
 
 " move to the end of the pasted text on copy/paste
 vnoremap y y`]
@@ -32,6 +30,7 @@ xnoremap c "xc
 nnoremap cw ce
 nnoremap dw de
 
+" <C-c> to exit from any mode to normal mode
 imap <C-c> <ESC>
 vmap <C-c> <ESC>
 nmap <C-c> <ESC>
@@ -53,11 +52,16 @@ nnoremap U :redo<CR>
 " paste from the system clipboard
 map <Leader>p :set paste<CR>"*]p:set nopaste<cr>
 
-" higlight last inserted text
-nnoremap gV `[v`]
+" start an external command with a single bang
+nnoremap ! :!
 
-" insert tab with <S-Tab>
-inoremap <S-Tab> <C-V><Tab>
+" keep the selection after an indent operation
+vnoremap > >gv|
+vnoremap < <gv
+
+" quick way to reload vim
+nnoremap <leader>sv :so $MYVIMRC<CR>
+
 " }}}
 
 " Panes and buffers {{{
@@ -86,9 +90,33 @@ nnoremap <silent> ˚ :m .-2<CR>==
 vnoremap <silent> ∆ :m '>+1<CR>gv=gv
 vnoremap <silent> ˚ :m '<-2<CR>gv=gv
 
-" keep the selection after an indent operation
-vnoremap > >gv
-vnoremap <LT> <LT>gv
+" movement inside a line 
+" ˙ = alt + h (move to the beginning of the line)
+nnoremap ˙ ^
+" ¬ = alt + l (move to the end of the line)
+nnoremap ¬ $
+
+function! DeleteInactiveBufs()
+  "From tabpagebuflist() help, get a list of all buffers in all tabs
+  let tablist = []
+  for i in range(tabpagenr('$'))
+    call extend(tablist, tabpagebuflist(i + 1))
+  endfor
+
+  "Below originally inspired by Hara Krishna Dara and Keith Roberts
+  "http://tech.groups.yahoo.com/group/vim/message/56425
+  let nWipeouts = 0
+  for i in range(1, bufnr('$'))
+    if bufexists(i) && !getbufvar(i,"&mod") && index(tablist, i) == -1
+      "bufno exists AND isn't modified AND isn't in the list of buffers open in windows and tabs
+      silent exec 'bwipeout' i
+      let nWipeouts = nWipeouts + 1
+    endif
+  endfor
+  echomsg nWipeouts . ' buffer(s) wiped out'
+endfunction
+command! Bdi :call DeleteInactiveBufs()
+command! Only :call DeleteInactiveBufs()
 
 " }}}
 

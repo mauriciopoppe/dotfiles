@@ -12,11 +12,11 @@ NeoVim's configuration
 
 Essential mappings that I should always use
 
-- <kbd>C-c</kbd> exit to normal mode (remapped in `init.vim`)
+- <kbd>C-c</kbd> exit to normal mode
 - <kbd>.</kbd> repeats the last change
 - <kbd>fx</kbd>, <kbd>Fx</kbd> finds `x` forward/backward in the current line, next occurrences are found with <kbd>f</kbd> and <kbd>F</kbd>
 - <kbd>/</kbd>, <kbd>?</kbd> to search forward/backward
-- <kbd>&#36;</kbd>, <kbd>_</kbd> to move to last/first character in the line
+- <kbd>6;</kbd>, <kbd>_</kbd> to move to last/first character in the line
 - <kbd>u</kbd>, <kbd>U</kbd> to undo/redo
 
 ### Normal mode
@@ -32,7 +32,7 @@ Essential mappings that I should always use
 - <kbd>C-o</kbd> `command` executes `command` and return to Insert Mode
 - <kbd>C-w</kbd> deletes a word before the cursor
 - <kbd>C-u</kbd> deletes all the inserted characters in the current line
-- <kbd>C-t</kbd> indents the line
+- <kbd>C-t, C-d</kbd> line indentation
 - <kbd>S-←</kbd>, <kbd>S-→</kbd> moves to the previous/next word
 
 ### Visual mode `:h visual-operators`
@@ -44,18 +44,48 @@ Enter visual block mode with <kbd>C-v</kbd>
 - <kbd>_</kbd> <kbd>I</kbd> Prepend text in front of all the selected lines
 - <kbd>&#36;</kbd> <kbd>A</kbd> Append text in front of all the selected lines
 
-### Command mode
+### Command-line mode
 
 - `:!{command}` execute `command` with a shell
 - `:r !command` executes an external `command` and inserts its standard output below the cursors of the specified line
 - `:le`, `:ce`, `:ri` left, center, right the line
 
+## Day to day tasks
+
 ### Search and replace `:h usr_27` `:h find-replace`
 
-- `:s/{pattern}/string/[gc]` substitute `pattern` by `string`, with `[g]` replace all occurrences, with `[c]` confirm each replacement
-  - `/<\the`, `/the\>` matches words that start/end in `the`
-  - `/^the`, `/the$` matches lines that are exactly `the`
-  - `/<\the\>` matches words that are exactly `the`
+- `:[range]s/{pattern}/{string}/[flags]` substitute `pattern` with `string`
+  - `[range]` examples 
+    - `(empty)` current line
+    - `1,3` between the lines 1 and 3
+    - `%` entire file
+  - `{pattern}` examples
+    - `the` exact match
+    - `/<\the`, `/the\>` matches words that start/end in `the`
+    - `/^the`, `/the$` matches lines that are exactly `the`
+    - `/<\the\>` matches words that are exactly `the`
+  - Common flags
+    - `g` all occurrences in the line
+    - `c` confirm with prompt
+    - `e` don't issue an error message
+    - `i` ignore case
+  - Important notes
+    - if the pattern/string contain the char `/` we can use another character to separate the words e.g. `:[range]s%{pattern}%{string}%[flags]` 
+
+Selectively search and replace in a single file
+
+- Search a pattern with `/` or `/\<WORD>\>`
+- Replace the occurrence with `cgn{replace}` (`gn` search forward for the last used pattern)
+- Find next `n` and decide to apply the same operation with `.`
+
+Search and replace in multiple files
+
+- Load all files as vim arguments with `:args **`
+- Execute the substitution with `:argdo`
+
+```VimL
+:argdo %s/hello/world/gec | update
+```
 
 ### Spelling
 
@@ -74,15 +104,10 @@ A fold has the form
 " }}}
 ```
 
-- Create a fold <kbd>zf</kbd>
+- Create a fold <kbd>zf</kbd> (works with seletions too)
 - Toggle fold open/close <kbd>za</kbd>
 - Expand all folds <kbd>zR</kbd>
 - Collapse all folds <kbd>zM</kbd>
-
-### Day to day tasks
-
-- TODO: replace in multiple files
-- TODO: refactor (variables and methods)
 
 ## Manuals
 
