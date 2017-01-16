@@ -41,6 +41,9 @@ main() {
     ghrepo                    # initializes a github repo
     budo                      # minimalistic server that browserifies index.js
     trash-cli                 # safe alternative to rm
+    gzip-size-cli             # gzip size
+    pretty-bytes-cli          # display size for humans
+    typescript
 
     # build system/module bundlers
     browserify
