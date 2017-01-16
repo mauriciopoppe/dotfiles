@@ -12,7 +12,7 @@ main() {
 
   print-step "brew bundle"
 
-  brew bundle --file=$DOTFILES_DIRECTORY/homebrew/Brewfile
+  brew bundle --verbose --file=$DOTFILES_DIRECTORY/homebrew/Brewfile
 }
 
 main $@
