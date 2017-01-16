@@ -30,7 +30,7 @@ dotfiles --help
 | Important notes about the installer |
 | ---- |
 | make sure you read the `install.zsh` script and the README file included on each directory before executing `$ dotfiles <command>` |
-| executing `$ dotfiles <command>` might symlink some files of this repo to your dotfiles, this script makes a backup of your existing dotfiles with the name `[name].backup` |
+| executing `$ dotfiles <command>` might symlink some files of this repo to your dotfiles, this script makes a backup of already existing files as `[name].backup` |
 
 For example if you want to install my configuration of tmux execute
 
@@ -56,14 +56,14 @@ dotfiles complete
 
 ### Post installation
 
-#### General
-
 - Remap <kbd>caps lock</kbd> to <kbd>control</kbd> *preferences > keyboard > modifier keys*
 - Install your desired powerline from from [powerline/fonts](https://github.com/powerline/fonts) (I'm currently using *Inconsolata dz, 12px, line spacing 0.8*)
 
 ```sh
 curl -O https://rawgit.com/powerline/fonts/master/InconsolataDz/Inconsolata-dz%20for%20Powerline.otf && open Inconsolata-dz%20for%20Powerline.otf
 ```
+
+- NTFS support: http://www.howtogeek.com/236055/how-to-write-to-ntfs-drives-on-a-mac/
 
 #### Terminal
 
