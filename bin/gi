@@ -1,0 +1,4 @@
+#!/bin/bash
+curl https://www.gitignore.io/api/$@
+
+# vi: set ft=bash

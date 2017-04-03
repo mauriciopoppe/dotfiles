@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# [f]ile [e]dit
+#
+#     $ fe [fuzzy pattern]
+#
+# Opens the default file with the default editor
+#   - Bypass fuzzy finder if there's only one match
+#   - Exit if there's no match
+#
+FILE=$(fzf --query="$1" --select-1 --exit-0)
+[[ -n "$FILE" ]] && ${EDITOR:-vim} "$FILE"
+
+# vim: set ft=bash

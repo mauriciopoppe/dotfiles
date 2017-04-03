@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Kills a session
+#
+#   $ tks [fuzzy pattern]
+#
+# - Bypass fuzzy finder if there's only one match
+# - Exit if there's no match
+TMUX_SESSION=$(tmux list-sessions -F "#{session_name}" |\
+    fzf-tmux --query="$1" --select-1 --exit-0)
+[[ -n $TMUX_SESSION ]] && tmux kill-session -t "$TMUX_SESSION"
+
+# vim: set ft=bash
