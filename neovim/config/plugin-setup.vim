@@ -30,24 +30,25 @@ Plug 'junegunn/limelight.vim'
 " search/display lists
 Plug 'Shougo/denite.nvim'
 
-"
 " Note: unite-source-file_rec/async depends on vimproc
-" Plug 'Shougo/unite.vim' | Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-" " history yank
-" Plug 'Shougo/neoyank.vim'
-" " most recently used files
-" Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite.vim' | Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+" history yank
+Plug 'Shougo/neoyank.vim'
+" most recently used files
+Plug 'Shougo/neomru.vim'
 
-" " Unite sources {{{
-" " show method definitions (like ctags but with unite)
-" Plug 'Shougo/unite-outline'
-" " most recently used files
-" Plug 'tsukkee/unite-tag'
-" " quickfix and location_list
-" Plug 'chemzqm/unite-location'
-" " filesystem exploration (depends on unite)
-" Plug 'Shougo/vimfiler.vim'
+" Unite sources {{{
+" show method definitions (like ctags but with unite)
+Plug 'Shougo/unite-outline'
+" most recently used files
+Plug 'tsukkee/unite-tag'
+" quickfix and location_list
+Plug 'chemzqm/unite-location'
+" filesystem exploration (depends on unite)
+Plug 'Shougo/vimfiler.vim'
 " }}}
+
+" Plug 'scrooloose/nerdtree'
 
 " FZF {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -147,9 +148,8 @@ Plug 'tpope/vim-repeat'
 Plug 'dhruvasagar/vim-table-mode'
 " FastFold
 Plug 'Konfekt/FastFold'
-" vimwiki
-" Plug 'vimwiki/vimwiki'
-" Plug 'vitalk/vim-simple-todo'
+" indentation heuristics
+Plug 'tpope/vim-sleuth'
 
 " Text objects {{{
 

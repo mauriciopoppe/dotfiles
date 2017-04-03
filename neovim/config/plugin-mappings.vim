@@ -1,6 +1,8 @@
 " Interface  {{{
 
 if utils#hasPlugin('denite.nvim') "{{{
+  source $VIMPATH/config/plugins/denite.vim
+
   nnoremap <silent><LocalLeader>r :<C-u>Denite -resume<CR>
   nnoremap <silent><LocalLeader>f :<C-u>Files .<CR>
   nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file_old -default-action=switch<CR>
@@ -30,9 +32,69 @@ if utils#hasPlugin('denite.nvim') "{{{
     let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
     let @s = temp
   endfunction "}}}
-
-
 endif
+" }}}
+
+if utils#hasPlugin('vimfiler.vim') " {{{
+  source $VIMPATH/config/plugins/vimfiler.vim
+endif
+" }}}
+
+if utils#hasPlugin('deoplete.nvim') " {{{
+  " let g:deoplete#enable_at_startup=1
+  " let g:deoplete#enable_smart_case=1
+  " let g:deoplete#max_list=30
+
+  " " Redraw candidates
+  " inoremap <expr><C-l> deoplete#mappings#refresh()
+
+  " " Disable deoplete on vim-multiple-cursors
+  " function g:Multiple_cursors_before()
+  "   let g:deoplete#disable_auto_complete = 1
+  " endfunction
+  " function g:Multiple_cursors_after()
+  "   let g:deoplete#disable_auto_complete = 0
+  " endfunction
+
+  " " quiet messages in auto completion
+  " if has("patch-7.4.314")
+  "   set shortmess+=c
+  " endif
+
+  " if !exists('g:deoplete#omni#input_patterns')
+  "   let g:deoplete#omni#input_patterns = {}
+  " endif
+
+  " " let g:deoplete#omni#functions = {}
+  " " let g:deoplete#omni#functions['javascript'] = [
+  " "     \ 'tern#Complete'
+  " "     \]
+
+  " if !exists('g:deoplete#ignore_sources')
+  "   let g:deoplete#ignore_sources = {}
+  " endif
+  " let g:deoplete#ignore_sources['html'] = ['omni']
+
+  " if !exists('g:deoplete#sources')
+  "   let g:deoplete#sources = {}
+  " endif
+  " let g:deoplete#sources['javascript.jsx'] = ['file', 'ternjs', 'ultisnips']
+  " source $VIMPATH/config/plugins/deoplete.vim
+endif
+" }}}
+
+if utils#hasPlugin('fzf.vim')
+  " let g:fzf_files_options = '--reverse'
+  let g:fzf_files_options =
+    \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+  let g:fzf_buffers_jump = 1
+endif
+
+
+if utils#hasPlugin('lightline.vim')
+  source $VIMPATH/config/plugins/lightline.vim
+endif
+
 " }}}
 
 " }}}
@@ -98,7 +160,10 @@ endif
 
 "}}}
 if utils#hasPlugin('goyo.vim') "{{{
+
+  " trigger
   nnoremap <Leader>G :Goyo<CR>
+
   " s:goyo_enter() "{{{
   " Disable visual candy in Goyo mode
   function! s:goyo_enter()
@@ -283,6 +348,11 @@ endif
 if utils#hasPlugin('dsf.vim') "{{{
   nmap dsf <Plug>DsfDelete
   nmap csf <Plug>DsfChange
+endif
+
+"}}}
+if utils#hasPlugin('typescript-vim') "{{{
+  let g:typescript_indent_disable = 1
 endif
 
 "}}}

@@ -59,7 +59,7 @@ function! s:vimfiler_settings()
   nmap <buffer> i      <Plug>(vimfiler_switch_to_history_directory)
   nmap <buffer> <C-r>  <Plug>(vimfiler_redraw_screen)
 endfunction
-autocmd mine FileType vimfiler call s:vimfiler_settings()
+autocmd FileType vimfiler call s:vimfiler_settings()
 
 " }}}
 

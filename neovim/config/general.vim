@@ -34,7 +34,6 @@ set autowriteall
 " show incomplete commands
 set noshowcmd
 " height of the command line
-set cmdheight=2
 set cmdwinheight=5
 set noequalalways
 set laststatus=2
@@ -77,7 +76,7 @@ set nowrap
 " wrap long lines (doesn't change what's on the buffer)
 set linebreak
 " Long lines break chars
-set breakat=\ \  ;:,!?
+set breakat=\ \	;:,!?
 " Cursor in same column for few commands
 set nostartofline
 " Diff mode: show fillers, ignore white
