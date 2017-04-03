@@ -3,13 +3,13 @@
 "   http://vimcasts.org/episodes/tidying-whitespace/
 function! utils#preserve(command)
   " Preparation: save last search, and cursor position.
-  " let _s=@/
+  let _s=@/
   let l = line(".")
   let c = col(".")
   " Do the business:
   execute 'keeppatterns ' . a:command
   " Clean up: restore previous search history, and cursor position
-  " let @/=_s
+  let @/=_s
   call cursor(l, c)
 endfunction
 
@@ -19,7 +19,7 @@ endfunction
 
 "jump to last cursor position when opening a file
 "dont do it when writing a commit log entry
-function! utils#cursorJumpToLastPosition()    
+function! utils#cursorJumpToLastPosition()
   if &filetype !~ 'svn\|commit\c'
     if line("'\"") > 0 && line("'\"") <= line("$")
       exe "normal! g`\""
@@ -27,49 +27,14 @@ function! utils#cursorJumpToLastPosition()
   end
 endfunction
 
-" creates html <kbd> tags out of vim's key combinations
-"
-" input:
-"
-"     noremap <C-y>,
-"               |
-"             cursor
-"
-" output:
-"
-"     <kbd>C-y</kbd> <kbd>,</kbd>
-"
-function! utils#kbd()
-  let tokens = split(expand("<cWORD>"), '\zs')
-  let keys = []
-  let ltopen = 0
-  let current = ""
-  for letter in tokens
-    if letter == "<"
-      let ltopen = 1
-    elseif letter == ">"
-      let ltopen = 0
-    else
-      let current .= letter
-    endif
-    if ltopen == 0
-      let keys = add(keys, "<kbd>" . current . "</kbd>")
-      let current = ""
-    endif
-  endfor
-  let joined = join(keys)
-  execute 'normal! ciW'.joined
-endfunction
-
 function! utils#standardFormat()
-  execute "!standard-format --write %" 
+  execute "!standard-format --write %"
 endfunction
 
 function! utils#runLastCommand()
   if !exists("g:VimuxRunnerIndex") || _VimuxHasRunner(g:VimuxRunnerIndex) == -1
     call VimuxOpenRunner()
   endif
-
   let resetSequence = _VimuxOption("g:VimuxResetSequence", "q C-u")
   call VimuxSendKeys(resetSequence)
   call VimuxSendText('!!')
@@ -77,9 +42,29 @@ function! utils#runLastCommand()
 endfunction
 
 " Simple re-format for minified Javascript
-function! utils#UnMinify()
+function! utils#UnMinifyJavascript()
   " requires js-beautify
   execute "!js-beautify --replace --indent-size 2 -a %"
 endfunction
 command! UnMinify call utils#UnMinify()
 
+function! utils#execScript()
+  if !exists("g:VimuxRunnerIndex") || _VimuxHasRunner(g:VimuxRunnerIndex) == -1
+    call VimuxOpenRunner()
+  endif
+  let resetSequence = _VimuxOption("g:VimuxResetSequence", "q C-u")
+  call VimuxSendKeys(resetSequence)
+  update
+  if (&ft=~'javascript')
+    VimuxRunCommand('clear; node ' . expand('%:p'))
+  endif
+  if (&ft=~'python')
+    VimuxRunCommand('clear; python3 ' . expand('%:p'))
+  endif
+endfunction
+command! ExecScript call utils#execScript()
+
+function! utils#hasPlugin(repo) abort
+  let name = fnamemodify(a:repo, ':t:s?\.git$??')
+  return has_key(g:plugs, name)
+endfunction

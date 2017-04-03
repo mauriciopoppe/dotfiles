@@ -14,12 +14,12 @@ __safe_source() {
 }
 
 # fix colors when running tmux inside zsh
+# export TERM=xterm-256color
+# export TERM=xterm-256color-italic
+
 export TERM=xterm-256color
 [ -n "$TMUX" ] && export TERM=screen-256color
-
-# italic font on terminal
-# export TERM=xterm-256color-italic
-# [ -n "$TMUX" ] && export TERM=screen-256color-italic
+alias nvim="TERM=xterm-256color-italic nvim"
 
 #########
 # zplug #
@@ -85,7 +85,7 @@ __safe_source ${HOME}/.travis/travis.sh
 
 # fzf (https://github.com/junegunn/fzf)
 #
-# The following line is commented because fzf checks with the following line 
+# The following line is commented because fzf checks with the following line
 # on install
 # __safe_source ${HOME}/.fzf.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -98,7 +98,7 @@ export N_PREFIX="$HOME/n"
 # see install.sh
 __safe_source ${DOTFILES_DIRECTORY}/zsh/exports.zsh
 __safe_source ${DOTFILES_DIRECTORY}/zsh/functions.zsh
-__safe_source ${DOTFILES_DIRECTORY}/zsh/aliases.zsh
+__safe_source ${DOTFILES_DIRECTORY}/zsh/aliases.sh
 
 # Note: rvm must be sourced last or rvm will complain
 __safe_source ${HOME}/.rvm/scripts/rvm

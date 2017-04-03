@@ -19,7 +19,8 @@ main() {
     "https://github.com/packal/repository/raw/master/net.deanishe.alfred-convert/convert-2.5.alfredworkflow"
     "https://github.com/packal/repository/raw/master/com.eunjae.alfred.simpletimer/simple_timer.alfredworkflow"
     "https://raw.github.com/willfarrell/alfred-github-workflow/master/Github.alfredworkflow"
-    "https://github.com/packal/repository/raw/master/com.groenewege.faker/faker.alfredworkflow"
+    "https://github.com/packal/repository/raw/master/com.groenewege.faker/faker.alfredworkflow",
+    "https://github.com/shawnrice/alfred-2-caffeinate-workflow/raw/master/Caffeinate%20Control.alfredworkflow"
   )
 
   for workflow in $workflows; do

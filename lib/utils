@@ -1,51 +1,33 @@
 #!/bin/zsh
 
-# Header logging
-print-header() {
-  printf "\n$(tput setaf 15)%s$(tput sgr0)\n\n" "$@"
-}
-
-print-step() {
-  printf "$(tput setaf 15)  %s$(tput sgr0)\n" "$@"
-}
-
-print-message() {
-  printf "$(tput setaf 5)    %s$(tput sgr0)\n" "$@"
-}
-
-# Success logging
-print-success() {
-  printf "$(tput setaf 64)Success: %s$(tput sgr0)%s\n" "$@"
-}
-
-# Error logging
-print-error() {
-  printf "$(tput setaf 1)Error: %s$(tput sgr0)%s\n" "$@"
-}
-
-# Warning logging
-print-warning() {
-  printf "$(tput setaf 136)Warning: $(tput sgr0)%s\n" "$@"
-}
-
 command-exists() {
   type $1 > /dev/null
 }
 
-formula-exists() {
-  if ! command-exists "brew"; then
-    print-error "make sure that 'brew' is installed"
-  else
-    brew list $1 > /dev/null
+is-macos() {
+  [[ $OSTYPE =~ ^darwin ]] || return 1
+}
+
+is-macos() {
+  [[ $OSTYPE =~ ^linux ]] || return 1
+}
+
+add-unique-line-to-file() {
+  local line=${1}
+  local file=${2}
+  if [[ -z $(cat $file | grep $line) ]]; then
+    print-success "appending line to $file"
+    echo "# updated by add-unique-line-to-file" >> $file
+    echo $line >> $file
   fi
 }
 
-cask-exists() {
-  if ! command-exists "brew"; then
-    print-error "make sure that 'brew' is installed"
-  else
-    brew cask list $1 > /dev/null
-  fi
+restart-shell() {
+  printf "\n"
+  print-message "restart your session to load the new settings"
+  printf "\n\t"
+  print-message "$ source ~/.zshrc"
+  printf "\n"
 }
 
 symlink() {
@@ -57,6 +39,7 @@ symlink() {
   local src=${1:a}
   local tgt=${2:a}
 
+  echo $src
   if [[ ! -e $src ]]; then
     print-warning "the file ${src} does not exist, aborting"
     return 1

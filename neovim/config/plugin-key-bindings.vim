@@ -225,59 +225,6 @@ endfunction
 
 " inoremap <silent> <C-s> <C-R>=(pumvisible()? "\<LT>C-s>":"")<CR><C-R>=UltiSnipsCallUnite()<CR>
 
-" Shougo/denite {{{
-
-" " Change file_rec command.
-" call denite#custom#var('file_rec', 'command',
-" \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-" " For ripgrep
-" " Note: It is slower than ag
-" call denite#custom#var('file_rec', 'command',
-" \ ['rg', '--files'])
-" " Change mappings.
-" call denite#custom#map('_', "\<C-j>", 'move_to_next_line')
-" call denite#custom#map('_', "\<C-k>", 'move_to_prev_line')
-" " Change matchers.
-" call denite#custom#source(
-" \ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-" call denite#custom#source(
-" \ 'file_rec', 'matchers', ['matcher_cpsm'])
-" " Add custom menus
-" let s:menus = {}
-" let s:menus.zsh = {
-"         \ 'description': 'Edit your import zsh configuration'
-"         \ }
-" let s:menus.zsh.file_candidates = [
-"         \ ['zshrc', '~/.config/zsh/.zshrc'],
-"         \ ['zshenv', '~/.zshenv'],
-"         \ ]
-" let s:menus.my_commands = {
-"         \ 'description': 'Example commands'
-"         \ }
-" let s:menus.my_commands.command_candidates = [
-"         \ ['Split the window', 'vnew'],
-"         \ ['Open zsh menu', 'Denite menu:zsh'],
-"         \ ]
-" call denite#custom#var('menu', 'menus', s:menus)
-" " Ack command on grep source
-" call denite#custom#var('grep', 'command', ['ack'])
-" call denite#custom#var('grep', 'recursive_opts', [])
-" call denite#custom#var('grep', 'final_opts', [])
-" call denite#custom#var('grep', 'separator', [])
-" call denite#custom#var('grep', 'default_opts',
-"                 \ ['--ackrc', $HOME.'/.ackrc', '-H',
-"                 \ '--nopager', '--nocolor', '--nogroup', '--column'])
-" " Ripgrep command on grep source
-" call denite#custom#var('grep', 'command', ['rg'])
-" call denite#custom#var('grep', 'recursive_opts', [])
-" call denite#custom#var('grep', 'final_opts', [])
-" call denite#custom#var('grep', 'separator', ['--'])
-" call denite#custom#var('grep', 'default_opts',
-"   \ ['--vimgrep', '--no-heading']
-
-" }}}
-
-
 " }}}
 
 " FZF {{{
@@ -305,6 +252,10 @@ let g:vimfiler_ignore_pattern = [
       \ '^\.sass-cache$',
       \ '^\.idea$',
       \ '^\.vagrant$',
+      \ '^\.cache$',
+      \ '^__pycache__$',
+      \ '^venv$',
+      \ '\.pyc$',
       \ '^node_modules$']
 
 let g:vimfiler_force_overwrite_statusline = 0
@@ -454,7 +405,7 @@ if g:tern_path != 'tern not found'
   let g:deoplete#sources#ternjs#tern_bin = g:tern_path
 endif
 let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = '0' 
+let g:tern_show_signature_in_pum = '0'
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
 
@@ -463,42 +414,10 @@ let g:tern#arguments = ["--persistent"]
 
 " }}}
 
-" neomake {{{
-
-" let g:neomake_open_list = 2
-" let g:neomake_typescript_enabled_makers = ['tsc', 'tslint']
-" let g:neomake_verbose=3
-" let g:neomake_logfile='/tmp/error.log'
-" let g:neomake_typescript_tsc_maker = {
-"       \ 'args': ['--noEmit'],
-"       \ 'append_file': 0,
-"       \ 'cwd': '%:p:h',
-"       \ 'errorformat':
-"           \ '%E%f %#(%l\,%c): error %m,' .
-"           \ '%E%f %#(%l\,%c): %m,' .
-"           \ '%Eerror %m,' .
-"           \ '%C%\s%\+%m'
-"       \ }
-" let g:neomake_warning_sign = {
-"   \ 'text': 'W',
-"   \ 'texthl': 'WarningMsg',
-"   \ }
-" let g:neomake_error_sign = {
-"   \ 'text': 'E',
-"   \ 'texthl': 'ErrorMsg',
-"   \ }
-" let g:neomake_typescript_enabled_makers = ['tsc']
-" let g:neomake_typescript_tslint_maker = {
-"       \ 'args': ['-c', 'tslint.conf', '--verbose', 'x'],
-"       \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
-"       \ }
-
-" }}}
-
 " Lightline {{{
 
 let g:lightline = {
-      \ 'colorscheme': 'seoul256',
+      \ 'colorscheme': 'hybrid',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -580,12 +499,49 @@ let g:signify_vcs_list = [ 'svn', 'git' ]
 
 "}}}
 
+" Goyo {{{
+nnoremap <Leader>G :Goyo<CR>
+
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  set showtabline=0
+  Limelight
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set showmode
+  set showcmd
+  set scrolloff=5
+  call buftabline#update(0)
+  call ResetHighlight()
+  Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+" }}}
+
+" Limelight {{{
+
+let g:limelight_default_coefficient = 0.7
+let g:limelight_conceal_ctermfg = 240
+
+" }}}
+
+" }}}
+
 " Navigation {{{
 
 " easymotion/vim-easymotion {{{
 
 let g:EasyMotion_do_mapping=0 " Disable default mappings
-nmap <Leader>ss <Plug>(easymotion-s2)
+nmap <Leader>f <Plug>(easymotion-s2)
 
 " }}}
 
@@ -621,7 +577,10 @@ sunmap ge
 
 " }}}
 
-"}}}
+" skywind3000/asyncrun.vim {{{
+" }}}
+
+" }}}
 
 " Integration with external commands {{{
 
@@ -640,18 +599,11 @@ nnoremap <Leader>gp :Git push --tags<CR>
 " bemills/vimux {{{
 
 " Executes a command in a tmux split, if there's one available run it there
-noremap <Leader>vp :VimuxPromptCommand<CR>
+noremap <Leader>sp :VimuxPromptCommand<CR>
 " Execute last command
-noremap <Leader>vl :VimuxRunLastCommand<CR>
-" Moves to the pane created by tmux and enters copy mode
-noremap <Leader>vi :VimuxInspectRunner<CR>
-" run last command (no need for an initial call to Vimux)
-noremap <silent> <Leader><CR> :call utils#runLastCommand()<CR>
+noremap <Leader>sl :VimuxRunLastCommand<CR>
 
-" " npm test
-" noremap <Leader>vnt :VimuxRunCommand("npm test")<CR>
-" " make & run for learnopengl.com
-" noremap <Leader>vm :VimuxRunCommand("make")<CR>
+noremap <leader>e :ExecScript<CR>
 
 " }}}
 
@@ -666,18 +618,11 @@ nmap <leader>ds :<C-u>Dash<space>
 
 " }}}
 
-" ? Neomake {{{
+" neomake/neomake {{{
 
 let g:neomake_verbose=0
-let g:neomake_warning_sign={
-      \ 'text': '>',
-      \ 'texthl': 'WarningMsg',
-      \ }
-let g:neomake_error_sign={
-      \ 'text': '>',
-      \ 'texthl': 'ErrorMsg',
-      \ }
 let g:neomake_javascript_enabled_makers = ['standard']
+let g:neomake_python_enabled_makers = ['flake8']
 
 " }}}
 "
@@ -720,6 +665,14 @@ imap <c-g>t <Plug>(simple-todo-new)
 nmap <c-g>x <Plug>(simple-todo-mark-switch)
 imap <c-g>x <Plug>(simple-todo-mark-switch)
 
+"}}}
+
+" junegunn/vim-easy-align {{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 "}}}
 
 " }}}

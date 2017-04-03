@@ -1,4 +1,6 @@
 #!/bin/zsh
+# vim: syn=zsh
+
 # force $PATH to have unique values
 # typeset -U path
 # fix path
@@ -15,6 +17,11 @@ path+=(
 )
 export PATH
 
+# sencha env vars
+export SENCHA_CMD_3='/Users/mauricio/bin/Sencha/Cmd/3.1.2.342'
+export SENCHA_CMD_4='/Users/mauricio/bin/Sencha/Cmd/4.0.5.87'
+export SENCHA_CMD_6='/Users/mauricio/bin/Sencha/Cmd/6.2.1.29'
+
 # neovim
 export VISUAL=nvim
 
@@ -22,8 +29,16 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 # `fzf` default stdin command
+#
+# --files: List files that would be searched but do not search
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 # --hidden: include hidden files in the search
-export FZF_DEFAULT_COMMAND='ag --smart-case --hidden --ignore .git --ignore .svn --ignore node_modules --ignore .idea --follow -g ""'
-export FZF_DEFAULT_OPTS='--reverse --inline-info --cycle --algo=v1'
 
-# vim: syn=zsh
+# TODO: pull ignores as an array and set a global $IGNORE
+export FZF_DEFAULT_COMMAND='rg --files --smart-case --hidden --follow --glob "!.git" --glob "!.idea" --glob "!.svn" --glob "!node_modules/" --glob "!__pycache__" --glob "!venv/"'
+export FZF_DEFAULT_OPTS='--reverse --color=dark --inline-info --cycle'
+
+# updated by add-unique-line-to-file
+source /Users/mauricio/.dotfiles/go/go-zshrc

@@ -23,7 +23,7 @@ def format_session(name, opened = false)
   name = escape(name)
   # STDERR.puts "#{name} contains the character ." if name.index(".") != nil
 
-  format('%3s | %s', opened ? '*' : '', name)
+  format('%3s | %s', opened ? '*' : ' ', name)
 end
 
 def find_closest_tmuxinator_file(path)
@@ -54,7 +54,7 @@ all_bookmarks.each do |bookmark|
   end
 end
 
-chosen = `echo "#{unique.join("\n")}" | fzf-tmux -d 15`
+chosen = `echo "#{unique.join("\n")}" | fzf-tmux -d 15 --preview 'echo {}' --preview-window down:1`
 
 exit 0 if chosen.length <= 0
 

@@ -9,15 +9,13 @@ if RUBY_PLATFORM =~ /darwin/
   brew 'figlet'
   brew 'fswatch'
   brew 'gist'
-  brew 'gpg'
   brew 'hub'
-  brew 'httrack'
   brew 'imgur-screenshot'
   brew 'llvm', args: ['with-clang'] # required for vim/deoplete/deoplete-clang
+  brew 'ripgrep'
   brew 'rmtrash' # required for vimfiler
   brew 'tree'
   brew 'terminal-notifier'
-  brew 'the_silver_searcher'
   brew 'wget'
   brew 'youtube-dl'
 

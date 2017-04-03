@@ -1,27 +1,35 @@
-call plug#begin('~/.config/nvim/plugged')
 
 " Interface {{{
 
+" language highlighter pack
+Plug 'sheerun/vim-polyglot'
 " lightline (simple status line)
 Plug 'itchyny/lightline.vim'
 " buffers tabline
 Plug 'ap/vim-buftabline'
-" themes:
+
+" themes
 Plug 'kristijanhusak/vim-hybrid-material'
-" Plug 'Lokaltog/vim-distinguished'
+Plug 'Lokaltog/vim-distinguished'
 Plug 'w0ng/vim-hybrid'
+Plug 'altercation/vim-colors-solarized'
+Plug 'reedes/vim-colors-pencil'
+
 " diff sidebar
 Plug 'mhinz/vim-signify'
 " indent guides
 Plug 'nathanaelkane/vim-indent-guides'
 " make yanked region apparent
 Plug 'machakann/vim-highlightedyank'
+" distraction free writing
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
-" Unite {{{
+" denite {{{
 
-" searchable lists within vim
-" Plug 'Shougo/denite.nvim'
-"
+" search/display lists
+Plug 'Shougo/denite.nvim'
+
 " Note: unite-source-file_rec/async depends on vimproc
 Plug 'Shougo/unite.vim' | Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 " history yank
@@ -39,6 +47,8 @@ Plug 'chemzqm/unite-location'
 " filesystem exploration (depends on unite)
 Plug 'Shougo/vimfiler.vim'
 " }}}
+
+" Plug 'scrooloose/nerdtree'
 
 " FZF {{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -66,7 +76,9 @@ Plug 'mhartington/deoplete-typescript'
 " Plug 'othree/jspc.vim'
 
 " python
+
 Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
+
 "}}}
 
 " neomake {{{
@@ -87,7 +99,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'christoomey/vim-tmux-navigator'
 " better f
 Plug 'rhysd/clever-f.vim'
-" better motion 
+" better motion
 Plug 'bkad/CamelCaseMotion'
 " better /
 " Plug 'haya14busa/incsearch.vim'
@@ -98,8 +110,13 @@ Plug 'bkad/CamelCaseMotion'
 
 " git wrapper
 Plug 'tpope/vim-fugitive'
-" run commands from vim
+" run commands in a tmux split
 Plug 'benmills/vimux'
+" execute a command in the background
+" Plug 'tpope/vim-dispatch'
+" run commands in the background asynchronously filling the quickfix
+" list (alternative to vim-dispatch for compilation)
+Plug 'skywind3000/asyncrun.vim'
 " open browser
 Plug 'tyru/open-browser.vim'
 " open documentation (dash)
@@ -120,7 +137,7 @@ Plug 'tpope/vim-surround'
 " alignment
 Plug 'junegunn/vim-easy-align'
 " highlight ocurrences of the current word
-Plug 'itchyny/vim-cursorword' 
+Plug 'itchyny/vim-cursorword'
 " commenting stuff
 Plug 'tpope/vim-commentary'
 " auto close (, [, {, ', ", `
@@ -131,9 +148,8 @@ Plug 'tpope/vim-repeat'
 Plug 'dhruvasagar/vim-table-mode'
 " FastFold
 Plug 'Konfekt/FastFold'
-" vimwiki
-Plug 'vimwiki/vimwiki'
-Plug 'vitalk/vim-simple-todo'
+" indentation heuristics
+Plug 'tpope/vim-sleuth'
 
 " Text objects {{{
 
@@ -156,15 +172,9 @@ Plug 'glts/vim-textobj-comment'
 
 " }}}
 
-" Language highlighting {{{
-
-Plug 'othree/html5.vim', { 'for': 'html' }
-
-Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
-Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
+" Language specific {{{
 
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'othree/csscomplete.vim', { 'for': 'css' }
 
@@ -192,6 +202,7 @@ Plug 'beyondmarc/glsl.vim'
 
 " CSS color highlighter
 Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'sass', 'scss', 'less'] }
+Plug 'yoppi/fluentd.vim'
 
 "}}}
 
@@ -207,7 +218,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'editorconfig/editorconfig-vim'
 
 " Snippets {{{
-" engine 
+" engine
 Plug 'SirVer/ultisnips'
 " collection of snippets
 Plug 'honza/vim-snippets'
@@ -216,5 +227,4 @@ Plug 'honza/vim-snippets'
 
 " }}}
 
-call plug#end()
 

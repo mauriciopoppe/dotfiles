@@ -26,8 +26,8 @@ export SAVEHIST=10000
 setopt append_history
 # save timestamp and the duration to the history file
 setopt extended_history
-# ignore duplicates
-setopt hist_ignore_dups
+# If a new command line being added to the history list duplicates an older one, the older command is removed from the list (even if it is not the previous event).
+setopt hist_ignore_all_dups
 # ignore commands that start with space
 setopt hist_ignore_space
 # perform history expansion first

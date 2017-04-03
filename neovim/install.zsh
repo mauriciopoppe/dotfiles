@@ -1,7 +1,23 @@
 #!/bin/zsh
 
+set -e
+
 local base=${0:h}
-source ${base}/../lib/utils
+
+-nvim-venv() {
+  # Declare a base path for both virtual environments
+  venv="$HOME/.cache/vim/venv"
+
+  # Try to detect virtualenv's executable names
+  vrenv=virtualenv
+
+  # Ensure python 2/3 virtual environments
+  [ -d "$venv" ] || mkdir -p "$venv"
+  [ -d "$venv/neovim" ] || $vrenv "$venv/neovim"
+
+  # Install or upgrade dependencies
+  "$venv/neovim/bin/pip" install -U neovim PyYAML
+}
 
 -install-vim-plug() {
   if [[ ! -e $1 ]]; then
@@ -15,9 +31,6 @@ source ${base}/../lib/utils
 main() {
   print-header "neovim"
 
-  print-step "setting up directories..."
-  mkdir -p ${HOME}/.config/nvim/{autoload,sessions,undo,plugged} 2> /dev/null
-
   print-step "installing neovim..."
   if ! formula-exists neovim; then
     brew install neovim/neovim/neovim
@@ -26,27 +39,23 @@ main() {
   fi
 
   print-step "installing neovim python package..."
-  pip install neovim
-
-  print-step "installing vim-plug..."
-  -install-vim-plug ${HOME}/.config/nvim/autoload/plug.vim
+  -nvim-venv
 
   print-step "neovim symlinks..."
 
   # if the whole `neovim` folder is symlinked to `~/.config/nvim` then
-  # all the metadata created by neovim will also be shown as files of the 
+  # all the metadata created by neovim will also be shown as files of the
   # project
   #
   # To avoid this unwanted behavior just sync some files/folders
   #
   symlink "${base}/init.vim" "${HOME}/.config/nvim/init.vim"
-  symlink "${base}/autoload/utils.vim" "${HOME}/.config/nvim/autoload/utils.vim"
-  symlink "${base}/UltiSnips" "${HOME}/.config/nvim/UltiSnips"
-  symlink "${base}/spell" "${HOME}/.config/nvim/spell"
+  # symlink "${base}/plugin/utils.vim" "${HOME}/.config/nvim/plugin/utils.vim"
+  # symlink "${base}/UltiSnips" "${HOME}/.config/nvim/UltiSnips"
   symlink "${base}/config" "${HOME}/.config/nvim/config"
 
-  print-step "installing plugins..."
-  nvim +PlugInstall +qall
+  # print-step "installing plugins..."
+  # nvim +PlugInstall +qall
 
   # NOTE: after the installation of nvim
   # fix for <C-h> not working well within nvim
