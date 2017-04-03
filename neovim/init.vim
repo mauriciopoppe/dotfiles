@@ -2,7 +2,6 @@
 "
 " - Before upgrading check https://github.com/neovim/neovim/wiki/Following-HEAD
 "   and :h nvim-from-vim
-" - Last update from HEAD done on 2015/11/11
 "
 " Awesome .vimrc files from
 "
@@ -12,5 +11,5 @@
 "     Martin Toma - https://github.com/martin-svk/dot-files/blob/master/neovim/init.vimo
 "     rafi - https://github.com/rafi/vim-config
 
-execute 'source' fnamemodify(expand('<sfile>'), ':h').'/config/vimrc'
+execute 'source ' fnamemodify(expand('<sfile>'), ':h').'/config/vimrc'
 

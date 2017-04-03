@@ -3,30 +3,53 @@ syntax on
 
 let g:enable_bold_font = 1
 
-" let g:hybrid_custom_term_colors = 1
-" let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+
+" light theme
+
+" set background=light
+" try
+"   colorscheme pencil
+"   " colorscheme solarized
+" catch
+"   echo 'could not set theme'
+" endtry
+
+" dark theme
 
 set background=dark
 try
-  " colorscheme hybrid
-  colorscheme hybrid_reverse
+  colorscheme hybrid
+  " colorscheme hybrid_reverse
   " colorscheme distinguished
 catch
   echo 'could not set theme'
 endtry
 
-" Link highlight groups to improve buftabline colors
-hi! link BufTabLineCurrent Statement
-hi! link BufTabLineActive Comment
-hi! link BufTabLineHidden Comment
-hi! link BufTabLineFill Comment
+function ResetHighlight()
+  " Link highlight groups to improve buftabline colors
+  hi! link BufTabLineCurrent PreProc
+  hi! link BufTabLineActive Comment
+  hi! link BufTabLineHidden Comment
+  hi! link BufTabLineFill Comment
 
-" delete git signs background
-highlight SignifySignAdd    cterm=NONE ctermbg=NONE  ctermfg=119
-highlight SignifySignDelete cterm=NONE ctermbg=NONE  ctermfg=167
-highlight SignifySignChange cterm=NONE ctermbg=NONE  ctermfg=227
+  " clear background for SignColumn (any column that doesn't have a sign)
+  highlight clear SignColumn
+  " clear sign background
+  highlight SignifySignAdd    cterm=none ctermbg=none ctermfg=lightgreen
+  highlight SignifySignDelete cterm=none ctermbg=none ctermfg=red
+  highlight SignifySignChange cterm=none ctermbg=none ctermfg=yellow
 
-" italic html attributes
-highlight htmlArg cterm=italic
-" highlight Comment cterm=italic
+  " italic html attributes
+  highlight htmlArg cterm=italic
+  highlight Comment cterm=italic
+
+  " neomake errors
+  highlight link NeomakeError DiffDelete
+  highlight link NeomakeWarning Question
+  highlight NeomakeErrorSign ctermfg=red
+
+endfunction
+call ResetHighlight()
 

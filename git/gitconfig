@@ -29,7 +29,9 @@
 	st = status
 	co = checkout
 	unstage = 'reset HEAD --'
-        lg = log --branches --tags --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit
+        amend = commit -a --amend
+        ls = log --branches --tags --oneline --decorate --all --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit
+        ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
 [merge]
 	tool = vimdiff
 [mergetool]
@@ -38,3 +40,5 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+
+# vim: set noexpandtab ts=4 sw=4 sts=4

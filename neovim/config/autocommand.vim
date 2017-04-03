@@ -3,8 +3,6 @@ augroup mine
   " > mine
   " autocmd TextChangedI,TextChanged * nested silent! :update
   " > from vim-auto-save
-  " " the following makes autosave also work on Insert mode"
-  set updatetime=700
   " nested = :h autocmd-nested
   " silent = :h silent!
   autocmd CursorHold,BufLeave * nested silent! :update
@@ -15,36 +13,45 @@ augroup mine
   " hide menu on special cases
   autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
   autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
-  " autocmd FileWritePre,FileWritePost,BufWritePre,BufWritePost <buffer> silent! :call utils#whitespace()<CR>
 
-  " filetype specific
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
-  autocmd FileType markdown setlocal spell
-  autocmd FileType markdown set textwidth=0
+  autocmd BufWritePost * Neomake
+  autocmd BufWritePre * :call utils#whitespace()
+augroup END
 
-  " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup FTCheck
+  autocmd!
+  autocmd BufRead,BufNewFile *.md           set ft=markdown
+  autocmd BufRead,BufNewFile *.pom          set ft=xml
+  autocmd BufRead,BufNewFile .babelrc       set ft=json
+  autocmd BufNewFile,BufRead *named.conf*   set ft=named
+  autocmd BufRead,BufNewFile fluent.conf    set ft=fluentd
+  autocmd BufRead,BufNewFile Brewfile       set ft=ruby
+augroup END
 
-  " function! SaveSesssion()
-  "   exec 'Obsession!'
-  "   exec 'Obsession'
-  " endfunction
-  " autocmd VimLeavePre * call SaveSesssion()
-  " function! DiscardSession()
-  "   exec 'Obsession'
-  " endfunction
-  " autocmd VimEnter * call DiscardSession()
+augroup FTOptions
+  autocmd!
+  autocmd FileType c,cpp,cs,java setlocal commentstring=//\ %s
+  autocmd FileType liquid,markdown,text,txt setlocal tw=78 linebreak nolist
+  autocmd FileType python,xml,html,jsp setlocal ts=4 sts=4 sw=4
+  autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
 
-  autocmd Filetype Makefile setlocal noexpandtab
+  " in makefiles, don't expand tabs to spaces, since actual tab characters are
+  " needed, and have indentation at 8 chars to be sure that all indents are tabs
+  " (despite the mappings later):
+  autocmd FileType make         setlocal noexpandtab ts=4 sw=4 sts=4
 
-  "spell check when writing commit logs
-  autocmd FileType svn,*commit* setlocal spell
+  " alternative: set no limit on the text width
+  " autocmd FileType markdown set textwidth=0
+  autocmd FileType apache       setlocal commentstring=#\ %s
 
-  " neomake
-  autocmd! BufWritePost * Neomake
+  " <C-x>! sets the shebang
+  autocmd FileType sh,zsh,csh,tcsh inoremap <silent> <buffer> <C-X>! #!/bin/<C-R>=&ft<CR>
 
+  "spell check when writing commits
+  autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+  autocmd FileType svn,gitcommit  setlocal spell
+
+  autocmd FileType help setlocal ai fo+=2n | silent! setlocal nospell
+  autocmd FileType help nnoremap <silent><buffer> q :q<CR>
 augroup END
 

@@ -28,3 +28,6 @@ Session.vim
 # ctags
 tags
 
+# js specific
+.tern-port
+bookmarks.data

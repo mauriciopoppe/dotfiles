@@ -1,17 +1,40 @@
 " let $VIMPATH = expand('$DOTFILES_DIRECTORY/neovim/')
-let $CONFIGPATH = fnamemodify(expand('<sfile>'), ':h')
+let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let $VARPATH = expand(('~/.cache'). '/vim')
 
+" always loads relative to ./config/
 function! s:source_file(path)
-	execute 'source ' $CONFIGPATH . '/' . a:path
+  let abspath = resolve(expand($VIMPATH.'/config/'.a:path))
+  execute 'source ' fnameescape(abspath)
 endfunction
 
-" plug initialization
-call s:source_file('base.vim')
-call s:source_file('plugin-init.vim')
+" -----
+" Setup
+" -----
+
+" add neovim folder to the runtimepath
+" NOTE: additional global functions are loaded from ./plugin
+let &runtimepath.=','.escape(expand('$VIMPATH'), '\,')
+
+" :h vim_starting
+call s:source_file('init.vim')
+if has('nvim')
+ call s:source_file('neovim.vim')
+endif
+
+" initialize plugins
+call plug#begin('~/.config/nvim/plugged')
+call s:source_file('plugin-setup.vim')
+call plug#end()
+
+filetype plugin indent on
+syntax enable
+
 call s:source_file('general.vim')
-call s:source_file('plugin-key-bindings.vim')
-call s:source_file('key-bindings.vim')
+call s:source_file('plugin-mappings.vim')
+call s:source_file('mappings.vim')
+" call s:source_file('plugin-key-bindings.vim')
 call s:source_file('theme.vim')
 call s:source_file('autocommand.vim')
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" vim: set ts=2 sw=2 tw=80 et :

@@ -35,7 +35,7 @@ def create_list(saved, opened):
 
 def ask_session_to_change(sessions):
     chosen = run(
-        'echo "{0}" | fzf-tmux -d 15 --reverse --no-sort'.format('\n'.join(sessions))
+        'echo "{0}" | fzf-tmux -d 15 --reverse'.format('\n'.join(sessions))
     ).stdout.decode('utf-8').strip()
     # strip additional symbols
     return chosen.split(' ')[0]
