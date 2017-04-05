@@ -17,7 +17,7 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 # Show path bar
 defaults write com.apple.finder ShowPathbar -bool true
-# Allow text selection in the Quick Look window 
+# Allow text selection in the Quick Look window
 # NOTE: highlight is disabled on some files https://discussions.apple.com/thread/7250702?start=15&tstart=0
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
@@ -50,6 +50,9 @@ mkdir -p ~/Pictures/screenshots
 defaults write com.apple.screencapture location ~/Pictures/screenshots/
 # Screenshots file format is jpg
 defaults write com.apple.screencapture type jpg
+
+# dark mode enabled by default
+defaults write NSGlobalDomain AppleInterfaceStyle Dark
 
 # apply changes
 killall Finder

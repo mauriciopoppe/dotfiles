@@ -33,19 +33,6 @@ if filereadable(expand('$VIMPATH/.vault.vim'))
 endif
 
 " }}}
-" Setup dein {{{
-if &runtimepath !~# '/dein.vim'
-	let s:dein_dir = expand('$VARPATH/dein').'/repos/github.com/Shougo/dein.vim'
-	" clone dein if it doesn't exist
-	if ! isdirectory(s:dein_dir)
-		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
-	endif
-
-	execute 'set runtimepath+='.substitute(
-		\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
-endif
-
-" }}}
 " Load less plugins while SSHing to remote machines {{{
 if len($SSH_CLIENT)
 	let $VIM_MINIMAL = 1

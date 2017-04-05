@@ -84,12 +84,14 @@ endif
 " }}}
 
 if utils#hasPlugin('fzf.vim')
-  " let g:fzf_files_options = '--reverse'
   let g:fzf_files_options =
     \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
   let g:fzf_buffers_jump = 1
 endif
 
+if utils#hasPlugin('lightline.vim')
+  source $VIMPATH/config/plugins/lightline.vim
+endif
 
 if utils#hasPlugin('lightline.vim')
   source $VIMPATH/config/plugins/lightline.vim
@@ -412,4 +414,20 @@ if utils#hasPlugin('vim-textobj-function') "{{{
 endif
 "}}}
 
+if utils#hasPlugin('vim-markdown') "{{{
+  let g:vim_markdown_initial_foldlevel = 5
+  let g:vim_markdown_new_list_item_indent = 2
+  let g:vim_markdown_frontmatter = 1
+  let g:vim_markdown_conceal = 0
+endif
+
+"}}}
+
+if utils#hasPlugin('vim-gfm-syntax') "{{{
+  let g:gfm_syntax_enable_always = 0
+  let g:gfm_syntax_highlight_emoji = 0
+  let g:gfm_syntax_enable_filetypes = ['markdown']
+endif
+
+"}}}
 " vim: set ts=2 sw=2 tw=80 et :

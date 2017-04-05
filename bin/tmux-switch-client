@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+#
+# NOTE: requires the installation of the binary `showmarks`, it should be under
+# zsh/plugins
 
 require 'pathname'
 
@@ -35,7 +38,6 @@ def find_closest_tmuxinator_file(path)
 end
 
 all_bookmarks = `showmarks`.strip.split("\n").sort!
-# puts all_bookmarks
 opened_tmux_sessions =
   `tmux list-sessions -F "\#{session_name}"`.strip.split("\n").sort!
 

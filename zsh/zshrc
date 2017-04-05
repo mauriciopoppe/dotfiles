@@ -10,13 +10,10 @@ __warn() {
 
 # helper function to source file safely
 __safe_source() {
-  [[ -s $1 ]] && source $1 || echo "Trying to load '$1' but it doesn't exist"
+  [[ -s $1 ]] && source $1
 }
 
 # fix colors when running tmux inside zsh
-# export TERM=xterm-256color
-# export TERM=xterm-256color-italic
-
 export TERM=xterm-256color
 [ -n "$TMUX" ] && export TERM=screen-256color
 alias nvim="TERM=xterm-256color-italic nvim"
@@ -30,20 +27,20 @@ export ZPLUG_HOME=~/.zplug
 if [[ ! -d $ZPLUG_HOME ]]; then
   git clone https://github.com/zplug/zplug $ZPLUG_HOME
 fi
-source $ZPLUG_HOME/init.zsh && zplug update --self
+
+# lock at the latest stable version
+(cd $ZPLUG_HOME && git checkout tags/2.4.1 > /dev/null 2>&1)
+source $ZPLUG_HOME/init.zsh
 
 # NOTE: $DOTFILES_DIRECTORY is defined in .zshenv
 zplug "$DOTFILES_DIRECTORY/zsh/plugins/zsh-sensible", from:local
-
-# TODO: fix permissions on this project bin folder
-# workaround: save file in nvim with :w!
 zplug "$DOTFILES_DIRECTORY/zsh/plugins/bookmark", \
   as:command, \
   hook-build:"chmod +x bin/*", \
   use:"bin/*", \
   from:local
 
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions"
 zplug "djui/alias-tips"
 zplug "b4b4r07/enhancd", use:enhancd.sh
@@ -54,8 +51,8 @@ zplug "junegunn/fzf", hook-build:"./install"
 zplug "plugins/osx", from:"oh-my-zsh"
 
 # prompt
-# zplug "mafredri/zsh-async"
-# zplug "sindresorhus/pure"
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -66,7 +63,8 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to $PATH
-zplug load > /dev/null
+# zplug load --verbose
+zplug load
 
 #########################
 # script initialization #

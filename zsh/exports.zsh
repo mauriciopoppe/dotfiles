@@ -37,8 +37,11 @@ export EDITOR="$VISUAL"
 # --hidden: include hidden files in the search
 
 # TODO: pull ignores as an array and set a global $IGNORE
-export FZF_DEFAULT_COMMAND='rg --files --smart-case --hidden --follow --glob "!.git" --glob "!.idea" --glob "!.svn" --glob "!node_modules/" --glob "!__pycache__" --glob "!venv/"'
+export FZF_DEFAULT_COMMAND='rg --files --smart-case --hidden --follow \
+  --glob "!.git" \
+  --glob "!.idea" \
+  --glob "!.svn" \
+  --glob "!node_modules/" \
+  --glob "!__pycache__" \
+  --glob "!venv/"'
 export FZF_DEFAULT_OPTS='--reverse --color=dark --inline-info --cycle'
-
-# updated by add-unique-line-to-file
-source /Users/mauricio/.dotfiles/go/go-zshrc

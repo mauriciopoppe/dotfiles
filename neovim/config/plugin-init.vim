@@ -87,7 +87,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'christoomey/vim-tmux-navigator'
 " better f
 Plug 'rhysd/clever-f.vim'
-" better motion 
+" better motion
 Plug 'bkad/CamelCaseMotion'
 " better /
 " Plug 'haya14busa/incsearch.vim'
@@ -109,24 +109,16 @@ Plug 'rizzatti/dash.vim'
 
 " Code manipulation {{{
 
-" html expansion
-Plug 'mattn/emmet-vim'
-" expand visual region
-Plug 'terryma/vim-expand-region'
-" multiple cursors
-Plug 'terryma/vim-multiple-cursors'
-" surround
-Plug 'tpope/vim-surround'
-" alignment
-Plug 'junegunn/vim-easy-align'
-" highlight ocurrences of the current word
-Plug 'itchyny/vim-cursorword' 
-" commenting stuff
-Plug 'tpope/vim-commentary'
-" auto close (, [, {, ', ", `
-Plug 'jiangmiao/auto-pairs'
-" . improved
-Plug 'tpope/vim-repeat'
+
+Plug 'mattn/emmet-vim'  " html expansion
+Plug 'terryma/vim-expand-region'  " expand visual region
+Plug 'terryma/vim-multiple-cursors'  " multiple cursors
+Plug 'tpope/vim-surround'  " surround
+Plug 'junegunn/vim-easy-align'  " alignment
+Plug 'itchyny/vim-cursorword'  " highlight ocurrences of the current word
+Plug 'tpope/vim-commentary'  " commenting stuff
+Plug 'jiangmiao/auto-pairs'  " auto close (, [, {, ', ", `
+Plug 'tpope/vim-repeat'  " . improved
 " table mode
 Plug 'dhruvasagar/vim-table-mode'
 " FastFold
@@ -207,7 +199,7 @@ Plug 'embear/vim-localvimrc'
 Plug 'editorconfig/editorconfig-vim'
 
 " Snippets {{{
-" engine 
+" engine
 Plug 'SirVer/ultisnips'
 " collection of snippets
 Plug 'honza/vim-snippets'

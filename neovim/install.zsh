@@ -54,8 +54,13 @@ main() {
   # symlink "${base}/UltiSnips" "${HOME}/.config/nvim/UltiSnips"
   symlink "${base}/config" "${HOME}/.config/nvim/config"
 
-  # print-step "installing plugins..."
-  # nvim +PlugInstall +qall
+  # required for vim/deoplete/deoplete-clang
+  brew install llvm --with-clang
+  # required for vimfiler (safer rm)
+  brew install rmtrash
+
+  print-step "installing plugins..."
+  nvim +PlugInstall +qall
 
   # NOTE: after the installation of nvim
   # fix for <C-h> not working well within nvim

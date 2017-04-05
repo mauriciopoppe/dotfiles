@@ -20,7 +20,7 @@ set hidden
 " regexp magic
 set magic
 " yank operation don't need to use the *" register (system clipboard)
-set clipboard+=unnamed
+set clipboard=unnamed
 " when switching buffers don't move to the start of the line
 set nostartofline
 " minimum number of lines shown above the cursor when scrolling
@@ -177,21 +177,13 @@ set matchtime=1
 " showmatch will wait 0.5s or until a char is typed
 set cpoptions-=m
 " }}}
-" Filetype settings {{{
 
-" enable the loading of plugin files for specific file types
-filetype plugin on
-" enable the loading of indent files for specific file types
-filetype indent on
-" }}}
 " Folding settings {{{
 
-if has('folding')
-  set foldenable
-  set foldmethod=syntax
-  set foldlevelstart=99
-  set foldtext=FoldText()
-endif
+set foldenable
+set foldmethod=syntax
+set foldlevelstart=99
+set foldtext=FoldText()
 
 " Improved Vim fold-text
 " See: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
@@ -250,4 +242,4 @@ endif
 
 " }}}
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" vim: set ts=2 sw=2 tw=80 et :

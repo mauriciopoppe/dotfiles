@@ -86,6 +86,13 @@ nnoremap <leader>- <c-w>s
 
 " }}}
 
+" https://github.com/christoomey/vim-tmux-navigator/issues/71
+if has('nvim')
+    nmap <silent> <BS> :<C-u>TmuxNavigateLeft<CR>
+else
+    nmap <C-h> <C-w>h
+endif
+
 " Moving lines of text {{{
 
 " move a line in normal mode while fixing the indentation

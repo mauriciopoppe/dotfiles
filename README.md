@@ -15,8 +15,8 @@
 
 ## Installation
 
-```sh
-curl -q https://git.io/vVATE && source install.sh
+```
+curl -Lq https://git.io/vVATE -o install.sh && source install.sh
 ```
 
 The script above will clone the repository to `~/.dotfiles`, in addition the `~/.dotfiles/bin/` directory will be added to your `PATH` for the current session
@@ -107,17 +107,17 @@ can add whatever you need inside each installation script
 
 ## Credits
 
-Big parts of my dotfiles were inspired (in most cases copied :P) from other dotfiles
+Big parts of my dotfiles were inspired (in most cases copied :P) from other dotfiles, I wanna thank the following people for their contribution to the open
+source community
 
-In particular I was inspired by the following dotfiles
-
+- Rafael Bodill - https://github.com/rafi/vim-config
+- [b4b4r07](https://github.com/b4b4r07/dotfiles) - https://github.com/b4b4r07
+- [Terry Ma](https://github.com/terryma/dotfiles) - https://github.com/terryma/dotfiles
 - [Bruno Sutic](https://github.com/nicknisi/dotfiles)
 - [Nicolas Gallagher](https://github.com/necolas/dotfiles)
 - [Nick Nisi](https://github.com/bruno-/dotfiles)
 - [Mislav Marohnić](https://github.com/mislav/dotfiles)
-- [b4b4r07](https://github.com/b4b4r07/dotfiles)
 - [Martin Toma](https://github.com/martin-svk/dot-files)
-- [Terry Ma](https://github.com/terryma/dotfiles)
 
 Thank you all!
 

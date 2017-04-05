@@ -1,3 +1,4 @@
+#!/bin/bash
 # ----------------------------------------------------
 #          FILE:  zshmarks.plugin.zsh
 #   DESCRIPTION:  oh-my-zsh plugin file.
@@ -5,24 +6,20 @@
 #       VERSION:  1.7.0
 # ----------------------------------------------------
 
-# Set BOOKMARKS_FILE if it doesn't exist to the default.
-# Allows for a user-configured BOOKMARKS_FILE.
-if [[ -z $BOOKMARKS_FILE ]] ; then
-  export BOOKMARKS_FILE="$DOTFILES_DIRECTORY/zsh/plugins/bookmark/bookmarks.data"
-fi
 
 # bookmark definition is just the current dir
 cur_dir="$(pwd)"
 bookmark="$cur_dir"
+BOOKMARK_FILE="$HOME/.boomarks.data"
+touch $BOOKMARK_FILE
 
-if [[ -z $(grep "^$bookmark$" $BOOKMARKS_FILE 2>/dev/null) ]]; then
-  echo $bookmark >> $BOOKMARKS_FILE
-  sort $BOOKMARKS_FILE > tmp && mv tmp $BOOKMARKS_FILE
+if [[ -z $(grep "^$bookmark$" $BOOKMARK_FILE 2>/dev/null) ]]; then
+  echo $bookmark >> $BOOKMARK_FILE
+  sort $BOOKMARK_FILE > tmp && mv tmp $BOOKMARK_FILE
   echo "Bookmark '$bookmark' saved"
 else
   echo "Bookmark already exists"
   exit 1
 fi
 
-# vim: set ft=zsh
-
+# vim: set ft=bash

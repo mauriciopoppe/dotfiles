@@ -46,14 +46,6 @@ setopt correct
 # wait ten second to execute a `rm *` command
 setopt rm_star_wait
 
-#########
-# theme #
-#########
-
-export KEYTIMEOUT=1
-autoload -U promptinit; promptinit
-prompt pure
-
 ###############################
 # zsh line editing mode (zle) #
 ###############################

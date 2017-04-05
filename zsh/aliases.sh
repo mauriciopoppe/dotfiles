@@ -22,9 +22,7 @@ alias sha1='openssl sha1'
 alias npmoffline='npm --cache-min 9999999 '
 
 # remaps
-alias mkdir='mkdir -pv'
 alias grep='grep --color'
-alias irb='ruby -S irb'
 
 # tmux aliases
 # also check out `./functions` to switch/kill sessions
