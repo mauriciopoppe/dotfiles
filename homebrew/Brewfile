@@ -30,7 +30,6 @@ if RUBY_PLATFORM =~ /darwin/
   tap 'caskroom/versions'
 
   ## apps
-  cask 'basictex'
   cask 'blender'
   cask 'dash'
   cask 'flux'

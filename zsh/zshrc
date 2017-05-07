@@ -29,7 +29,7 @@ if [[ ! -d $ZPLUG_HOME ]]; then
 fi
 
 # lock at the latest stable version
-(cd $ZPLUG_HOME && git checkout tags/2.4.1 > /dev/null 2>&1)
+(cd $ZPLUG_HOME && git checkout tags/2.4.1) > /dev/null 2>&1 || exit 1
 source $ZPLUG_HOME/init.zsh
 
 # NOTE: $DOTFILES_DIRECTORY is defined in .zshenv
@@ -78,9 +78,6 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 
-# travis gem (https://github.com/travis-ci/travis.rb)
-__safe_source ${HOME}/.travis/travis.sh
-
 # fzf (https://github.com/junegunn/fzf)
 #
 # The following line is commented because fzf checks with the following line
@@ -100,6 +97,11 @@ __safe_source ${DOTFILES_DIRECTORY}/zsh/aliases.sh
 
 # Note: rvm must be sourced last or rvm will complain
 __safe_source ${HOME}/.rvm/scripts/rvm
+
+# local configuration
+__safe_source ${HOME}/.localrc
+
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 # remove functions from the global scope
 unset -f __warn

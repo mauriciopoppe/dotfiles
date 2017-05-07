@@ -1,37 +1,7 @@
 " Interface  {{{
 
-if utils#hasPlugin('denite.nvim') "{{{
+if utils#hasPlugin('denite.nvim') " {{{
   source $VIMPATH/config/plugins/denite.vim
-
-  nnoremap <silent><LocalLeader>r :<C-u>Denite -resume<CR>
-  nnoremap <silent><LocalLeader>f :<C-u>Files .<CR>
-  nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file_old -default-action=switch<CR>
-  nnoremap <silent><LocalLeader>d :<C-u>Denite directory_rec -default-action=cd<CR>
-  nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list<CR>
-  nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list<CR>
-  nnoremap <silent><LocalLeader>n :<C-u>Denite dein -no-quit<CR>
-  nnoremap <silent><LocalLeader>g :<C-u>Denite grep -buffer-name=grep<CR>
-  nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file_point<CR>
-  nnoremap <silent><LocalLeader>o :<C-u>Denite outline<CR>
-  nnoremap <silent><LocalLeader>s :<C-u>Denite session<CR>
-  nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
-  nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
-  nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
-  nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line<CR>
-
-  " Open Denite with word under cursor or selection
-  nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
-  nnoremap <silent> <Leader>gg :DeniteCursorWord grep -buffer-name=grep<CR>
-  vnoremap <silent> <Leader>gg
-    \ :<C-u>call <SID>get_selection('/')<CR>
-    \ :execute 'Denite -buffer-name=grep grep:::'.@/<CR><CR>
-
-  function! s:get_selection(cmdtype) "{{{
-    let temp = @s
-    normal! gv"sy
-    let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
-    let @s = temp
-  endfunction "}}}
 endif
 " }}}
 
@@ -41,45 +11,7 @@ endif
 " }}}
 
 if utils#hasPlugin('deoplete.nvim') " {{{
-  " let g:deoplete#enable_at_startup=1
-  " let g:deoplete#enable_smart_case=1
-  " let g:deoplete#max_list=30
-
-  " " Redraw candidates
-  " inoremap <expr><C-l> deoplete#mappings#refresh()
-
-  " " Disable deoplete on vim-multiple-cursors
-  " function g:Multiple_cursors_before()
-  "   let g:deoplete#disable_auto_complete = 1
-  " endfunction
-  " function g:Multiple_cursors_after()
-  "   let g:deoplete#disable_auto_complete = 0
-  " endfunction
-
-  " " quiet messages in auto completion
-  " if has("patch-7.4.314")
-  "   set shortmess+=c
-  " endif
-
-  " if !exists('g:deoplete#omni#input_patterns')
-  "   let g:deoplete#omni#input_patterns = {}
-  " endif
-
-  " " let g:deoplete#omni#functions = {}
-  " " let g:deoplete#omni#functions['javascript'] = [
-  " "     \ 'tern#Complete'
-  " "     \]
-
-  " if !exists('g:deoplete#ignore_sources')
-  "   let g:deoplete#ignore_sources = {}
-  " endif
-  " let g:deoplete#ignore_sources['html'] = ['omni']
-
-  " if !exists('g:deoplete#sources')
-  "   let g:deoplete#sources = {}
-  " endif
-  " let g:deoplete#sources['javascript.jsx'] = ['file', 'ternjs', 'ultisnips']
-  " source $VIMPATH/config/plugins/deoplete.vim
+  source $VIMPATH/config/plugins/deoplete.vim
 endif
 " }}}
 

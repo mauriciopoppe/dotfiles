@@ -1,6 +1,3 @@
-" Plugin Settings
-"---------------------------------------------------------
-
 if dein#tap('denite.nvim') "{{{
   nnoremap <silent><LocalLeader>r :<C-u>Denite -resume<CR>
   nnoremap <silent><LocalLeader>f :<C-u>Files .<CR>

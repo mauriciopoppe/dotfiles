@@ -72,6 +72,8 @@ else
   closest_dir = find_closest_tmuxinator_file(c_name_formatted)
   needs_symlink = !(closest_dir.to_s.eql? c_name_formatted)
 
+  closest_dir.nil? && fail('.tmuxinator.yml file not found')
+
   system("ls #{c_name_formatted} > /dev/null") ||
     fail("bookmark #{c_name_formatted} doesn't exist")
 

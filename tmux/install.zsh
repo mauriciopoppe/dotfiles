@@ -1,7 +1,6 @@
 #!/bin/zsh
 
 local base=${0:h}
-source ${base}/../lib/utils
 
 main() {
   print-header "tmux"

@@ -1,4 +1,3 @@
-" let $VIMPATH = expand('$DOTFILES_DIRECTORY/neovim/')
 let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let $VARPATH = expand(('~/.cache'). '/vim')
 
@@ -8,19 +7,16 @@ function! s:source_file(path)
   execute 'source ' fnameescape(abspath)
 endfunction
 
-" -----
+" =====
 " Setup
-" -----
+" =====
 
-" add neovim folder to the runtimepath
+" add the ~/.dotfiles/neovim folder to the runtimepath
 " NOTE: additional global functions are loaded from ./plugin
 let &runtimepath.=','.escape(expand('$VIMPATH'), '\,')
 
 " :h vim_starting
-call s:source_file('init.vim')
-if has('nvim')
- call s:source_file('neovim.vim')
-endif
+call s:source_file('base.vim')
 
 " initialize plugins
 call plug#begin('~/.config/nvim/plugged')

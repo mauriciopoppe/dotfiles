@@ -64,7 +64,7 @@ autocmd FileType vimfiler call s:vimfiler_settings()
 " }}}
 
 " [e]xplorer
-nnoremap <silent> <LocalLeader>e :<C-u>execute 'VimFiler -buffer-name=explorer'<CR>
+nnoremap <silent> [denite]e :<C-u>execute 'VimFiler -buffer-name=explorer'<CR>
 " [f]ile [r]eveal in explorer
-nnoremap <silent> <LocalLeader>a :<C-u>execute 'VimFiler -buffer-name=explorer -find'<CR>
+nnoremap <silent> [denite]a :<C-u>execute 'VimFiler -buffer-name=explorer -find'<CR>
 

@@ -2,7 +2,7 @@
 " -----------
 
 " INTERFACE
-call denite#custom#option('default', 'prompt', 'λ:')
+call denite#custom#option('default', 'prompt', '>')
 call denite#custom#option('default', 'vertical_preview', 1)
 call denite#custom#option('default', 'short_source_names', 1)
 
@@ -12,10 +12,6 @@ call denite#custom#option('grep', 'auto_highlight', 0)
 
 call denite#custom#option('list', 'mode', 'normal')
 call denite#custom#option('list', 'winheight', 12)
-
-call denite#custom#option('mpc', 'quit', 0)
-call denite#custom#option('mpc', 'mode', 'normal')
-call denite#custom#option('mpc', 'winheight', 12)
 
 " MATCHERS
 " Default is 'matcher_fuzzy'
@@ -34,12 +30,9 @@ call denite#custom#source(
   \ 'buffer,file_mru,file_old',
   \ 'converters', ['converter_relative_word'])
 
-" FIND and GREP COMMANDS
 if executable('ag')
   " The Silver Searcher
-  let s:ag_ignores = [
-    \ '.git', '.svn', '.idea', 'node_modules', 'bower_modules', '.tmp',
-    \ '.sass-cache']
+  let s:ag_ignores = ['.git', '.svn', '.idea', 'node_modules', '.sass-cache']
   let s:ag_opts = []
   for item in s:ag_ignores
     let s:ag_opts += ['--ignore', item]
@@ -47,7 +40,6 @@ if executable('ag')
   call denite#custom#var('file_rec', 'command',
     \ ['ag', '-U', '--hidden', '--follow', '--nocolor', '--nogroup', '-g', ''] +
     \ s:ag_ignores)
-
   call denite#custom#var('grep', 'command', ['ag'])
   call denite#custom#var('grep', 'recursive_opts', [])
   call denite#custom#var('grep', 'pattern_opt', [])
@@ -70,25 +62,17 @@ endif
 
 " KEY MAPPINGS
 let insert_mode_mappings = [
-  \  ['jj', '<denite:enter_mode:normal>', 'noremap'],
   \  ['<Esc>', '<denite:enter_mode:normal>', 'noremap'],
-  \  ['<C-N>', '<denite:assign_next_matched_text>', 'noremap'],
-  \  ['<C-P>', '<denite:assign_previous_matched_text>', 'noremap'],
-  \  ['<Up>', '<denite:assign_previous_text>', 'noremap'],
-  \  ['<Down>', '<denite:assign_next_text>', 'noremap'],
-  \  ['<C-Y>', '<denite:redraw>', 'noremap'],
+  \  ['<C-c>', '<denite:enter_mode:normal>', 'noremap'],
+  \  ['<C-n>', '<denite:move_to_next_line>', 'noremap'],
+  \  ['<C-p>', '<denite:move_to_previous_line>', 'noremap'],
   \ ]
 
 let normal_mode_mappings = [
   \   ["'", '<denite:toggle_select_down>', 'noremap'],
-  \   ['<C-n>', '<denite:jump_to_next_source>', 'noremap'],
-  \   ['<C-p>', '<denite:jump_to_previous_source>', 'noremap'],
-  \   ['gg', '<denite:move_to_first_line>', 'noremap'],
-  \   ['st', '<denite:do_action:tabopen>', 'noremap'],
-  \   ['sg', '<denite:do_action:vsplit>', 'noremap'],
-  \   ['sv', '<denite:do_action:split>', 'noremap'],
-  \   ['sc', '<denite:quit>', 'noremap'],
-  \   ['r', '<denite:redraw>', 'noremap'],
+  \   ['<C-n>', '<denite:move_to_next_line>', 'noremap'],
+  \   ['<C-p>', '<denite:move_to_previous_line>', 'noremap'],
+  \   ['<C-c>', '<denite:quit>', 'noremap'],
   \ ]
 
 for m in insert_mode_mappings
@@ -98,4 +82,37 @@ for m in normal_mode_mappings
   call denite#custom#map('normal', m[0], m[1], m[2])
 endfor
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" denite prefix
+nnoremap [denite] <Nop>
+xnoremap [denite] <Nop>
+nmap ; [denite]
+xmap ; [denite]
+
+nnoremap <silent> [denite]r :<C-u>Denite -resume<CR>
+nnoremap <silent> [denite]f :<C-u>Files .<CR>
+nnoremap <silent> [denite]b :<C-u>Denite buffer file_old -default-action=switch<CR>
+nnoremap <silent> [denite]l :<C-u>Denite location_list -buffer-name=list<CR>
+nnoremap <silent> [denite]q :<C-u>Denite quickfix -buffer-name=list<CR>
+nnoremap <silent> [denite]g :<C-u>Denite grep -buffer-name=grep<CR>
+nnoremap <silent> [denite]j :<C-u>Denite jump change file_point<CR>
+nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
+nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
+nnoremap <silent> [denite]h :<C-u>Denite help<CR>
+nnoremap <silent> [denite]/ :<C-u>Denite line<CR>
+nnoremap <silent> [denite]* :<C-u>DeniteCursorWord line<CR>
+
+" Open Denite with word under cursor or selection
+nnoremap <silent> [denite]gf :DeniteCursorWord file_rec<CR>
+nnoremap <silent> [denite]gg :DeniteCursorWord grep -buffer-name=grep<CR>
+vnoremap <silent> [denite]gg
+  \ :<C-u>call <SID>get_selection('/')<CR>
+  \ :execute 'Denite -buffer-name=grep grep:::'.@/<CR><CR>
+
+function! s:get_selection(cmdtype) "{{{
+  let temp = @s
+  normal! gv"sy
+  let @/ = substitute(escape(@s, '\'.a:cmdtype), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
+
+"}}}

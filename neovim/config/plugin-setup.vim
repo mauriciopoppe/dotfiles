@@ -1,4 +1,3 @@
-
 " Interface {{{
 
 Plug 'sheerun/vim-polyglot'  " language highlighter pack
@@ -24,11 +23,10 @@ Plug 'reedes/vim-colors-pencil'
 " search/display lists
 Plug 'Shougo/denite.nvim'
 
-" NOTE: until vimfiler is reimplemented using denite, import unite
-" Note: unite-source-file_rec/async depends on vimproc
+" NOTE: until vimfiler is reimplemented using denite import unite for vimfiler
 Plug 'Shougo/unite.vim'
 
-" Unite sources {{{
+" unite/denite sources {{{
 
 Plug 'Shougo/neoyank.vim'     " history yank
 Plug 'Shougo/neomru.vim'      " most recently used files
@@ -38,7 +36,6 @@ Plug 'chemzqm/unite-location' " quickfix and location_listcu
 Plug 'Shougo/vimfiler.vim'    " filesystem exploration (depends on unite)
 
 " }}}
-
 " FZF {{{
 
 Plug 'junegunn/fzf', {
@@ -48,36 +45,22 @@ Plug 'junegunn/fzf', {
 Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
 
 " }}}
-
 " }}}
 
 " deoplete (autocomplete) {{{
 
-" creates aliases depending on the context (cpp also gets c completion)
-Plug 'Shougo/context_filetype.vim'
-" header name completion
-Plug 'Shougo/neoinclude.vim'
+" completion engine
+Plug 'Shougo/deoplete.nvim'
 
-" keyword completion engine
-Plug 'Shougo/deoplete.nvim' ", {'do': ':UpdateRemotePlugins' }
-" c++
+" languages
 Plug 'zchee/deoplete-clang', { 'for': ['cpp', 'c', 'hpp', 'h'] }
-" js
-" Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'carlitux/deoplete-ternjs'
 Plug 'mhartington/deoplete-typescript'
-" Plug 'mhartington/vim-angular2-snippets'
-" Plug 'othree/jspc.vim'
-
-" python
-
 Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
 
-"}}}
-
-" neomake {{{
-
-Plug 'neomake/neomake'
+" language support
+Plug 'Shougo/context_filetype.vim'  " aliases depending on the context
+Plug 'Shougo/neoinclude.vim'        " header name completion
 
 " }}}
 
@@ -85,23 +68,17 @@ Plug 'neomake/neomake'
 
 " Navigation {{{
 
-" additional mappings
-Plug 'tpope/vim-unimpaired'
-" navigate to any visible part with 2-keystrokes
-Plug 'easymotion/vim-easymotion'
-" Tmux navigation
-Plug 'christoomey/vim-tmux-navigator'
-" better f
-Plug 'rhysd/clever-f.vim'
-" better motion
-Plug 'bkad/CamelCaseMotion'
-" better /
-" Plug 'haya14busa/incsearch.vim'
+Plug 'tpope/vim-unimpaired'           " additional mappings
+Plug 'easymotion/vim-easymotion'      " navigate to any visible part with 2-keystrokes
+Plug 'christoomey/vim-tmux-navigator' " tmux navigation
+Plug 'rhysd/clever-f.vim'             " better f
+Plug 'bkad/CamelCaseMotion'           " better motion
 
 " }}}
 
 " Integration with external commands/apps {{{
 
+Plug 'neomake/neomake'
 Plug 'tpope/vim-fugitive'    " git wrapper
 Plug 'benmills/vimux'        " run commands in a tmux split
 Plug 'tyru/open-browser.vim' " open browser
@@ -195,5 +172,4 @@ Plug 'honza/vim-snippets' " collection of snippets
 " }}}
 
 " }}}
-
 
