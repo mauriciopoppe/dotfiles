@@ -4,18 +4,15 @@
 # init #
 ########
 
-__warn() {
-  printf "$(tput setaf 136)! %s(tput sgr0)" "$@"
-}
-
-# helper function to source file safely
-__safe_source() {
+safe-source() {
   [[ -s $1 ]] && source $1
 }
 
 # fix colors when running tmux inside zsh
 export TERM=xterm-256color
 [ -n "$TMUX" ] && export TERM=screen-256color
+
+# run nvim with italic comments
 alias nvim="TERM=xterm-256color-italic nvim"
 
 #########
@@ -70,40 +67,27 @@ zplug load
 # script initialization #
 #########################
 
-# fasd (https://github.com/clvv/fasd)
-fasd_cache="${HOME}/.fasd-init-cache"
-if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-  fasd --init auto >| "$fasd_cache"
-fi
-source "$fasd_cache"
-unset fasd_cache
+typeset -U CONFIG_FILES
+# (N) https://unix.stackexchange.com/questions/26805/how-to-silently-get-an-empty-string-from-a-glob-pattern-with-no-matches
+CONFIG_FILES=($DOTFILES_DIRECTORY/*/*.zsh(N))
+# ignore */install.zsh
+CONFIG_FILES=(${CONFIG_FILES:#*/install.zsh})
 
-# fzf (https://github.com/junegunn/fzf)
-#
-# The following line is commented because fzf checks with the following line
-# on install
-# __safe_source ${HOME}/.fzf.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# automatically initialize files that end in .path.zsh
+DO_AUTO_SOURCE=(${CONFIG_FILES:#*/*.path.zsh})
+for file in $DO_AUTO_SOURCE; do
+  source $file
+done
 
-# n (https://github.com/tj/n)
-export N_PREFIX="$HOME/n"
-[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
-
-# $DOTFILES_DIRECTORY is exported on ~/.zshenv
-# see install.sh
-__safe_source ${DOTFILES_DIRECTORY}/zsh/exports.zsh
-__safe_source ${DOTFILES_DIRECTORY}/zsh/functions.zsh
-__safe_source ${DOTFILES_DIRECTORY}/zsh/aliases.sh
-
-# Note: rvm must be sourced last or rvm will complain
-__safe_source ${HOME}/.rvm/scripts/rvm
+# automatically initialize files that end in .source.zsh
+DO_AUTO_SOURCE=(${CONFIG_FILES:#*/*.source.zsh})
+for file in $DO_AUTO_SOURCE; do
+  source $file
+done
 
 # local configuration
-__safe_source ${HOME}/.localrc
-
-if which jenv > /dev/null; then eval "$(jenv init -)"; fi
+safe-source ${HOME}/.localrc
 
 # remove functions from the global scope
-unset -f __warn
-unset -f __safe_source
+unset -f safe-source
 

@@ -12,7 +12,7 @@ if [[ ! -d ${DOTFILES_DIRECTORY}/.git ]]; then
 fi
 
 # DOTFILES_DIRECTORY must persist upon restart
-# executing './install.sh' won't save it since it's a script that is 
+# executing './install.sh' won't save it since it's a script that is
 # running as a child process
 #
 # The solution is to add an ENV var called ${DOTFILES_DIRECTORY} to .zshenv
@@ -20,7 +20,7 @@ fi
 ZENV=$HOME/.zshenv
 if [[ ! -f $ZENV ]]; then
   echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" > $ZENV
-else 
+else
   if [[ -z $(cat $ZENV | grep DOTFILES_DIRECTORY) ]]; then
     # the file exists but it doesn't have the dotfiles dir
     echo "export DOTFILES_DIRECTORY=${DOTFILES_DIRECTORY}" >> $ZENV
@@ -30,21 +30,14 @@ else
   fi
 fi
 
-# temporarily add ./bin to $PATH 
+# temporarily add ./bin to $PATH
 export PATH=$PATH:"${DOTFILES_DIRECTORY}/bin"
 
 # now dotfiles is ready!
-#       
+#
 #       $ dotfiles
 #
 cat << EOF
-
-#      _       _    __ _ _
-#   __| | ___ | |_ / _(_) | ___  ___
-#  / _  |/ _ \\| __| |_| | |/ _ \\/ __|
-# | (_| | (_) | |_|  _| | |  __/\\__ \\
-#  \\__,_|\\___/ \\__|_| |_|_|\\___||___/
-#
 
 Summary of operations
 
