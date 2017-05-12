@@ -23,6 +23,9 @@ alias npmoffline='npm --cache-min 9999999 '
 
 # remaps
 alias grep='grep --color'
+if hash ccat 2> /dev/null; then
+  alias cat="ccat"
+fi
 
 # tmux aliases
 # also check out `./functions` to switch/kill sessions

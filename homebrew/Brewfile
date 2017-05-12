@@ -4,6 +4,7 @@ tap 'homebrew/bundle'
 tap 'homebrew/versions'
 
 if RUBY_PLATFORM =~ /darwin/
+  brew 'ccat'                       # colored cat
   brew 'ctags'
   brew 'fasd'
   brew 'figlet'
