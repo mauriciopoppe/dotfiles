@@ -16,6 +16,8 @@ augroup mine
 
   autocmd BufWritePost * Neomake
   autocmd BufWritePre * :call utils#whitespace()
+
+  autocmd VimLeave * :call OnGoyoLeave()
 augroup END
 
 augroup FTCheck
@@ -31,7 +33,6 @@ augroup END
 augroup FTOptions
   autocmd!
   autocmd FileType c,cpp,cs,java setlocal commentstring=//\ %s
-  autocmd FileType liquid,markdown,text,txt setlocal tw=78 linebreak nolist
   autocmd FileType python,xml,html,jsp setlocal ts=4 sts=4 sw=4
   autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
 

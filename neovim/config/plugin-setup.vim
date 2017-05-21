@@ -164,12 +164,18 @@ Plug 'tpope/vim-obsession'           " session management
 Plug 'embear/vim-localvimrc'         " local vimrc
 Plug 'editorconfig/editorconfig-vim' " editorconfig
 
+" }}}
+
+" Prose writing {{{
+Plug 'reedes/vim-pencil'
+" Plug 'tpope/vim-markdown'
+" }}}
+
 " Snippets {{{
 
 Plug 'SirVer/ultisnips'   " engine
 Plug 'honza/vim-snippets' " collection of snippets
 
-" }}}
 
 " }}}
 

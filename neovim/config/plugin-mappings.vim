@@ -88,11 +88,6 @@ if utils#hasPlugin('python_match.vim') "{{{
 endif
 
 "}}}
-if utils#hasPlugin('tabman.vim') "{{{
-  nmap <silent> <Leader>tt <Plug>Tabman
-endif
-
-"}}}
 if utils#hasPlugin('goyo.vim') "{{{
 
   " trigger
@@ -100,17 +95,14 @@ if utils#hasPlugin('goyo.vim') "{{{
 
   " s:goyo_enter() "{{{
   " Disable visual candy in Goyo mode
-  function! s:goyo_enter()
-    if has('gui_running')
-      " Gui fullscreen
-      set fullscreen
-      set background=light
-      set linespace=7
-    elseif exists('$TMUX')
-      " Hide tmux status
-      silent !tmux set status off
-    endif
-
+  function OnGoyoEnter()
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+    set noshowmode
+    set noshowcmd
+    set scrolloff=999
+    " hide tabline (a new tab is created with the contents of the current buffer)
+    set showtabline=0
     " Activate Limelight
     Limelight
   endfunction
@@ -118,16 +110,15 @@ if utils#hasPlugin('goyo.vim') "{{{
   " }}}
   " s:goyo_leave() "{{{
   " Enable visuals when leaving Goyo mode
-  function! s:goyo_leave()
-    if has('gui_running')
-      " Gui exit fullscreen
-      set nofullscreen
-      set background=dark
-      set linespace=0
-    elseif exists('$TMUX')
-      " Show tmux status
-      silent !tmux set status on
-    endif
+  function OnGoyoLeave()
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+    set showmode
+    set showcmd
+    set scrolloff=5
+
+    " redraw tabline
+    call buftabline#update(1)
 
     " De-activate Limelight
     Limelight!
@@ -137,8 +128,8 @@ if utils#hasPlugin('goyo.vim') "{{{
   " Goyo Commands {{{
   autocmd! User GoyoEnter
   autocmd! User GoyoLeave
-  autocmd  User GoyoEnter nested call <SID>goyo_enter()
-  autocmd  User GoyoLeave nested call <SID>goyo_leave()
+  autocmd  User GoyoEnter nested call OnGoyoEnter()
+  autocmd  User GoyoLeave nested call OnGoyoLeave()
 " }}}
 
 endif
@@ -359,6 +350,18 @@ if utils#hasPlugin('vim-gfm-syntax') "{{{
   let g:gfm_syntax_enable_always = 0
   let g:gfm_syntax_highlight_emoji = 0
   let g:gfm_syntax_enable_filetypes = ['markdown']
+endif
+
+if utils#hasPlugin('vim-pencil') "{{{
+  let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+  augroup pencil
+    autocmd!
+    autocmd FileType markdown,md,text,tex,latex call pencil#init()
+                              " \ | call lexical#init()
+                              " \ | call litecorrect#init()
+                              " \ | call textobj#quote#init()
+                              " \ | call textobj#sentence#init()
+  augroup END
 endif
 
 "}}}
