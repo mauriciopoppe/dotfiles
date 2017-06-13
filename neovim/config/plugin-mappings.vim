@@ -157,17 +157,12 @@ endif
 
 "}}}
 if utils#hasPlugin('vim-go') "{{{
-  autocmd MyAutoCmd FileType go
-    \   nmap <C-]> <Plug>(go-def)
-    \ | nmap <Leader>god  <Plug>(go-describe)
-    \ | nmap <Leader>goc  <Plug>(go-callees)
-    \ | nmap <Leader>goC  <Plug>(go-callers)
-    \ | nmap <Leader>goi  <Plug>(go-info)
-    \ | nmap <Leader>gom  <Plug>(go-implements)
-    \ | nmap <Leader>gos  <Plug>(go-callstack)
-    \ | nmap <Leader>goe  <Plug>(go-referrers)
-    \ | nmap <Leader>gor  <Plug>(go-run)
-    \ | nmap <Leader>gov  <Plug>(go-vet)
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
 endif
 
 " }}}
@@ -339,9 +334,11 @@ endif
 
 if utils#hasPlugin('vim-markdown') "{{{
   let g:vim_markdown_initial_foldlevel = 5
-  let g:vim_markdown_new_list_item_indent = 2
+  let g:vim_markdown_new_list_item_indent = 0
   let g:vim_markdown_frontmatter = 1
   let g:vim_markdown_conceal = 0
+  let g:vim_markdown_math = 1
+  let g:tex_conceal = ""
 endif
 
 "}}}
@@ -351,6 +348,7 @@ if utils#hasPlugin('vim-gfm-syntax') "{{{
   let g:gfm_syntax_highlight_emoji = 0
   let g:gfm_syntax_enable_filetypes = ['markdown']
 endif
+"}}}
 
 if utils#hasPlugin('vim-pencil') "{{{
   let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'

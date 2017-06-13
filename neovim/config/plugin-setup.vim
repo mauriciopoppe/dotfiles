@@ -57,6 +57,7 @@ Plug 'zchee/deoplete-clang', { 'for': ['cpp', 'c', 'hpp', 'h'] }
 Plug 'carlitux/deoplete-ternjs'
 Plug 'mhartington/deoplete-typescript'
 Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 " language support
 Plug 'Shougo/context_filetype.vim'  " aliases depending on the context
@@ -154,6 +155,9 @@ Plug 'beyondmarc/glsl.vim'
 " CSS color highlighter
 Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'sass', 'scss', 'less'] }
 Plug 'yoppi/fluentd.vim'
+
+" Go
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 "}}}
 

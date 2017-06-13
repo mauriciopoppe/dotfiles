@@ -6,6 +6,7 @@ main() {
     print-step "installing go..."
     if [[ is-macos ]]; then
       brew install go
+      mkdir $HOME/go 2> /dev/null
     fi
   fi
 

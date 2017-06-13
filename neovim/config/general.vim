@@ -118,6 +118,11 @@ set fillchars="fold: "
 set complete+=kspell
 " insert the longest common text of the matches
 set completeopt+=longest
+set completeopt+=noinsert
+set completeopt+=noselect
+
+" quiet messages in auto completion
+set shortmess+=c
 
 " note set wildmenu is set by default
 set wildignore+=*vim/backups*
