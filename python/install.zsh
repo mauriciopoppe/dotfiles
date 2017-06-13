@@ -1,13 +1,12 @@
 #!/bin/zsh
 
-local scriptcwd=${0:h}
-source ${scriptcwd}/../lib/utils
+local cwd=${0:h}
 
 main() {
   print-header "python"
 
   print-step "installing python 3..."
-  brew install python3 --universal
+  brew install python3
   pip3 install --upgrade pip
 
   # npm global modules
@@ -16,13 +15,13 @@ main() {
   local modules
   modules=(
     grip              # preview markdown files
-    Pygments          # syntax highlighter
     virtualenv        # local dependency management
     jedi              # autocomplete
     yapf              # formatter
     flake8            # linter (actually a wrapper of pyflakes + other libs)
     ptpython          # better python repl
     howdoi            # get answers from google right into the CMD
+    jupyter           # jupyter notebooks
   )
   for module in $modules; do
     # pip3 is already installed on python +3.4
@@ -30,7 +29,7 @@ main() {
   done
 
   # configurations
-  symlink "${scriptcwd}/.ptpython/config.py" "${HOME}/.ptpython/config.py"
+  symlink "${cwd}/.ptpython/config.py" "${HOME}/.ptpython/config.py"
 }
 
 main $@

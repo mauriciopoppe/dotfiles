@@ -5,7 +5,7 @@
 typeset -U path
 # fix path
 # - /usr/local/bin should be first (homebrew)
-path=(/usr/local/bin "$path[@]")
+path=(/usr/local/bin ~/.local/bin "$path[@]")
 path+=(
   # path to my scripts
   ${DOTFILES_DIRECTORY}/bin
@@ -26,6 +26,5 @@ export EDITOR="$VISUAL"
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 # --hidden: include hidden files in the search
-
 export FZF_DEFAULT_COMMAND='ag --smart-case --hidden --ignore .git --ignore .svn --ignore node_modules --ignore .idea --follow -g ""'
 export FZF_DEFAULT_OPTS='--reverse --color=dark --inline-info --cycle'
