@@ -133,4 +133,11 @@ command! Only :call DeleteInactiveBufs()
 
 " }}}
 
+" quickfix {{{
+" alt + <
+map ≤ :cprevious<CR>
+" alt + ,s,s,s,su
+map ≥ :cnext<CR>
+nnoremap <leader>q :cclose<CR>
+" }}}
 

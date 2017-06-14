@@ -50,6 +50,7 @@ function ResetHighlight()
   highlight link NeomakeWarning Question
   highlight NeomakeErrorSign ctermfg=red
 
+  highlight Search cterm=none ctermfg=none ctermbg=8
 endfunction
 call ResetHighlight()
 

@@ -158,6 +158,7 @@ Plug 'yoppi/fluentd.vim'
 
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'AndrewRadev/splitjoin.vim'
 
 "}}}
 

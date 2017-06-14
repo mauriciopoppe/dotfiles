@@ -3,9 +3,9 @@
 " ------------------
 
 " Global Mappings "{{{
-" spacebar is the leader
+" , is the leader
 " ; the secondary leader
-let g:mapleader="\<Space>"
+let g:mapleader=","
 
 " Release keymappings prefixes (remapped later)
 nnoremap <Space>  <Nop>
