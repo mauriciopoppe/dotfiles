@@ -2,6 +2,7 @@
 
 # day to day shortcuts
 alias c='clear'
+alias ls='ls -G'
 alias l.='ls -dahG .*'
 alias la='ls -lahG'
 alias ..='cd ../'

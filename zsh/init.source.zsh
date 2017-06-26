@@ -22,3 +22,8 @@ _fzf_compgen_path() {
   ag -g "" "$1"
 }
 
+competitive() {
+  now=$(date +"%Y_%m_%d__%H_%M_%S")
+  FILENAME=${TMPDIR}$(basename "$1")"__"${now}
+  g++ -std=c++11 -O2 -Wall $1 -o $FILENAME && $FILENAME
+}
