@@ -15,6 +15,11 @@ if utils#hasPlugin('deoplete.nvim') " {{{
 endif
 " }}}
 
+if utils#hasPlugin('neomake') " {{{
+  source $VIMPATH/config/plugins/neomake.vim
+endif
+" }}}
+
 if utils#hasPlugin('fzf.vim')
   let g:fzf_files_options =
     \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
