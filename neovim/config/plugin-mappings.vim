@@ -177,7 +177,7 @@ if utils#hasPlugin('vim-go') "{{{
   autocmd FileType go nmap <leader>r <Plug>(go-run)
   autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 
-  let g:go_auto_type_info = 1
+  " let g:go_auto_type_info = 1
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
   let g:go_list_type = "quickfix"
