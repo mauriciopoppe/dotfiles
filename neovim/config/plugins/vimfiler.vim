@@ -21,7 +21,7 @@ let g:vimfiler_tree_leaf_icon = ' '
 call vimfiler#custom#profile('default', 'context', {
       \  'safe': 0,
       \  'status': 1,
-      \  'winwidth': 25,
+      \  'winwidth': 35,
       \  'explorer': 1,
       \  'auto_expand': 1,
       \  'no_quit': 1,

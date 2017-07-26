@@ -6,20 +6,15 @@ let g:enable_bold_font = 1
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
 
-" light theme
-
-" set background=light
-" try
-"   colorscheme pencil
-"   " colorscheme solarized
-" catch
-"   echo 'could not set theme'
-" endtry
-
-" dark theme
+let g:pencil_higher_contrast_ui = 1
+let g:pencil_neutral_code_bg = 1
+let g:pencil_spell_undercurl = 1
 
 set background=dark
+
 try
+  " colorscheme pencil
+  " colorscheme PaperColor
   colorscheme hybrid
   " colorscheme hybrid_reverse
   " colorscheme distinguished

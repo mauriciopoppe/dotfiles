@@ -17,6 +17,7 @@ Plug 'Lokaltog/vim-distinguished'
 Plug 'w0ng/vim-hybrid'
 Plug 'altercation/vim-colors-solarized'
 Plug 'reedes/vim-colors-pencil'
+Plug 'NLKNguyen/papercolor-theme'
 
 " denite {{{
 
