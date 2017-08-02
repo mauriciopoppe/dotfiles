@@ -80,7 +80,7 @@ Plug 'bkad/CamelCaseMotion'           " better motion
 
 " Integration with external commands/apps {{{
 
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'    " git wrapper
 Plug 'benmills/vimux'        " run commands in a tmux split
 Plug 'tyru/open-browser.vim' " open browser

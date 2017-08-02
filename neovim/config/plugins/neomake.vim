@@ -22,4 +22,9 @@ let g:neomake_ansible_yamllint_maker = neomake#makers#ft#yaml#yamllint()
 let g:neomake_cpp_enable_markers=['clang']
 let g:neomake_cpp_clang_args = ["-std=c++11", "-pedantic", "-Wextra", "-Wall", "-O2", "-fsanitize=undefined", "-Wno-sign-compare"]
 
+" neomake errors
+highlight link NeomakeError DiffDelete
+highlight link NeomakeWarning Question
+highlight NeomakeErrorSign ctermfg=red
+
 " vim: set ts=2 sw=2 tw=80 noet :

@@ -13,7 +13,7 @@ augroup mine
   " hide preview
   autocmd CompleteDone * pclose
 
-  autocmd BufWritePost * Neomake
+  " autocmd BufWritePost * Neomake
   autocmd BufWritePre * :call utils#whitespace()
 
   autocmd VimLeave * :call OnGoyoLeave()

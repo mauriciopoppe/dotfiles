@@ -18,6 +18,11 @@ endif
 if utils#hasPlugin('neomake') " {{{
   source $VIMPATH/config/plugins/neomake.vim
 endif
+
+if utils#hasPlugin('ale') " {{{
+  source $VIMPATH/config/plugins/ale.vim
+endif
+
 " }}}
 
 if utils#hasPlugin('fzf.vim')

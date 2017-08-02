@@ -43,7 +43,12 @@ function ResetHighlight()
   " neomake errors
   highlight link NeomakeError DiffDelete
   highlight link NeomakeWarning Question
-  highlight NeomakeErrorSign ctermfg=red
+  highlight NeomakeErrorSign cterm=none ctermbg=none ctermfg=red
+
+  " ale errors
+  highlight link ALEErrorSign DiffDelete
+  highlight link ALEWarningSign Question
+  highlight ALEErrorSign cterm=none ctermbg=none ctermfg=red
 
   highlight Search cterm=none ctermfg=none ctermbg=8
 endfunction
