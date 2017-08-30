@@ -141,6 +141,7 @@ Plug 'jason0x43/vim-js-indent'
 " jumping between node modules
 Plug 'moll/vim-node', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 Plug 'isRuslan/vim-es6', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+Plug 'fleischie/vim-styled-components'
 
 Plug 'elzr/vim-json', { 'for': 'json' }
 
