@@ -10,11 +10,14 @@
 # Created on 21/11/15
 # Author: Mauricio Poppe <mauricio.poppe@gmail.com>
 #
+if [[ -z $DOTFILES_DIRECTORY ]]; then
+  echo "dotfiles: DOTFILES_DIRECTORY is not set, execute 'source install.zsh' on the dotfiles directory"
+  exit 1
+fi
 
-source lib/print
-
-source lib/utils
-source lib/macos-utils
+source $DOTFILES_DIRECTORY/lib/print
+source $DOTFILES_DIRECTORY/lib/utils
+source $DOTFILES_DIRECTORY/lib/macos-utils
 
 dotfiles-help() {
 cat << EOF
@@ -104,11 +107,6 @@ dotfiles-complete() {
 
 dotfiles-main() {
   local cmd=$1
-
-  if [[ -z $DOTFILES_DIRECTORY ]]; then
-    echo "dotfiles: DOTFILES_DIRECTORY is not set, execute 'source install.zsh' on the dotfiles directory"
-    exit 1
-  fi
 
   cd $DOTFILES_DIRECTORY
 
