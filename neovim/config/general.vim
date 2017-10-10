@@ -44,6 +44,7 @@ set shiftwidth=2
 " }}}
 " Display settings {{{
 
+set mouse=a
 " wrap long lines (doesn't change what's on the buffer)
 set linebreak
 " show invisible chars
