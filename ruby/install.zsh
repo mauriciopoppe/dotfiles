@@ -6,22 +6,20 @@ source ${base}/../lib/utils
 main() {
   print-header "ruby"
 
-  print-step "installing rvm..."
+  print-step "installing rbenv..."
   if [[ ! -d ${HOME}/.rvm ]]; then
-    \curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles
+    brew install rbenv
   else
-    print-message "rvm already installed"
+    print-message "rbenv already installed"
   fi
 
-  # activate rvm for the current subprocess
-  [[ -s ${HOME}/.rvm/scripts/rvm ]] && . ${HOME}/.rvm/scripts/rvm
-
   # link default gemset
-  ln -vfs ${DOTFILES_DIRECTORY}/ruby/default.gems ~/.rvm/gemsets/default.gems
+  # ln -vfs ${DOTFILES_DIRECTORY}/ruby/default.gems ~/.rvm/gemsets/default.gems
 
-  print-step "installing ruby 2.1.1"
-  rvm install 2.1.1
-  rvm use ruby-2.1.1
+  print-message "next steps: https://github.com/rbenv/rbenv#homebrew-on-macos"
+  eval "$(rbenv init -)"
+  rbenv install 2.4.2
+  rbenv global 2.4.2
 }
 
 main $@
