@@ -41,7 +41,6 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions"
 zplug "djui/alias-tips"
 zplug "b4b4r07/enhancd", use:enhancd.sh
-zplug "junegunn/fzf", hook-build:"./install"
 
 # zplug "plugins/dirhistory", from:"oh-my-zsh"
 # zplug "plugins/git", from:"oh-my-zsh"
@@ -91,4 +90,7 @@ safe-source ${HOME}/.localrc
 # remove functions from the global scope
 unset -f safe-source
 
+####################
+# sourced manually #
+####################
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

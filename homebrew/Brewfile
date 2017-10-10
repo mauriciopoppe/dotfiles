@@ -46,10 +46,9 @@ if RUBY_PLATFORM =~ /darwin/
   cask 'karabiner'
   cask 'skim'
   cask 'spotify'
-  cask 'sublime-text3'
+  cask 'sublime-text'
   cask 'tex-live-utility'
   cask 'the-unarchiver'
-  cask 'utorrent'
   cask 'vlc'
 
   # https://github.com/sindresorhus/quick-look-plugins

@@ -6,7 +6,7 @@
 require 'pathname'
 
 # Algorithm:
-# - get saved sessions (from the file ~/bookmarks.data)
+# - get saved sessions (from the file ~/.bookmarks.data)
 # - get opened sessions (with tmux-list-session)
 # - create a list with unique items from both lists (sorted)
 # - ask to switch session
