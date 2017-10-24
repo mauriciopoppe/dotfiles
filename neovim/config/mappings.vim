@@ -66,9 +66,9 @@ nnoremap <leader>sv :so $MYVIMRC<CR>
 noremap <silent> <Leader><CR> :call utils#runLastCommand()<CR>
 
 " open page in chrome (OSX only)
-nnoremap <leader>oc :exec ':silent !open % -a Google\ Chrome'
+nnoremap <leader>o :exec ':silent !open % -a Google\ Chrome'
 
-" }}}
+" }}
 
 " Panes and buffers {{{
 
@@ -133,11 +133,8 @@ command! Only :call DeleteInactiveBufs()
 
 " }}}
 
-" quickfix {{{
-" alt + <
-map ≤ :cprevious<CR>
-" alt + ,s,s,s,su
-map ≥ :cnext<CR>
-nnoremap <leader>q :cclose<CR>
+" search {{{
+" [q - previous item in quickfix
+" ]q - next item in quickfix
 " }}}
 

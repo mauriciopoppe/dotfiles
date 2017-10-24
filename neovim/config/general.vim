@@ -54,6 +54,8 @@ set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
 set showbreak=↪
 " disable parenthesis matching (improve scroll performance a little bit)
 let loaded_matchparen = 1
+" enable mouse scrolling with the scroll wheel
+set mouse=a
 
 " }}}
 " Split settings {{{
