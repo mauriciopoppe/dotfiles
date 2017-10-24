@@ -6,7 +6,7 @@
 #        AUTHOR:  Jocelyn Mallon
 #       VERSION:  1.7.0
 # ----------------------------------------------------
-BOOKMARK_FILE="$HOME/.boomarks.data"
+BOOKMARK_FILE="$HOME/.bookmarks.data"
 touch $BOOKMARK_FILE
 cat $BOOKMARK_FILE
 

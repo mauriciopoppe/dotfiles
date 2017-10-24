@@ -102,6 +102,17 @@ if utils#hasPlugin('python_match.vim') "{{{
 endif
 
 "}}}
+
+if utils#hasPlugin('vim-jsx') "{{{
+  let g:jsx_ext_required = 0
+endif
+"}}}
+
+if utils#hasPlugin('vim-flow') "{{{
+  let g:flow#showquickfix = 0
+endif
+"}}}
+
 if utils#hasPlugin('goyo.vim') "{{{
 
   " trigger

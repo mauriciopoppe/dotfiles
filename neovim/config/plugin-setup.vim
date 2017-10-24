@@ -142,11 +142,12 @@ Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 " Plug 'othree/jspc.vim', { 'for' : 'javascript' }
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'jason0x43/vim-js-indent'
+" Plug 'jason0x43/vim-js-indent'
 " jumping between node modules
 Plug 'moll/vim-node', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 Plug 'isRuslan/vim-es6', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 Plug 'fleischie/vim-styled-components'
+Plug 'flowtype/vim-flow'
 
 Plug 'elzr/vim-json', { 'for': 'json' }
 
