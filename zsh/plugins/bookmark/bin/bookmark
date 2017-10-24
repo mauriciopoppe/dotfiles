@@ -10,7 +10,7 @@
 # bookmark definition is just the current dir
 cur_dir="$(pwd)"
 bookmark="$cur_dir"
-BOOKMARK_FILE="$HOME/.boomarks.data"
+BOOKMARK_FILE="$HOME/.bookmarks.data"
 touch $BOOKMARK_FILE
 
 if [[ -z $(grep "^$bookmark$" $BOOKMARK_FILE 2>/dev/null) ]]; then
