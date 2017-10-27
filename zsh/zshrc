@@ -39,12 +39,14 @@ zplug "$DOTFILES_DIRECTORY/zsh/plugins/bookmark", \
 
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions"
+# zplug "zsh-users/zsh-autosuggestions"
 zplug "djui/alias-tips"
 zplug "b4b4r07/enhancd", use:enhancd.sh
 
 # zplug "plugins/dirhistory", from:"oh-my-zsh"
 # zplug "plugins/git", from:"oh-my-zsh"
 zplug "plugins/osx", from:"oh-my-zsh"
+zplug "bobthecow/git-flow-completion", from:github
 
 # prompt
 zplug "mafredri/zsh-async", from:github
