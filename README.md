@@ -1,7 +1,7 @@
 # Mauricio Poppe's dotfiles
 
 [![travis](https://travis-ci.org/maurizzzio/dotfiles.svg?branch=master)](https://travis-ci.org/maurizzzio/dotfiles)
-![platform osx](https://img.shields.io/badge/platform-osx-orange.svg)
+![platform macos](https://img.shields.io/badge/platform-macos-orange.svg)
 
 ## Features
 
