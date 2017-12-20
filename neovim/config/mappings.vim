@@ -109,6 +109,8 @@ nnoremap ˙ ^
 " ¬ = alt + l (move to the end of the line)
 nnoremap ¬ $
 
+autocmd VimEnter,BufEnter,BufWinEnter * silent! iunmap <buffer> <M-">
+
 function! DeleteInactiveBufs()
   "From tabpagebuflist() help, get a list of all buffers in all tabs
   let tablist = []

@@ -3,16 +3,15 @@
 set -e
 
 local base=${0:h}
-source ${base}/../lib/utils
 
 sync_files() {
   # shell
-  symlink "${base}/../zsh/aliases.sh" "${HOME}/.sshrc.d/aliases.sh"
+  symlink "${base}/../zsh/aliases.source.zsh" "${HOME}/.sshrc.d/aliases.source.zsh"
 
   # vim
   symlink "${base}/../neovim/config/base.vim" "${HOME}/.sshrc.d/base.vim"
   symlink "${base}/../neovim/config/general.vim" "${HOME}/.sshrc.d/general.vim"
-  symlink "${base}/../neovim/config/key-bindings.vim" "${HOME}/.sshrc.d/key-bindings.vim"
+  symlink "${base}/../neovim/config/mappings.vim" "${HOME}/.sshrc.d/mappings.vim"
 }
 
 main() {
@@ -27,8 +26,8 @@ main() {
 
   # TODO: copy vimrc files from neovim/
   print-step "sshrc symlinks..."
-  symlink "${base}/sshrc" "${HOME}/.sshrc"
-  symlink "${base}/sshrc.d" "${HOME}/.sshrc.d"
+  symlink "${base}/.sshrc" "${HOME}/.sshrc"
+  symlink "${base}/.sshrc.d" "${HOME}/.sshrc.d"
 
   print-step "copying boot files to ~/.sshrc.d"
   sync_files

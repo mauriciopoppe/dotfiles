@@ -15,6 +15,11 @@ if utils#hasPlugin('deoplete.nvim') " {{{
 endif
 " }}}
 
+if utils#hasPlugin('vim-latex-live-preview') " {{{
+  let g:livepreview_previewer = 'skim'
+endif
+" }}}
+
 if utils#hasPlugin('neomake') " {{{
   source $VIMPATH/config/plugins/neomake.vim
 endif
@@ -397,5 +402,9 @@ if utils#hasPlugin('vim-pencil') "{{{
   augroup END
 endif
 
+"}}}
+
+if utils#hasPlugin('tagbar') "{{{
+endif
 "}}}
 " vim: set ts=2 sw=2 tw=80 et :

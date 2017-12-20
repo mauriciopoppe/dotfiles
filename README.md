@@ -16,10 +16,13 @@
 ## Installation
 
 ```
-curl -Lq https://git.io/vVATE -o install.sh && source install.sh
+cd ~
+git clone https://github.com/mauriciopoppe/dotfiles .dotfiles
+cd .dotfiles
+source install.sh
 ```
 
-The script above will clone the repository to `~/.dotfiles`, in addition the `~/.dotfiles/bin/` directory will be added to your `PATH` for the current session
+The script above will add `~/.dotfiles/zsh/bin/` to your `PATH` for the current session
 
 All operations are done through the `dotfiles` script
 
@@ -41,18 +44,6 @@ dotfiles tmux
 Which calls the `install.zsh` script located inside the `tmux/` folder, you
 can do this with all the first level directories of this repo e.g. `$ dotfiles
 [zsh|tmux|neovim|...]`
-
-You can also install the triumvirate (zsh + tmux + neovim) with a single command
-
-```
-dotfiles essential
-```
-
-Additionally you can install brew formulas, applications, osx defaults, node.js/python global packages and alfred workflows with
-
-```
-dotfiles complete
-```
 
 ### Post installation
 
@@ -91,6 +82,10 @@ curl -O https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/
 - Uncheck *use lion-style full screen* on General
 - Load preferences from the custom folder `dotfiles/iTerm2`
 
+## Secure dotfiles
+
+Secret files are not tracked by the repo but
+
 ## What's included? And how to customize it?
 
 Refer to the file `install.zsh` that each folder has, after cloning the repo you
@@ -110,9 +105,9 @@ can add whatever you need inside each installation script
 Big parts of my dotfiles were inspired (in most cases copied :P) from other dotfiles, I wanna thank the following people for their contribution to the open
 source community
 
-- Rafael Bodill - https://github.com/rafi/vim-config
-- [b4b4r07](https://github.com/b4b4r07/dotfiles) - https://github.com/b4b4r07
-- [Terry Ma](https://github.com/terryma/dotfiles) - https://github.com/terryma/dotfiles
+- [Rafael Bodill](https://github.com/rafi/vim-config)
+- [b4b4r07](https://github.com/b4b4r07/dotfiles)
+- [Terry Ma](https://github.com/terryma/dotfiles)
 - [Bruno Sutic](https://github.com/nicknisi/dotfiles)
 - [Nicolas Gallagher](https://github.com/necolas/dotfiles)
 - [Nick Nisi](https://github.com/bruno-/dotfiles)
@@ -121,8 +116,7 @@ source community
 
 Thank you all!
 
-2015 @ MIT license
+2015-2017
 
-[antigen]: https://github.com/zsh-users/antigen
 [tpm]: https://github.com/tmux-plugins/tpm
 [vim-plug]: https://github.com/junegunn/vim-plug
