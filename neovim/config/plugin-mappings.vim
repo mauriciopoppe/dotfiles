@@ -44,6 +44,10 @@ if utils#hasPlugin('lightline.vim')
   source $VIMPATH/config/plugins/lightline.vim
 endif
 
+if utils#hasPlugin('vim-jsx')
+  let g:jsx_ext_required = 0
+endif
+
 " }}}
 
 " }}}
@@ -214,6 +218,13 @@ if utils#hasPlugin('vim-fugitive') "{{{
   nnoremap <silent> <leader>gb :Gblame<CR>
   nnoremap <silent> <leader>gB :Gbrowse<CR>
   nnoremap <silent> <leader>gp :Git push<CR>
+endif
+
+"}}}
+if utils#hasPlugin('ack.vim') "{{{
+  if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+  endif
 endif
 
 "}}}
