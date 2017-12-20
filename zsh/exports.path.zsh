@@ -8,8 +8,8 @@ typeset -U path
 path=(/usr/local/bin ~/.local/bin "$path[@]")
 path+=(
   # path to my scripts
-  ${DOTFILES_DIRECTORY}/bin
-  ${DOTFILES_DIRECTORY}/bin/private
+  ${DOTFILES_DIRECTORY}/zsh/bin
+  ${DOTFILES_DIRECTORY}/zsh/bin/private
 )
 export PATH
 

@@ -23,7 +23,7 @@ main() {
   fi
 
   print-step "tmux symlinks..."
-  symlink "${base}/tmux.conf" "${HOME}/.tmux.conf"
+  symlink "${base}/.tmux.conf" "${HOME}/.tmux.conf"
 
   print-step "installing plugins..."
   ${HOME}/.tmux/plugins/tpm/bin/install_plugins > /dev/null

@@ -41,6 +41,8 @@ set expandtab
 set softtabstop=2
 " how many columns are indented with the indent operations (<< and >>)
 set shiftwidth=2
+" how many places should a tab be seen as
+set tabstop=4
 " }}}
 " Display settings {{{
 

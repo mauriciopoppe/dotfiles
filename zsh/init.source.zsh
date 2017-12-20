@@ -18,5 +18,5 @@ _fzf_compgen_path() {
 competitive() {
   now=$(date +"%Y_%m_%d__%H_%M_%S")
   FILENAME=${TMPDIR}$(basename "$1")"__"${now}
-  g++ -std=c++11 -pedantic -Wextra -Wall -Wno-sign-compare -O2 -fsanitize=undefined $1 -o $FILENAME && /usr/bin/time $FILENAME
+  g++ -std=c++11 -pedantic -Wextra -Wall -Wno-sign-compare -O2 -fsanitize=undefined $1 -o $FILENAME && $FILENAME
 }

@@ -1,23 +1,21 @@
 #!/bin/zsh
+# set -o xtrace
 
-#
 #      _       _    __ _ _
 #   __| | ___ | |_ / _(_) | ___  ___
 #  / _` |/ _ \| __| |_| | |/ _ \/ __|
 # | (_| | (_) | |_|  _| | |  __/\__ \
 #  \__,_|\___/ \__|_| |_|_|\___||___/
 #
-# Created on 21/11/15
-# Author: Mauricio Poppe <mauricio.poppe@gmail.com>
-#
+# Mauricio Poppe <mauricio.poppe@gmail.com>
 if [[ -z $DOTFILES_DIRECTORY ]]; then
   echo "dotfiles: DOTFILES_DIRECTORY is not set, execute 'source install.zsh' on the dotfiles directory"
   exit 1
 fi
 
-source $DOTFILES_DIRECTORY/lib/print
-source $DOTFILES_DIRECTORY/lib/utils
-source $DOTFILES_DIRECTORY/lib/macos-utils
+source $DOTFILES_DIRECTORY/zsh/lib/print
+source $DOTFILES_DIRECTORY/zsh/lib/utils
+source $DOTFILES_DIRECTORY/zsh/lib/macos-utils
 
 dotfiles-help() {
 cat << EOF
@@ -26,12 +24,14 @@ cat << EOF
 
     [<package>]
 
-      ( platform independent )
+      ( basic )
         zsh|neovim|tmux
+
+      ( tools )
         git|ctags|sshrc
 
       ( macOS specific )
-        macos|homebrew|Iterm2|alfred
+        @macos/default|@macos/alfred|@macos/iTerm2|homebrew
 
       ( Programming languages )
         nodejs|ruby|python|go
@@ -68,8 +68,8 @@ dotfiles-pre() {
 
   if ! command-exists "gcc"; then
     print-error "The XCode Command Line Tools must be installed first."
-    printf "  Download them from: https://developer.apple.com/downloads\n"
-    printf "  Or install them with: xcode-select --install\n"
+    printf "  Download it from: https://developer.apple.com/downloads\n"
+    printf "  Or install it with: xcode-select --install\n"
     exit 1
   fi
 
@@ -77,6 +77,15 @@ dotfiles-pre() {
   if ! command-exists "brew"; then
     print-header "Installing Homebrew..."
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+}
+
+-dotfiles-install-single() {
+  cmd=$1
+  full=$DOTFILES_DIRECTORY/$1
+  shift
+  if [[ -e $cmd/install.zsh ]]; then
+    source $cmd/install.zsh $@
   fi
 }
 
@@ -114,10 +123,12 @@ dotfiles-main() {
 
   if [[ -z $cmd ]] || [[ $cmd == "--help" ]]; then
     dotfiles-help
-  elif [[ -e $cmd/install.zsh ]]; then
+  elif [[ -e $cmd ]]; then
     # invoke install.zsh on requested dir
-    shift
-    source $cmd/install.zsh $@
+    # shift
+    -dotfiles-install-single $@
+    # "dotfiles-install" ${cmd} $@
+    # source $cmd/install.zsh $@
   elif functions "dotfiles-${cmd}" > /dev/null; then
     shift
     "dotfiles-${cmd}" $@

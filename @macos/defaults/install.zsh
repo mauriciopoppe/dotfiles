@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/zsh
+
 #
 # OSX defaults
 #
@@ -59,4 +60,3 @@ killall Finder
 killall Dock
 killall cfprefsd
 killall SystemUIServer
-

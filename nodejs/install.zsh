@@ -1,7 +1,6 @@
 #!/bin/zsh
 
 local base=${0:h}
-source ${base}/../lib/utils
 
 main() {
   print-header "node"
@@ -24,11 +23,8 @@ main() {
   local modules
   modules=(
     # essentials
-    bower
     standard                  # lint
-    standard-format           # formats the easy cases
     npm-check-updates         # `ncu` checks for updates
-    pnpm                      # high performance npm
 
     # generators
     yo                        # yeoman
@@ -46,13 +42,6 @@ main() {
     np                        # better npm publish
     gzip-size-cli             # gzip size
     pretty-bytes-cli          # display size for humans
-    typescript
-
-    # build system/module bundlers
-    browserify
-    gulp
-    webpack
-    webpack-dev-server
 
     # debugger
     # vimdebug - replaced with devtool
@@ -62,7 +51,8 @@ main() {
   done
 
   print-step "module symlinks..."
-  symlink "${base}/czrc" "~/.czrc"
+  symlink "$DOTFILES_DIRECTORY/$base/.czrc" "$HOME/.czrc"
+  symlink "$DOTFILES_DIRECTORY/$base/.tern-project" "$HOME/.tern-project"
 }
 
 main $@

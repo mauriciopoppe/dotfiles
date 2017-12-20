@@ -1,0 +1,9 @@
+.DS_Store
+plugins
+term
+lib
+.*.source.zsh
+.*.path.zsh
+install.zsh
+README.md
+

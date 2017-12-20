@@ -63,6 +63,7 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 " language support
 Plug 'Shougo/context_filetype.vim'  " aliases depending on the context
 Plug 'Shougo/neoinclude.vim'        " header name completion
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 " }}}
 

@@ -1,16 +1,15 @@
 #!/bin/zsh
+# set -o xtrace
 
 local base=${0:h}
-source ${base}/../lib/utils
 
 main() {
   print-header "git"
-  
-  print-step "git symlinks..."
-  symlink "${base}/gitignore" "${HOME}/.gitignore"
-  symlink "${base}/gitconfig" "${HOME}/.gitconfig"
 
-  print-message "remember to update the contents of .gitconfig"
+  # symlink
+  # stow -d ${DOTFILES_DIRECTORY} -S ${base}
+
+  print-message "remember to update the contents of ~/.gitconfig and ~/.gitconfig-local"
 }
 
 main $@

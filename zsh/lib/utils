@@ -8,10 +8,6 @@ is-macos() {
   [[ $OSTYPE =~ ^darwin ]] || return 1
 }
 
-is-macos() {
-  [[ $OSTYPE =~ ^linux ]] || return 1
-}
-
 add-unique-line-to-file() {
   local line=${1}
   local file=${2}
@@ -22,12 +18,21 @@ add-unique-line-to-file() {
   fi
 }
 
+get-enclosing-folder() {
+  P=${0:h}
+  echo $P
+}
+
 restart-shell() {
   printf "\n"
   print-message "restart your session to load the new settings"
   printf "\n\t"
   print-message "$ source ~/.zshrc"
   printf "\n"
+}
+
+install-symlinks() {
+  stow -d $1
 }
 
 symlink() {
@@ -39,7 +44,6 @@ symlink() {
   local src=${1:a}
   local tgt=${2:a}
 
-  echo $src
   if [[ ! -e $src ]]; then
     print-warning "the file ${src} does not exist, aborting"
     return 1
@@ -59,8 +63,9 @@ symlink() {
     fi
   fi
 
-  print-success "${src} -> ${tgt}"
-
+  mkdir -p `dirname ${tgt}`
   ln -nfs $src $tgt
+
+  print-success "${src} -> ${tgt}"
 }
 
