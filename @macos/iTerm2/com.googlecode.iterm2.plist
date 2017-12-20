@@ -1695,9 +1695,13 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 143 606 456 0 0 1920 1178 </string>
 	<key>NSWindow Frame SharedPreferences</key>
+<<<<<<< HEAD:@macos/iTerm2/com.googlecode.iterm2.plist
 	<string>560 479 796 473 0 0 1920 1178 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>155 594 592 584 0 0 1920 1178 </string>
+=======
+	<string>346 763 918 381 0 0 1920 1178 </string>
+>>>>>>> d293b7326ec788fbfa59a357a5647daf1659516f:iTerm2/com.googlecode.iterm2.plist
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1920 1200 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -3317,11 +3321,15 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
+<<<<<<< HEAD:@macos/iTerm2/com.googlecode.iterm2.plist
 	<date>2017-10-26T21:01:05Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUSkippedVersion</key>
 	<string>3.1.4</string>
+=======
+	<date>2017-10-08T20:06:22Z</date>
+>>>>>>> d293b7326ec788fbfa59a357a5647daf1659516f:iTerm2/com.googlecode.iterm2.plist
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>

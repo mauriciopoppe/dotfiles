@@ -43,6 +43,8 @@ defaults write com.apple.Finder AppleShowAllFiles -bool true
 # Play iOS sound when charging
 defaults write com.apple.PowerChime ChimeOnAllHardware -bool true && \
 open /System/Library/CoreServices/PowerChime.app
+# Disable transition duration
+defaults write com.apple.dock expose-animation-duration -int 0
 
 # Screenshots
 # Screenshots folder inside ~/Pictures (default is the desktop)

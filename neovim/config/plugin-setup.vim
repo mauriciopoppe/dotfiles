@@ -76,6 +76,7 @@ Plug 'easymotion/vim-easymotion'      " navigate to any visible part with 2-keys
 Plug 'christoomey/vim-tmux-navigator' " tmux navigation
 Plug 'rhysd/clever-f.vim'             " better f
 Plug 'bkad/CamelCaseMotion'           " better motion
+Plug 'mileszs/ack.vim'                " search
 
 " }}}
 
@@ -129,9 +130,13 @@ Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'othree/csscomplete.vim', { 'for': 'css' }
 
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
-" Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+Plug 'chemzqm/vim-jsx-improve'
+Plug 'mxw/vim-jsx'
+Plug 'alvan/vim-closetag'
+Plug 'Valloric/MatchTagAlways'
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 " Plug 'othree/yajs.vim', { 'for': 'javascript' }
 " Plug 'gavocanov/vim-js-indent', { 'for' : 'javascript' }
 " Plug 'othree/javascript-libraries-syntax.vim', { 'for' : 'javascript' }
