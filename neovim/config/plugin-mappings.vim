@@ -170,10 +170,6 @@ if utils#hasPlugin('limelight.vim') " {{{
 endif
 
 "}}}
-if utils#hasPlugin('vim-choosewin') "{{{
-  nmap -         <Plug>(choosewin)
-  nmap <Leader>- :<C-u>ChooseWinSwapStay<CR>
-endif
 
 "}}}
 if utils#hasPlugin('jedi-vim') "{{{
@@ -206,6 +202,7 @@ if utils#hasPlugin('vim-go') "{{{
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
   let g:go_list_type = "quickfix"
+  let g:go_fmt_command = "goimports"
 endif
 
 " }}}

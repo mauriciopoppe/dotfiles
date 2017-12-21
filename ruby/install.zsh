@@ -7,7 +7,7 @@ main() {
   print-header "ruby"
 
   print-step "installing rbenv..."
-  if [[ ! -d ${HOME}/.rvm ]]; then
+  if ! command-exists "rbenv"; then
     brew install rbenv
   else
     print-message "rbenv already installed"
