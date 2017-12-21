@@ -3,10 +3,11 @@ os: osx
 
 before_install:
   - brew install zsh
+  - chmod +x install.sh
+  - chmod +x zsh/bin/dotfiles
 
 script:
   - source install.sh
   - cat ~/.zshenv
-  - echo $PATH
-  - zsh $DOTFILES_DIRECTORY/zsh/bin/dotfiles
+  - dotfiles --help
 
