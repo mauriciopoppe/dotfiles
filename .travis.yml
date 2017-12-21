@@ -5,6 +5,5 @@ before_install:
   - brew install zsh
 
 script:
-  - echo $PWD
-  - source install.sh
+  - $PWD/install.sh
 
