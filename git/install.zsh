@@ -9,7 +9,7 @@ main() {
   symlink "${base}/.gitignore" "${HOME}/.gitignore"
   symlink "${base}/.gitconfig" "${HOME}/.gitconfig"
 
-  print-message "remember to update the contents of .gitconfig and .gitconfig-local"
+  print-message "remember to check the contents of .gitconfig and .gitconfig.local"
 }
 
 main $@

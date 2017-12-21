@@ -1,4 +1,5 @@
 #!/bin/zsh
+autoload is-at-least
 
 command-exists() {
   type $1 > /dev/null
@@ -68,4 +69,3 @@ symlink() {
 
   print-success "${src} -> ${tgt}"
 }
-
