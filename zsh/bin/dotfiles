@@ -20,7 +20,7 @@ source $DOTFILES_DIRECTORY/zsh/lib/macos-utils
 dotfiles-help() {
 cat << EOF
 
-  usage: dotfiles [<package>|essential|complete]
+  usage: dotfiles [<package>|essential]
 
     [<package>]
 
@@ -28,7 +28,7 @@ cat << EOF
         zsh|neovim|tmux
 
       ( tools )
-        git|ctags|sshrc
+        git|ctags
 
       ( macOS specific )
         @macos/default|@macos/alfred|@macos/iTerm2|homebrew
@@ -41,14 +41,10 @@ cat << EOF
       tmux
       nvim (requires pip)
 
-    [complete]
-      All the installers listed in packages
-
   Examples:
 
       dotfiles zsh
       dotfiles nodejs
-      dotfiles complete
       dotfiles essential
 
 EOF
@@ -101,26 +97,13 @@ dotfiles-pre() {
 
 -dotfiles-install() {
   for i in $@; do
-    zsh ${i}/install.zsh
+    -dotfiles-install-single $i
   done
 }
 
 dotfiles-essential() {
   local list
   list=(zsh tmux neovim)
-  -dotfiles-install ${list}
-}
-
-dotfiles-complete() {
-  dotfiles-essential
-
-  local list
-  list=(
-    homebrew
-    nodejs ruby python go
-    git ctags iTerm2 macos alfred
-    sshrc
-  )
   -dotfiles-install ${list}
 }
 
