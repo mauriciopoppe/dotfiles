@@ -63,8 +63,18 @@ dotfiles-temp-fix-path() {
   path=(${DOTFILES_DIRECTORY}/bin $path)
 }
 
+dotfiles-check-versions() {
+  gv=`git --version | awk '{print $3}'`
+  # https://stackoverflow.com/questions/41274926/comparing-version-strings-in-zsh
+  if ! is-at-least "2.15.0" $gv; then
+    printf-error "git +2.15 required"
+    exit 1
+  fi
+}
+
 dotfiles-pre() {
   dotfiles-temp-fix-path
+  dotfiles-check-versions
 
   if ! command-exists "gcc"; then
     print-error "The XCode Command Line Tools must be installed first."
