@@ -5,8 +5,11 @@ before_install:
   - brew install zsh
   - chmod +x install.sh
   - chmod +x zsh/bin/dotfiles
+  - chmod +x zsh/lib/print
+  - chmod +x zsh/lib/utils
+  - chmod +x zsh/lib/macos-utils
 
 script:
   - source install.sh
-  - zsh ./zsh/bin/dotfiles
+  - source zsh/bin/dotfiles
 
