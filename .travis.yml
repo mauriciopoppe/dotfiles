@@ -6,5 +6,5 @@ before_install:
 
 script:
   - $PWD/install.sh
-  - dotfiles
+  - $PWD/zsh/bin/dotfiles
 
