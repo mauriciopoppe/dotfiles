@@ -6,4 +6,5 @@ before_install:
 
 script:
   - $PWD/install.sh
+  - dotfiles
 
