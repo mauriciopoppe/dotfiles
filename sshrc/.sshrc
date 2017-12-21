@@ -1,7 +1,0 @@
-source $SSHHOME/.sshrc.d/aliases.sh
-
-export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
-
-export TERM=xterm-256color
-
-# vim: set ft=sh
