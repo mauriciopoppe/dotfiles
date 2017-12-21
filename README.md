@@ -1,11 +1,11 @@
 # Mauricio Poppe's dotfiles
 
-[![travis](https://travis-ci.org/maurizzzio/dotfiles.svg?branch=master)](https://travis-ci.org/maurizzzio/dotfiles)
+[![travis](https://travis-ci.org/mauriciopoppe/dotfiles.svg?branch=master)](https://travis-ci.org/mauriciopoppe/dotfiles)
 ![platform macos](https://img.shields.io/badge/platform-macos-orange.svg)
 
 ## Features
 
-- Installation fully automated with a simple [script](https://github.com/maurizzzio/dotfiles/blob/master/bin/dotfiles)
+- Installation fully automated with a simple [script](https://github.com/mauriciopoppe/dotfiles/blob/master/zsh/bin/dotfiles)
 - Install only what you need e.g. if you want to test my Neovim configuration execute `dotfiles neovim`
 
 ## Requirements
