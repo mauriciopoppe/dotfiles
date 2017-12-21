@@ -109,6 +109,8 @@ nnoremap ˙ ^
 " ¬ = alt + l (move to the end of the line)
 nnoremap ¬ $
 
+" fix for a bug in autopairs
+" https://github.com/jiangmiao/auto-pairs/issues/187
 autocmd VimEnter,BufEnter,BufWinEnter * silent! iunmap <buffer> <M-">
 
 function! DeleteInactiveBufs()

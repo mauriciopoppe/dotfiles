@@ -100,7 +100,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'Konfekt/FastFold'             " FastFold
 Plug 'dhruvasagar/vim-table-mode'   " table mode
 Plug 'itchyny/vim-cursorword'       " highlight ocurrences of the current word
-Plug 'itchyny/vim-parenmatch'       " highlight ocurrences of the current word
+" Plug 'itchyny/vim-parenmatch'       " highlight ocurrences of the current word
 Plug 'jiangmiao/auto-pairs'         " auto close (, [, {, ', \", `
 Plug 'junegunn/vim-easy-align'      " alignment
 Plug 'mattn/emmet-vim'              " html expansion
@@ -126,29 +126,16 @@ Plug 'glts/vim-textobj-comment'        " ac, ic (comments)
 
 " Language specific {{{
 
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'othree/csscomplete.vim', { 'for': 'css' }
-
-" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'mxw/vim-jsx'
 Plug 'alvan/vim-closetag'
 Plug 'Valloric/MatchTagAlways'
 Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
-" Plug 'othree/yajs.vim', { 'for': 'javascript' }
-" Plug 'gavocanov/vim-js-indent', { 'for' : 'javascript' }
-" Plug 'othree/javascript-libraries-syntax.vim', { 'for' : 'javascript' }
-" Plug 'othree/jspc.vim', { 'for' : 'javascript' }
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'leafgarland/typescript-vim'
-" Plug 'jason0x43/vim-js-indent'
-" jumping between node modules
 Plug 'moll/vim-node', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 Plug 'isRuslan/vim-es6', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
-Plug 'fleischie/vim-styled-components'
-Plug 'flowtype/vim-flow'
 
 Plug 'elzr/vim-json', { 'for': 'json' }
 
