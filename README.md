@@ -82,10 +82,6 @@ curl -O https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/
 - Uncheck *use lion-style full screen* on General
 - Load preferences from the custom folder `dotfiles/iTerm2`
 
-## Secure dotfiles
-
-Secret files are not tracked by the repo but
-
 ## What's included? And how to customize it?
 
 Refer to the file `install.zsh` that each folder has, after cloning the repo you
