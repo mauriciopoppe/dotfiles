@@ -62,9 +62,11 @@ dotfiles-temp-fix-path() {
 dotfiles-check-versions() {
   gv=`git --version | awk '{print $3}'`
   # https://stackoverflow.com/questions/41274926/comparing-version-strings-in-zsh
-  if ! is-at-least "2.15.0" $gv; then
-    print-error "git +2.15 required"
-    exit 1
+  if [ -z "$CI" ]; then
+    if ! is-at-least "2.15.0" $gv; then
+      print-error "git +2.15 required"
+      exit 1
+    fi
   fi
 }
 
