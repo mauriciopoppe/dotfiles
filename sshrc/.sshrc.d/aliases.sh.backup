@@ -1,1 +1,0 @@
-/Users/mauricio/.dotfiles/zsh/aliases.sh
