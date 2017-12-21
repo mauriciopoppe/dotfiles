@@ -8,6 +8,3 @@ before_install:
 
 script:
   - source install.sh
-  - cat ~/.zshenv
-  - dotfiles --help
-
