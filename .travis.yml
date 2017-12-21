@@ -2,7 +2,8 @@ language: objective-c
 os: osx
 
 before_install:
-  - brew install zsh git
+  - brew install zsh
+  - brew update git
 
 script:
   - $PWD/install.sh
