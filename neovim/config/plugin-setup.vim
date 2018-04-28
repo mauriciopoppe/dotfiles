@@ -127,6 +127,7 @@ Plug 'glts/vim-textobj-comment'        " ac, ic (comments)
 " Language specific {{{
 
 Plug 'HerringtonDarkholme/yats.vim'
+Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'leafgarland/typescript-vim'
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'mxw/vim-jsx'
@@ -160,7 +161,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 
 " Other {{{
 
-Plug 'chip/vim-fat-finger'           " correct mispellings
 Plug 'tpope/vim-obsession'           " session management
 Plug 'embear/vim-localvimrc'         " local vimrc
 Plug 'editorconfig/editorconfig-vim' " editorconfig

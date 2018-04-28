@@ -38,6 +38,7 @@ if RUBY_PLATFORM =~ /darwin/
   cask 'github-desktop'
   cask 'google-chrome'
   cask 'google-drive'
+  cask 'google-cloud-sdk'
 
   cask 'google-photos-backup'
   cask 'gpgtools'
