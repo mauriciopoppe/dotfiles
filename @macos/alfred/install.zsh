@@ -29,6 +29,9 @@ main() {
     # time to accept the import in Alfred
     sleep 5
   done
+
+  # installed with node
+  # npm install --global alfred-polyglot
 }
 
 main $@
