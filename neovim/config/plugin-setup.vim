@@ -116,10 +116,8 @@ Plug 'tpope/vim-surround'           " change/delete surrounding characters
 Plug 'wellle/targets.vim'              " additional text objects (like [n]ext and [l]ast)
 Plug 'kana/vim-textobj-user'           " allows the definition of custom text objects
 Plug 'kana/vim-textobj-entire'         " ae, ie (everything)
-Plug 'kana/vim-textobj-fold'           " az, iz (block of folds)
+Plug 'kana/vim-textobj-function'         " ae, ie (everything)
 Plug 'whatyouhide/vim-textobj-xmlattr' " ax, ix (xml attributes)
-Plug 'glts/vim-textobj-comment'        " ac, ic (comments)
-
 " }}}
 
 " }}}
