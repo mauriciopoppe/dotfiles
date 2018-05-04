@@ -1614,7 +1614,7 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.dotfiles/iTerm2</string>
+	<string>~/.dotfiles/@macos/iTerm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -1695,17 +1695,13 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 143 606 456 0 0 1920 1178 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-<<<<<<< HEAD:@macos/iTerm2/com.googlecode.iterm2.plist
-	<string>560 479 796 473 0 0 1920 1178 </string>
+	<string>560 696 796 473 0 0 1920 1200 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>155 594 592 584 0 0 1920 1178 </string>
-=======
-	<string>346 763 918 381 0 0 1920 1178 </string>
->>>>>>> d293b7326ec788fbfa59a357a5647daf1659516f:iTerm2/com.googlecode.iterm2.plist
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1920 1200 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 0 1920 1200 0 0 1920 1178 </string>
+	<string>0 751 570 427 0 0 1920 1178 </string>
 	<key>NeverWarnAboutShortLivedSessions_AA4F89E6-380C-40E5-9EDE-E0E226C9D8B0</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -3303,7 +3299,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/mpoppe1/.dotfiles/iTerm2</string>
+	<string>/Users/mpoppe1/.dotfiles/@macos/iTerm2</string>
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
@@ -3321,21 +3317,17 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-<<<<<<< HEAD:@macos/iTerm2/com.googlecode.iterm2.plist
-	<date>2017-10-26T21:01:05Z</date>
+	<date>2018-04-26T00:58:56Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
-	<key>SUSkippedVersion</key>
-	<string>3.1.4</string>
-=======
-	<date>2017-10-08T20:06:22Z</date>
->>>>>>> d293b7326ec788fbfa59a357a5647daf1659516f:iTerm2/com.googlecode.iterm2.plist
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
 	<true/>
+	<key>ShowMetalFPSmeter</key>
+	<false/>
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
@@ -3366,6 +3358,8 @@
 	<true/>
 	<key>UseLionStyleFullscreen</key>
 	<false/>
+	<key>UseMetal</key>
+	<true/>
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
@@ -3381,7 +3375,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.3</string>
+	<string>3.1.6</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
