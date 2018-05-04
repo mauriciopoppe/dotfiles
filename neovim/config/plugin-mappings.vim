@@ -20,24 +20,20 @@ if utils#hasPlugin('vim-latex-live-preview') " {{{
 endif
 " }}}
 
-if utils#hasPlugin('neomake') " {{{
-  source $VIMPATH/config/plugins/neomake.vim
-endif
-
 if utils#hasPlugin('ale') " {{{
   source $VIMPATH/config/plugins/ale.vim
 endif
 
 " }}}
 
+if utils#hasPlugin('vim-localvimrc')
+  let g:localvimrc_ask = 0
+endif
+
 if utils#hasPlugin('fzf.vim')
   let g:fzf_files_options =
     \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
   let g:fzf_buffers_jump = 1
-endif
-
-if utils#hasPlugin('lightline.vim')
-  source $VIMPATH/config/plugins/lightline.vim
 endif
 
 if utils#hasPlugin('lightline.vim')
@@ -88,24 +84,11 @@ if utils#hasPlugin('vim-bookmarks') "{{{
 endif
 
 "}}}
-if utils#hasPlugin('committia.vim') "{{{
-  let g:committia_hooks = {}
-  function! g:committia_hooks.edit_open(info)
-    imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
-    imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
 
-    setlocal winminheight=1 winheight=1
-    resize 10
-    startinsert
-  endfunction
-endif
-
-"}}}
 if utils#hasPlugin('python_match.vim') "{{{
   nmap <buffer> {{ [%
   nmap <buffer> }} ]%
 endif
-
 "}}}
 
 if utils#hasPlugin('vim-jsx') "{{{
@@ -196,9 +179,11 @@ if utils#hasPlugin('vim-go') "{{{
   autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
   autocmd FileType go nmap <leader>t <Plug>(go-test)
   autocmd FileType go nmap <leader>r <Plug>(go-run)
-  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 
   " let g:go_auto_type_info = 1
+  let g:go_highlight_types = 1
+  let g:go_highlight_extra_types = 1
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
   let g:go_list_type = "quickfix"
