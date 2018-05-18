@@ -20,15 +20,14 @@ if utils#hasPlugin('vim-latex-live-preview') " {{{
 endif
 " }}}
 
-if utils#hasPlugin('neomake') " {{{
-  source $VIMPATH/config/plugins/neomake.vim
-endif
-
 if utils#hasPlugin('ale') " {{{
   source $VIMPATH/config/plugins/ale.vim
 endif
-
 " }}}
+
+if utils#hasPlugin('vim-localvimrc')
+  let g:localvimrc_ask = 0
+endif
 
 if utils#hasPlugin('fzf.vim')
   let g:fzf_files_options =
@@ -40,17 +39,9 @@ if utils#hasPlugin('lightline.vim')
   source $VIMPATH/config/plugins/lightline.vim
 endif
 
-if utils#hasPlugin('lightline.vim')
-  source $VIMPATH/config/plugins/lightline.vim
-endif
-
 if utils#hasPlugin('vim-jsx')
   let g:jsx_ext_required = 0
 endif
-
-" }}}
-
-" }}}
 
 if utils#hasPlugin('emmet-vim') "{{{
   autocmd MyAutoCmd FileType html,css,jsx,javascript,javascript.jsx
@@ -65,19 +56,19 @@ if utils#hasPlugin('emmet-vim') "{{{
   imap <silent> <C-e>, <plug>(emmet-expand-abbr)
   imap <silent> <C-e>. <plug>(emmet-expand-abbr)<plug>(emmet-split-join-tag)f/i
 endif
-
 "}}}
+
 if utils#hasPlugin('vim-niceblock') "{{{
   xmap I  <Plug>(niceblock-I)
   xmap A  <Plug>(niceblock-A)
 endif
-
 "}}}
+
 if utils#hasPlugin('vim-indent-guides') "{{{
   nmap <silent><Leader>ti :<C-u>IndentGuidesToggle<CR>
 endif
-
 "}}}
+
 if utils#hasPlugin('vim-bookmarks') "{{{
   nmap ma :<C-u>cgetexpr bm#location_list()<CR>
     \ :<C-u>Denite quickfix -buffer-name=list<CR>
@@ -86,26 +77,12 @@ if utils#hasPlugin('vim-bookmarks') "{{{
   nmap mm <Plug>BookmarkToggle
   nmap mi <Plug>BookmarkAnnotate
 endif
-
 "}}}
-if utils#hasPlugin('committia.vim') "{{{
-  let g:committia_hooks = {}
-  function! g:committia_hooks.edit_open(info)
-    imap <buffer><C-d> <Plug>(committia-scroll-diff-down-half)
-    imap <buffer><C-u> <Plug>(committia-scroll-diff-up-half)
 
-    setlocal winminheight=1 winheight=1
-    resize 10
-    startinsert
-  endfunction
-endif
-
-"}}}
 if utils#hasPlugin('python_match.vim') "{{{
   nmap <buffer> {{ [%
   nmap <buffer> }} ]%
 endif
-
 "}}}
 
 if utils#hasPlugin('vim-jsx') "{{{
@@ -196,9 +173,11 @@ if utils#hasPlugin('vim-go') "{{{
   autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
   autocmd FileType go nmap <leader>t <Plug>(go-test)
   autocmd FileType go nmap <leader>r <Plug>(go-run)
-  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 
   " let g:go_auto_type_info = 1
+  let g:go_highlight_types = 1
+  let g:go_highlight_extra_types = 1
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
   let g:go_list_type = "quickfix"
@@ -225,18 +204,6 @@ if utils#hasPlugin('ack.vim') "{{{
 endif
 
 "}}}
-if utils#hasPlugin('gitv') "{{{
-  nmap <Leader>gl :Gitv --all<cr>
-  nmap <Leader>gL :Gitv! --all<cr>
-  vmap <Leader>gL :Gitv! --all<cr>
-endif
-
-"}}}
-if utils#hasPlugin('undotree') "{{{
-  nnoremap <Leader>gu :UndotreeToggle<CR>
-endif
-
-"}}}
 if utils#hasPlugin('open-browser.vim') "{{{
   nmap gx <Plug>(openbrowser-smart-search)
   vmap gx <Plug>(openbrowser-smart-search)
@@ -258,71 +225,29 @@ if utils#hasPlugin('dash.vim') "{{{
   " [d]ocs [s]earch prompt to search for a word
   nmap <leader>ds :<C-u>Dash<space>
 endif
-
 "}}}
-if utils#hasPlugin('vim-leader-guide') "{{{
-  nmap  <Leader>ll  <Plug>leaderguide-global
-  nmap  <Leader>lb  <Plug>leaderguide-buffer
-  let g:leaderGuide_submode_mappings =
-    \ { '<C-C>': 'win_close', '<C-F>': 'page_down', '<C-B>': 'page_up' }
-endif
 
-"}}}
-if utils#hasPlugin('vim-online-thesaurus') "{{{
-  nnoremap <silent> <Leader>K :<C-u>OnlineThesaurusCurrentWord<CR>
-endif
-
-"}}}
-if utils#hasPlugin('vim-expand-region') "{{{
-  xmap v <Plug>(expand_region_expand)
-  xmap V <Plug>(expand_region_shrink)
-endif
-
-"}}}
-if utils#hasPlugin('sideways.vim') "{{{
-  nnoremap <silent> m" :SidewaysJumpLeft<CR>
-  nnoremap <silent> m' :SidewaysJumpRight<CR>
-  omap <silent> a, <Plug>SidewaysArgumentTextobjA
-  xmap <silent> a, <Plug>SidewaysArgumentTextobjA
-  omap <silent> i, <Plug>SidewaysArgumentTextobjI
-  xmap <silent> i, <Plug>SidewaysArgumentTextobjI
-endif
-
-"}}}
 if utils#hasPlugin('splitjoin.vim') "{{{
   let g:splitjoin_split_mapping = ''
   let g:splitjoin_join_mapping = ''
   nmap sj :SplitjoinSplit<CR>
   nmap sk :SplitjoinJoin<CR>
 endif
-
 "}}}
+
 if utils#hasPlugin('vim-easy-align') "{{{
   " Start interactive EasyAlign in visual mode (e.g. vipga)
   xmap ga <Plug>(EasyAlign)
   " Start interactive EasyAlign for a motion/text object (e.g. gaip)
   nmap ga <Plug>(EasyAlign)
 endif
-
 "}}}
-if utils#hasPlugin('linediff.vim') "{{{
-  vnoremap df :Linediff<CR>
-  vnoremap da :LinediffAdd<CR>
-  vnoremap dr :LinediffReset<CR>
-endif
 
-"}}}
-if utils#hasPlugin('dsf.vim') "{{{
-  nmap dsf <Plug>DsfDelete
-  nmap csf <Plug>DsfChange
-endif
-
-"}}}
 if utils#hasPlugin('typescript-vim') "{{{
   let g:typescript_indent_disable = 1
 endif
-
 "}}}
+
 if utils#hasPlugin('CamelCaseMotion') "{{{
   nmap <silent> e <Plug>CamelCaseMotion_e
   xmap <silent> e <Plug>CamelCaseMotion_e
@@ -334,8 +259,8 @@ if utils#hasPlugin('CamelCaseMotion') "{{{
   xmap <silent> b <Plug>CamelCaseMotion_b
   omap <silent> b <Plug>CamelCaseMotion_b
 endif
-
 "}}}
+
 if utils#hasPlugin('vim-commentary') "{{{
   " xmap <Leader>v  <Plug>Commentary
   " nmap <Leader>v  <Plug>CommentaryLine
@@ -343,11 +268,9 @@ if utils#hasPlugin('vim-commentary') "{{{
   nmap gc  <Plug>Commentary
   omap gc  <Plug>Commentary
   nmap gcc <Plug>CommentaryLine
-  nmap cgc <Plug>ChangeCommentary
-  nmap gcu <Plug>Commentary<Plug>Commentary
 endif
-
 "}}}
+
 if utils#hasPlugin('vim-easymotion') "{{{
   nmap ss <Plug>(easymotion-s2)
   " nmap sd <Plug>(easymotion-s)
@@ -361,16 +284,16 @@ if utils#hasPlugin('vim-easymotion') "{{{
   " map  sn <Plug>(easymotion-next)
   " map  sp <Plug>(easymotion-prev)
 endif
-
 "}}}
+
 if utils#hasPlugin('vim-textobj-multiblock') "{{{
   omap <silent> ab <Plug>(textobj-multiblock-a)
   omap <silent> ib <Plug>(textobj-multiblock-i)
   xmap <silent> ab <Plug>(textobj-multiblock-a)
   xmap <silent> ib <Plug>(textobj-multiblock-i)
 endif
-
 "}}}
+
 if utils#hasPlugin('vim-textobj-function') "{{{
   omap <silent> af <Plug>(textobj-function-a)
   omap <silent> if <Plug>(textobj-function-i)
@@ -409,10 +332,6 @@ if utils#hasPlugin('vim-pencil') "{{{
                               " \ | call textobj#sentence#init()
   augroup END
 endif
-
 "}}}
 
-if utils#hasPlugin('tagbar') "{{{
-endif
-"}}}
 " vim: set ts=2 sw=2 tw=80 et :

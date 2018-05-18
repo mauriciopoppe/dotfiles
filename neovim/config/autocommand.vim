@@ -36,7 +36,7 @@ augroup FTOptions
   autocmd FileType c,cpp,cs,java setlocal commentstring=//\ %s
   autocmd FileType python,xml,html,jsp setlocal ts=4 sts=4 sw=4
   autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
-  autocmd FileType go setlocal ts=8 sts=8 sw=8
+  autocmd FileType go setlocal ts=4 sts=4 sw=4
 
   " hide preview window
   autocmd FileType go setlocal completeopt-=preview

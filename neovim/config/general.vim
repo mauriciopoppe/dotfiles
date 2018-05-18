@@ -52,7 +52,7 @@ set linebreak
 " show invisible chars
 set list
 " strings to use in list mode
-set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
+set listchars=tab:⋮\ ,extends:❯,precedes:❮,nbsp:␣
 " string to use at the start of lines that have been wrapped
 set showbreak=↪
 " disable parenthesis matching (improve scroll performance a little bit)
@@ -138,5 +138,8 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 set wildignore+=.git\*,.hg\*,.svn\*
+
+" verticall diff
+set diffopt+=vertical
 
 " }}}
