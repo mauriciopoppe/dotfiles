@@ -34,3 +34,5 @@ alias ta='tmux attach -t'
 alias td='tmux detach'
 alias tk='tmux kill-server'
 
+# k8s
+alias kc='kubectl'
