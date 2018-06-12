@@ -2,3 +2,4 @@
 *secret*
 *.local
 Session.vim
+@macos/iTerm2/com.googlecode.iterm2.plist
