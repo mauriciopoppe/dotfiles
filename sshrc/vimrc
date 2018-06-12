@@ -1,4 +1,4 @@
-let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 let $VARPATH = expand(('~/.cache'). '/vim')
 
 " always loads relative to ./config/
@@ -18,18 +18,11 @@ let &runtimepath.=','.escape(expand('$VIMPATH'), '\,')
 " :h vim_starting
 call s:source_file('base.vim')
 
-" initialize plugins
-call plug#begin('~/.config/nvim/plugged')
-call s:source_file('plugin-setup.vim')
-call plug#end()
-
 filetype plugin indent on
 syntax enable
 
 call s:source_file('general.vim')
-call s:source_file('plugin-mappings.vim')
 call s:source_file('mappings.vim')
-call s:source_file('theme.vim')
 call s:source_file('autocommand.vim')
 
 " vim: set ts=2 sw=2 tw=80 et :
