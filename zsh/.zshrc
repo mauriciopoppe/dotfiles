@@ -96,10 +96,3 @@ unset -f safe-source
 # sourced manually #
 ####################
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/mpoppe1/n/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/mpoppe1/n/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/mpoppe1/n/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/mpoppe1/n/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh

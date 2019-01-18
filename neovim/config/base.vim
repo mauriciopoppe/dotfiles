@@ -79,9 +79,4 @@ augroup MyAutoCmd
 	autocmd CursorHold * if exists(':rshada') | rshada | wshada | endif
 augroup END
 
-" Search and use environments specifically made for Neovim.
-if isdirectory($VARPATH.'/venv/neovim')
-  let g:python_host_prog = $VARPATH.'/venv/neovim/bin/python'
-endif
-
 " vim: set ts=2 sw=2 tw=80 noet :

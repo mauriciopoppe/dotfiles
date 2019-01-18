@@ -31,7 +31,6 @@ call denite#custom#source(
   \ 'converters', ['converter_relative_word'])
 
 if executable('ag')
-  " The Silver Searcher
   let s:ag_ignores = ['.git', '.svn', '.idea', 'node_modules', '.sass-cache']
   let s:ag_opts = []
   for item in s:ag_ignores
@@ -49,7 +48,6 @@ if executable('ag')
     \ [ '--vimgrep', '--smart-case', '--hidden' ])
 
 elseif executable('ack')
-  " Ack command
   call denite#custom#var('grep', 'command', ['ack'])
   call denite#custom#var('grep', 'recursive_opts', [])
   call denite#custom#var('grep', 'pattern_opt', ['--match'])
@@ -91,7 +89,7 @@ xmap ; [denite]
 nnoremap <silent> [denite]r :<C-u>Denite -resume<CR>
 nnoremap <silent> [denite]f :<C-u>Files .<CR>
 nnoremap <silent> [denite]b :<C-u>Buffer<CR>
-nnoremap <silent> [denite]t :<C-u>Tags<CR>
+" nnoremap <silent> [denite]t :<C-u>Tags<CR>
 " nnoremap <silent> [denite]b :<C-u>Denite buffer file_old -default-action=switch<CR>
 nnoremap <silent> [denite]l :<C-u>Denite location_list -buffer-name=list<CR>
 nnoremap <silent> [denite]q :<C-u>Denite quickfix -buffer-name=list<CR>
