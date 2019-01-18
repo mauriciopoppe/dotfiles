@@ -35,6 +35,7 @@ def find_closest_tmuxinator_file(path)
     return pn if File.exist?(pn + '.tmuxinator.yml')
     pn = pn.parent
   end
+  fail("Couldn't file a .tmuxinator.yml file anywhere in the tree")
 end
 
 all_bookmarks = `showmarks`.strip.split("\n").sort!
@@ -74,21 +75,21 @@ else
 
   closest_dir.nil? && fail('.tmuxinator.yml file not found')
 
-  system("ls #{c_name_formatted} > /dev/null") ||
+  system("ls '#{c_name_formatted}' > /dev/null") ||
     fail("bookmark #{c_name_formatted} doesn't exist")
 
   # create symlink to parent dir
   if needs_symlink
-    `cd #{c_name_formatted} && ln -s #{File.join(closest_dir, '.tmuxinator.yml')} .tmuxinator.yml`
+    `cd "#{c_name_formatted}" && ln -s '#{File.join(closest_dir, '.tmuxinator.yml')}' .tmuxinator.yml`
   end
 
-  system("ls #{c_name_formatted}/.tmuxinator.* > /dev/null 2>&1") ||
+  system("cd '#{c_name_formatted}' && ls .tmuxinator.* > /dev/null 2>&1") ||
     fail("#{c_name_formatted} doesn't contain a .tmuxinator file")
 
-  `cd #{c_name_formatted} && tmuxinator start .`
+  `cd '#{c_name_formatted}' && tmuxinator start .`
 
   if needs_symlink
-    `cd #{c_name_formatted} && trash .tmuxinator.yml`
+    `cd '#{c_name_formatted}' && trash .tmuxinator.yml`
   end
 end
 

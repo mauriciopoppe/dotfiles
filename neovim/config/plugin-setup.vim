@@ -23,8 +23,6 @@ Plug 'NLKNguyen/papercolor-theme'
 
 " search/display lists
 Plug 'Shougo/denite.nvim'
-
-" NOTE: until vimfiler is reimplemented using denite import unite for vimfiler
 Plug 'Shougo/unite.vim'
 
 " unite/denite sources {{{
