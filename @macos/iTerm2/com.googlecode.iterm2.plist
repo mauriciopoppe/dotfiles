@@ -1614,7 +1614,7 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.dotfiles/@macos/iTerm2</string>
+	<string>~/Downloads</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -1695,13 +1695,11 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 143 606 456 0 0 1920 1178 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>560 731 1018 447 0 0 1920 1178 </string>
-	<key>NSWindow Frame UKCrashReporter</key>
-	<string>155 594 592 584 0 0 1920 1178 </string>
+	<string>346 666 796 473 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 721 1920 479 0 0 1920 1178 </string>
+	<string>0 649 1920 529 0 0 1920 1178 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 0 1920 1200 0 0 1920 1178 </string>
+	<string>590 408 570 451 0 0 1920 1177 </string>
 	<key>NeverWarnAboutShortLivedSessions_AA4F89E6-380C-40E5-9EDE-E0E226C9D8B0</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -2821,7 +2819,7 @@
 				<real>0.72378778457641602</real>
 			</dict>
 			<key>Guid</key>
-			<string>C1FBB62D-A501-4F3C-973E-65E829A107CC</string>
+			<string>BE7542D1-B0E2-46C3-BF91-6331F1A24AF2</string>
 			<key>Has Hotkey</key>
 			<true/>
 			<key>Hide After Opening</key>
@@ -3236,7 +3234,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color-italic</string>
 			<key>Transparency</key>
-			<real>0.098865799492385789</real>
+			<real>0.046785770939086251</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -3325,7 +3323,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/mpoppe1/.dotfiles/@macos/iTerm2</string>
+	<string>~/.dotfiles/@macos/iTerm2/config</string>
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
@@ -3343,17 +3341,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-05-23T21:48:35Z</date>
-	<key>SUSendProfileInfo</key>
-	<false/>
+	<date>2018-05-28T05:39:04Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
 	<true/>
-	<key>ShowMetalFPSmeter</key>
-	<false/>
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
@@ -3385,7 +3379,7 @@
 	<key>UseLionStyleFullscreen</key>
 	<false/>
 	<key>UseMetal</key>
-	<true/>
+	<false/>
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
 	<key>WebKitStandardFont</key>
