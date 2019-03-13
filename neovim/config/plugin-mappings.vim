@@ -10,8 +10,13 @@ if utils#hasPlugin('vimfiler.vim') " {{{
 endif
 " }}}
 
-if utils#hasPlugin('deoplete.nvim') " {{{
-  source $VIMPATH/config/plugins/deoplete.vim
+" if utils#hasPlugin('deoplete.nvim') " {{{
+"   source $VIMPATH/config/plugins/deoplete.vim
+" endif
+" " }}}
+
+if utils#hasPlugin('coc.nvim') " {{{
+  source $VIMPATH/config/plugins/coc.vim
 endif
 " }}}
 
@@ -42,6 +47,12 @@ endif
 if utils#hasPlugin('vim-jsx')
   let g:jsx_ext_required = 0
 endif
+
+if utils#hasPlugin('vim-javascript') "{{{
+  let g:javascript_plugin_flow = 1
+endif
+"}}}
+
 
 if utils#hasPlugin('emmet-vim') "{{{
   autocmd MyAutoCmd FileType html,css,jsx,javascript,javascript.jsx

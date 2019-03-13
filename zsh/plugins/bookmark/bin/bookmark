@@ -10,16 +10,54 @@
 # bookmark definition is just the current dir
 cur_dir="$(pwd)"
 bookmark="$cur_dir"
-BOOKMARK_FILE="$HOME/.bookmarks.data"
-touch $BOOKMARK_FILE
+BOOKMARKS_FILE="$HOME/.bookmarks.data"
+touch $BOOKMARKS_FILE
 
-if [[ -z $(grep "^$bookmark$" $BOOKMARK_FILE 2>/dev/null) ]]; then
-  echo $bookmark >> $BOOKMARK_FILE
-  sort $BOOKMARK_FILE > tmp && mv tmp $BOOKMARK_FILE
-  echo "Bookmark '$bookmark' saved"
-else
-  echo "Bookmark already exists"
-  exit 1
+# flag parser
+while [[ $# -gt 0 ]]
+do
+key="$1"
+case $key in
+    --list|-l)
+    SHOW=1
+    shift # past value
+    ;;
+    --delete)
+    DELETE=1
+    shift # past value
+    ;;
+    --edit)
+    EDIT=1
+    shift # past value
+    ;;
+    --add|*)
+    ADD=1
+    shift # past argument
+    ;;
+esac
+done
+
+if [[ $SHOW -eq 1 ]]; then
+  cat $BOOKMARKS_FILE
+elif [[ $DELETE -eq 1 ]]; then
+  if [[ -z $(grep "^$bookmark$" $BOOKMARKS_FILE 2>/dev/null) ]]; then
+    echo "Directory '$bookmark' is not bookmarked"
+    exit 1
+  else
+    sed -i .bak "\%$bookmark%d" $BOOKMARKS_FILE
+    echo "bookmark deleted"
+  fi
+elif [[ $ADD -eq 1 ]]; then
+  if [[ -z $(grep "^$bookmark$" $BOOKMARKS_FILE 2>/dev/null) ]]; then
+    echo $bookmark >> $BOOKMARKS_FILE
+    sort $BOOKMARKS_FILE > tmp && mv tmp $BOOKMARKS_FILE
+    echo "Bookmark '$bookmark' saved"
+  else
+    echo "Bookmark already exists"
+    exit 1
+  fi
+elif [[ $EDIT -eq 1 ]]; then
+  nvim $BOOKMARKS_FILE
 fi
 
 # vim: set ft=bash

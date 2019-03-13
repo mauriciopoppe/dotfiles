@@ -42,6 +42,7 @@ main() {
     np                        # better npm publish
     gzip-size-cli             # gzip size
     pretty-bytes-cli          # display size for humans
+    tldr                      # man
 
     # debugger
     # vimdebug - replaced with devtool

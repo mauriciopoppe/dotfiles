@@ -10,6 +10,6 @@
 "     Terry Ma - https://github.com/terryma/dotfiles/blob/master/.vimrc
 "     Martin Toma - https://github.com/martin-svk/dot-files/blob/master/neovim/init.vimo
 "     rafi - https://github.com/rafi/vim-config
-
-execute 'source ' fnamemodify(expand('<sfile>'), ':h').'/config/vimrc'
+let vimrc = expand('/Users/mpoppe1/.dotfiles/neovim/config/vimrc')
+execute 'source ' fnameescape(vimrc)
 

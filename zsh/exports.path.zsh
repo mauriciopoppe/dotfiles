@@ -13,6 +13,9 @@ path+=(
 )
 export PATH
 
+# rbenv should be at the top in the PATH
+eval "$(rbenv init -)"
+
 # neovim
 export VISUAL=nvim
 

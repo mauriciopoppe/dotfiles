@@ -1,7 +1,7 @@
 " denite.nvim
 " -----------
 
-" INTERFACE
+" interface
 call denite#custom#option('default', 'prompt', '>')
 call denite#custom#option('default', 'vertical_preview', 1)
 call denite#custom#option('default', 'short_source_names', 1)
@@ -13,7 +13,7 @@ call denite#custom#option('grep', 'auto_highlight', 0)
 call denite#custom#option('list', 'mode', 'normal')
 call denite#custom#option('list', 'winheight', 12)
 
-" MATCHERS
+" matchers
 " Default is 'matcher_fuzzy'
 if &runtimepath =~# '\/cpsm'
   call denite#custom#source(
@@ -21,14 +21,24 @@ if &runtimepath =~# '\/cpsm'
     \ 'matchers', ['matcher_cpsm', 'matcher_fuzzy'])
 endif
 
-" SORTERS
+" sorters
 " Default is 'sorter_rank'
 
-" CONVERTERS
+" converters
 " Default is none
 call denite#custom#source(
   \ 'buffer,file_mru,file_old',
   \ 'converters', ['converter_relative_word'])
+
+" custom menus
+let s:menus = {}
+let s:menus.mine = {
+    \ 'description': 'My custom scripts',
+    \ }
+let s:menus.mine.command_candidates = [
+    \ ['Open the current file in finder', '!open `dirname %`']
+    \ ]
+call denite#custom#var('menu', 'menus', s:menus)
 
 if executable('ag')
   let s:ag_ignores = ['.git', '.svn', '.idea', 'node_modules', '.sass-cache']
@@ -101,6 +111,7 @@ nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
 nnoremap <silent> [denite]h :<C-u>Denite help<CR>
 nnoremap <silent> [denite]/ :<C-u>Denite line<CR>
 nnoremap <silent> [denite]* :<C-u>DeniteCursorWord line<CR>
+nnoremap <silent> [denite]m :<C-u>Denite menu<CR>
 
 " Open Denite with word under cursor or selection
 " nnoremap <silent> [denite]gf :DeniteCursorWord file_rec<CR>

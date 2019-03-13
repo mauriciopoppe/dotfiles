@@ -21,11 +21,12 @@ alias http-server='live-server'
 alias catc='pygmentize -g'
 alias sha1='openssl sha1'
 alias npmoffline='npm --cache-min 9999999 '
+alias help='tldr'
 
 # remaps
 alias grep='grep --color'
-if hash ccat 2> /dev/null; then
-  alias cat="ccat"
+if hash bat 2> /dev/null; then
+  alias cat="bat"
 fi
 
 # tmux aliases

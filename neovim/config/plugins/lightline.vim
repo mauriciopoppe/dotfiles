@@ -2,7 +2,8 @@ let g:lightline = {
       \ 'colorscheme': 'hybrid',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'fugitive', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
       \   'modified': 'LightLineModified',
@@ -13,6 +14,7 @@ let g:lightline = {
       \   'filetype': 'LightLineFiletype',
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode',
+      \   'cocstatus': 'coc#status',
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }

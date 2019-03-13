@@ -28,11 +28,9 @@ augroup FTCheck
   autocmd BufRead,BufNewFile fluent.conf    set ft=fluentd
   autocmd BufRead,BufNewFile Brewfile       set ft=ruby
 
-  autocmd BufNewFile,BufFilePre,BufRead *.mmark           set ft=markdown
-augroup END
+  autocmd BufNewFile,BufFilePre,BufRead *.mmark  set ft=markdown
+  autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx
 
-augroup FTOptions
-  autocmd!
   autocmd FileType c,cpp,cs,java setlocal commentstring=//\ %s
   autocmd FileType python,xml,html,jsp setlocal ts=4 sts=4 sw=4
   autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
@@ -60,6 +58,8 @@ augroup FTOptions
   autocmd FileType help setlocal ai fo+=2n | silent! setlocal nospell
   autocmd FileType help nnoremap <silent><buffer> q :q<CR>
 
-  autocmd FileType markdown setlocal wrap textwidth=0 wrapmargin=0
+  autocmd FileType markdown,terraform,python setlocal wrap textwidth=0 wrapmargin=0
+  autocmd BufRead,BufNewFile Jenkinsfile* setlocal wrap textwidth=0 wrapmargin=0
+
 augroup END
 
