@@ -4,7 +4,7 @@ tap 'homebrew/bundle'
 tap 'homebrew/versions'
 
 if RUBY_PLATFORM =~ /darwin/
-  brew 'ccat'                       # colored cat
+  brew 'bat' # better cat
   brew 'ctags'
   brew 'fasd'
   brew 'figlet'
@@ -15,8 +15,9 @@ if RUBY_PLATFORM =~ /darwin/
   brew 'llvm', args: ['with-clang'] # required for vim/deoplete/deoplete-clang
   brew 'ripgrep'
   brew 'rmtrash' # required for vimfiler
-  brew 'tree'
+  brew 'thefuck'
   brew 'terminal-notifier'
+  brew 'tree'
   brew 'wget'
   brew 'youtube-dl'
 

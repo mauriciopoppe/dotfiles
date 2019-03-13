@@ -49,14 +49,16 @@ Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
 " deoplete (autocomplete) {{{
 
 " completion engine
-Plug 'Shougo/deoplete.nvim'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" Plug 'Shougo/deoplete.nvim'
 
-" languages
-Plug 'zchee/deoplete-clang', { 'for': ['cpp', 'c', 'hpp', 'h'] }
-Plug 'carlitux/deoplete-ternjs'
-Plug 'mhartington/deoplete-typescript'
-Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+" " languages
+" Plug 'zchee/deoplete-clang', { 'for': ['cpp', 'c', 'hpp', 'h'] }
+" Plug 'carlitux/deoplete-ternjs'
+" Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
+" Plug 'wokalski/autocomplete-flow'
+" Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
+
 
 " language support
 Plug 'Shougo/context_filetype.vim'  " aliases depending on the context
@@ -75,6 +77,7 @@ Plug 'christoomey/vim-tmux-navigator' " tmux navigation
 Plug 'rhysd/clever-f.vim'             " better f
 Plug 'bkad/CamelCaseMotion'           " better motion
 Plug 'mileszs/ack.vim'                " search
+Plug 'mbbill/undotree'                " undo tree
 
 " }}}
 
@@ -108,6 +111,7 @@ Plug 'tpope/vim-commentary'         " commenting stuff
 Plug 'tpope/vim-repeat'             " . improved
 Plug 'tpope/vim-sleuth'             " indentation heuristics
 Plug 'tpope/vim-surround'           " change/delete surrounding characters
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' } " code formatter
 
 " Text objects {{{
 
@@ -125,6 +129,7 @@ Plug 'whatyouhide/vim-textobj-xmlattr' " ax, ix (xml attributes)
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'leafgarland/typescript-vim'
+" Plug 'peitalin/vim-jsx-typescript'
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'mxw/vim-jsx'
 Plug 'alvan/vim-closetag'
@@ -133,6 +138,7 @@ Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'jsx', 'javascript.jsx'
 Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 Plug 'moll/vim-node', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 Plug 'isRuslan/vim-es6', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+Plug 'pangloss/vim-javascript'
 
 Plug 'elzr/vim-json', { 'for': 'json' }
 
@@ -150,8 +156,9 @@ Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'sass', 'scss', 'less'] }
 Plug 'yoppi/fluentd.vim'
 
 " Go
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoInstallBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
 "}}}
 

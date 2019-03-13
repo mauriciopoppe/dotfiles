@@ -38,7 +38,7 @@ def find_closest_tmuxinator_file(path)
   fail("Couldn't file a .tmuxinator.yml file anywhere in the tree")
 end
 
-all_bookmarks = `showmarks`.strip.split("\n").sort!
+all_bookmarks = `bookmark --list`.strip.split("\n").sort!
 opened_tmux_sessions =
   `tmux list-sessions -F "\#{session_name}"`.strip.split("\n").sort!
 
