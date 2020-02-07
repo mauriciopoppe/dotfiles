@@ -160,6 +160,7 @@ endif
 "}}}
 
 "}}}
+
 if utils#hasPlugin('jedi-vim') "{{{
   let g:jedi#completions_command = ''
   let g:jedi#documentation_command = 'K'
@@ -170,6 +171,7 @@ if utils#hasPlugin('jedi-vim') "{{{
 endif
 
 "}}}
+
 if utils#hasPlugin('vim-go') "{{{
   " run :GoBuild or :GoTestCompile based on the go file
   function! s:build_go_files()
@@ -196,6 +198,11 @@ if utils#hasPlugin('vim-go') "{{{
 endif
 
 " }}}
+
+if utils#hasPlugin('vim-terraform') "{{{
+  " let g:terraform_fmt_on_save=1
+endif
+
 if utils#hasPlugin('vim-fugitive') "{{{
   nnoremap <silent> <leader>ga :Git add %:p<CR>
   nnoremap <silent> <leader>gs :Gstatus<CR>

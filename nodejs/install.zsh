@@ -12,7 +12,6 @@ main() {
     print-message "n already installed"
   fi
 
-  # activate nvm for the current subprocess
   export N_PREFIX="$HOME/n"
   [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
