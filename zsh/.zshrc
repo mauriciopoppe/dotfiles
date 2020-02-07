@@ -51,6 +51,7 @@ zplug "bobthecow/git-flow-completion", from:github
 # prompt
 zplug "mafredri/zsh-async", from:github
 zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "jonmosco/kube-ps1", from:github, use:kube-ps1.sh
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -96,3 +97,6 @@ unset -f safe-source
 # sourced manually #
 ####################
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

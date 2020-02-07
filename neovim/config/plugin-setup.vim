@@ -160,6 +160,9 @@ Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoInstallBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
+" Terraform
+Plug 'hashivim/vim-terraform'
+
 "}}}
 
 " Other {{{

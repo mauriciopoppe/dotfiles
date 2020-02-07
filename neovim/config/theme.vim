@@ -53,7 +53,7 @@ function ResetHighlight()
   highlight Search cterm=none ctermfg=none ctermbg=8
 
   " coc (autocomplete)
-  highlight CocHighlightText ctermbg=8
+  highlight CocHighlightText ctermbg=6
   highlight link CocHighlightTextWrite CocHighlightText
   highlight link CocHighlightTextRead CocHighlightText
 endfunction

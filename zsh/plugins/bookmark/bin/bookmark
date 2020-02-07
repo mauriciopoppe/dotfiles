@@ -47,7 +47,9 @@ elif [[ $DELETE -eq 1 ]]; then
     sed -i .bak "\%$bookmark%d" $BOOKMARKS_FILE
     echo "bookmark deleted"
   fi
-elif [[ $ADD -eq 1 ]]; then
+elif [[ $EDIT -eq 1 ]]; then
+  nvim $BOOKMARKS_FILE
+else
   if [[ -z $(grep "^$bookmark$" $BOOKMARKS_FILE 2>/dev/null) ]]; then
     echo $bookmark >> $BOOKMARKS_FILE
     sort $BOOKMARKS_FILE > tmp && mv tmp $BOOKMARKS_FILE
@@ -56,8 +58,6 @@ elif [[ $ADD -eq 1 ]]; then
     echo "Bookmark already exists"
     exit 1
   fi
-elif [[ $EDIT -eq 1 ]]; then
-  nvim $BOOKMARKS_FILE
 fi
 
 # vim: set ft=bash

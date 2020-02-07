@@ -25,9 +25,13 @@ alias help='tldr'
 
 # remaps
 alias grep='grep --color'
-if hash bat 2> /dev/null; then
-  alias cat="bat"
-fi
+# if hash bat 2> /dev/null; then
+#   alias cat="bat"
+# fi
+
+alias gt="lazygit"
+alias pip="pip3"
+alias python="python3"
 
 # tmux aliases
 # also check out `./functions` to switch/kill sessions
