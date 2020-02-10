@@ -9,7 +9,7 @@ path=(/usr/local/bin ~/.local/bin "$path[@]")
 path+=(
   # path to my scripts
   ${DOTFILES_DIRECTORY}/zsh/bin
-  ${DOTFILES_DIRECTORY}/zsh/bin/secret
+  ${DOTFILES_DIRECTORY}/secret
   ${KREW_ROOT:-$HOME/.krew}/bin
 )
 export PATH

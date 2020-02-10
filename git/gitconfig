@@ -155,7 +155,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 
 # sourcetree diff helper
 
@@ -164,5 +164,8 @@
 	trustExitCode = true
 
 [includeIf "gitdir:~/"]
-	path = .gitconfig.local
+	path = ~/.dotfiles/secret/gitconfig.mine
+
+[includeIf "gitdir:~/code/"]
+	path = ~/.dotfiles/secret/gitconfig.work
 # vim: set noexpandtab ts=4 sw=4 sts=4
