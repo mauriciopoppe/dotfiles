@@ -58,8 +58,7 @@ augroup FTCheck
   autocmd FileType help setlocal ai fo+=2n | silent! setlocal nospell
   autocmd FileType help nnoremap <silent><buffer> q :q<CR>
 
-  autocmd FileType markdown,terraform,python setlocal wrap textwidth=0 wrapmargin=0
-  autocmd BufRead,BufNewFile Jenkinsfile* setlocal wrap textwidth=0 wrapmargin=0
+  autocmd FileType markdown,terraform,python,zsh,sh setlocal wrap textwidth=0 wrapmargin=0
 
 augroup END
 

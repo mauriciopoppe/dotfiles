@@ -34,10 +34,8 @@ alias pip="pip3"
 alias python="python3"
 
 # tmux aliases
-# also check out `./functions` to switch/kill sessions
 alias ta='tmux attach -t'
 alias td='tmux detach'
-alias tk='tmux kill-server'
 
 # k8s
 alias kc='kubectl'

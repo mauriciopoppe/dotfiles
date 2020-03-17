@@ -1,69 +1,99 @@
-cask_args appdir: '/Applications'
-
-tap 'homebrew/bundle'
-tap 'homebrew/versions'
-
-if RUBY_PLATFORM =~ /darwin/
-  brew 'bat' # better cat
-  brew 'ctags'
-  brew 'fasd'
-  brew 'figlet'
-  brew 'fswatch'
-  brew 'gist'
-  brew 'hub'
-  brew 'imgur-screenshot'
-  brew 'llvm', args: ['with-clang'] # required for vim/deoplete/deoplete-clang
-  brew 'ripgrep'
-  brew 'rmtrash' # required for vimfiler
-  brew 'thefuck'
-  brew 'terminal-notifier'
-  brew 'tree'
-  brew 'wget'
-  brew 'youtube-dl'
-
-  # build system
-  brew 'autoconf'
-  brew 'automake'
-  brew 'libtool'
-
-  # casks
-  tap 'caskroom/cask'
-  tap 'caskroom/fonts'
-  tap 'caskroom/versions'
-
-  ## apps
-  cask 'blender'
-  cask 'dash'
-  cask 'flux'
-  cask 'free-ruler'
-  cask 'github-desktop'
-  cask 'google-chrome'
-  cask 'google-drive'
-  cask 'google-cloud-sdk'
-
-  cask 'google-photos-backup'
-  cask 'gpgtools'
-  cask 'iterm2'
-  cask 'licecap'
-  cask 'karabiner'
-  cask 'skim'
-  cask 'spotify'
-  cask 'sublime-text'
-  cask 'tex-live-utility'
-  cask 'the-unarchiver'
-  cask 'vlc'
-
-  # https://github.com/sindresorhus/quick-look-plugins
-  cask 'betterzipql'
-  cask 'qlcolorcode'
-  cask 'qlimagesize'
-  cask 'qlmarkdown'
-  cask 'qlprettypatch'
-  cask 'qlstephen'
-  cask 'quicklook-csv'
-  cask 'quicklook-json'
-  cask 'webpquicklook'
-end
-
-# vim: set ft=rb
-
+tap "alextodicescu/tgenv"
+tap "boz/repo"
+tap "derailed/k9s"
+tap "go-delve/delve"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "homebrew/versions"
+tap "jesseduffield/lazygit"
+tap "neovim/neovim"
+brew "ant"
+brew "asciinema"
+brew "automake"
+brew "bat"
+brew "bfg"
+brew "boost"
+brew "ccat"
+brew "cocoapods"
+brew "coreutils"
+brew "ctags"
+brew "curl", args: ["with-c-ares"]
+brew "go"
+brew "dep"
+brew "dive"
+brew "dnsmasq", restart_service: true, link: false
+brew "docker-machine-driver-xhyve"
+brew "fasd"
+brew "figlet"
+brew "fswatch"
+brew "fzf"
+brew "gcc"
+brew "gcc@4.9"
+brew "ghostscript"
+brew "libyaml"
+brew "readline"
+brew "gist"
+brew "git-extras"
+brew "git-flow"
+brew "gnupg"
+brew "gradle"
+brew "graphviz"
+brew "helm", link: false
+brew "highlight"
+brew "python"
+brew "httpie"
+brew "httrack"
+brew "hub"
+brew "hugo"
+brew "imagemagick"
+brew "imgur-screenshot"
+brew "jenv"
+brew "jq"
+brew "kompose"
+brew "kubernetes-cli"
+brew "kubectx"
+brew "llvm"
+brew "maven"
+brew "maven@3.1", link: false
+brew "minikube"
+brew "mkcert"
+brew "neovim"
+brew "nmap"
+brew "pipenv"
+brew "poppler"
+brew "python@2"
+brew "ruby-build"
+brew "rbenv"
+brew "reattach-to-user-namespace"
+brew "ripgrep"
+brew "rmtrash"
+brew "rustup-init"
+brew "skaffold"
+brew "sshrc"
+brew "stow"
+brew "terminal-notifier"
+brew "terraform", link: false
+brew "terraform-docs"
+brew "terraform@0.11"
+brew "terragrunt", link: false
+brew "tfenv"
+brew "the_silver_searcher"
+brew "thefuck"
+brew "tmux"
+brew "tomcat@7"
+brew "tree"
+brew "vegeta"
+brew "watchman"
+brew "wget"
+brew "yarn", args: ["without-node"]
+brew "youtube-dl"
+brew "zplug"
+brew "zsh"
+brew "alextodicescu/tgenv/tgenv"
+brew "boz/repo/kail"
+brew "derailed/k9s/k9s"
+brew "jesseduffield/lazygit/lazygit"
