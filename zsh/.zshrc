@@ -3,6 +3,28 @@
 # init #
 ########
 
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-bin-gem-node
+
+### End of Zinit's installer chun
+
 safe-source() {
   [[ -s $1 ]] && source $1
 }
@@ -14,55 +36,35 @@ export TERM=xterm-256color
 # run nvim with italic comments
 alias nvim="TERM=xterm-256color-italic nvim"
 
+# https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh
+autoload -Uz compinit
+compinit
+
 #########
-# zplug #
+# zinit #
 #########
 
-# Check if zplug is installed
-export ZPLUG_HOME=~/.zplug
-if [[ ! -d $ZPLUG_HOME ]]; then
-  git clone https://github.com/zplug/zplug $ZPLUG_HOME
-fi
+# Two regular plugins loaded without investigating.
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma/fast-syntax-highlighting
 
-# lock at the latest stable version
-(cd $ZPLUG_HOME && git checkout tags/2.4.1) > /dev/null 2>&1 || exit 1
-source $ZPLUG_HOME/init.zsh
+# Plugin history-search-multi-word loaded with investigating.
+zinit load zdharma/history-search-multi-word
 
-# NOTE: $DOTFILES_DIRECTORY is defined in .zshenv
-zplug "$DOTFILES_DIRECTORY/zsh/plugins/zsh-sensible", from:local
-zplug "$DOTFILES_DIRECTORY/zsh/plugins/bookmark", \
-  as:command, \
-  hook-build:"chmod +x bin/*", \
-  use:"bin/*", \
-  from:local
+# Load the pure theme, with zsh-async library that's bundled with it.
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
 
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-completions"
-# zplug "zsh-users/zsh-autosuggestions"
-zplug "djui/alias-tips"
-zplug "b4b4r07/enhancd", use:enhancd.sh
+# Binary release in archive, from GitHub-releases page.
+# After automatic unpacking it provides program "fzf".
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
 
-# zplug "plugins/dirhistory", from:"oh-my-zsh"
-# zplug "plugins/git", from:"oh-my-zsh"
-zplug "plugins/osx", from:"oh-my-zsh"
-zplug "bobthecow/git-flow-completion", from:github
-
-# prompt
-zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-zplug "jonmosco/kube-ps1", from:github, use:kube-ps1.sh
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-# zplug load --verbose
-zplug load
+# Scripts that are built at install (there's single default make target, "install",
+# and it constructs scripts by `cat'ing a few files). The make'' ice could also be:
+# `make"install PREFIX=$ZPFX"`, if "install" wouldn't be the only, default target.
+zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
+zinit light tj/git-extras
 
 #########################
 # script initialization #
@@ -75,13 +77,14 @@ CONFIG_FILES=($DOTFILES_DIRECTORY/*/*.zsh(N))
 CONFIG_FILES=(${CONFIG_FILES:#*/install.zsh})
 
 # automatically initialize files that end in .path.zsh
-DO_AUTO_SOURCE=(${CONFIG_FILES:#*/*.path.zsh})
+DO_AUTO_SOURCE=(${(M)CONFIG_FILES:#*/*.path.zsh})
 for file in $DO_AUTO_SOURCE; do
   source $file
 done
 
+# https://stackoverflow.com/questions/41872135/filtering-zsh-array-by-wildcard
 # automatically initialize files that end in .source.zsh
-DO_AUTO_SOURCE=(${CONFIG_FILES:#*/*.source.zsh})
+DO_AUTO_SOURCE=(${(M)CONFIG_FILES:#*/*.source.zsh})
 for file in $DO_AUTO_SOURCE; do
   source $file
 done

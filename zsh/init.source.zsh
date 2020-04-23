@@ -39,3 +39,14 @@ competitive_boost() {
   FILENAME=${TMPDIR}$(basename "$1")"__"${now}
   g++ -std=c++11 -pedantic -lboost_system -Wextra -Wall -Wno-sign-compare -O2 -fsanitize=undefined $1 -o $FILENAME && $FILENAME
 }
+
+# terraform switch
+tfnew() {
+  tgenv use 0.23.8
+  tfenv use 0.12.24
+}
+
+tfold() {
+  tgenv use 0.18.3
+  tfenv use 0.11.13
+}

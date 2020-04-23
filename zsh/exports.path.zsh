@@ -32,3 +32,6 @@ export EDITOR="$VISUAL"
 # --hidden: include hidden files in the search
 export FZF_DEFAULT_COMMAND='ag --smart-case --hidden --ignore .git --ignore .svn --ignore node_modules --ignore .idea --follow -g ""'
 export FZF_DEFAULT_OPTS='--reverse --color=dark --inline-info --cycle'
+
+export GPG_TTY=$(tty)
+
