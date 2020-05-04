@@ -71,6 +71,9 @@ zinit light tj/git-extras
 #########################
 
 typeset -U CONFIG_FILES
+
+source $DOTFILES_DIRECTORY/zsh/sensible.zsh
+
 # (N) https://unix.stackexchange.com/questions/26805/how-to-silently-get-an-empty-string-from-a-glob-pattern-with-no-matches
 CONFIG_FILES=($DOTFILES_DIRECTORY/*/*.zsh(N))
 # ignore */install.zsh
