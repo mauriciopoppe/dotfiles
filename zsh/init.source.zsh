@@ -42,7 +42,7 @@ competitive_boost() {
 
 # terraform switch
 tfnew() {
-  tgenv use 0.23.8
+  tgenv use 0.23.17
   tfenv use 0.12.24
 }
 
