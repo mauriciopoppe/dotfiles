@@ -12,10 +12,7 @@ main() {
   print-step "brew bundle"
 
   # the bundle was created with `brew bundle dump`
-  brew bundle --verbose --file=$DOTFILES_DIRECTORY/homebrew/Brewfile
-
-  # fzf hook
-  $(brew --prefix)/opt/fzf/install
+  brew bundle --verbose --file=$DOTFILES_DIRECTORY/homebrew/Brewfile --no-upgrade
 }
 
 main $@

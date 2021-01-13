@@ -93,7 +93,13 @@ dotfiles-pre() {
   full=$DOTFILES_DIRECTORY/$1
   shift
   if [[ -e $cmd/install.zsh ]]; then
-    source $cmd/install.zsh $@
+    cat $cmd/install.zsh
+    if read -q "choice?Press Y/y to continue with install: "; then
+      source $cmd/install.zsh $@
+    else
+      echo
+      echo "Exiting..."
+    fi
   fi
 }
 

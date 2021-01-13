@@ -22,7 +22,7 @@ Plug 'NLKNguyen/papercolor-theme'
 " denite {{{
 
 " search/display lists
-Plug 'Shougo/denite.nvim'
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/unite.vim'
 
 " unite/denite sources {{{
@@ -49,7 +49,7 @@ Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
 " deoplete (autocomplete) {{{
 
 " completion engine
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'Shougo/deoplete.nvim'
 
 " " languages

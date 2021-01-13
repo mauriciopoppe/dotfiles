@@ -6,9 +6,6 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 
-# the fuck (https://github.com/nvbn/thefuck)
-eval $(thefuck --alias)
-
 # kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh)
 if [ $commands[kubectl] ]; then
   source <(kubectl completion zsh)

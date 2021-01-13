@@ -5,7 +5,13 @@
 typeset -U path
 # fix path
 # - /usr/local/bin should be first (homebrew)
-path=(/usr/local/bin ~/.local/bin "$path[@]")
+path=(
+  /usr/local/bin
+  /usr/local/sbin
+  /usr/local/opt/openjdk/bin
+  ~/.local/bin
+  "$path[@]"
+)
 path+=(
   # path to my scripts
   ${DOTFILES_DIRECTORY}/zsh/bin

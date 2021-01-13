@@ -16,7 +16,7 @@ local base=${0:h}
   [ -d "$venv/neovim" ] || $vrenv "$venv/neovim"
 
   # Install or upgrade dependencies
-  "$venv/neovim/bin/pip" install -U neovim PyYAML
+  "$venv/neovim/bin/pip" install -U neovim PyYAML pynvim
 }
 
 -install-vim-plug() {
@@ -55,9 +55,7 @@ main() {
   symlink "${base}/config" "${HOME}/.config/nvim/config"
 
   # required for vim/deoplete/deoplete-clang
-  brew install llvm --with-clang
-  # required for vimfiler (safer rm)
-  brew install rmtrash
+  brew install llvm
 
   print-step "installing plugins..."
   nvim +PlugInstall +qall
