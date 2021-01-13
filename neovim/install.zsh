@@ -16,7 +16,7 @@ local base=${0:h}
   [ -d "$venv/neovim" ] || $vrenv "$venv/neovim"
 
   # Install or upgrade dependencies
-  "$venv/neovim/bin/pip" install -U neovim PyYAML pynvim
+  "$venv/neovim/bin/pip" install -U pynvim
 }
 
 -install-vim-plug() {
