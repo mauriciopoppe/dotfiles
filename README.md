@@ -72,15 +72,13 @@ curl -O https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/
 
 Note: only do the following if you're going to use iTerm2
 
-- Install your desired [iTerm color](https://github.com/mbadolato/iTerm2-Color-Schemes) (I'm currently using *Monokai dimmed*)
+- Install the profiles located at `@macos/iTerm2/Profiles.json`, *iTerm > preferences > profiles > import JSON profiles*
 
-```sh
-curl -O https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/DimmedMonokai.itermcolors && open DimmedMonokai.itermcolors
-```
+![Screen Shot 2021-01-12 at 9 05 27 PM](https://user-images.githubusercontent.com/1616682/104408983-24369680-551a-11eb-8208-7a45a6061d93.jpg)
 
+- Install your desired [iTerm color](https://github.com/mbadolato/iTerm2-Color-Schemes)
 - Set the downloaded font on iTerm *iTerm > preferences > profiles > text* (change it for both regular and non-ascii fonts)
 - Uncheck *use lion-style full screen* on General
-- Load preferences from the custom folder `dotfiles/iTerm2`
 
 ## What's included? And how to customize it?
 
@@ -89,7 +87,7 @@ can add whatever you need inside each installation script
 
 ## Screenshot
 
-<img width="1920" alt="screen shot 2015-11-23 at 8 02 58 pm" src="https://cloud.githubusercontent.com/assets/1616682/11353856/52f4d452-921d-11e5-8f32-7e4aa5ae3a91.png">
+![Screen Shot 2021-01-12 at 9 15 49 PM](https://user-images.githubusercontent.com/1616682/104409554-614f5880-551b-11eb-8c73-2f04d86ed30e.jpg)
 
 ## Study links
 
@@ -112,7 +110,7 @@ source community
 
 Thank you all!
 
-2015-2017
+2015-Present
 
 [tpm]: https://github.com/tmux-plugins/tpm
 [vim-plug]: https://github.com/junegunn/vim-plug
