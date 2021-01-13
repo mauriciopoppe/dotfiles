@@ -1,4 +1,5 @@
 #!/bin/zsh
+set -ex
 
 #
 # OSX defaults
@@ -55,7 +56,7 @@ defaults write com.apple.screencapture location ~/Pictures/screenshots/
 defaults write com.apple.screencapture type jpg
 
 # dark mode enabled by default
-defaults write NSGlobalDomain AppleInterfaceStyle Dark
+# defaults write NSGlobalDomain AppleInterfaceStyle Dark
 
 # apply changes
 killall Finder

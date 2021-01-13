@@ -26,9 +26,7 @@ _fzf_compgen_path() {
 }
 
 competitive() {
-  now=$(date +"%Y_%m_%d__%H_%M_%S")
-  FILENAME=${TMPDIR}$(basename "$1")"__"${now}
-  g++ -std=c++11 -pedantic -Wextra -Wall -Wno-sign-compare -O2 -fsanitize=undefined $1 -o $FILENAME && $FILENAME
+  g++ -std=c++17 -Wshadow -Wall $1 -O2 -Wno-unused-result && ./a.out
 }
 
 competitive_boost() {
@@ -39,11 +37,11 @@ competitive_boost() {
 
 # terraform switch
 tfnew() {
-  tgenv use 0.23.8
+  tgenv use 0.23.17
   tfenv use 0.12.24
 }
 
 tfold() {
   tgenv use 0.18.3
-  tfenv use 0.11.13
+  tfenv use 0.11.14
 }

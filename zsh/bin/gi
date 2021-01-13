@@ -1,4 +1,4 @@
 #!/bin/bash
-curl https://www.gitignore.io/api/$@
+curl https://toptal.com/developers/gitignore/api/$@
 
 # vi: set ft=bash
