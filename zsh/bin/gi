@@ -1,4 +1,11 @@
 #!/bin/bash
+
+#
+# Gets common gitignore lines
+#
+# usage: gi [type]
+# example: gi intellij >> .gitignore
+#
 curl https://toptal.com/developers/gitignore/api/$@
 
 # vi: set ft=bash

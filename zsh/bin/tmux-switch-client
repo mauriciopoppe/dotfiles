@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 #
-# NOTE: requires the installation of the binary `showmarks`, it should be under
-# zsh/plugins
+# NOTE: requires the installation of the binary `bookmark`, it should be under zsh/bin
 
 require 'pathname'
 
