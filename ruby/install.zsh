@@ -17,8 +17,8 @@ main() {
 
   print-message "next steps: https://github.com/rbenv/rbenv#homebrew-on-macos"
   eval "$(rbenv init -)"
-  rbenv install 2.4.2
-  rbenv global 2.4.2
+  rbenv install 2.7.2
+  rbenv global 2.7.2
 }
 
 main $@

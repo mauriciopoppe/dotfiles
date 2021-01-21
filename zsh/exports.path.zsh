@@ -21,9 +21,6 @@ path+=(
 export PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.mujoco/mujoco200_macos/bin
 
-# rbenv should be at the top in the PATH
-eval "$(rbenv init -)"
-
 # neovim
 export VISUAL=nvim
 
