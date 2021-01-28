@@ -105,3 +105,9 @@ unset -f safe-source
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+GCSDK=/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
+if [ -f "$GCSDK/path.zsh.inc" ]; then . "$GCSDK/path.zsh.inc"; fi
+if [ -f "$GCSDK/completion.zsh.inc" ]; then . "$GCSDK/completion.zsh.inc"; fi

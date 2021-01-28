@@ -16,6 +16,33 @@ if [ $commands[helm] ]; then
   source <(helm completion zsh | sed -E 's/\["(.+)"\]/\[\1\]/g')
 fi
 
+# kubernetes dev setup
+# https://github.com/kubernetes/community/blob/master/contributors/devel/development.md
+# I generated the following exports with this command
+#
+# GNUBINS="$(find /usr/local/opt -type d -follow -name gnubin -print)"
+# for bindir in ${GNUBINS[@]}
+# do
+#   echo $bindir
+# done
+# export PATH
+#
+GNUBINS=(
+  # /usr/local/opt/coreutils/libexec/gnubin
+  # /usr/local/opt/gnu-tar/libexec/gnubin
+  # /usr/local/opt/ed/libexec/gnubin
+  # /usr/local/opt/grep/libexec/gnubin
+  # /usr/local/opt/gnu-sed/libexec/gnubin
+  # /usr/local/opt/gsed/libexec/gnubin
+  # /usr/local/opt/gawk/libexec/gnubin
+  # /usr/local/opt/make/libexec/gnubin
+  # /usr/local/opt/findutils/libexec/gnubin
+)
+for gnubindir in $GNUBINS[@]
+do
+  export PATH=$gnubindir:$PATH
+done
+
 ###############################################################################
 # functions
 ###############################################################################

@@ -84,7 +84,7 @@ dotfiles-pre() {
   # homebrew
   if ! command-exists "brew"; then
     print-header "Installing Homebrew..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
 }
 

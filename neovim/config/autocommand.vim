@@ -28,7 +28,6 @@ augroup FTCheck
   autocmd BufRead,BufNewFile fluent.conf    set ft=fluentd
   autocmd BufRead,BufNewFile Brewfile       set ft=ruby
 
-  autocmd BufNewFile,BufFilePre,BufRead *.mmark  set ft=markdown
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx
 
   autocmd FileType c,cpp,cs,java setlocal commentstring=//\ %s

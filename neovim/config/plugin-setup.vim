@@ -46,7 +46,7 @@ Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
 " }}}
 " }}}
 
-" deoplete (autocomplete) {{{
+" autocomplete {{{
 
 " completion engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -63,7 +63,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " language support
 Plug 'Shougo/context_filetype.vim'  " aliases depending on the context
 Plug 'Shougo/neoinclude.vim'        " header name completion
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 " }}}
 
@@ -144,6 +144,7 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'mitsuhiko/vim-python-combined', { 'for': 'python' }
 
+Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rhysd/vim-gfm-syntax'
 
@@ -171,11 +172,6 @@ Plug 'tpope/vim-obsession'           " session management
 Plug 'embear/vim-localvimrc'         " local vimrc
 Plug 'editorconfig/editorconfig-vim' " editorconfig
 
-" }}}
-
-" Prose writing {{{
-Plug 'reedes/vim-pencil'
-" Plug 'tpope/vim-markdown'
 " }}}
 
 " Snippets {{{
