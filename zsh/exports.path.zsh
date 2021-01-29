@@ -8,7 +8,6 @@ typeset -U path
 path=(
   /usr/local/bin
   /usr/local/sbin
-  /usr/local/opt/openjdk/bin
   ~/.local/bin
   "$path[@]"
 )
@@ -34,7 +33,7 @@ export EDITOR="$VISUAL"
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 # --hidden: include hidden files in the search
-export FZF_DEFAULT_COMMAND='ag --smart-case --hidden --ignore .git --ignore .svn --ignore node_modules --ignore .idea --follow -g ""'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--reverse --color=dark --inline-info --cycle'
 
 export GPG_TTY=$(tty)

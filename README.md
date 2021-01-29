@@ -79,6 +79,11 @@ Note: only do the following if you're going to use iTerm2
 - Install your desired [iTerm color](https://github.com/mbadolato/iTerm2-Color-Schemes)
 - Set the downloaded font on iTerm *iTerm > preferences > profiles > text* (change it for both regular and non-ascii fonts)
 - Uncheck *use lion-style full screen* on General
+- Support italic fonts in and out of tmux https://github.com/nicknisi/dotfiles#terminal-capabilities
+
+```
+tic -x zsh/term/xterm-256color-italic.terminfo
+```
 
 ## What's included? And how to customize it?
 

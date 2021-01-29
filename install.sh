@@ -1,5 +1,5 @@
 #!/bin/bash
-export DOTFILES_DIRECTORY="$(dirname "$(greadlink -f "$0" || readlink -f "$0")")"
+export DOTFILES_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # DOTFILES_DIRECTORY must persist upon restart
 # executing './install.sh' won't save it since it's a script that is

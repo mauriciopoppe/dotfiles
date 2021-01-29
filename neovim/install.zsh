@@ -20,26 +20,28 @@ local base=${0:h}
 }
 
 -install-vim-plug() {
-  if [[ ! -e $1 ]]; then
-    curl -fLo $1 --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  else
-    print-message "vim-plug already installed"
-  fi
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 }
 
 main() {
   print-header "neovim"
 
   print-step "installing neovim..."
-  if ! formula-exists neovim; then
-    brew install neovim/neovim/neovim
-  else
-    print-message "neovim already installed"
+  if [[ $OSTYPE =~ ^darwin ]]; then
+    if ! formula-exists neovim; then
+      brew install neovim
+    else
+      print-message "neovim already installed"
+    fi
+  fi
+  if [[ $OSTYPE =~ ^linux ]]; then
+    sudo apt-get install neovim
   fi
 
   print-step "installing neovim python package..."
   -nvim-venv
+  -install-vim-plug
 
   print-step "neovim symlinks..."
 
@@ -55,7 +57,7 @@ main() {
   symlink "${base}/config" "${HOME}/.config/nvim/config"
 
   # required for vim/deoplete/deoplete-clang
-  brew install llvm
+  # brew install llvm
 
   print-step "installing plugins..."
   nvim +PlugInstall +qall
@@ -69,4 +71,3 @@ main() {
 }
 
 main $@
-

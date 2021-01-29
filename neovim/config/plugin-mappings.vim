@@ -339,17 +339,6 @@ if utils#hasPlugin('vim-gfm-syntax') "{{{
 endif
 "}}}
 
-if utils#hasPlugin('vim-pencil') "{{{
-  let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
-  augroup pencil
-    autocmd!
-    autocmd FileType markdown,md,text,tex,latex call pencil#init()
-                              " \ | call lexical#init()
-                              " \ | call litecorrect#init()
-                              " \ | call textobj#quote#init()
-                              " \ | call textobj#sentence#init()
-  augroup END
-endif
 "}}}
 
 " vim: set ts=2 sw=2 tw=80 et :

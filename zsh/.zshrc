@@ -60,6 +60,14 @@ zinit light sindresorhus/pure
 zinit ice from"gh-r" as"program"
 zinit load junegunn/fzf-bin
 
+# BurntSushi/ripgrep
+zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
+zinit light BurntSushi/ripgrep
+
+# zsh-autopair
+zinit ice wait lucid
+zinit load hlissner/zsh-autopair
+
 # Scripts that are built at install (there's single default make target, "install",
 # and it constructs scripts by `cat'ing a few files). The make'' ice could also be:
 # `make"install PREFIX=$ZPFX"`, if "install" wouldn't be the only, default target.
@@ -105,3 +113,9 @@ unset -f safe-source
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+GCSDK=/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
+if [ -f "$GCSDK/path.zsh.inc" ]; then . "$GCSDK/path.zsh.inc"; fi
+if [ -f "$GCSDK/completion.zsh.inc" ]; then . "$GCSDK/completion.zsh.inc"; fi

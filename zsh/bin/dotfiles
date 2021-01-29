@@ -39,7 +39,7 @@ cat << EOF
     [essential]
       zsh
       tmux
-      nvim (requires pip)
+      neovim (requires pip)
 
   Examples:
 
@@ -53,8 +53,15 @@ EOF
 dotfiles-temp-fix-path() {
   # it's possible that brew is already installed but the path is not set correctly
   # fix the path for the current script
-  if [[ ! $PATH == *"/usr/local/bin"* ]]; then
-    path=(/usr/local/bin $path)
+  if [[ `uname` == "Linux" ]]; then
+    if [[ ! $PATH == *"$HOME/.linuxbrew/bin"* ]]; then
+      path=($HOME/.linuxbrew/bin $path)
+    fi
+  fi
+  if [[ `uname` == "Darwin" ]]; then
+    if [[ ! $PATH == *"/usr/local/bin"* ]]; then
+      path=(/usr/local/bin $path)
+    fi
   fi
   path=(${DOTFILES_DIRECTORY}/bin $path)
 }
@@ -82,9 +89,12 @@ dotfiles-pre() {
   fi
 
   # homebrew
-  if ! command-exists "brew"; then
-    print-header "Installing Homebrew..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  if [[ $OSTYPE =~ ^darwin ]]; then
+    if ! command-exists "brew"; then
+      print-header "Installing Homebrew..."
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+      echo "eval $($HOME/.linuxbrew/bin/brew shellenv)" >> $HOME/.zprofile
+    fi
   fi
 }
 

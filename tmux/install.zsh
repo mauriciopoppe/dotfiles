@@ -9,10 +9,16 @@ main() {
   mkdir -p ${HOME}/.tmux/plugins 2> /dev/null
 
   print-step "installing tmux..."
-  if ! formula-exists "tmux"; then
-    brew install tmux
-  else
-    print-message "tmux already installed"
+  if [[ $OSTYPE =~ ^darwin ]]; then
+    if ! formula-exists "tmux"; then
+      brew install tmux
+    else
+      print-message "tmux already installed"
+    fi
+  fi
+
+  if [[ $OSTYPE =~ ^linux ]]; then
+    sudo apt-get install tmux
   fi
 
   print-step "installing tmux plugin manager..."
