@@ -4,7 +4,9 @@ let $VARPATH = expand(('~/.cache'). '/vim')
 " always loads relative to ./config/
 function! s:source_file(path)
   let abspath = resolve(expand($VIMPATH.'/config/'.a:path))
-  execute 'source ' fnameescape(abspath)
+  if filereadable(abspath)
+    execute 'source ' fnameescape(abspath)
+  endif
 endfunction
 
 " =====
@@ -31,5 +33,8 @@ call s:source_file('plugin-mappings.vim')
 call s:source_file('mappings.vim')
 call s:source_file('theme.vim')
 call s:source_file('autocommand.vim')
+
+" alternative config
+call s:source_file('alt.vim')
 
 " vim: set ts=2 sw=2 tw=80 et :
