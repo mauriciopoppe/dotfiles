@@ -82,22 +82,27 @@ typeset -U CONFIG_FILES
 
 source $DOTFILES_DIRECTORY/zsh/sensible.zsh
 
-# (N) https://unix.stackexchange.com/questions/26805/how-to-silently-get-an-empty-string-from-a-glob-pattern-with-no-matches
-CONFIG_FILES=($DOTFILES_DIRECTORY/*/*.zsh(N))
-# ignore */install.zsh
-CONFIG_FILES=(${CONFIG_FILES:#*/install.zsh})
+# support to source from directories outside $DOTFILES_DIRECTORY
+DOTFILES_DIRECTORIES=($DOTFILES_DIRECTORY $DOTFILES_DIRECTORY_ALT)
 
-# automatically initialize files that end in .path.zsh
-DO_AUTO_SOURCE=(${(M)CONFIG_FILES:#*/*.path.zsh})
-for file in $DO_AUTO_SOURCE; do
-  source $file
-done
+for DOTFILES_DIR in $DOTFILES_DIRECTORIES[@]; do
+  # (N) https://unix.stackexchange.com/questions/26805/how-to-silently-get-an-empty-string-from-a-glob-pattern-with-no-matches
+  CONFIG_FILES=($DOTFILES_DIR/*/*.zsh(N))
+  # ignore */install.zsh
+  CONFIG_FILES=(${CONFIG_FILES:#*/install.zsh})
 
-# https://stackoverflow.com/questions/41872135/filtering-zsh-array-by-wildcard
-# automatically initialize files that end in .source.zsh
-DO_AUTO_SOURCE=(${(M)CONFIG_FILES:#*/*.source.zsh})
-for file in $DO_AUTO_SOURCE; do
-  source $file
+  # automatically initialize files that end in .path.zsh
+  DO_AUTO_SOURCE=(${(M)CONFIG_FILES:#*/*.path.zsh})
+  for file in $DO_AUTO_SOURCE; do
+    source $file
+  done
+
+  # https://stackoverflow.com/questions/41872135/filtering-zsh-array-by-wildcard
+  # automatically initialize files that end in .source.zsh
+  DO_AUTO_SOURCE=(${(M)CONFIG_FILES:#*/*.source.zsh})
+  for file in $DO_AUTO_SOURCE; do
+    source $file
+  done
 done
 
 # local configuration
