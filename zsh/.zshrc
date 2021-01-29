@@ -64,6 +64,10 @@ zinit load junegunn/fzf-bin
 zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
 zinit light BurntSushi/ripgrep
 
+# zsh-autopair
+zinit ice wait lucid
+zinit load hlissner/zsh-autopair
+
 # Scripts that are built at install (there's single default make target, "install",
 # and it constructs scripts by `cat'ing a few files). The make'' ice could also be:
 # `make"install PREFIX=$ZPFX"`, if "install" wouldn't be the only, default target.
