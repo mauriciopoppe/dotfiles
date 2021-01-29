@@ -48,8 +48,9 @@ Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
 " autocomplete {{{
 
 " completion engine
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'Shougo/deoplete.nvim'
+" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
 " " languages
 " Plug 'zchee/deoplete-clang', { 'for': ['cpp', 'c', 'hpp', 'h'] }

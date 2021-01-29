@@ -1,8 +1,11 @@
 " plugin configuration {{{
 
 let g:deoplete#enable_at_startup=1
-let g:deoplete#enable_smart_case=1
-let g:deoplete#max_list=30
+let g:deoplete#custom#option=({
+  \ 'auto_complete_delay': 200,
+  \ 'enable_smart_case': 1,
+  \ 'smart_case': v:true,
+  \ })
 
 " Disable deoplete on vim-multiple-cursors
 func! Multiple_cursors_before()
