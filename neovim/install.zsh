@@ -28,10 +28,15 @@ main() {
   print-header "neovim"
 
   print-step "installing neovim..."
-  if ! formula-exists neovim; then
-    brew install neovim
-  else
-    print-message "neovim already installed"
+  if [[ $OSTYPE =~ ^darwin ]]; then
+    if ! formula-exists neovim; then
+      brew install neovim
+    else
+      print-message "neovim already installed"
+    fi
+  fi
+  if [[ $OSTYPE =~ ^linux ]]; then
+    sudo apt-get install neovim
   fi
 
   print-step "installing neovim python package..."
@@ -52,7 +57,7 @@ main() {
   symlink "${base}/config" "${HOME}/.config/nvim/config"
 
   # required for vim/deoplete/deoplete-clang
-  brew install llvm
+  # brew install llvm
 
   print-step "installing plugins..."
   nvim +PlugInstall +qall

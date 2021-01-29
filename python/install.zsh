@@ -6,10 +6,16 @@ main() {
   print-header "python"
 
   print-step "installing python 3..."
-  brew install python3
-  pip3 install --upgrade pip
 
-  # npm global modules
+  if [[ $OSTYPE =~ ^darwin ]]; then
+    brew install python3
+    pip3 install --upgrade pip
+  fi
+  if [[ $OSTYPE =~ ^linux ]]; then
+    sudo apt-get install python3 pip
+  fi
+
+  # npm global moduleS
   print-step "installing python modules..."
 
   local modules
@@ -24,8 +30,7 @@ main() {
     jupyter           # jupyter notebooks
   )
   for module in $modules; do
-    # pip3 is already installed on python +3.4
-    pip3 install $module
+    pip install $module
   done
 
   # configurations
