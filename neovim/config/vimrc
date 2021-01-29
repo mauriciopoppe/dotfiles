@@ -35,6 +35,9 @@ call s:source_file('theme.vim')
 call s:source_file('autocommand.vim')
 
 " alternative config
-call s:source_file('alt.vim')
+let abspath = resolve(expand($VIMPATH."alt.vim"))
+if filereadable(abspath)
+  execute 'source ' fnameescape(abspath)
+endif
 
 " vim: set ts=2 sw=2 tw=80 et :
