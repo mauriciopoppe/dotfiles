@@ -31,7 +31,6 @@ Plug 'Shougo/neoyank.vim'     " history yank
 Plug 'Shougo/neomru.vim'      " most recently used files
 Plug 'Shougo/unite-outline'   " show method definitions (like ctags but with unite)
 Plug 'tsukkee/unite-tag'      " most recently used files
-Plug 'chemzqm/unite-location' " quickfix and location_listcu
 Plug 'Shougo/vimfiler.vim'    " filesystem exploration (depends on unite)
 
 " }}}
@@ -87,18 +86,18 @@ Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'    " git wrapper
 Plug 'benmills/vimux'        " run commands in a tmux split
 Plug 'tyru/open-browser.vim' " open browser
-Plug 'rizzatti/dash.vim'     " open documentation (dash)
+" Plug 'rizzatti/dash.vim'     " open documentation (dash)
 " execute a command in the background
 " Plug 'tpope/vim-dispatch'
 " run commands in the background asynchronously filling the quickfix
 " list (alternative to vim-dispatch for compilation)
-Plug 'skywind3000/asyncrun.vim'
+" Plug 'skywind3000/asyncrun.vim'
 
 "}}}
 
 " Code manipulation {{{
 
-Plug 'Konfekt/FastFold'             " FastFold
+" Plug 'Konfekt/FastFold'             " FastFold
 Plug 'dhruvasagar/vim-table-mode'   " table mode
 Plug 'itchyny/vim-cursorword'       " highlight ocurrences of the current word
 " Plug 'itchyny/vim-parenmatch'       " highlight ocurrences of the current word
@@ -119,7 +118,6 @@ Plug 'wellle/targets.vim'              " additional text objects (like [n]ext an
 Plug 'kana/vim-textobj-user'           " allows the definition of custom text objects
 Plug 'kana/vim-textobj-entire'         " ae, ie (everything)
 Plug 'kana/vim-textobj-function'         " ae, ie (everything)
-Plug 'whatyouhide/vim-textobj-xmlattr' " ax, ix (xml attributes)
 " }}}
 
 " }}}
@@ -128,16 +126,13 @@ Plug 'whatyouhide/vim-textobj-xmlattr' " ax, ix (xml attributes)
 
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
-Plug 'leafgarland/typescript-vim'
+" Plug 'leafgarland/typescript-vim'
 " Plug 'peitalin/vim-jsx-typescript'
 Plug 'chemzqm/vim-jsx-improve'
-Plug 'mxw/vim-jsx'
-Plug 'alvan/vim-closetag'
+" Plug 'alvan/vim-closetag'
 Plug 'Valloric/MatchTagAlways'
 Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
-Plug 'moll/vim-node', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
-Plug 'isRuslan/vim-es6', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
 Plug 'pangloss/vim-javascript'
 
 Plug 'elzr/vim-json', { 'for': 'json' }
@@ -149,12 +144,12 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rhysd/vim-gfm-syntax'
 
 " OpenGL + GLSL
-Plug 'beyondmarc/opengl.vim'
-Plug 'beyondmarc/glsl.vim'
+" Plug 'beyondmarc/opengl.vim'
+" Plug 'beyondmarc/glsl.vim'
 
 " CSS color highlighter
-Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'sass', 'scss', 'less'] }
-Plug 'yoppi/fluentd.vim'
+" Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'sass', 'scss', 'less'] }
+" Plug 'yoppi/fluentd.vim'
 
 " Go
 Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoInstallBinaries' }
@@ -169,7 +164,7 @@ Plug 'hashivim/vim-terraform'
 " Other {{{
 
 Plug 'tpope/vim-obsession'           " session management
-Plug 'embear/vim-localvimrc'         " local vimrc
+" Plug 'embear/vim-localvimrc'         " local vimrc
 Plug 'editorconfig/editorconfig-vim' " editorconfig
 
 " }}}
