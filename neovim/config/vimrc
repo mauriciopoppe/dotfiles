@@ -35,7 +35,7 @@ call s:source_file('theme.vim')
 call s:source_file('autocommand.vim')
 
 " alternative config
-let abspath = resolve(expand($VIMPATH."alt.vim"))
+let abspath = resolve(expand($HOME."/.config/nvim/alt.vim"))
 if filereadable(abspath)
   execute 'source ' fnameescape(abspath)
 endif
