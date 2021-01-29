@@ -93,7 +93,6 @@ dotfiles-pre() {
     if ! command-exists "brew"; then
       print-header "Installing Homebrew..."
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-      echo "eval $($HOME/.linuxbrew/bin/brew shellenv)" >> $HOME/.zprofile
     fi
   fi
 }
