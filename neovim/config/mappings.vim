@@ -135,6 +135,20 @@ endfunction
 command! Bdi :call DeleteInactiveBufs()
 command! Only :call DeleteInactiveBufs()
 
+if executable("pbcopy")
+  let g:clipboard = {
+        \   'name': 'myClipboard',
+        \   'copy': {
+        \      '+': 'pbcopy',
+        \      '*': 'pbcopy',
+        \    },
+        \   'paste': {
+        \      '+': 'pbpaste',
+        \      '*': 'pbpaste',
+        \   },
+        \   'cache_enabled': 1,
+        \ }
+endif
 " }}}
 
 " search {{{
