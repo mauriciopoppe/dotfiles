@@ -44,6 +44,10 @@ compinit
 # zinit #
 #########
 
+# autocomplete anything with fzf
+# NOTE: fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
+zinit light Aloxaf/fzf-tab
+
 # Two regular plugins loaded without investigating.
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
@@ -73,7 +77,6 @@ zinit load hlissner/zsh-autopair
 # `make"install PREFIX=$ZPFX"`, if "install" wouldn't be the only, default target.
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
 zinit light tj/git-extras
-
 #########################
 # script initialization #
 #########################
