@@ -15,6 +15,7 @@ path+=(
   # path to my scripts
   ${DOTFILES_DIRECTORY}/zsh/bin
   ${DOTFILES_DIRECTORY}/secret
+  ${DOTFILES_DIRECTORY_ALT}/secret
   ${KREW_ROOT:-$HOME/.krew}/bin
 )
 export PATH

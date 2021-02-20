@@ -27,7 +27,7 @@ Plug 'Shougo/unite.vim'
 
 " unite/denite sources {{{
 
-Plug 'Shougo/neoyank.vim'     " history yank
+" Plug 'Shougo/neoyank.vim'     " history yank
 Plug 'Shougo/neomru.vim'      " most recently used files
 Plug 'Shougo/unite-outline'   " show method definitions (like ctags but with unite)
 Plug 'tsukkee/unite-tag'      " most recently used files
@@ -48,7 +48,10 @@ Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
 " autocomplete {{{
 
 " completion engine
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " Plug 'Shougo/deoplete.nvim'
 " Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
@@ -63,7 +66,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " language support
 Plug 'Shougo/context_filetype.vim'  " aliases depending on the context
 Plug 'Shougo/neoinclude.vim'        " header name completion
-" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 " }}}
 

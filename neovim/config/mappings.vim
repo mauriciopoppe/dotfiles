@@ -135,6 +135,11 @@ endfunction
 command! Bdi :call DeleteInactiveBufs()
 command! Only :call DeleteInactiveBufs()
 
+" forwards the clipboard to use pbcopy for compatibility inside ssh in iTerm
+" see https://github.com/skaji/remote-pbcopy-iterm2
+"
+" Also to make it work inside my workstation I had to create the pbpaste
+" binary inside the dotfiles alt secret directory
 if executable("pbcopy")
   let g:clipboard = {
         \   'name': 'myClipboard',
@@ -145,11 +150,10 @@ if executable("pbcopy")
         \   'paste': {
         \      '+': 'pbpaste',
         \      '*': 'pbpaste',
-        \   },
+        \    },
         \   'cache_enabled': 1,
         \ }
 endif
-" }}}
 
 " search {{{
 " [q - previous item in quickfix

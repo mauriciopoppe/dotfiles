@@ -203,7 +203,79 @@ if utils#hasPlugin('vim-terraform') "{{{
   " let g:terraform_fmt_on_save=1
 endif
 
-if utils#hasPlugin('vim-fugitive') "{{{
+if utils#hasPlugin('hrsh7th/nvim-compe') "{{{
+  lua << EOF
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    vsnip = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    spell = true;
+    tags = true;
+    snippets_nvim = true;
+    treesitter = true;
+  };
+}
+EOF
+endif
+
+if utils#hasPlugin('neovim/nvim-lspconfig')
+  " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
+  lua require'lspconfig'.tsserver.setup{}
+  lua require'lspconfig'.gopls.setup{}
+
+  autocmd Filetype * setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent> gH    <cmd>lua vim.lsp.buf.code_action()<CR>
+  nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
+endif
+
+if utils#hasPlugin('nvim/treesitter')
+  " colorscheme onedark
+  lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    highlight = {
+      enable = true,
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "gnn",
+        node_incremental = "gni",
+      },
+    },
+    indent = {
+      enable = true
+    }
+  }
+EOF
+  set foldmethod=expr
+  setlocal foldlevelstart=99
+  set foldexpr=nvim_treesitter#foldexpr()
+endif
+
+if utils#hasPlugin('vim-fugitive')
   nnoremap <silent> <leader>ga :Git add %:p<CR>
   nnoremap <silent> <leader>gs :Gstatus<CR>
   nnoremap <silent> <leader>gd :Gdiff<CR>

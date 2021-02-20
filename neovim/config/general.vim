@@ -12,7 +12,7 @@ set colorcolumn=+1
 " hiden instead of unload a buffer when abandoned
 set hidden
 " yank operation don't need to use the *" register (system clipboard)
-set clipboard+=unnamed
+set clipboard+=unnamedplus
 " don't show matching brackets (performance improvement)
 set noshowmatch
 " when switching buffers don't move to the start of the line
@@ -119,12 +119,13 @@ set fillchars="fold: "
 " }}}
 " Omni completion settings {{{
 
-" complete also from dictionary
-set complete+=kspell
-" insert the longest common text of the matches
-set completeopt+=longest
-set completeopt+=noinsert
-set completeopt+=noselect
+set completeopt=menuone,noselect
+" " complete also from dictionary
+" set complete+=kspell
+" " insert the longest common text of the matches
+" set completeopt+=longest
+" set completeopt+=noinsert
+" set completeopt+=noselect
 
 " quiet messages in auto completion
 set shortmess+=c
