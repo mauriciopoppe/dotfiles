@@ -163,12 +163,13 @@
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
-[includeIf "gitdir:~/Documents"]
+[includeIf "gitdir/i:~/Documents/"]
 	path = ~/.dotfiles/secret/gitconfig.mine
-
-[includeIf "gitdir:~/.dotfiles"]
+[includeIf "gitdir/i:~/.dotfiles/"]
 	path = ~/.dotfiles/secret/gitconfig.mine
+[includeIf "gitdir/i:~/go/"]
+	path = ~/.dotfiles/secret/gitconfig.work
+[includeIf "gitdir/i:~/.dotfiles-google/"]
+	path = ~/.dotfiles/secret/gitconfig.work
 
-# [includeIf "gitdir:~/code/"]
-# 	path = ~/.dotfiles/secret/gitconfig.work
 # vim: set noexpandtab ts=4 sw=4 sts=4
