@@ -59,5 +59,7 @@ augroup FTCheck
 
   autocmd FileType markdown,terraform,python,zsh,sh setlocal wrap textwidth=0 wrapmargin=0
 
+  autocmd FileType proto setlocal wrap textwidth=120 wrapmargin=0 ts=4 sw=4
+
 augroup END
 

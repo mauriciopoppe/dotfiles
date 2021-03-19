@@ -101,7 +101,7 @@ nnoremap <silent> [denite]o :<C-u>Files .<CR>
 nnoremap <silent> [denite]b :<C-u>Buffer<CR>
 nnoremap <silent> [denite]f :<C-u>Rg<CR>
 
-" nnoremap <silent> [denite]t :<C-u>Tags<CR>
+nnoremap <silent> [denite]t :<C-u>TagbarToggle<CR>
 " nnoremap <silent> [denite]b :<C-u>Denite buffer file_old -default-action=switch<CR>
 " nnoremap <silent> [denite]l :<C-u>Denite location_list -buffer-name=list<CR>
 " nnoremap <silent> [denite]q :<C-u>Denite quickfix -buffer-name=list<CR>

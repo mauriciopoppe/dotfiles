@@ -38,6 +38,16 @@ if utils#hasPlugin('fzf.vim')
   let g:fzf_files_options =
     \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
   let g:fzf_buffers_jump = 1
+
+  function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+  endfunction
+
+  command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 endif
 
 if utils#hasPlugin('lightline.vim')
@@ -174,34 +184,70 @@ endif
 
 if utils#hasPlugin('vim-go') "{{{
   " run :GoBuild or :GoTestCompile based on the go file
-  function! s:build_go_files()
-    let l:file = expand('%')
-    if l:file =~# '^\f\+_test\.go$'
-      call go#test#Test(0, 1)
-    elseif l:file =~# '^\f\+\.go$'
-      call go#cmd#Build(0)
-    endif
-  endfunction
+  " function! s:build_go_files()
+  "   let l:file = expand('%')
+  "   if l:file =~# '^\f\+_test\.go$'
+  "     call go#test#Test(0, 1)
+  "   elseif l:file =~# '^\f\+\.go$'
+  "     call go#cmd#Build(0)
+  "   endif
+  " endfunction
 
-  autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-  autocmd FileType go nmap <leader>t <Plug>(go-test)
-  autocmd FileType go nmap <leader>r <Plug>(go-run)
-  autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+  " autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+  " autocmd FileType go nmap <leader>t <Plug>(go-test)
+  " autocmd FileType go nmap <leader>r <Plug>(go-run)
+  " autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 
   " let g:go_auto_type_info = 1
   let g:go_highlight_types = 1
   let g:go_highlight_extra_types = 1
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
+  let g:go_auto_sameids = 1
   let g:go_list_type = "quickfix"
   let g:go_fmt_command = "goimports"
+
 endif
 
 " }}}
 
+function! LocalGetVisualSelection()
+  " Why is this not a built-in Vim script function?!
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+      return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][column_start - 1:]
+  return join(lines, "\n")
+endfunction
+
+function! LocalDelveBreakpoint()
+  " let file = execute 'echo @%'
+  " let line = execute 'echo line(".")+1'
+  call VimuxRunCommand('break ' . expand('%') . ':' . line(".")+1)
+endfunction
+
+if utils#hasPlugin('vim-delve') "{{{
+  let g:delve_use_vimux = 1
+  let g:delve_project_root = ''
+
+  vnoremap <leader>dp :<C-u>call VimuxRunCommand('p ' . LocalGetVisualSelection())<CR>
+  nnoremap <leader>w :<C-u>call VimuxRunCommand('step')<CR>
+  nnoremap <leader>e :<C-u>call VimuxRunCommand('next')<CR>
+  nnoremap <leader>W :<C-u>call VimuxRunCommand('stepout')<CR>
+  nnoremap <leader>bb :DlvToggleBreakpoint<CR>
+  nnoremap <leader>bl :<C-u>call LocalDelveBreakpoint()<CR>
+  " let g:terraform_fmt_on_save=1
+endif
+"}}}
+
 if utils#hasPlugin('vim-terraform') "{{{
   " let g:terraform_fmt_on_save=1
 endif
+"}}}
 
 if utils#hasPlugin('hrsh7th/nvim-compe') "{{{
   lua << EOF
@@ -218,7 +264,6 @@ require'compe'.setup {
   max_kind_width = 100;
   max_menu_width = 100;
   documentation = true;
-
   source = {
     path = true;
     buffer = true;
@@ -229,29 +274,93 @@ require'compe'.setup {
     spell = true;
     tags = true;
     snippets_nvim = true;
-    treesitter = true;
+    omni = true;
   };
 }
 EOF
 endif
+"}}}
 
-if utils#hasPlugin('neovim/nvim-lspconfig')
-  " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
-  lua require'lspconfig'.tsserver.setup{}
-  lua require'lspconfig'.gopls.setup{}
-
-  autocmd Filetype * setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> gh    <cmd>lua vim.lsp.buf.hover()<CR>
-  nnoremap <silent> gH    <cmd>lua vim.lsp.buf.code_action()<CR>
-  nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap <silent> gR    <cmd>lua vim.lsp.buf.rename()<CR>
+if utils#hasPlugin('glepnir/lspsaga.nvim') "{{{
+  lua << EOF
+local saga = require 'lspsaga'
+saga.init_lsp_saga()
+EOF
 endif
+"}}}
 
-if utils#hasPlugin('nvim/treesitter')
+if utils#hasPlugin('neovim/nvim-lspconfig') " {{{
+  " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
+  " https://github.com/neovim/nvim-lspconfig
+  lua <<EOF
+local nvim_lsp = require('lspconfig')
+local util = require('lspconfig/util')
+
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  -- buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  -- Set some keybinds conditional on server capabilities
+  -- if client.resolved_capabilities.document_formatting then
+  --   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  -- elseif client.resolved_capabilities.document_range_formatting then
+  --   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  -- end
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.api.nvim_exec([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]], false)
+  end
+end
+
+nvim_lsp.gopls.setup{
+  root_dir = function(fname)
+    return util.root_pattern("go.mod", ".git")(fname) or
+      util.path.dirname(fname)
+  end
+}
+
+-- Use a loop to conveniently both setup defined servers
+-- and map buffer local keybindings when the language server attaches
+local servers = { "gopls", "tsserver" }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup { on_attach = on_attach }
+end
+EOF
+
+autocmd FileType go setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+endif
+"}}}
+
+if utils#hasPlugin('nvim/treesitter') "{{{
   " colorscheme onedark
   lua <<EOF
   require'nvim-treesitter.configs'.setup {
@@ -274,8 +383,9 @@ EOF
   setlocal foldlevelstart=99
   set foldexpr=nvim_treesitter#foldexpr()
 endif
+" }}}
 
-if utils#hasPlugin('vim-fugitive')
+if utils#hasPlugin('vim-fugitive') "{{{
   nnoremap <silent> <leader>ga :Git add %:p<CR>
   nnoremap <silent> <leader>gs :Gstatus<CR>
   nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -285,6 +395,7 @@ if utils#hasPlugin('vim-fugitive')
   nnoremap <silent> <leader>gB :Gbrowse<CR>
   nnoremap <silent> <leader>gp :Git push<CR>
 endif
+" }}}
 
 "}}}
 if utils#hasPlugin('ack.vim') "{{{
@@ -305,7 +416,6 @@ if utils#hasPlugin('vimux') "{{{
   noremap <Leader>sp :VimuxPromptCommand<CR>
   " Execute last command
   noremap <Leader>sl :VimuxRunLastCommand<CR>
-  noremap <leader>e :ExecScript<CR>
 endif
 
 "}}}
@@ -411,6 +521,36 @@ if utils#hasPlugin('vim-gfm-syntax') "{{{
 endif
 "}}}
 
-"}}}
+if executable('gotags')
+  let g:tagbar_type_go = {
+  \ 'ctagstype' : 'go',
+  \ 'kinds'     : [
+    \ 'p:package',
+    \ 'i:imports:1',
+    \ 'c:constants',
+    \ 'v:variables',
+    \ 't:types',
+    \ 'n:interfaces',
+    \ 'w:fields',
+    \ 'e:embedded',
+    \ 'm:methods',
+    \ 'r:constructor',
+    \ 'f:functions'
+  \ ],
+  \ 'sro' : '.',
+  \ 'kind2scope' : {
+    \ 't' : 'ctype',
+    \ 'n' : 'ntype'
+  \ },
+  \ 'scope2kind' : {
+    \ 'ctype' : 't',
+    \ 'ntype' : 'n'
+  \ },
+  \ 'ctagsbin'  : 'gotags',
+  \ 'ctagsargs' : '-sort -silent'
+\ }
+endif
+
+" }}}
 
 " vim: set ts=2 sw=2 tw=80 et :

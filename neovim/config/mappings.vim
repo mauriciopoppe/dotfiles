@@ -55,6 +55,10 @@ map <Leader>p :set paste<CR>"*]p:set nopaste<cr>
 " start an external command with a single bang
 nnoremap ! :!
 
+" remove case transform in visual mode
+vnoremap u <Nop>
+vnoremap U <Nop>
+
 " keep the selection after an indent operation
 vnoremap > >gv|
 vnoremap < <gv

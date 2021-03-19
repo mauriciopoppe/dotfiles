@@ -22,7 +22,7 @@ set scrolloff=5
 " allow positioning the cursor in places where there is no characters
 set virtualedit=block
 " time to send the CursorHold autocommand event
-set updatetime=300
+set updatetime=100
 " read file changes on update
 set autoread
 " write the contents of a the file if it was modified because of some vim commands

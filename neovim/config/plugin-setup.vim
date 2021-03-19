@@ -3,7 +3,7 @@
 Plug 'sheerun/vim-polyglot'  " language highlighter pack
 Plug 'itchyny/lightline.vim' " lightline (simple status line)
 Plug 'ap/vim-buftabline'     " buffers tabline
-Plug 'majutsushi/tagbar'     " right sidebaf for navigation
+Plug 'preservim/tagbar'     " right sidebaf for navigation
 
 Plug 'mhinz/vim-signify'               " diff sidebar
 Plug 'nathanaelkane/vim-indent-guides' " indent guides
@@ -47,10 +47,12 @@ Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
 
 " autocomplete {{{
 
-" completion engine
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" autocomplete is done by YCM
+
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'hrsh7th/nvim-compe'
+" Plug 'glepnir/lspsaga.nvim'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Plug 'Shougo/deoplete.nvim'
 " Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
@@ -157,7 +159,8 @@ Plug 'rhysd/vim-gfm-syntax'
 " Go
 Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoInstallBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+Plug 'sebdah/vim-delve'
+" Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
 " Terraform
 Plug 'hashivim/vim-terraform'
