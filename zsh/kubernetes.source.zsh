@@ -25,3 +25,4 @@ function kc_untaint_windows() {
       kubectl taint node $node node.kubernetes.io/os:NoSchedule-
     done
 }
+

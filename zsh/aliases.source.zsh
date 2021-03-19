@@ -41,3 +41,7 @@ alias td='tmux detach'
 alias kc='kubectl'
 
 alias h='howdoi -ac'
+
+# from https://blog.petdance.com/2020/02/03/handy-collection-of-shell-aliases/
+alias paga='ps -u "$USER" f --header -o pid,ppid,start_time,%cpu,rssize=Resident,vsize=Virtual,cmd'
+

@@ -19,7 +19,6 @@ path+=(
   ${KREW_ROOT:-$HOME/.krew}/bin
 )
 export PATH
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.mujoco/mujoco200_macos/bin
 
 # neovim
 export VISUAL=nvim
