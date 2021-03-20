@@ -10,11 +10,6 @@ if utils#hasPlugin('vimfiler.vim') " {{{
 endif
 " }}}
 
-" if utils#hasPlugin('deoplete.nvim') " {{{
-"   source $VIMPATH/config/plugins/deoplete.vim
-" endif
-" " }}}
-
 if utils#hasPlugin('coc.nvim') " {{{
   source $VIMPATH/config/plugins/coc.vim
 endif
@@ -47,7 +42,7 @@ if utils#hasPlugin('fzf.vim')
     call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
   endfunction
 
-  command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+  " command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 endif
 
 if utils#hasPlugin('lightline.vim')

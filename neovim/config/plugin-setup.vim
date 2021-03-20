@@ -41,33 +41,15 @@ Plug 'junegunn/fzf', {
   \ 'do': './install --all'
   \ }                   " fuzzy finder engine
 Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
+" Plug 'jremmen/vim-ripgrep'
+" Plug 'stefandtw/quickfix-reflector.vim'
 
 " }}}
 " }}}
 
 " autocomplete {{{
 
-" autocomplete is done by YCM
-
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'hrsh7th/nvim-compe'
-" Plug 'glepnir/lspsaga.nvim'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
-
-" " languages
-" Plug 'zchee/deoplete-clang', { 'for': ['cpp', 'c', 'hpp', 'h'] }
-" Plug 'carlitux/deoplete-ternjs'
-" Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
-" Plug 'wokalski/autocomplete-flow'
-" Plug 'zchee/deoplete-jedi', { 'for': ['python'] }
-
-
-" language support
-Plug 'Shougo/context_filetype.vim'  " aliases depending on the context
-Plug 'Shougo/neoinclude.vim'        " header name completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " }}}
 

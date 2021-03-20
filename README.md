@@ -2,6 +2,7 @@
 
 [![travis](https://travis-ci.org/mauriciopoppe/dotfiles.svg?branch=master)](https://travis-ci.org/mauriciopoppe/dotfiles)
 ![platform macos](https://img.shields.io/badge/platform-macOS-orange.svg)
+![platform linux](https://img.shields.io/badge/platform-linux-blue.svg)
 
 ## Features
 
