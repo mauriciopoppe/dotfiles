@@ -3,13 +3,16 @@
 Plug 'sheerun/vim-polyglot'  " language highlighter pack
 Plug 'itchyny/lightline.vim' " lightline (simple status line)
 Plug 'ap/vim-buftabline'     " buffers tabline
-Plug 'preservim/tagbar'     " right sidebaf for navigation
+Plug 'preservim/tagbar'      " right sidebaf for navigation
 
-Plug 'mhinz/vim-signify'               " diff sidebar
+" Plug 'mhinz/vim-signify'               " diff sidebar
 Plug 'nathanaelkane/vim-indent-guides' " indent guides
 Plug 'machakann/vim-highlightedyank'   " make yanked region apparent
 Plug 'junegunn/goyo.vim'               " distraction free writing
 Plug 'junegunn/limelight.vim'          " dim unfocussed paragraphs
+
+Plug 'nvim-lua/plenary.nvim'       " common lua functions
+Plug 'lewis6991/gitsigns.nvim'     " git signs
 
 " themes
 Plug 'kristijanhusak/vim-hybrid-material'

@@ -174,7 +174,13 @@ if utils#hasPlugin('jedi-vim') "{{{
   let g:jedi#rename_command = '<Leader>r'
   let g:jedi#usages_command = '<Leader>n'
 endif
+"}}}
 
+if utils#hasPlugin('gitsigns.nvim') "{{{
+lua <<EOF
+  require('gitsigns').setup()
+EOF
+endif
 "}}}
 
 if utils#hasPlugin('vim-go') "{{{
@@ -220,21 +226,21 @@ function! LocalGetVisualSelection()
 endfunction
 
 function! LocalDelveBreakpoint()
-  " let file = execute 'echo @%'
-  " let line = execute 'echo line(".")+1'
-  call VimuxRunCommand('break ' . expand('%') . ':' . line(".")+1)
+  return expand('%') . ':' . line(".")
 endfunction
 
 if utils#hasPlugin('vim-delve') "{{{
   let g:delve_use_vimux = 1
   let g:delve_project_root = ''
 
-  vnoremap <leader>dp :<C-u>call VimuxRunCommand('p ' . LocalGetVisualSelection())<CR>
   nnoremap <leader>w :<C-u>call VimuxRunCommand('step')<CR>
   nnoremap <leader>e :<C-u>call VimuxRunCommand('next')<CR>
   nnoremap <leader>W :<C-u>call VimuxRunCommand('stepout')<CR>
+  nnoremap <leader>bl :<C-u>call VimuxRunCommand('break ' . LocalDelveBreakpoint())<CR>
+  vnoremap <leader>bp :<C-u>call VimuxRunCommand('p ' . LocalGetVisualSelection())<CR>
+  vnoremap <leader>bc :<C-u>call VimuxRunCommand('c')<CR>
+
   nnoremap <leader>bb :DlvToggleBreakpoint<CR>
-  nnoremap <leader>bl :<C-u>call LocalDelveBreakpoint()<CR>
   " let g:terraform_fmt_on_save=1
 endif
 "}}}
