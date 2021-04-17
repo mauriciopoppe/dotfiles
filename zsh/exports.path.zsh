@@ -26,6 +26,8 @@ export VISUAL=nvim
 # default editor
 export EDITOR="$VISUAL"
 
+export TERM=xterm-256color
+
 # `fzf` default stdin command
 #
 # --files: List files that would be searched but do not search

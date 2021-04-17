@@ -15,7 +15,6 @@ alias path='echo -e ${PATH//:/\\n}'
 alias publicip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip='ipconfig getifaddr en0'
 alias ips="ifconfig -a | perl -nle '/(\d+\.\d+\.\d+\.\d+)/ && print \$1'"
-alias search='ag -i $1'
 alias reload='. ~/.zshrc'
 alias http-server='live-server'
 alias catc='pygmentize -g'
@@ -30,8 +29,11 @@ alias grep='grep --color'
 # fi
 
 alias gt="lazygit"
-alias pip="pip3"
-alias python="python3"
+# alias pip="pip3"
+# alias python="python3"
+
+# I don't know where nvim is aliased :\
+unalias nvim
 
 # tmux aliases
 alias ta='tmux attach -t'

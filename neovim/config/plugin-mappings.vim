@@ -365,6 +365,7 @@ if utils#hasPlugin('nvim/treesitter') "{{{
   " colorscheme onedark
   lua <<EOF
   require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained"
     highlight = {
       enable = true,
     },

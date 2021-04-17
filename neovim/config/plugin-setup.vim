@@ -1,6 +1,6 @@
 " Interface {{{
 
-Plug 'sheerun/vim-polyglot'  " language highlighter pack
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'itchyny/lightline.vim' " lightline (simple status line)
 Plug 'ap/vim-buftabline'     " buffers tabline
 Plug 'preservim/tagbar'      " right sidebaf for navigation
