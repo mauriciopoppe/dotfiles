@@ -41,6 +41,7 @@ alias td='tmux detach'
 
 # k8s
 alias kc='kubectl'
+alias k='kubectl'
 
 alias h='howdoi -ac'
 

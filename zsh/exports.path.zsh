@@ -40,3 +40,4 @@ export FZF_DEFAULT_OPTS='--reverse --color=dark --inline-info --cycle'
 
 export GPG_TTY=$(tty)
 
+export GITHUB_USER=mauriciopoppe

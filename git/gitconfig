@@ -26,29 +26,17 @@
 
 [alias]
 
-	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	l = log --pretty=oneline --graph --abbrev-commit
+	l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --graph --decorate
+	log-oneline = log --oneline --graph
 
 	# View the current working tree status using the short format
-	s = status -s
+	s = status
 
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
-	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
-	di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
-
 	# Pull in remote changes for the current repository and all its submodules
 	p = !"git pull; git submodule foreach git pull origin master"
-
-	# Clone a repository including all submodules
-	c = clone --recursive
-
-	# Commit all changes
-	ca = !git add -A && git commit -av
-
-	# Switch to a branch, creating it if necessary
-	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
 	# Show verbose output about tags, branches or remotes
 	tags = tag -l
@@ -61,13 +49,11 @@
 	# Amend the currently staged files to the latest commit
 	amend = commit --amend --reuse-message=HEAD
 
-	# git change-commits GIT_COMMITTER_NAME "old name" "new name"
-	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
-[apply]
+	# prune local branches which are not in the remote
+	prune = fetch --prune
 
-	# Detect whitespace errors when applyig a patch
-	whitespace = fix
-
+	# soft undo
+	undo = reset --soft HEAD^
 [color]
 
 	# Use colors in Git commands that are capable of colored output when
@@ -115,14 +101,18 @@
 
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+	tool = vimdiff
+	conflictstyle = diff3
+	prompt = false
+
 
 [push]
 
 	# Use the Git 1.x.x default to avoid errors on machines with old Git
 	# installations. To use `simple` instead, add this to your `~/.extra` file:
 	# `git config --global push.default simple`. See http://git.io/mMah-w.
-	default = matching
-	# Make `git push` push relevannt annotated tags when pushing branches out.
+	default = simple
+	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
 
 # URL shorthands
@@ -158,6 +148,14 @@
 	path =
 
 # sourcetree diff helper
+[merge]
+	tool = nvim
+
+[mergetool]
+	keepBackup = false
+
+[mergetool "nvim"]
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"

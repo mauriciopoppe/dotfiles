@@ -26,3 +26,17 @@ function kc_untaint_windows() {
     done
 }
 
+# Escapes a kubernetes E2E test to a format that can be sent to ginkgo
+# Usage:
+#
+#       $(ginkgo_escape_testname "[sig-storage] CSI Volumes ....")
+#
+function ginkgo_escape_testname() {
+  local t=$1
+  t=$(echo $t \
+    | sed 's/(/\\(/g' | sed 's/)/\\)/g' \
+    | sed 's/\[/\\\[/g' | sed 's/\]/\\\]/g' \
+    | sed 's/ /./g' \
+  )
+  echo $t
+}

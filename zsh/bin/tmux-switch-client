@@ -37,17 +37,19 @@ def find_closest_tmuxinator_file(path)
   fail("Couldn't file a .tmuxinator.yml file anywhere in the tree")
 end
 
-all_bookmarks = `bookmark --list`.strip.split("\n").sort!
-opened_tmux_sessions =
-  `tmux list-sessions -F "\#{session_name}"`.strip.split("\n").sort!
+
+# list of sessions to display
+unique = []
 
 # push opened sessions as: [name] *
-unique = []
+opened_tmux_sessions =
+  `tmux list-sessions -F "\#{session_name}"`.strip.split("\n").sort!
 opened_tmux_sessions.each do |item|
   unique << "#{format_session(item, true)}"
 end
 
-# push remaning sessions
+# push sessions obtained from the `bookmark` bash script
+all_bookmarks = `bookmark --list`.strip.split("\n").sort!
 all_bookmarks.each do |bookmark|
   expanded = escape(`echo #{bookmark}`.strip)
   # puts expanded
@@ -55,6 +57,9 @@ all_bookmarks.each do |bookmark|
     unique << "#{format_session(expanded, false)}"
   end
 end
+
+# push additional secret sessions
+
 
 chosen = `echo "#{unique.join("\n")}" | fzf-tmux -d 15 --preview 'echo {}' --preview-window down:1`
 

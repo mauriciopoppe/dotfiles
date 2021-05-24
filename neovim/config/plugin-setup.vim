@@ -1,9 +1,10 @@
 " Interface {{{
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'itchyny/lightline.vim' " lightline (simple status line)
 Plug 'ap/vim-buftabline'     " buffers tabline
 Plug 'preservim/tagbar'      " right sidebaf for navigation
+Plug 'pprovost/vim-ps1'      " ft for powershell scripts :(
 
 " Plug 'mhinz/vim-signify'               " diff sidebar
 Plug 'nathanaelkane/vim-indent-guides' " indent guides
@@ -12,7 +13,7 @@ Plug 'junegunn/goyo.vim'               " distraction free writing
 Plug 'junegunn/limelight.vim'          " dim unfocussed paragraphs
 
 Plug 'nvim-lua/plenary.nvim'       " common lua functions
-Plug 'lewis6991/gitsigns.nvim'     " git signs
+Plug 'airblade/vim-gitgutter'	   " git signs
 
 " themes
 Plug 'kristijanhusak/vim-hybrid-material'
