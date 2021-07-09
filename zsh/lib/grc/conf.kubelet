@@ -18,7 +18,7 @@ count=stop
 #   'Jun  3 22:44:55 neutronium '
 #   'Jun  3 22:44:55 neutronium-02.my-domain.io '
 regexp=^... (\d| )\d \d\d:\d\d:\d\d(\s[-.\w\d]+?\s)
-colours=green, green, red
+colours=green, green, yellow
 count=once
 ======
 # name of process and pid
