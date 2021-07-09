@@ -97,14 +97,6 @@
 	# Automatically correct and execute mistyped commands
 	autocorrect = 1
 
-[merge]
-
-	# Include summaries of merged commits in newly created merge commit messages
-	log = true
-	tool = vimdiff
-	conflictstyle = diff3
-	prompt = false
-
 
 [push]
 
@@ -147,15 +139,16 @@
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
 
-# sourcetree diff helper
 [merge]
-	tool = nvim
+	tool = nvim_mergetool
+	conflictstyle = diff3
 
 [mergetool]
-	keepBackup = false
+	prompt = false
 
-[mergetool "nvim"]
-	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[mergetool "nvim_mergetool"]
+	cmd = nvim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+	trustExitCode = true
 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"

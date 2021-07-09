@@ -68,6 +68,7 @@ Plug 'rhysd/clever-f.vim'             " better f
 Plug 'bkad/CamelCaseMotion'           " better motion
 Plug 'mileszs/ack.vim'                " search
 Plug 'mbbill/undotree'                " undo tree
+Plug 'samoshkin/vim-mergetool'        " better vim mergetool, needs setup in git config too
 
 " }}}
 

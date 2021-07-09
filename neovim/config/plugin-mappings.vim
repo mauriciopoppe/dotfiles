@@ -183,6 +183,14 @@ EOF
 endif
 "}}}
 
+if utils#hasPlugin('vim-mergetool') "{{{
+  nmap <expr> <C-Left> &diff? '<Plug>(MergetoolDiffExchangeLeft)' : '<C-Left>'
+  nmap <expr> <C-Right> &diff? '<Plug>(MergetoolDiffExchangeRight)' : '<C-Right>'
+  nmap <expr> <C-Down> &diff? '<Plug>(MergetoolDiffExchangeDown)' : '<C-Down>'
+  nmap <expr> <C-Up> &diff? '<Plug>(MergetoolDiffExchangeUp)' : '<C-Up>'
+endif
+"}}}
+
 if utils#hasPlugin('vim-go') "{{{
   " run :GoBuild or :GoTestCompile based on the go file
   " function! s:build_go_files()
