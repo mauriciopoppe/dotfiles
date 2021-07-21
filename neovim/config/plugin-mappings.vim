@@ -115,9 +115,6 @@ if utils#hasPlugin('goyo.vim') "{{{
 
   " trigger
   nnoremap <Leader>G :Goyo<CR>
-
-  " s:goyo_enter() "{{{
-  " Disable visual candy in Goyo mode
   function OnGoyoEnter()
     silent !tmux set status off
     silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
@@ -130,8 +127,6 @@ if utils#hasPlugin('goyo.vim') "{{{
     Limelight
   endfunction
 
-  " }}}
-  " s:goyo_leave() "{{{
   " Enable visuals when leaving Goyo mode
   function OnGoyoLeave()
     silent !tmux set status on
@@ -146,24 +141,19 @@ if utils#hasPlugin('goyo.vim') "{{{
     " De-activate Limelight
     Limelight!
   endfunction
-  " }}}
 
-  " Goyo Commands {{{
   autocmd! User GoyoEnter
   autocmd! User GoyoLeave
   autocmd  User GoyoEnter nested call OnGoyoEnter()
   autocmd  User GoyoLeave nested call OnGoyoLeave()
-" }}}
 
 endif
+" }}}
 
 if utils#hasPlugin('limelight.vim') " {{{
   let g:limelight_default_coefficient = 0.7
   let g:limelight_conceal_ctermfg = 240
 endif
-
-"}}}
-
 "}}}
 
 if utils#hasPlugin('jedi-vim') "{{{
@@ -237,19 +227,45 @@ function! LocalDelveBreakpoint()
   return expand('%') . ':' . line(".")
 endfunction
 
+function! DebuggerStepInto()
+  call VimuxRunCommand('step')
+endfunction
+
+function! DebuggerStepOut()
+  call VimuxRunCommand('stepout')
+endfunction
+
+function! DebuggerStepOver()
+  call VimuxRunCommand('next')
+endfunction
+
+function! DebuggerBreakLine()
+  call VimuxRunCommand('break ' . LocalDelveBreakpoint())
+endfunction
+
+function! DebuggerPrintValue()
+  call VimuxRunCommand('print ' . LocalGetVisualSelection())
+endfunction
+
+function! DebuggerContinue()
+  call VimuxRunCommand('continue')
+endfunction
+
 if utils#hasPlugin('vim-delve') "{{{
   let g:delve_use_vimux = 1
   let g:delve_project_root = ''
 
-  nnoremap <leader>w :<C-u>call VimuxRunCommand('step')<CR>
-  nnoremap <leader>e :<C-u>call VimuxRunCommand('next')<CR>
-  nnoremap <leader>W :<C-u>call VimuxRunCommand('stepout')<CR>
-  nnoremap <leader>bl :<C-u>call VimuxRunCommand('break ' . LocalDelveBreakpoint())<CR>
-  vnoremap <leader>bp :<C-u>call VimuxRunCommand('p ' . LocalGetVisualSelection())<CR>
-  vnoremap <leader>bc :<C-u>call VimuxRunCommand('c')<CR>
+  nnoremap <leader>w :<C-u>call DebuggerStepInto()<CR>
+  nnoremap <leader>W :<C-u>call DebuggerStepOut()<CR>
+  nnoremap <leader>e :<C-u>call DebuggerStepOver()<CR>
+  nnoremap <leader>bl :<C-u>call DebuggerBreakLine()<CR>
+  vnoremap <leader>bp :<C-u>call DebuggerPrintValue()<CR>
+  vnoremap <leader>bc :<C-u>call DebuggerContinue()<CR>
+
+  " to have similar mappings like in Chrome, we have to configure iterm to send keys to vim
+  " see https://stackoverflow.com/questions/40990454/how-to-map-mac-command-key-in-vim
 
   nnoremap <leader>bb :DlvToggleBreakpoint<CR>
-  " let g:terraform_fmt_on_save=1
 endif
 "}}}
 
@@ -298,7 +314,7 @@ EOF
 endif
 "}}}
 
-if utils#hasPlugin('neovim/nvim-lspconfig') " {{{
+if utils#hasPlugin('nvim-lspconfig') " {{{
   " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
   " https://github.com/neovim/nvim-lspconfig
   lua <<EOF
@@ -369,34 +385,69 @@ autocmd FileType go setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endif
 "}}}
 
-if utils#hasPlugin('nvim/treesitter') "{{{
-  " colorscheme onedark
-  lua <<EOF
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained"
-    highlight = {
-      enable = true,
+if utils#hasPlugin('nvim-treesitter') "{{{
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "gni",
     },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "gnn",
-        node_incremental = "gni",
-      },
-    },
-    indent = {
-      enable = true
-    }
-  }
+  },
+  indent = {
+    enable = true
+  },
+}
 EOF
+
   set foldmethod=expr
   setlocal foldlevelstart=99
   set foldexpr=nvim_treesitter#foldexpr()
+
+endif
+" }}}
+
+if utils#hasPlugin('nvim-treesitter-textobjects') "{{{
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  textobjects = {
+    select = {
+      enable = true,
+
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ae"] = "@function.outer",
+        ["ie"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+
+      swap = {
+        enable = true,
+        swap_next = {
+          ["<leader>a"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<leader>A"] = "@parameter.inner",
+        },
+      },
+    },
+  },
+}
+EOF
 endif
 " }}}
 
 if utils#hasPlugin('vim-fugitive') "{{{
-  nnoremap <silent> <leader>ga :Git add %:p<CR>
   nnoremap <silent> <leader>gs :Gstatus<CR>
   nnoremap <silent> <leader>gd :Gdiff<CR>
   nnoremap <silent> <leader>gD :Gdiffoff<CR>
@@ -415,20 +466,21 @@ if utils#hasPlugin('ack.vim') "{{{
 endif
 
 "}}}
+
 if utils#hasPlugin('open-browser.vim') "{{{
   nmap gx <Plug>(openbrowser-smart-search)
   vmap gx <Plug>(openbrowser-smart-search)
 endif
-
 "}}}
+
 if utils#hasPlugin('vimux') "{{{
   " Executes a command in a tmux split, if there's one available run it there
-  noremap <Leader>sp :VimuxPromptCommand<CR>
+  noremap <Leader>ce :VimuxPromptCommand<CR>
   " Execute last command
-  noremap <Leader>sl :VimuxRunLastCommand<CR>
+  noremap <Leader>cl :VimuxRunLastCommand<CR>
 endif
-
 "}}}
+
 if utils#hasPlugin('dash.vim') "{{{
   " searches in dash for the word under the cursor (considering the context)
   nmap <silent> <leader>dd <Plug>DashSearch
@@ -482,7 +534,7 @@ endif
 "}}}
 
 if utils#hasPlugin('vim-easymotion') "{{{
-  nmap ss <Plug>(easymotion-s2)
+  nmap <leader>/ <Plug>(easymotion-s2)
   " nmap sd <Plug>(easymotion-s)
   " nmap sf <Plug>(easymotion-overwin-f)
   " map  sh <Plug>(easymotion-linebackward)
@@ -493,22 +545,6 @@ if utils#hasPlugin('vim-easymotion') "{{{
   " omap s/ <Plug>(easymotion-tn)
   " map  sn <Plug>(easymotion-next)
   " map  sp <Plug>(easymotion-prev)
-endif
-"}}}
-
-if utils#hasPlugin('vim-textobj-multiblock') "{{{
-  omap <silent> ab <Plug>(textobj-multiblock-a)
-  omap <silent> ib <Plug>(textobj-multiblock-i)
-  xmap <silent> ab <Plug>(textobj-multiblock-a)
-  xmap <silent> ib <Plug>(textobj-multiblock-i)
-endif
-"}}}
-
-if utils#hasPlugin('vim-textobj-function') "{{{
-  omap <silent> af <Plug>(textobj-function-a)
-  omap <silent> if <Plug>(textobj-function-i)
-  xmap <silent> af <Plug>(textobj-function-a)
-  xmap <silent> if <Plug>(textobj-function-i)
 endif
 "}}}
 
@@ -528,6 +564,11 @@ if utils#hasPlugin('vim-gfm-syntax') "{{{
   let g:gfm_syntax_enable_always = 0
   let g:gfm_syntax_highlight_emoji = 0
   let g:gfm_syntax_enable_filetypes = ['markdown']
+endif
+"}}}
+
+if utils#hasPlugin('vim-oscyank') "{{{
+  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | OSCYankReg " | endif
 endif
 "}}}
 

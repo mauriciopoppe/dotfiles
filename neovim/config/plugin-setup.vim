@@ -1,6 +1,7 @@
 " Interface {{{
 
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
 Plug 'itchyny/lightline.vim' " lightline (simple status line)
 Plug 'ap/vim-buftabline'     " buffers tabline
 Plug 'preservim/tagbar'      " right sidebaf for navigation
@@ -62,8 +63,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Navigation {{{
 
 Plug 'tpope/vim-unimpaired'           " additional mappings
-Plug 'easymotion/vim-easymotion'      " navigate to any visible part with 2-keystrokes
 Plug 'christoomey/vim-tmux-navigator' " tmux navigation
+Plug 'easymotion/vim-easymotion'      " navigate to any visible part with 2-keystrokes
 Plug 'rhysd/clever-f.vim'             " better f
 Plug 'bkad/CamelCaseMotion'           " better motion
 Plug 'mileszs/ack.vim'                " search
@@ -75,15 +76,10 @@ Plug 'samoshkin/vim-mergetool'        " better vim mergetool, needs setup in git
 " Integration with external commands/apps {{{
 
 Plug 'w0rp/ale'
+Plug 'ojroques/vim-oscyank'  " clipboard over ssh through tmux
 Plug 'tpope/vim-fugitive'    " git wrapper
 Plug 'benmills/vimux'        " run commands in a tmux split
 Plug 'tyru/open-browser.vim' " open browser
-" Plug 'rizzatti/dash.vim'     " open documentation (dash)
-" execute a command in the background
-" Plug 'tpope/vim-dispatch'
-" run commands in the background asynchronously filling the quickfix
-" list (alternative to vim-dispatch for compilation)
-" Plug 'skywind3000/asyncrun.vim'
 
 "}}}
 
@@ -103,14 +99,6 @@ Plug 'tpope/vim-repeat'             " . improved
 Plug 'tpope/vim-sleuth'             " indentation heuristics
 Plug 'tpope/vim-surround'           " change/delete surrounding characters
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' } " code formatter
-
-" Text objects {{{
-
-Plug 'wellle/targets.vim'              " additional text objects (like [n]ext and [l]ast)
-Plug 'kana/vim-textobj-user'           " allows the definition of custom text objects
-Plug 'kana/vim-textobj-entire'         " ae, ie (everything)
-Plug 'kana/vim-textobj-function'         " ae, ie (everything)
-" }}}
 
 " }}}
 
