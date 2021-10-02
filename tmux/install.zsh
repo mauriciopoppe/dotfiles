@@ -30,6 +30,7 @@ main() {
 
   print-step "tmux symlinks..."
   symlink "${base}/.tmux.conf" "${HOME}/.tmux.conf"
+  symlink "${base}/default-tmuxinator.yml" "${HOME}/.tmuxinator.yml"
 
   print-step "installing plugins..."
   ${HOME}/.tmux/plugins/tpm/bin/install_plugins > /dev/null
