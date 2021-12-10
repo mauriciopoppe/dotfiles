@@ -59,4 +59,8 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
+# ctrl+e = nvim
 bindkey -s "^e" "nvim -S\n"
+
+# ctrl+g = git
+bindkey -s "^g" "git fuzzy status\n"

@@ -43,13 +43,13 @@ export TERM=xterm-256color
 # run nvim with italic comments
 alias nvim="TERM=xterm-256color-italic nvim"
 
-# https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh
-autoload -Uz compinit
-compinit
-
 #########
 # zinit #
 #########
+
+# https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh
+autoload -Uz compinit
+compinit -i
 
 # autocomplete anything with fzf
 # NOTE: fzf-tab needs to be loaded after compinit, but before plugins which will wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting!!
@@ -57,13 +57,20 @@ zinit light Aloxaf/fzf-tab
 
 # Two regular plugins loaded without investigating.
 zinit light zsh-users/zsh-autosuggestions
-zinit light zdharma/fast-syntax-highlighting
+
+# NOTE: don't use this plugin, it crashes ssh!
+# zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-syntax-highlighting
 
 # Plugin history-search-multi-word loaded with investigating.
-zinit load zdharma/history-search-multi-word
+zinit load zdharma-continuum/history-search-multi-word
 
 # Theme
 zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+# human readable git diff
+zinit ice as"command" from"gh-r" mv"delta* -> delta" pick"delta/delta"
+zinit light dandavison/delta
 
 # Binary release in archive, from GitHub-releases page.
 # After automatic unpacking it provides program "fzf".
@@ -77,6 +84,10 @@ zinit light BurntSushi/ripgrep
 # zsh-autopair
 zinit ice wait lucid
 zinit load hlissner/zsh-autopair
+
+# git fuzzy completion with fzf
+zinit ice as"program" pick"bin/git-fuzzy"
+zinit light bigH/git-fuzzy
 
 # Scripts that are built at install (there's single default make target, "install",
 # and it constructs scripts by `cat'ing a few files). The make'' ice could also be:
@@ -125,8 +136,10 @@ unset -f safe-source
 ####################
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# # asdf version manager
+# [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
