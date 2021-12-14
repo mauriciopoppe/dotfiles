@@ -1,0 +1,48 @@
+# taken from https://github.com/garabik/grc/blob/master/colourfiles/conf.log
+# example of text substitution
+#regexp=\bda?emon
+#replace=angel
+#colours=red
+#======
+# example of text substitution
+#regexp=(\d\d):(\d\d):(\d\d)
+#replace=\1h\2m\3s
+#======
+
+# display this line in yellow and stop further processing
+regexp=.*last message repeated \d+ times$
+colours=yellow
+count=stop
+======
+# this is date and hostname
+#   'Jun  3 22:44:55 neutronium '
+#   'Jun  3 22:44:55 neutronium-02.my-domain.io '
+regexp=^... (\d| )\d \d\d:\d\d:\d\d(\s[-.\w\d]+?\s)
+colours=green, green, yellow
+count=once
+======
+# name of process and pid
+regexp=([\w/\.\-]+)(\[\d+?\])
+colours=bold blue, bold red
+count=more
+======
+# go file & line number
+regexp=([\w/\_\d]+\.go)(:)(\d+?)(\])
+colours=bold blue, bold blue, bold blue, bold blue
+count=once
+======
+# Debug
+regexp=(DEBUG)
+colours=red
+count=once
+# ======
+# # Warnings
+# regexp=(W\d{4})
+# colours=yellow
+# count=once
+# ======
+# # Errors
+# regexp=(E\d{4})
+# colours=red
+# count=once
+# ======
