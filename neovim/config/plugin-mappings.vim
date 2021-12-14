@@ -25,6 +25,30 @@ if utils#hasPlugin('ale') " {{{
 endif
 " }}}
 
+
+if utils#hasPlugin('AutoSave.nvim') " {{{
+lua << EOF
+local autosave = require("autosave")
+autosave.setup(
+    {
+        enabled = true,
+        execution_message = "",
+        events = {"InsertLeave", "TextChanged"},
+        conditions = {
+            exists = true,
+            filetype_is_not = {},
+            modifiable = true
+        },
+        write_all_buffers = false,
+        on_off_commands = true,
+        clean_command_line_interval = 0,
+        debounce_delay = 135
+    }
+)
+EOF
+endif
+" }}}
+
 if utils#hasPlugin('vim-localvimrc')
   let g:localvimrc_ask = 0
 endif
@@ -146,6 +170,7 @@ if utils#hasPlugin('goyo.vim') "{{{
   autocmd! User GoyoLeave
   autocmd  User GoyoEnter nested call OnGoyoEnter()
   autocmd  User GoyoLeave nested call OnGoyoLeave()
+  autocmd  VimLeave * :call OnGoyoLeave()
 
 endif
 " }}}
@@ -416,12 +441,11 @@ if utils#hasPlugin('nvim-treesitter-textobjects') "{{{
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   textobjects = {
+
     select = {
       enable = true,
-
       -- Automatically jump forward to textobj, similar to targets.vim
       lookahead = true,
-
       keymaps = {
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
@@ -430,15 +454,15 @@ require'nvim-treesitter.configs'.setup {
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
       },
+    },
 
-      swap = {
-        enable = true,
-        swap_next = {
-          ["<leader>a"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["<leader>A"] = "@parameter.inner",
-        },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<leader>a"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>A"] = "@parameter.inner",
       },
     },
   },
@@ -545,6 +569,14 @@ if utils#hasPlugin('vim-easymotion') "{{{
   " omap s/ <Plug>(easymotion-tn)
   " map  sn <Plug>(easymotion-next)
   " map  sp <Plug>(easymotion-prev)
+endif
+"}}}
+
+if utils#hasPlugin('vim-textobj-function') "{{{
+  omap <silent> af <Plug>(textobj-function-a)
+  omap <silent> if <Plug>(textobj-function-i)
+  xmap <silent> af <Plug>(textobj-function-a)
+  xmap <silent> if <Plug>(textobj-function-i)
 endif
 "}}}
 

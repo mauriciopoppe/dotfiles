@@ -1,14 +1,8 @@
 augroup mine
-  " autosave
-  " > mine
-  " autocmd TextChangedI,TextChanged * nested silent! :update
-  " > from vim-auto-save
-  " nested = :h autocmd-nested
-  " silent = :h silent!
-  autocmd CursorHold,BufLeave * nested silent! :update
+  autocmd TextChanged,FocusLost,BufEnter,BufLeave * silent update
 
   " autoread (updates the buffers when a file is modified outside vim)
-  autocmd CursorHold * checktime
+  " autocmd CursorHold * checktime
 
   " hide preview
   autocmd CompleteDone * pclose
@@ -16,7 +10,9 @@ augroup mine
   " autocmd BufWritePost * Neomake
   autocmd BufWritePre * :call utils#whitespace()
 
-  autocmd VimLeave * :call OnGoyoLeave()
+  " highlight yank
+  au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=true}
+
 augroup END
 
 augroup FTCheck
@@ -24,9 +20,10 @@ augroup FTCheck
   autocmd BufRead,BufNewFile *.md           set ft=markdown
   autocmd BufRead,BufNewFile *.pom          set ft=xml
   autocmd BufRead,BufNewFile .babelrc       set ft=json
-  autocmd BufNewFile,BufRead *named.conf*   set ft=named
+  autocmd BufRead,BufNewFile *named.conf*   set ft=named
   autocmd BufRead,BufNewFile fluent.conf    set ft=fluentd
   autocmd BufRead,BufNewFile Brewfile       set ft=ruby
+  autocmd BufRead,BufNewFile Dockerfile.*   set ft=dockerfile
 
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx
 

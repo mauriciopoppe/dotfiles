@@ -1,18 +1,20 @@
 " Interface {{{
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
+" Unstable in 0.5.0 :(
+" Check https://github.com/nvim-treesitter/nvim-treesitter/issues/1201
+" Plug 'nvim-treesitter/nvim-treesitter', {
+"       \ 'do': ':TSUpdate',
+"       \ }  " We recommend updating the parsers on update
+" Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
+
 Plug 'itchyny/lightline.vim' " lightline (simple status line)
 Plug 'ap/vim-buftabline'     " buffers tabline
 Plug 'preservim/tagbar'      " right sidebaf for navigation
 Plug 'pprovost/vim-ps1'      " ft for powershell scripts :(
 
-" Plug 'mhinz/vim-signify'               " diff sidebar
 Plug 'nathanaelkane/vim-indent-guides' " indent guides
-Plug 'machakann/vim-highlightedyank'   " make yanked region apparent
 Plug 'junegunn/goyo.vim'               " distraction free writing
 Plug 'junegunn/limelight.vim'          " dim unfocussed paragraphs
-
 Plug 'nvim-lua/plenary.nvim'       " common lua functions
 Plug 'airblade/vim-gitgutter'	   " git signs
 
@@ -73,6 +75,13 @@ Plug 'samoshkin/vim-mergetool'        " better vim mergetool, needs setup in git
 
 " }}}
 
+" Text objects {{{
+Plug 'wellle/targets.vim'              " additional text objects (like [n]ext and [l]ast)
+Plug 'kana/vim-textobj-user'           " allows the definition of custom text objects
+Plug 'kana/vim-textobj-entire'         " ae, ie (everything)
+Plug 'kana/vim-textobj-function'       " ae, ie (everything)
+" }}}
+"
 " Integration with external commands/apps {{{
 
 Plug 'w0rp/ale'
@@ -154,7 +163,6 @@ Plug 'editorconfig/editorconfig-vim' " editorconfig
 
 Plug 'SirVer/ultisnips'   " engine
 Plug 'honza/vim-snippets' " collection of snippets
-
 
 " }}}
 

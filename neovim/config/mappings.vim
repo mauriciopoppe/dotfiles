@@ -72,16 +72,12 @@ noremap <silent> <Leader><CR> :call utils#runLastCommand()<CR>
 " open page in chrome (OSX only)
 nnoremap <leader>o :exec ':silent !open % -a Google\ Chrome'
 
+" copy current path of file
+nnoremap <leader>cp :let @+ = expand("%")
+
 " }}
 
 " Panes and buffers {{{
-
-" remapping control + movement to move between split panes
-" set by vim-tmux-navigation so there's not need to set them here
-" nnoremap <c-j> <c-w><c-j>
-" nnoremap <c-k> <c-w><c-k>
-" nnoremap <c-l> <c-w><c-l>
-" nnoremap <c-h> <c-w><c-h>
 
 " space + \ = create a new vertical pane (the | key is over \)
 " space + - = create a new horizontal pane
@@ -115,7 +111,7 @@ nnoremap ¬ $
 
 " fix for a bug in autopairs
 " https://github.com/jiangmiao/auto-pairs/issues/187
-autocmd VimEnter,BufEnter,BufWinEnter * silent! iunmap <buffer> <M-">
+" autocmd VimEnter,BufEnter,BufWinEnter * silent! iunmap <buffer> <M-">
 
 function! DeleteInactiveBufs()
   "From tabpagebuflist() help, get a list of all buffers in all tabs
