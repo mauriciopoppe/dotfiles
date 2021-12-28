@@ -40,3 +40,10 @@ function ginkgo_escape_testname() {
   )
   echo $t
 }
+
+# connects to a GCP Windows VM running kubernetes
+# NOTE: assumes that it there's only a single kubernetes Windows node
+function kwinssh () {
+  local windows_node=$(kubectl get nodes -l kubernetes.io/os=windows -o jsonpath='{.items[*].metadata.name}')
+  gcloud compute ssh $windows_node
+}

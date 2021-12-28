@@ -13,9 +13,9 @@ if [[ -z $DOTFILES_DIRECTORY ]]; then
   exit 1
 fi
 
-source $DOTFILES_DIRECTORY/zsh/lib/print
-source $DOTFILES_DIRECTORY/zsh/lib/utils
-source $DOTFILES_DIRECTORY/zsh/lib/macos-utils
+source $DOTFILES_DIRECTORY/zsh/lib/print.zsh
+source $DOTFILES_DIRECTORY/zsh/lib/utils.zsh
+source $DOTFILES_DIRECTORY/zsh/lib/macos-utils.zsh
 
 dotfiles-help() {
 cat << EOF
