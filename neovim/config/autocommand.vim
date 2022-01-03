@@ -1,5 +1,5 @@
 augroup mine
-  autocmd TextChanged,FocusLost,BufEnter,BufLeave * silent update
+  " autocmd TextChanged,FocusLost,BufEnter,BufLeave * silent update
 
   " autoread (updates the buffers when a file is modified outside vim)
   " autocmd CursorHold * checktime

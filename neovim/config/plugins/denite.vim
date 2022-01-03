@@ -90,26 +90,26 @@ for m in normal_mode_mappings
   call denite#custom#map('normal', m[0], m[1], m[2])
 endfor
 
-" denite prefix
-nnoremap [denite] <Nop>
-xnoremap [denite] <Nop>
-nmap ; [denite]
-xmap ; [denite]
+" " denite prefix
+" nnoremap [denite] <Nop>
+" xnoremap [denite] <Nop>
+" nmap ; [denite]
+" xmap ; [denite]
 
-nnoremap <silent> [denite]r :<C-u>Denite -resume<CR>
-nnoremap <silent> [denite]o :<C-u>Files .<CR>
-nnoremap <silent> [denite]b :<C-u>Buffer<CR>
-nnoremap <silent> [denite]f :<C-u>Rg<CR>
+" nnoremap <silent> [denite]r :<C-u>Denite -resume<CR>
+" nnoremap <silent> [denite]o :<C-u>Files .<CR>
+" nnoremap <silent> [denite]b :<C-u>Buffer<CR>
+" nnoremap <silent> [denite]f :<C-u>Rg<CR>
 
-nnoremap <silent> [denite]t :<C-u>TagbarToggle<CR>
-" nnoremap <silent> [denite]b :<C-u>Denite buffer file_old -default-action=switch<CR>
-" nnoremap <silent> [denite]l :<C-u>Denite location_list -buffer-name=list<CR>
-" nnoremap <silent> [denite]q :<C-u>Denite quickfix -buffer-name=list<CR>
-" nnoremap <silent> [denite]j :<C-u>Denite jump change file_point<CR>
-" nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
-nnoremap <silent> [denite]h :<C-u>Denite help<CR>
-nnoremap <silent> [denite]/ :<C-u>Denite line<CR>
-nnoremap <silent> [denite]* :<C-u>DeniteCursorWord line<CR>
-nnoremap <silent> [denite]m :<C-u>Denite menu<CR>
+" nnoremap <silent> [denite]t :<C-u>TagbarToggle<CR>
+" " nnoremap <silent> [denite]b :<C-u>Denite buffer file_old -default-action=switch<CR>
+" " nnoremap <silent> [denite]l :<C-u>Denite location_list -buffer-name=list<CR>
+" " nnoremap <silent> [denite]q :<C-u>Denite quickfix -buffer-name=list<CR>
+" " nnoremap <silent> [denite]j :<C-u>Denite jump change file_point<CR>
+" " nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
+" nnoremap <silent> [denite]h :<C-u>Denite help<CR>
+" nnoremap <silent> [denite]/ :<C-u>Denite line<CR>
+" nnoremap <silent> [denite]* :<C-u>DeniteCursorWord line<CR>
+" nnoremap <silent> [denite]m :<C-u>Denite menu<CR>
 
 "}}}

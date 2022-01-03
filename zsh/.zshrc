@@ -81,6 +81,11 @@ zinit load junegunn/fzf-bin
 zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
 zinit light BurntSushi/ripgrep
 
+# sharkdp/fd
+zinit ice from"gh-r" mv"fd* -> fd" sbin"fd/fd" \
+  atclone"cp -vf fd/fd.1 $ZPFX/share/man/man1" atpull'%atclone'
+zinit light sharkdp/fd
+
 # zsh-autopair
 zinit ice wait lucid
 zinit load hlissner/zsh-autopair

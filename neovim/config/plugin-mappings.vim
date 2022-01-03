@@ -10,6 +10,22 @@ if utils#hasPlugin('vimfiler.vim') " {{{
 endif
 " }}}
 
+if utils#hasPlugin('nvim-tree.lua') " {{{
+  source $VIMPATH/config/plugins/nvim-tree.vim
+endif
+" }}}
+
+if utils#hasPlugin('lualine.nvim') " {{{
+  source $VIMPATH/config/plugins/nvim-lualine.vim
+endif
+" }}}
+
+
+if utils#hasPlugin('telescope.nvim') " {{{
+  source $VIMPATH/config/plugins/nvim-telescope.vim
+endif
+" }}}
+
 if utils#hasPlugin('coc.nvim') " {{{
   source $VIMPATH/config/plugins/coc.vim
 endif

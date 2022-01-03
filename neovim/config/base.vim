@@ -17,6 +17,12 @@ xnoremap ;        <Nop>
 nnoremap m        <Nop>
 xnoremap m        <Nop>
 
+" ui prefix
+nnoremap [ui] <Nop>
+xnoremap [ui] <Nop>
+nmap ; [ui]
+xmap ; [ui]
+
 " }}}
 " Ensure required directories exist "{{{
 if ! isdirectory(expand($VARPATH))

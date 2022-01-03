@@ -1,13 +1,21 @@
 " Interface {{{
 
-" Unstable in 0.5.0 :(
-" Check https://github.com/nvim-treesitter/nvim-treesitter/issues/1201
-" Plug 'nvim-treesitter/nvim-treesitter', {
-"       \ 'do': ':TSUpdate',
-"       \ }  " We recommend updating the parsers on update
-" Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
+Plug 'nvim-treesitter/nvim-treesitter', {
+       \ 'do': ':TSUpdate',
+       \ }  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
+Plug 'lewis6991/spellsitter.nvim'
 
-Plug 'itchyny/lightline.vim' " lightline (simple status line)
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" Plug 'romgrk/barbar.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+
+" Plug 'itchyny/lightline.vim' " lightline (simple status line)
 Plug 'ap/vim-buftabline'     " buffers tabline
 Plug 'preservim/tagbar'      " right sidebaf for navigation
 Plug 'pprovost/vim-ps1'      " ft for powershell scripts :(
@@ -20,11 +28,7 @@ Plug 'airblade/vim-gitgutter'	   " git signs
 
 " themes
 Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'Lokaltog/vim-distinguished'
 Plug 'w0ng/vim-hybrid'
-Plug 'altercation/vim-colors-solarized'
-Plug 'reedes/vim-colors-pencil'
-Plug 'NLKNguyen/papercolor-theme'
 
 " denite {{{
 
@@ -38,7 +42,6 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'      " most recently used files
 Plug 'Shougo/unite-outline'   " show method definitions (like ctags but with unite)
 Plug 'tsukkee/unite-tag'      " most recently used files
-Plug 'Shougo/vimfiler.vim'    " filesystem exploration (depends on unite)
 
 " }}}
 " FZF {{{
@@ -84,7 +87,7 @@ Plug 'kana/vim-textobj-function'       " ae, ie (everything)
 "
 " Integration with external commands/apps {{{
 
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'ojroques/vim-oscyank'  " clipboard over ssh through tmux
 Plug 'tpope/vim-fugitive'    " git wrapper
 Plug 'benmills/vimux'        " run commands in a tmux split

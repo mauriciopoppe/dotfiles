@@ -11,13 +11,12 @@ let g:pencil_neutral_code_bg = 1
 let g:pencil_spell_undercurl = 1
 
 set background=dark
+if has('nvim') || has('termguicolors')
+  set termguicolors
+endif
 
 try
-  " colorscheme pencil
-  " colorscheme PaperColor
   colorscheme hybrid
-  " colorscheme hybrid_reverse
-  " colorscheme distinguished
 catch
   echo 'could not set theme'
 endtry
