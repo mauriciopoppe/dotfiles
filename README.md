@@ -11,8 +11,14 @@
 
 ## Requirements
 
+### MacOS
+
 - XCode Command Line Tools, if you don't have it install it with `xcode-select --install`
-- ZSH (installed by default on OSX)
+- zsh (installed by default on OSX)
+
+### Linux
+
+- zsh
 
 ## Installation
 
@@ -49,29 +55,9 @@ can do this with all the first level directories of this repo e.g. `$ dotfiles
 ### Post installation
 
 - Remap <kbd>caps lock</kbd> to <kbd>control</kbd> *preferences > keyboard > modifier keys*
-- Install your desired powerline from from [powerline/fonts](https://github.com/powerline/fonts) (I'm currently using *Inconsolata dz, 12px, line spacing 0.8*)
+- Install a patched font from [nerd fonts](https://www.nerdfonts.com/) (I'm currently using *Inconsolata go*)
 
-```sh
-curl -O https://rawgit.com/powerline/fonts/master/InconsolataDz/Inconsolata-dz%20for%20Powerline.otf && open Inconsolata-dz%20for%20Powerline.otf
-```
-
-- NTFS support: http://www.howtogeek.com/236055/how-to-write-to-ntfs-drives-on-a-mac/
-
-#### Terminal
-
-Note: only do the following if you're going to use Terminal.app
-
-- Install your desired [Terminal color](https://github.com/mbadolato/iTerm2-Color-Schemes) (I'm currently using *Monokai dimmed*)
-
-```sh
-curl -O https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/terminal/DimmedMonokai.terminal && open DimmedMonokai.terminal
-```
-
-- Under *DimmedMonokai* profile change the font to the one downloaded above
-
-#### iTerm
-
-Note: only do the following if you're going to use iTerm2
+#### iTerm 2
 
 - Install the profiles located at `@macos/iTerm2/Profiles.json`, *iTerm > preferences > profiles > import JSON profiles*
 

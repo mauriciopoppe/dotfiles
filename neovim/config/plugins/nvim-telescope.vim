@@ -3,6 +3,8 @@ nnoremap <silent> [ui]b :<C-u>Telescope buffers<CR>
 nnoremap <silent> [ui]o :<C-u>Telescope find_files<CR>
 nnoremap <silent> [ui]r :<C-u>Telescope resume<CR>
 nnoremap <silent> [ui]l :<C-u>Telescope current_buffer_fuzzy_find<CR>
+nnoremap <silent> [ui]w :<C-u>Telescope grep_string<CR>
+nnoremap <silent> [ui]q :<C-u>Telescope quickfix<CR>
 
 lua << EOF
 local actions = require("telescope.actions")

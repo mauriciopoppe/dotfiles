@@ -50,11 +50,19 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" GoTo code navigation.
-nmap <silent> <leader>d <Plug>(coc-definition)
-nmap <silent> <leader>y <Plug>(coc-type-definition)
-nmap <silent> <leader>i <Plug>(coc-implementation)
-nmap <silent> <leader>r <Plug>(coc-references)
+" requires coc & telescope-coc.nvim to work
+nnoremap <silent> <leader>c :<C-u>Telescope coc commands<CR>
+nnoremap <silent> <leader>a :<C-u>Telescope coc code_actions<CR>
+nnoremap <silent> <leader>d :<C-u>Telescope coc definitions<CR>
+nnoremap <silent> <leader>t :<C-u>Telescope coc type_definitions<CR>
+nnoremap <silent> <leader>i :<C-u>Telescope coc implementations<CR>
+nnoremap <silent> <leader>r :<C-u>Telescope coc references<CR>
+
+" " GoTo code navigation.
+" nmap <silent> <leader>d <Plug>(coc-definition)
+" nmap <silent> <leader>y <Plug>(coc-type-definition)
+" nmap <silent> <leader>i <Plug>(coc-implementation)
+" nmap <silent> <leader>r <Plug>(coc-references)
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
