@@ -7,7 +7,7 @@
 # | (_| | (_) | |_|  _| | |  __/\__ \
 #  \__,_|\___/ \__|_| |_|_|\___||___/
 #
-# Mauricio Poppe <mauricio.poppe@gmail.com>
+# Mauricio Poppe
 if [[ -z $DOTFILES_DIRECTORY ]]; then
   echo "dotfiles: DOTFILES_DIRECTORY is not set, execute 'source install.zsh' on the dotfiles directory"
   exit 1
