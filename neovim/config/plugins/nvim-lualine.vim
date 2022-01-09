@@ -1,12 +1,11 @@
 lua << EOF
 
+-- I took these colors by looking at the theme I appleid to iTerm
 local colors = {
   bg1 = '#2d3c46',
   fg1 = '#8abdb6',
   bg2 = '#424f58',
   fg2 = '#232c31',
-  bg3 = '#2d3c46',
-  fg3 = '#425059',
 }
 local custom = require'lualine.themes.material'
 -- Change the background of lualine_c section for normal mode
@@ -17,6 +16,8 @@ custom.normal.b.fg = colors.fg1
 -- custom.normal.b.fg = colors.fg1
 custom.normal.c.bg = colors.bg1
 custom.normal.c.fg = colors.fg1
+
+custom.inactive.c.fg = colors.fg1
 
 require('lualine').setup {
   options = {

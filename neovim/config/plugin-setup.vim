@@ -7,44 +7,25 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
 Plug 'lewis6991/spellsitter.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-tree.lua'        " left sidebar tree view
 
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'fannheyward/telescope-coc.nvim'
+Plug 'nvim-lua/plenary.nvim'           " lua utility functions
+Plug 'nvim-telescope/telescope.nvim'   " overlay for navigation
+Plug 'fannheyward/telescope-coc.nvim'  " plugin for coc actions in telescope
 
-" Plug 'romgrk/barbar.nvim'
-Plug 'nvim-lualine/lualine.nvim'
-
-" Plug 'itchyny/lightline.vim' " lightline (simple status line)
-Plug 'ap/vim-buftabline'     " buffers tabline
-Plug 'preservim/tagbar'      " right sidebaf for navigation
-Plug 'pprovost/vim-ps1'      " ft for powershell scripts :(
+Plug 'nvim-lualine/lualine.nvim' " statusline
+Plug 'ap/vim-buftabline'         " buffers tabline
+Plug 'preservim/tagbar'          " right sidebaf for navigation
 
 Plug 'nathanaelkane/vim-indent-guides' " indent guides
 Plug 'junegunn/goyo.vim'               " distraction free writing
 Plug 'junegunn/limelight.vim'          " dim unfocussed paragraphs
-Plug 'nvim-lua/plenary.nvim'       " common lua functions
-Plug 'airblade/vim-gitgutter'	   " git signs
+Plug 'airblade/vim-gitgutter'	       " git signs
 
 " themes
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'w0ng/vim-hybrid'
 
-" denite {{{
-
-" search/display lists
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/unite.vim'
-
-" unite/denite sources {{{
-
-" Plug 'Shougo/neoyank.vim'     " history yank
-Plug 'Shougo/neomru.vim'      " most recently used files
-Plug 'Shougo/unite-outline'   " show method definitions (like ctags but with unite)
-Plug 'tsukkee/unite-tag'      " most recently used files
-
-" }}}
 " FZF {{{
 
 Plug 'junegunn/fzf', {
@@ -55,7 +36,6 @@ Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
 " Plug 'jremmen/vim-ripgrep'
 " Plug 'stefandtw/quickfix-reflector.vim'
 
-" }}}
 " }}}
 
 " autocomplete {{{
@@ -79,13 +59,6 @@ Plug 'samoshkin/vim-mergetool'        " better vim mergetool, needs setup in git
 
 " }}}
 
-" Text objects {{{
-Plug 'wellle/targets.vim'              " additional text objects (like [n]ext and [l]ast)
-Plug 'kana/vim-textobj-user'           " allows the definition of custom text objects
-Plug 'kana/vim-textobj-entire'         " ae, ie (everything)
-Plug 'kana/vim-textobj-function'       " ae, ie (everything)
-" }}}
-"
 " Integration with external commands/apps {{{
 
 " Plug 'w0rp/ale'
@@ -135,6 +108,8 @@ Plug 'mitsuhiko/vim-python-combined', { 'for': 'python' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rhysd/vim-gfm-syntax'
+
+Plug 'pprovost/vim-ps1'      " ft for powershell scripts :(
 
 " OpenGL + GLSL
 " Plug 'beyondmarc/opengl.vim'

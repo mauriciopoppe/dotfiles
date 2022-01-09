@@ -73,7 +73,7 @@ noremap <silent> <Leader><CR> :call utils#runLastCommand()<CR>
 nnoremap <leader>o :exec ':silent !open % -a Google\ Chrome'
 
 " copy current path of file
-nnoremap <leader>cp :let @+ = expand("%")
+nnoremap <leader>p :let @+ = expand("%")
 
 " }}
 

@@ -1,13 +1,10 @@
 augroup mine
-  " autocmd TextChanged,FocusLost,BufEnter,BufLeave * silent update
-
-  " autoread (updates the buffers when a file is modified outside vim)
-  " autocmd CursorHold * checktime
+  " autocmd FocusLost,BufLeave * silent update
 
   " hide preview
   autocmd CompleteDone * pclose
 
-  " autocmd BufWritePost * Neomake
+  " clear whitespace on buffer save
   autocmd BufWritePre * :call utils#whitespace()
 
   " highlight yank

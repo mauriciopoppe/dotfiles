@@ -31,3 +31,7 @@ tags
 # js specific
 .tern-port
 bookmarks.data
+
+# editors
+.vscode
+.idea

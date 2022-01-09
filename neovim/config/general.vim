@@ -74,6 +74,7 @@ set splitright
 set noswapfile
 " disable making a backup before owerwriting a file
 set nobackup
+set nowritebackup
 " enable persistent undo with a filename=full path
 set undofile
 " undo files are stored inside the following path

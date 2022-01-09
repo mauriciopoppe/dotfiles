@@ -1,12 +1,6 @@
 " install global extensions
 let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-snippets']
 
-" Give more space for displaying messages.
-" set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
@@ -58,14 +52,11 @@ nnoremap <silent> <leader>t :<C-u>Telescope coc type_definitions<CR>
 nnoremap <silent> <leader>i :<C-u>Telescope coc implementations<CR>
 nnoremap <silent> <leader>r :<C-u>Telescope coc references<CR>
 
-" " GoTo code navigation.
-" nmap <silent> <leader>d <Plug>(coc-definition)
-" nmap <silent> <leader>y <Plug>(coc-type-definition)
-" nmap <silent> <leader>i <Plug>(coc-implementation)
-" nmap <silent> <leader>r <Plug>(coc-references)
-
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -83,23 +74,13 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-augroup mygroup
+augroup coc
   autocmd!
   " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -135,11 +116,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 let g:go_def_mapping_enabled = 0
 

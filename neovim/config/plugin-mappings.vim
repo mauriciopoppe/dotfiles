@@ -20,7 +20,6 @@ if utils#hasPlugin('lualine.nvim') " {{{
 endif
 " }}}
 
-
 if utils#hasPlugin('telescope.nvim') " {{{
   source $VIMPATH/config/plugins/nvim-telescope.vim
 endif
@@ -35,6 +34,14 @@ if utils#hasPlugin('vim-latex-live-preview') " {{{
   let g:livepreview_previewer = 'skim'
 endif
 " }}}
+
+if utils#hasPlugin('spellsitter.nvim') " {{{
+lua << EOF
+require('spellsitter').setup()
+EOF
+endif
+" }}}
+
 
 if utils#hasPlugin('ale') " {{{
   source $VIMPATH/config/plugins/ale.vim
@@ -197,16 +204,6 @@ if utils#hasPlugin('limelight.vim') " {{{
 endif
 "}}}
 
-if utils#hasPlugin('jedi-vim') "{{{
-  let g:jedi#completions_command = ''
-  let g:jedi#documentation_command = 'K'
-  let g:jedi#goto_command = '<C-]>'
-  let g:jedi#goto_assignments_command = '<leader>g'
-  let g:jedi#rename_command = '<Leader>r'
-  let g:jedi#usages_command = '<Leader>n'
-endif
-"}}}
-
 if utils#hasPlugin('gitsigns.nvim') "{{{
 lua <<EOF
   require('gitsigns').setup()
@@ -312,38 +309,6 @@ endif
 
 if utils#hasPlugin('vim-terraform') "{{{
   " let g:terraform_fmt_on_save=1
-endif
-"}}}
-
-if utils#hasPlugin('hrsh7th/nvim-compe') "{{{
-  lua << EOF
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    vsnip = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    spell = true;
-    tags = true;
-    snippets_nvim = true;
-    omni = true;
-  };
-}
-EOF
 endif
 "}}}
 
@@ -473,7 +438,7 @@ require'nvim-treesitter.configs'.setup {
     },
 
     swap = {
-      enable = true,
+      enable = false,
       swap_next = {
         ["<leader>a"] = "@parameter.inner",
       },
@@ -515,17 +480,9 @@ endif
 
 if utils#hasPlugin('vimux') "{{{
   " Executes a command in a tmux split, if there's one available run it there
-  noremap <Leader>ce :VimuxPromptCommand<CR>
+  noremap <Leader>tp :VimuxPromptCommand<CR>
   " Execute last command
-  noremap <Leader>cl :VimuxRunLastCommand<CR>
-endif
-"}}}
-
-if utils#hasPlugin('dash.vim') "{{{
-  " searches in dash for the word under the cursor (considering the context)
-  nmap <silent> <leader>dd <Plug>DashSearch
-  " [d]ocs [s]earch prompt to search for a word
-  nmap <leader>ds :<C-u>Dash<space>
+  noremap <Leader>tl :VimuxRunLastCommand<CR>
 endif
 "}}}
 
