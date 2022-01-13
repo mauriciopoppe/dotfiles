@@ -1,5 +1,18 @@
 " Interface {{{
 
+Plug 'neovim/nvim-lspconfig'  " common confs for nvim-lsp
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'     " completion engine
+Plug 'onsails/lspkind-nvim' " completion icons
+
+Plug 'dcampos/nvim-snippy' " snippet engine
+Plug 'dcampos/cmp-snippy'  " snippet engine adapter for nvim-cmp
+Plug 'honza/vim-snippets'  " collection of snippets
+
 Plug 'nvim-treesitter/nvim-treesitter', {
        \ 'do': ':TSUpdate',
        \ }  " We recommend updating the parsers on update
@@ -11,7 +24,6 @@ Plug 'kyazdani42/nvim-tree.lua'        " left sidebar tree view
 
 Plug 'nvim-lua/plenary.nvim'           " lua utility functions
 Plug 'nvim-telescope/telescope.nvim'   " overlay for navigation
-Plug 'fannheyward/telescope-coc.nvim'  " plugin for coc actions in telescope
 
 Plug 'nvim-lualine/lualine.nvim' " statusline
 Plug 'ap/vim-buftabline'         " buffers tabline
@@ -28,32 +40,30 @@ Plug 'w0ng/vim-hybrid'
 
 " FZF {{{
 
-Plug 'junegunn/fzf', {
-  \ 'dir': '~/.fzf',
-  \ 'do': './install --all'
-  \ }                   " fuzzy finder engine
-Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
-" Plug 'jremmen/vim-ripgrep'
-" Plug 'stefandtw/quickfix-reflector.vim'
+" Plug 'junegunn/fzf', {
+"   \ 'dir': '~/.fzf',
+"   \ 'do': './install --all'
+"   \ }                   " fuzzy finder engine
+" Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
 
 " }}}
 
 " autocomplete {{{
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'fannheyward/telescope-coc.nvim'  " plugin for coc actions in telescope
 " }}}
 
 " }}}
 
 " Navigation {{{
 
+Plug 'ggandor/lightspeed.nvim'        " navigate to any visible part
 Plug 'tpope/vim-unimpaired'           " additional mappings
 Plug 'christoomey/vim-tmux-navigator' " tmux navigation
-Plug 'easymotion/vim-easymotion'      " navigate to any visible part with 2-keystrokes
-Plug 'rhysd/clever-f.vim'             " better f
+" Plug 'easymotion/vim-easymotion'      " navigate to any visible part with 2-keystrokes
+" Plug 'rhysd/clever-f.vim'             " better f
 Plug 'bkad/CamelCaseMotion'           " better motion
-Plug 'mileszs/ack.vim'                " search
+" Plug 'mileszs/ack.vim'                " search
 Plug 'mbbill/undotree'                " undo tree
 Plug 'samoshkin/vim-mergetool'        " better vim mergetool, needs setup in git config too
 
@@ -135,13 +145,6 @@ Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-obsession'           " session management
 " Plug 'embear/vim-localvimrc'         " local vimrc
 Plug 'editorconfig/editorconfig-vim' " editorconfig
-
-" }}}
-
-" Snippets {{{
-
-Plug 'SirVer/ultisnips'   " engine
-Plug 'honza/vim-snippets' " collection of snippets
 
 " }}}
 

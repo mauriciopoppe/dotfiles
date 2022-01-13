@@ -30,7 +30,7 @@ augroup FTCheck
   autocmd FileType go setlocal ts=4 sts=4 sw=4
 
   " hide preview window
-  autocmd FileType go setlocal completeopt-=preview
+  " autocmd FileType go setlocal completeopt-=preview
 
   " in makefiles, don't expand tabs to spaces, since actual tab characters are
   " needed, and have indentation at 8 chars to be sure that all indents are tabs

@@ -6,6 +6,12 @@ nnoremap <silent> [ui]l :<C-u>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <silent> [ui]w :<C-u>Telescope grep_string<CR>
 nnoremap <silent> [ui]q :<C-u>Telescope quickfix<CR>
 
+nnoremap <silent> <leader>a :<C-u>Telescope lsp_code_actions<CR>
+nnoremap <silent> <leader>d :<C-u>Telescope lsp_definitions<CR>
+nnoremap <silent> <leader>t :<C-u>Telescope lsp_type_definitions<CR>
+nnoremap <silent> <leader>i :<C-u>Telescope lsp_implementations<CR>
+nnoremap <silent> <leader>r :<C-u>Telescope lsp_references<CR>
+
 lua << EOF
 local actions = require("telescope.actions")
 require("telescope").setup {

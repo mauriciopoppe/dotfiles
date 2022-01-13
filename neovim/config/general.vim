@@ -120,13 +120,7 @@ set fillchars="fold: "
 " }}}
 " Omni completion settings {{{
 
-set completeopt=menuone,noselect
-" " complete also from dictionary
-" set complete+=kspell
-" " insert the longest common text of the matches
-" set completeopt+=longest
-" set completeopt+=noinsert
-" set completeopt+=noselect
+set completeopt=menu,menuone,noselect
 
 " quiet messages in auto completion
 set shortmess+=c
