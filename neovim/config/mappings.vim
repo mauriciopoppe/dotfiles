@@ -135,6 +135,11 @@ endfunction
 command! Bdi :call DeleteInactiveBufs()
 command! Only :call DeleteInactiveBufs()
 
+lua << EOF
+  package.loaded['tools'] = nil
+  require('tools').Setup()
+EOF
+
 " search {{{
 " [q - previous item in quickfix
 " ]q - next item in quickfix

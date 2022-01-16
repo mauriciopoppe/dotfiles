@@ -1,6 +1,4 @@
 augroup mine
-  autocmd FocusLost,BufLeave * silent update
-
   " hide preview
   autocmd CompleteDone * pclose
 
@@ -9,7 +7,6 @@ augroup mine
 
   " highlight yank
   au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=true}
-
 augroup END
 
 augroup FTCheck

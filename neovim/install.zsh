@@ -55,6 +55,7 @@ main() {
   # symlink "${base}/plugin/utils.vim" "${HOME}/.config/nvim/plugin/utils.vim"
   # symlink "${base}/UltiSnips" "${HOME}/.config/nvim/UltiSnips"
   symlink "${base}/config" "${HOME}/.config/nvim/config"
+  symlink "${base}/lua" "${HOME}/.config/nvim/lua"
 
   # required for vim/deoplete/deoplete-clang
   # brew install llvm
