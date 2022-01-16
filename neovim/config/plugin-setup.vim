@@ -1,5 +1,6 @@
 " Interface {{{
 
+Plug 'nvim-lua/plenary.nvim'  " lua utility functions
 Plug 'neovim/nvim-lspconfig'  " common confs for nvim-lsp
 
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -22,8 +23,8 @@ Plug 'lewis6991/spellsitter.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'        " left sidebar tree view
 
-Plug 'nvim-lua/plenary.nvim'           " lua utility functions
 Plug 'nvim-telescope/telescope.nvim'   " overlay for navigation
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'nvim-lualine/lualine.nvim' " statusline
 Plug 'ap/vim-buftabline'         " buffers tabline
@@ -32,7 +33,6 @@ Plug 'preservim/tagbar'          " right sidebaf for navigation
 Plug 'nathanaelkane/vim-indent-guides' " indent guides
 Plug 'junegunn/goyo.vim'               " distraction free writing
 Plug 'junegunn/limelight.vim'          " dim unfocussed paragraphs
-Plug 'airblade/vim-gitgutter'	       " git signs
 
 " themes
 Plug 'kristijanhusak/vim-hybrid-material'

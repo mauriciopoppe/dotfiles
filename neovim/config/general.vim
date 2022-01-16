@@ -21,14 +21,8 @@ set nostartofline
 set scrolloff=5
 " allow positioning the cursor in places where there is no characters
 set virtualedit=block
-" time to send the CursorHold autocommand event
-set updatetime=100
 " read file changes on update
 set autoread
-" write the contents of a the file if it was modified because of some vim commands
-set autowriteall
-" show incomplete commands
-set showcmd
 " time to wait for a mapped sequence to complete
 " e.g. wait 500ms when typing `j` and after `k` to exit from insert mode
 set timeoutlen=500
@@ -55,10 +49,6 @@ set list
 set listchars=tab:⋮\ ,extends:❯,precedes:❮,nbsp:␣
 " string to use at the start of lines that have been wrapped
 set showbreak=↪
-" disable parenthesis matching (improve scroll performance a little bit)
-let loaded_matchparen = 1
-" enable mouse scrolling with the scroll wheel
-set mouse=a
 
 " }}}
 " Split settings {{{
@@ -89,9 +79,6 @@ set spelllang=en_us
 " }}}
 " Search settings {{{
 
-" -- default on
-" set incsearch
-
 " ignore case by default
 set ignorecase
 " make search case sensitive only if it contains uppercase letters
@@ -101,13 +88,10 @@ set wrapscan
 " don't highlight after search
 set nohlsearch
 " }}}
-" Filetype settings {{{
 
-" enable the loading of plugin files for specific file types
-filetype plugin on
-" enable the loading of indent files for specific file types
-filetype indent on
+" Filetype settings {{{
 " }}}
+
 " Folding settings {{{
 
 " markers are used to specify folds
@@ -123,19 +107,19 @@ set fillchars="fold: "
 set completeopt=menu,menuone,noselect
 
 " quiet messages in auto completion
-set shortmess+=c
+" set shortmess+=c
 
-" note set wildmenu is set by default
-set wildignore+=*vim/backups*
-set wildignore+=*sass-cache*
-set wildignore+=*DS_Store*
-set wildignore+=*.gem
-set wildignore+=log/**
-set wildignore+=tmp/**
-set wildignore+=*.png,*.jpg,*.gif
-set wildignore+=.git\*,.hg\*,.svn\*
+" " note set wildmenu is set by default
+" set wildignore+=*vim/backups*
+" set wildignore+=*sass-cache*
+" set wildignore+=*DS_Store*
+" set wildignore+=*.gem
+" set wildignore+=log/**
+" set wildignore+=tmp/**
+" set wildignore+=*.png,*.jpg,*.gif
+" set wildignore+=.git\*,.hg\*,.svn\*
 
 " verticall diff
-set diffopt+=vertical
+" set diffopt+=vertical
 
 " }}}
