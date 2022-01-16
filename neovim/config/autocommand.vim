@@ -1,5 +1,5 @@
 augroup mine
-  " autocmd FocusLost,BufLeave * silent update
+  autocmd FocusLost,BufLeave * silent update
 
   " hide preview
   autocmd CompleteDone * pclose
