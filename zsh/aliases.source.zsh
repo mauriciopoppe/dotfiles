@@ -29,8 +29,8 @@ alias grep='grep --color'
 # fi
 
 alias gt="lazygit"
-# alias pip="pip3"
-# alias python="python3"
+alias pip="pip3"
+alias python="python3"
 
 # I don't know where nvim is aliased :\
 unalias nvim

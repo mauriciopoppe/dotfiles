@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -5,30 +7,27 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#!/bin/zsh
 ########
 # init #
 ########
 
 ### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [[ ! -d $ZINIT_HOME ]]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
-
-source "$HOME/.zinit/bin/zinit.zsh"
+source "$ZINIT_HOME/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-bin-gem-node
+  zdharma-continuum/zinit-annex-readurl \
+  zdharma-continuum/zinit-annex-bin-gem-node \
+  zdharma-continuum/zinit-annex-patch-dl \
+  zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chun
 
@@ -68,23 +67,29 @@ zinit load zdharma-continuum/history-search-multi-word
 # Theme
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-# human readable git diff
-zinit ice as"command" from"gh-r" mv"delta* -> delta" pick"delta/delta"
-zinit light dandavison/delta
+# these binaries are platform dependent, on the macOS arm64 they
+# need to be compiled instead of installed from a repo
+#
+# in my arm mac they're installed with Homebrew
+if [[ $(uname -m) != *"arm"* ]]; then
+  # human readable git diff
+  zinit ice as"command" from"gh-r" mv"delta* -> delta" pick"delta/delta"
+  zinit light dandavison/delta
 
-# Binary release in archive, from GitHub-releases page.
-# After automatic unpacking it provides program "fzf".
-zinit ice from"gh-r" as"program"
-zinit load junegunn/fzf-bin
+  # Binary release in archive, from GitHub-releases page.
+  # After automatic unpacking it provides program "fzf".
+  zinit ice from"gh-r" as"program"
+  zinit load junegunn/fzf
 
-# BurntSushi/ripgrep
-zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
-zinit light BurntSushi/ripgrep
+  # BurntSushi/ripgrep
+  zinit ice as"command" from"gh-r" mv"ripgrep* -> rg" pick"rg/rg"
+  zinit light BurntSushi/ripgrep
 
-# sharkdp/fd
-zinit ice from"gh-r" mv"fd* -> fd" sbin"fd/fd" \
-  atclone"cp -vf fd/fd.1 $ZPFX/share/man/man1" atpull'%atclone'
-zinit light sharkdp/fd
+  # sharkdp/fd
+  zinit ice from"gh-r" mv"fd* -> fd" sbin"fd/fd" \
+    atclone"cp -vf fd/fd.1 $ZPFX/share/man/man1" atpull'%atclone'
+  zinit light sharkdp/fd
+fi
 
 # zsh-autopair
 zinit ice wait lucid

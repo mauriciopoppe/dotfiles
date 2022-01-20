@@ -68,7 +68,7 @@ def main()
   end
 
   # call fzf with the sessions
-  chosen = `echo "#{unique.join("\n")}" | fzf-tmux -d 15 --preview 'echo {}' --preview-window down:1`
+  chosen = `echo "#{unique.join("\n")}" | fzf-tmux -d 15`
 
   exit 0 if chosen.length <= 0
 

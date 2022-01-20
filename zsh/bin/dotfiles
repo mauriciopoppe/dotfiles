@@ -39,7 +39,7 @@ cat << EOF
     [essential]
       zsh
       tmux
-      neovim (requires pip)
+      neovim
 
   Examples:
 
