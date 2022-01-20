@@ -63,7 +63,6 @@ can do this with all the first level directories of this repo e.g. `$ dotfiles
 
 ![Screen Shot 2021-01-12 at 9 05 27 PM](https://user-images.githubusercontent.com/1616682/104408983-24369680-551a-11eb-8208-7a45a6061d93.jpg)
 
-- Install your desired [iTerm color](https://github.com/mbadolato/iTerm2-Color-Schemes)
 - Set the downloaded font on iTerm *iTerm > preferences > profiles > text* (change it for both regular and non-ascii fonts)
 - Uncheck *use lion-style full screen* on General
 - Support italic fonts in and out of tmux https://github.com/nicknisi/dotfiles#terminal-capabilities
