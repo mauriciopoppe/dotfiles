@@ -31,9 +31,7 @@ main() {
     np                        # better npm publish
     tldr                      # man
   )
-  for module in $modules; do
-    npm install -g --quiet $module
-  done
+  npm install -g --quiet ${modules[@]}
 
   print-step "module symlinks..."
   symlink "$DOTFILES_DIRECTORY/$base/.czrc" "$HOME/.czrc"

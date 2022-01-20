@@ -12,13 +12,12 @@ main() {
     print-message "rbenv already installed"
   fi
 
-  # link default gemset
-  # ln -vfs ${DOTFILES_DIRECTORY}/ruby/default.gems ~/.rvm/gemsets/default.gems
-
   print-message "next steps: https://github.com/rbenv/rbenv#homebrew-on-macos"
   eval "$(rbenv init -)"
   rbenv install 2.7.2
   rbenv global 2.7.2
+
+  print-message "Close your Terminal window and open a new one so your changes take effect"
 }
 
 main $@

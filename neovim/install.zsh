@@ -4,21 +4,6 @@ set -e
 
 local base=${0:h}
 
--nvim-venv() {
-  # Declare a base path for both virtual environments
-  venv="$HOME/.cache/vim/venv"
-
-  # Try to detect virtualenv's executable names
-  vrenv=virtualenv
-
-  # Ensure python 2/3 virtual environments
-  [ -d "$venv" ] || mkdir -p "$venv"
-  [ -d "$venv/neovim" ] || $vrenv "$venv/neovim"
-
-  # Install or upgrade dependencies
-  "$venv/neovim/bin/pip" install -U pynvim
-}
-
 -install-vim-plug() {
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -40,7 +25,6 @@ main() {
   fi
 
   print-step "installing neovim python package..."
-  -nvim-venv
   -install-vim-plug
 
   print-step "neovim symlinks..."
@@ -56,9 +40,6 @@ main() {
   # symlink "${base}/UltiSnips" "${HOME}/.config/nvim/UltiSnips"
   symlink "${base}/config" "${HOME}/.config/nvim/config"
   symlink "${base}/lua" "${HOME}/.config/nvim/lua"
-
-  # required for vim/deoplete/deoplete-clang
-  # brew install llvm
 
   print-step "installing plugins..."
   nvim +PlugInstall +qall

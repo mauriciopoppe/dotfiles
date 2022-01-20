@@ -15,23 +15,20 @@ main() {
     sudo apt-get install python3 pip
   fi
 
-  # npm global moduleS
   print-step "installing python modules..."
-
   local modules
   modules=(
     grip              # preview markdown files
     virtualenv        # local dependency management
     jedi              # autocomplete
     yapf              # formatter
+    neovim            # neovim API
     flake8            # linter (actually a wrapper of pyflakes + other libs)
     ptpython          # better python repl
     howdoi            # get answers from google right into the CMD
     jupyter           # jupyter notebooks
   )
-  for module in $modules; do
-    pip install $module
-  done
+  pip3 install ${modules[@]}
 
   # configurations
   symlink "${cwd}/.ptpython/config.py" "${HOME}/.ptpython/config.py"
