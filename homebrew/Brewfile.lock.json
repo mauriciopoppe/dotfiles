@@ -17,19 +17,19 @@
         "revision": "d40b20f64e29453a77290f7c329cf336a59e8b66"
       },
       "homebrew/cask": {
-        "revision": "b97d46ad2a4e5329a5f3a060daaed33bf3949e59"
+        "revision": "8b2f3a75ebabcf63c3bc301140efcbb3883e8e7d"
       },
       "homebrew/cask-fonts": {
         "revision": "5af8b108b1eaa635bc830268510b403593b8719a"
       },
       "homebrew/cask-versions": {
-        "revision": "ee7a5f43fc76bc90539e236ef6cf4c3859d94de9"
+        "revision": "a657e86b36d0b05354d5c42c075f67a8d11791a1"
       },
       "homebrew/core": {
-        "revision": "9a2d6cbb9430d898b6f569679c45af3f600d2fac"
+        "revision": "c14258a186c6ddad011788cc7f15c80f41e5a43b"
       },
       "homebrew/services": {
-        "revision": "f8d1669245d4c4a70fb1e6fe26519e7c97651203"
+        "revision": "8e5db7ef7870589f3d903bd167a8a31335177f0f"
       },
       "neovim/neovim": {
         "revision": "e587b5c90456a895a11bc5ae81e5cfdde6b23dd4"
@@ -1570,7 +1570,7 @@
         "bottle": false
       },
       "minikube": {
-        "version": "1.24.0",
+        "version": "1.25.0",
         "bottle": {
           "rebuild": 0,
           "root_url": "https://ghcr.io/v2/homebrew/core",
@@ -2707,7 +2707,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.3.11",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "9a2d6cbb9430d898b6f569679c45af3f600d2fac",
+        "Homebrew/homebrew-core": "c14258a186c6ddad011788cc7f15c80f41e5a43b",
         "CLT": "13.0.0.0.1.1627064638",
         "Xcode": "13.1",
         "macOS": "12.1"

@@ -30,6 +30,8 @@ main() {
     trash-cli                 # safe alternative to rm
     np                        # better npm publish
     tldr                      # man
+    typescript 
+    typescript-language-server
   )
   npm install -g --quiet ${modules[@]}
 
