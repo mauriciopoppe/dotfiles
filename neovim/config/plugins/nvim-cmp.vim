@@ -23,10 +23,10 @@ lua <<EOF
         i = cmp.mapping.abort(),
         c = cmp.mapping.close(),
       }),
-      ['<CR>'] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true
-      }) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.config.disable,
+      --  behavior = cmp.ConfirmBehavior.Replace,
+      --  select = true
+      --}) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       -- ["<Tab>"] = cmp.mapping(function(fallback)
       --   if cmp.visible() then
       --     cmp.select_next_item()
