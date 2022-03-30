@@ -1,4 +1,4 @@
-nnoremap [ui]e :NvimTreeToggle<CR>
+nnoremap [ui]e :NvimTreeRefresh<CR>:NvimTreeToggle<CR>
 nnoremap [ui]a :NvimTreeFindFile<CR>
 
 lua << EOF
