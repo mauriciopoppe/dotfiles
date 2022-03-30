@@ -183,6 +183,8 @@
 	path = ~/.dotfiles/secret/gitconfig.mine
 [includeIf "gitdir/i:~/.dotfiles/"]
 	path = ~/.dotfiles/secret/gitconfig.mine
+[includeIf "gitdir/i:~/go/src/github.com/mauriciopoppe/"]
+	path = ~/.dotfiles/secret/gitconfig.mine
 [includeIf "gitdir/i:~/go/"]
 	path = ~/.dotfiles/secret/gitconfig.work
 [includeIf "gitdir/i:~/.dotfiles-google/"]
