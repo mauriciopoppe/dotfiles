@@ -1,6 +1,7 @@
 " Interface {{{
 
 Plug 'nvim-lua/plenary.nvim'  " lua utility functions
+Plug 'MunifTanjim/nui.nvim'   " lua UI library
 Plug 'neovim/nvim-lspconfig'  " common confs for nvim-lsp
 
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -21,7 +22,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
 Plug 'lewis6991/spellsitter.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'        " left sidebar tree view
+Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'v2.6' }
 
 Plug 'nvim-telescope/telescope.nvim'   " overlay for navigation
 Plug 'lewis6991/gitsigns.nvim'

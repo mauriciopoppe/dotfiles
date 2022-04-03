@@ -15,6 +15,11 @@ if utils#hasPlugin('nvim-tree.lua') " {{{
 endif
 " }}}
 
+if utils#hasPlugin('neo-tree.nvim') " {{{
+  source $VIMPATH/config/plugins/nvim-neotree.vim
+endif
+" }}}
+
 if utils#hasPlugin('lualine.nvim') " {{{
   source $VIMPATH/config/plugins/nvim-lualine.vim
 endif
