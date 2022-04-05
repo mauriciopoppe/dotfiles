@@ -136,8 +136,8 @@ command! Bdi :call DeleteInactiveBufs()
 command! Only :call DeleteInactiveBufs()
 
 lua << EOF
-  package.loaded['tools'] = nil
-  require('tools').Setup()
+  package.loaded['my/utils'] = nil
+  require('my/utils').Setup()
 EOF
 
 " search {{{

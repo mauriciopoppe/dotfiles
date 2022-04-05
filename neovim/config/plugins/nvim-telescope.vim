@@ -25,8 +25,20 @@ require("telescope").setup {
   },
   pickers = {
     find_files = {
-      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
     },
+    lsp_references = {
+      theme = "dropdown",
+      layout_config = {
+        preview_cutoff = 1,
+        width = function(_, max_columns, _)
+          return math.min(max_columns, 180)
+        end,
+        height = function(_, _, max_lines)
+          return math.min(max_lines, 30)
+        end,
+      },
+    }
   }
 }
 EOF

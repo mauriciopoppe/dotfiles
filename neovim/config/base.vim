@@ -79,9 +79,6 @@ let g:loaded_zipPlugin = 1
 let g:glsl_file_extensions = '*.glsl,*.vert,*.frag'
 "}}}
 
-" ensure that pynvim3 is loaded from venv
-let g:python3_host_prog = expand($VARPATH.'/venv/neovim/bin/python3')
-
 " https://neovim.io/doc/user/starting.html#shada-file
 " shared data
 augroup MyAutoCmd

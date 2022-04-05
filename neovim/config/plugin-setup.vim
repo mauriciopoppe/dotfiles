@@ -22,7 +22,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
 Plug 'lewis6991/spellsitter.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'v2.6' }
+Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'main' }
 
 Plug 'nvim-telescope/telescope.nvim'   " overlay for navigation
 Plug 'lewis6991/gitsigns.nvim'

@@ -3,16 +3,31 @@ nnoremap [ui]a :Neotree reveal<CR>
 
 lua << EOF
 
-local neotree = require("neo-tree")
+local neotree = require("neo-tree/command/init")
 local cc = require("neo-tree.sources.filesystem.commands")
 
 -- Unless you are still migrating, remove the deprecated commands from v1.x
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+-- vim.cmd([[ let g:neo_tree_remove_legacy_commands = 0 ]])
 
 local edit_and_close_sidebar = function(state)
   cc.open(state)
-  neotree.close_all()
+  neotree.execute({ action = "close" })
 end
+
+-- debug
+-- local utils = require('my/utils')
+-- local pepperfish_profiler = require('mauricio/pepperfish_profiler')
+-- profiler = pepperfish_profiler.newProfiler('call', 1000)
+-- function _G.mauricio_open()
+--   profiler:start()
+--     neotree.execute({ reveal = true })
+--   profiler:stop()
+--   local outfile = io.open("profile.txt", "w+")
+--   profiler:report(outfile)
+--   outfile:close()
+--   print("profile complete!")
+-- end
+-- vim.api.nvim_set_keymap('n', '[ui]c', [[<Cmd>lua mauricio_open()<CR>]], { noremap = true})
 
 -- If you want icons for diagnostic errors, you'll need to define them somewhere:
 vim.fn.sign_define("DiagnosticSignError",
@@ -132,8 +147,9 @@ require("neo-tree").setup({
                           -- "open_current",  -- netrw disabled, opening a directory opens within the
                                             -- window like netrw would, regardless of window.position
                           -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-    use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
+    use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
                                     -- instead of relying on nvim autocmd events.
+    async_directory_scan = true,
   },
   buffers = {
     show_unloaded = true,
