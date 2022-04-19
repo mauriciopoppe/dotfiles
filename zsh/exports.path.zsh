@@ -28,6 +28,8 @@ export EDITOR="$VISUAL"
 
 export TERM=xterm-256color
 
+export HISTCONTROL=ignorespace
+
 # `fzf` default stdin command
 #
 # --files: List files that would be searched but do not search

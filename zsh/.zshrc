@@ -71,6 +71,9 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 # need to be compiled instead of installed from a repo
 #
 # in my arm mac they're installed with Homebrew
+# in my linux they're installed with apt
+# 
+# tools to install: sharkdp/fd
 if [[ $(uname -m) != *"arm"* ]]; then
   # human readable git diff
   zinit ice as"command" from"gh-r" mv"delta* -> delta" pick"delta/delta"
