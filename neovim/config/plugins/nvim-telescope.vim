@@ -14,6 +14,19 @@ nnoremap <silent> <leader>r :<C-u>Telescope lsp_references<CR>
 
 lua << EOF
 local actions = require("telescope.actions")
+local split_vertical_theme = {
+  theme = "dropdown",
+  layout_config = {
+    preview_cutoff = 1,
+    width = function(_, max_columns, _)
+      return math.min(max_columns, 180)
+    end,
+    height = function(_, _, max_lines)
+      return math.min(max_lines, 30)
+    end,
+  },
+}
+
 require("telescope").setup {
   defaults = {
     mappings = {
@@ -27,18 +40,8 @@ require("telescope").setup {
     find_files = {
       find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
     },
-    lsp_references = {
-      theme = "dropdown",
-      layout_config = {
-        preview_cutoff = 1,
-        width = function(_, max_columns, _)
-          return math.min(max_columns, 180)
-        end,
-        height = function(_, _, max_lines)
-          return math.min(max_lines, 30)
-        end,
-      },
-    }
+    lsp_references = split_vertical_theme,
+    lsp_implementations = split_vertical_theme,
   }
 }
 EOF

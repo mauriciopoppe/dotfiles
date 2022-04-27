@@ -22,7 +22,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
 Plug 'lewis6991/spellsitter.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'main' }
+Plug 'nvim-neo-tree/neo-tree.nvim', { 'tag': 'v2.13' }
 
 Plug 'nvim-telescope/telescope.nvim'   " overlay for navigation
 Plug 'lewis6991/gitsigns.nvim'
@@ -34,6 +34,9 @@ Plug 'preservim/tagbar'          " right sidebaf for navigation
 Plug 'nathanaelkane/vim-indent-guides' " indent guides
 Plug 'junegunn/goyo.vim'               " distraction free writing
 Plug 'junegunn/limelight.vim'          " dim unfocussed paragraphs
+
+Plug 'mfussenegger/nvim-dap'      " debugger
+Plug 'rcarriga/nvim-dap-ui'	  " debugger ui
 
 " themes
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -133,7 +136,7 @@ Plug 'pprovost/vim-ps1'      " ft for powershell scripts :(
 " Go
 Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoInstallBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'sebdah/vim-delve'
+" Plug 'sebdah/vim-delve'
 " Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
 " Terraform

@@ -20,6 +20,16 @@ if utils#hasPlugin('neo-tree.nvim') " {{{
 endif
 " }}}
 
+if utils#hasPlugin('nvim-dap') " {{{
+  source $VIMPATH/config/plugins/nvim-dap.vim
+endif
+" }}}
+
+if utils#hasPlugin('nvim-dap-ui') " {{{
+  source $VIMPATH/config/plugins/nvim-dap-ui.vim
+endif
+" }}}
+
 if utils#hasPlugin('lualine.nvim') " {{{
   source $VIMPATH/config/plugins/nvim-lualine.vim
 endif
@@ -356,7 +366,7 @@ endif
 if utils#hasPlugin('nvim-treesitter') "{{{
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = {"bash", "c", "cpp", "css", "cmake", "dockerfile", "go", "gomod", "hcl", "html", "javascript", "json", "lua", "make", "python", "rust", "scss", "typescript", "vim", "yaml"},
   highlight = {
     enable = true,
   },
@@ -371,6 +381,15 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   },
 }
+
+-- hack from https://github.com/nvim-treesitter/nvim-treesitter/issues/655#issuecomment-1021160477
+local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
+require('nvim-treesitter.parsers').ft_to_lang = function(ft)
+    if ft == 'zsh' then
+        return 'bash'
+    end
+    return ft_to_lang(ft)
+end
 EOF
 
   set foldmethod=expr
@@ -415,12 +434,12 @@ endif
 " }}}
 
 if utils#hasPlugin('vim-fugitive') "{{{
-  nnoremap <silent> <leader>gs :Gstatus<CR>
-  nnoremap <silent> <leader>gd :Gdiff<CR>
-  nnoremap <silent> <leader>gD :Gdiffoff<CR>
-  nnoremap <silent> <leader>gc :Gcommit<CR>
-  nnoremap <silent> <leader>gb :Gblame<CR>
-  nnoremap <silent> <leader>gB :Gbrowse<CR>
+  nnoremap <silent> <leader>gs :Git status<CR>
+  nnoremap <silent> <leader>gd :Git diff<CR>
+  nnoremap <silent> <leader>gD :Git diffoff<CR>
+  nnoremap <silent> <leader>gc :Git commit<CR>
+  nnoremap <silent> <leader>gb :Git blame<CR>
+  nnoremap <silent> <leader>gB :Git browse<CR>
   nnoremap <silent> <leader>gp :Git push<CR>
 endif
 " }}}
