@@ -231,6 +231,13 @@ EOF
 endif
 "}}}
 
+if utils#hasPlugin('vim-signify') "{{{
+  let g:signify_vcs_cmds_diffmode = {
+  \ 'hg': 'hg cat %f -r p4base',
+  \}
+endif
+"}}}
+
 if utils#hasPlugin('vim-mergetool') "{{{
   nmap <expr> <C-Left> &diff? '<Plug>(MergetoolDiffExchangeLeft)' : '<C-Left>'
   nmap <expr> <C-Right> &diff? '<Plug>(MergetoolDiffExchangeRight)' : '<C-Right>'

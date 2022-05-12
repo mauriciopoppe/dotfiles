@@ -25,7 +25,8 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-neo-tree/neo-tree.nvim', { 'tag': 'v2.13' }
 
 Plug 'nvim-telescope/telescope.nvim'   " overlay for navigation
-Plug 'lewis6991/gitsigns.nvim'
+" Plug 'lewis6991/gitsigns.nvim'
+Plug 'mhinz/vim-signify'
 
 Plug 'nvim-lualine/lualine.nvim' " statusline
 Plug 'ap/vim-buftabline'         " buffers tabline
