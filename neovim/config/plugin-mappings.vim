@@ -127,17 +127,18 @@ endif
 
 
 if utils#hasPlugin('emmet-vim') "{{{
+  let g:user_emmet_install_global = 0
   autocmd MyAutoCmd FileType html,css,jsx,javascript,javascript.jsx
     \ EmmetInstall
     \ | imap <buffer> <C-Return> <Plug>(emmet-expand-abbr)
+    \ | imap <silent> <C-e>, <plug>(emmet-expand-abbr)
+    \ | imap <silent> <C-e>. <plug>(emmet-expand-abbr)<plug>(emmet-split-join-tag)f/i
   let g:user_emmet_settings = {
   \    'html': {
   \        'empty_element_suffix': ' />',
   \        'indent_blockelement': 1,
   \    },
   \}
-  imap <silent> <C-e>, <plug>(emmet-expand-abbr)
-  imap <silent> <C-e>. <plug>(emmet-expand-abbr)<plug>(emmet-split-join-tag)f/i
 endif
 "}}}
 
@@ -364,79 +365,13 @@ EOF
 endif
 "}}}
 
-
 if utils#hasPlugin('nvim-lspconfig') " {{{
   source $VIMPATH/config/plugins/nvim-lspconfig.vim
 endif
 "}}}
 
 if utils#hasPlugin('nvim-treesitter') "{{{
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"bash", "c", "cpp", "css", "cmake", "dockerfile", "go", "gomod", "hcl", "html", "javascript", "json", "lua", "make", "python", "rust", "scss", "typescript", "vim", "yaml"},
-  highlight = {
-    enable = true,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "gni",
-    },
-  },
-  indent = {
-    enable = true
-  },
-}
-
--- hack from https://github.com/nvim-treesitter/nvim-treesitter/issues/655#issuecomment-1021160477
-local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
-require('nvim-treesitter.parsers').ft_to_lang = function(ft)
-    if ft == 'zsh' then
-        return 'bash'
-    end
-    return ft_to_lang(ft)
-end
-EOF
-
-  set foldmethod=expr
-  setlocal foldlevelstart=99
-  set foldexpr=nvim_treesitter#foldexpr()
-
-endif
-" }}}
-
-if utils#hasPlugin('nvim-treesitter-textobjects') "{{{
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  textobjects = {
-
-    select = {
-      enable = true,
-      -- Automatically jump forward to textobj, similar to targets.vim
-      lookahead = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ae"] = "@function.outer",
-        ["ie"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-      },
-    },
-
-    swap = {
-      enable = false,
-      swap_next = {
-        ["<leader>a"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<leader>A"] = "@parameter.inner",
-      },
-    },
-  },
-}
-EOF
+  source $VIMPATH/config/plugins/nvim-treesitter.vim
 endif
 " }}}
 

@@ -92,7 +92,7 @@ Plug 'itchyny/vim-cursorword'       " highlight ocurrences of the current word
 " Plug 'itchyny/vim-parenmatch'       " highlight ocurrences of the current word
 Plug 'jiangmiao/auto-pairs'         " auto close (, [, {, ', \", `
 Plug 'junegunn/vim-easy-align'      " alignment
-Plug 'mattn/emmet-vim'              " html expansion
+" Plug 'mattn/emmet-vim'              " html expansion
 Plug 'terryma/vim-expand-region'    " expand visual region
 Plug 'terryma/vim-multiple-cursors' " multiple cursors (<C-n><C-p><C-x>)
 Plug 'tpope/vim-commentary'         " commenting stuff
@@ -105,23 +105,17 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' } " code formatter
 
 " Language specific {{{
 
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 " Plug 'leafgarland/typescript-vim'
 " Plug 'peitalin/vim-jsx-typescript'
-Plug 'chemzqm/vim-jsx-improve'
+" Plug 'chemzqm/vim-jsx-improve'
 " Plug 'alvan/vim-closetag'
 Plug 'Valloric/MatchTagAlways'
-Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
-Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+" Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+" Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+" Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'pangloss/vim-javascript'
 
-Plug 'elzr/vim-json', { 'for': 'json' }
-
-Plug 'mitsuhiko/vim-python-combined', { 'for': 'python' }
-
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'rhysd/vim-gfm-syntax'
 
 Plug 'pprovost/vim-ps1'      " ft for powershell scripts :(
@@ -141,7 +135,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
 " Terraform
-Plug 'hashivim/vim-terraform'
+" Plug 'hashivim/vim-terraform'
 
 "}}}
 
