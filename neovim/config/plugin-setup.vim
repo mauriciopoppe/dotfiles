@@ -14,6 +14,7 @@ Plug 'onsails/lspkind-nvim' " completion icons
 Plug 'dcampos/nvim-snippy' " snippet engine
 Plug 'dcampos/cmp-snippy'  " snippet engine adapter for nvim-cmp
 Plug 'honza/vim-snippets'  " collection of snippets
+Plug 'github/copilot.vim'  " autopilot
 
 Plug 'nvim-treesitter/nvim-treesitter', {
        \ 'do': ':TSUpdate',

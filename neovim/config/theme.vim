@@ -10,16 +10,26 @@ let g:pencil_higher_contrast_ui = 1
 let g:pencil_neutral_code_bg = 1
 let g:pencil_spell_undercurl = 1
 
-set background=dark
 if has('nvim') || has('termguicolors')
   set termguicolors
 endif
 
-try
-  colorscheme hybrid
-catch
-  echo 'could not set theme'
-endtry
+" ChangeBackground changes the background mode based on macOS's `Appearance`
+" setting. We also refresh the statusline colors to reflect the new mode.
+function! ChangeBackground()
+  if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
+    set background=dark   " for dark version of theme
+  else
+    set background=light  " for light version of theme
+  endif
+
+  try
+    colorscheme hybrid
+  catch
+    echo 'could not set theme'
+  endtry
+
+endfunction
 
 function ResetHighlight()
   " Link highlight groups to improve buftabline colors
@@ -56,5 +66,12 @@ function ResetHighlight()
   highlight link CocHighlightTextWrite CocHighlightText
   highlight link CocHighlightTextRead CocHighlightText
 endfunction
-call ResetHighlight()
+
+function ChangeTheme()
+  " initialize the colorscheme for the first run
+  call ChangeBackground()
+  call ResetHighlight()
+endfunction
+
+call ChangeTheme()
 
