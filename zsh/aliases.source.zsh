@@ -45,6 +45,10 @@ alias k='kubectl'
 
 alias h='howdoi -ac'
 
+# homebrew for x86_64 apps
+alias ibrew="arch -x86_64 /usr/local/bin/brew"
+alias python3.7="/usr/local/opt/python@3.7/bin/python3.7"
+
 # from https://blog.petdance.com/2020/02/03/handy-collection-of-shell-aliases/
 alias paga='ps -u "$USER" f --header -o pid,ppid,start_time,%cpu,rssize=Resident,vsize=Virtual,cmd'
 

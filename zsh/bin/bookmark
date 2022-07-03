@@ -49,9 +49,9 @@ done
 if [[ $bookmark_show -eq 1 ]]; then
   if [[ $bookmark_strip_homedir == 1 ]]; then
     if [[ $machine == "Mac" ]]; then
-      cat $BOOKMARKS_FILE | sed -E "s%${HOME}%~%g"
+      cat $BOOKMARKS_FILE | sed -E "s%${HOME}%¬%g"
     elif [[ $machine == "Linux" ]]; then
-      cat $BOOKMARKS_FILE | sed -r "s%${HOME}%~%g"
+      cat $BOOKMARKS_FILE | sed -r "s%${HOME}%¬%g"
     fi
   else
     cat $BOOKMARKS_FILE

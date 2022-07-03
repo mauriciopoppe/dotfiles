@@ -13,8 +13,10 @@ require 'pathname'
 
 # NOTE: special chars replaced both here and in ~/.tmuxinator.yml
 ESCAPE_BOOKMARK_CHARS = [
+  # NOTE: if you change these characters also change zsh/bin/bookmark
+  # NOTE: if you change these characters also change tmux/default-tmuxinator.yaml
   [".", "·"],
-  [Dir.home, "~"],
+  [Dir.home, "¬"],
 ]
 
 def escape_session_name(v)

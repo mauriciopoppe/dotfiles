@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -ex
+
+main() {
+  mode="$1"
+  if [[ $mode == "light" ]]; then
+    osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" >/dev/null
+  elif [[ $mode == "dark" ]]; then
+    osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" >/dev/null
+  else
+    echo "unknown arg, expected 'light' or 'dark'"
+    return
+  fi
+
+  for session in $(tmux list-sessions -F "#{session_name}"); do
+    for wix in $(tmux list-windows -F "${session}:#{window_index}" -t "$session"); do
+      for pix in $(tmux list-panes -F "#{session_name}:#{window_index}.#{pane_index}" -t $wix); do
+        is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+        tmux if-shell -t "$pix" "$is_vim" "send-keys -t $pix escape ENTER"
+        tmux if-shell -t "$pix" "$is_vim" "send-keys -t $pix ':call ChangeTheme()' ENTER"
+      done
+    done
+  done
+
+  if [[ $mode == "light" ]]; then
+    tmux source-file ${DOTFILES_DIRECTORY}/tmux/theme.light.conf
+  else
+    tmux source-file ${DOTFILES_DIRECTORY}/tmux/theme.dark.conf
+  fi
+}
+
+main $@

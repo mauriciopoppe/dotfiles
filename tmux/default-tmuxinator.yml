@@ -1,4 +1,4 @@
-name: <%= ENV['PWD'].gsub('.', '·').gsub(ENV['HOME'], '~') %>
+name: <%= ENV['PWD'].gsub('.', '·').gsub(ENV['HOME'], '¬') %>
 root: ./
 
 windows:
