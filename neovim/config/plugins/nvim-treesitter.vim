@@ -25,6 +25,9 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true
   },
+  context_commentstring = {
+    enable = true
+  },
   textobjects = {
     select = {
       enable = true,
@@ -37,18 +40,20 @@ require'nvim-treesitter.configs'.setup {
         ["ie"] = "@function.inner",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
       },
     },
 
-    swap = {
-      enable = false,
-      swap_next = {
-        ["<leader>a"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<leader>A"] = "@parameter.inner",
-      },
-    },
+    -- swap = {
+    --   enable = false,
+    --   swap_next = {
+    --     ["<leader>sn"] = "@parameter.inner",
+    --   },
+    --   swap_previous = {
+    --     ["<leader>sp"] = "@parameter.inner",
+    --   },
+    -- },
   },
 }
 EOF

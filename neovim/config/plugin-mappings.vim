@@ -273,7 +273,15 @@ if utils#hasPlugin('vim-go') "{{{
   let g:go_fmt_command = "goimports"
 
 endif
+" }}}
 
+if utils#hasPlugin('go.nvim') "{{{
+autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
+autocmd FileType go nnoremap <silent> [ui]d :<C-u>GoDoc<CR>
+lua << EOF
+  require('go').setup()
+EOF
+endif
 " }}}
 
 function! LocalGetVisualSelection()

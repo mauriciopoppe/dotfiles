@@ -10,8 +10,8 @@ function M.AutoWriteOnFocusLost()
   -- current_buffer_info = api.nvim_eval(string.format('getbufinfo(%s)[0]', current_buffer_number))
   -- print(vim.inspect(current_buffer_info.name))
   if vim.bo.buftype == "" then
-    current_buffer_number = api.nvim_eval('bufnr("%")')
-    current_buffer_info = api.nvim_eval(string.format('getbufinfo(%s)[0]', current_buffer_number))
+    local current_buffer_number = api.nvim_eval('bufnr("%")')
+    local current_buffer_info = api.nvim_eval(string.format('getbufinfo(%s)[0]', current_buffer_number))
     if current_buffer_info.changed ~= 0 then
       api.nvim_command('write')
     end

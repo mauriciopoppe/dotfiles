@@ -8,7 +8,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'github/copilot.vim'   " autopilot
+Plug 'github/copilot.vim'
 Plug 'hrsh7th/nvim-cmp'     " completion engine
 Plug 'onsails/lspkind-nvim' " completion icons
 
@@ -20,6 +20,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {
        \ 'do': ':TSUpdate',
        \ }  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'lewis6991/spellsitter.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
@@ -131,7 +132,8 @@ Plug 'pprovost/vim-ps1'      " ft for powershell scripts :(
 " Plug 'yoppi/fluentd.vim'
 
 " Go
-Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoInstallBinaries' }
+" Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoInstallBinaries' }
+Plug 'ray-x/go.nvim'
 Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'sebdah/vim-delve'
 " Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
