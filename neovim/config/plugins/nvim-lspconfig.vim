@@ -9,6 +9,19 @@ local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
 end
 
+-- Checks if a path is a file.
+function is_file(path)
+    f = io.open(path)
+    return f ~= nil
+end
+
+-- Checks if a path is a directory.
+-- From https://stackoverflow.com/questions/2833675/using-lua-check-if-file-is-a-directory
+function is_dir(path)
+    f = io.open(path)
+    return not f:read(0) and f:seek("end") ~= 0
+end
+
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
@@ -18,9 +31,10 @@ nvim_lsp.tsserver.setup {
   capabilities = capabilities
 }
 
--- only enable in non google3 repos
-local f = io.open("BUILD", "r")
-if f == nil then
+-- assume that there's a file BUILD in google 3 repos.
+-- the check makes sure that gopls is enabled only in non google3 repos.
+local is_google3 = is_file('BUILD') and not is_dir('BUILD')
+if not is_google3 then
   nvim_lsp.gopls.setup {
     on_attach = on_attach,
     flags = {
