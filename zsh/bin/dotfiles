@@ -31,7 +31,7 @@ cat << EOF
         git|ctags|sshrc
 
       ( macOS specific )
-        @macos/default|@macos/alfred|@macos/iTerm2|homebrew
+        @macos/default|@macos/alfred|@macos/iTerm2|@macos/homebrew
 
       ( Programming languages )
         nodejs|ruby|python|go

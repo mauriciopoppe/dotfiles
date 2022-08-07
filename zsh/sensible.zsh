@@ -52,6 +52,11 @@ setopt rm_star_wait
 
 # bindkey -v
 
+# <C-x><C-e> Edit the current command line in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-x\C-e' edit-command-line
+
 # forward-delete char on osx with fn + delete
 bindkey "^[[3~" delete-char
 
@@ -59,8 +64,9 @@ bindkey "^[[3~" delete-char
 bindkey "^[[1;3C" forward-word
 bindkey "^[[1;3D" backward-word
 
+# ^u clears the line before executing the command.
 # ctrl+e = nvim
-bindkey -s "^e" "nvim -S\n"
-
+bindkey -s "^e" "^unvim -S\n"
 # ctrl+g = git
-bindkey -s "^g" "git fuzzy status\n"
+bindkey -s "^g" "^ugit fuzzy status\n"
+
