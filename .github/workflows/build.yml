@@ -1,0 +1,25 @@
+name: Build
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ubuntu:
+    name: Run dotfiles on ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: sudo apt-get update; sudo apt-get install zsh
+      - run: bash install.sh
+      - run: zsh zsh/bin/dotfiles
+  macos:
+    name: Run dotfiles on macos
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: brew update; brew install zsh
+      - run: bash install.sh
+      - run: zsh zsh/bin/dotfiles
+
