@@ -8,13 +8,13 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
+Plug 'github/copilot.vim'   " autopilot
 Plug 'hrsh7th/nvim-cmp'     " completion engine
 Plug 'onsails/lspkind-nvim' " completion icons
 
 Plug 'dcampos/nvim-snippy' " snippet engine
 Plug 'dcampos/cmp-snippy'  " snippet engine adapter for nvim-cmp
 Plug 'honza/vim-snippets'  " collection of snippets
-Plug 'github/copilot.vim'  " autopilot
 
 Plug 'nvim-treesitter/nvim-treesitter', {
        \ 'do': ':TSUpdate',
@@ -24,6 +24,7 @@ Plug 'lewis6991/spellsitter.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-neo-tree/neo-tree.nvim', { 'tag': 'v2.34' }
+Plug 'mrbjarksen/neo-tree-diagnostics.nvim'
 
 Plug 'nvim-telescope/telescope.nvim'   " overlay for navigation
 " Plug 'lewis6991/gitsigns.nvim'

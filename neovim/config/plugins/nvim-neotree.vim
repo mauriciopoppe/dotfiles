@@ -1,14 +1,13 @@
 nnoremap [ui]e :Neotree toggle<CR>
 nnoremap [ui]a :Neotree reveal<CR>
+nnoremap [ui]x :Neotree diagnostics toggle bottom<CR>
 
 lua << EOF
 
 local neotree = require("neo-tree/command/init")
 local cc = require("neo-tree.sources.filesystem.commands")
 
--- Unless you are still migrating, remove the deprecated commands from v1.x
--- vim.cmd([[ let g:neo_tree_remove_legacy_commands = 0 ]])
-
+-- edit_and_close_sidebar edits edits a file and closes the sidebar.
 local edit_and_close_sidebar = function(state)
   cc.open(state)
   neotree.execute({ action = "close" })
@@ -45,6 +44,13 @@ require("neo-tree").setup({
   -- debug
   -- log_level = "trace",
   -- log_to_file = true,
+
+  sources = {
+    "filesystem",
+    "buffers",
+    "git_status",
+    "diagnostics",
+  },
 
   close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
   popup_border_style = "rounded",
@@ -143,8 +149,8 @@ require("neo-tree").setup({
         --"*.meta"
       },
       never_show = { -- remains hidden even if visible is toggled to true
-        --".DS_Store",
-        --"thumbs.db"
+        ".DS_Store",
+        "thumbs.db",
       },
     },
     follow_current_file = false, -- This will find and focus the file in the active buffer every

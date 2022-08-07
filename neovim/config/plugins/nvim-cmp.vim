@@ -25,9 +25,7 @@ lua <<EOF
       ['<C-y>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       ['<C-e>'] = cmp.mapping.abort(),
       ['<Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif snippy.can_expand_or_advance() then
+        if snippy.can_expand_or_advance() then
           snippy.expand_or_advance()
         elseif has_words_before() then
           cmp.complete()
@@ -36,9 +34,7 @@ lua <<EOF
         end
       end, { "i", "s" }),
       ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif snippy.can_jump(-1) then
+        if snippy.can_jump(-1) then
           snippy.previous()
         else
           fallback()
