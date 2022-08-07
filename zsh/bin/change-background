@@ -4,15 +4,18 @@ set -ex
 
 main() {
   mode="$1"
-  if [[ $mode == "light" ]]; then
-    osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" >/dev/null
-  elif [[ $mode == "dark" ]]; then
-    osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" >/dev/null
-  else
-    echo "unknown arg, expected 'light' or 'dark'"
-    return
+  if [[ $OSTYPE =~ ^darwin ]]; then
+    if [[ $mode == "light" ]]; then
+      osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" >/dev/null
+    elif [[ $mode == "dark" ]]; then
+      osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" >/dev/null
+    else
+      echo "unknown arg, expected 'light' or 'dark'"
+      return
+    fi
   fi
 
+  # go over all the tmux sessions and change the theme.
   for session in $(tmux list-sessions -F "#{session_name}"); do
     for wix in $(tmux list-windows -F "${session}:#{window_index}" -t "$session"); do
       for pix in $(tmux list-panes -F "#{session_name}:#{window_index}.#{pane_index}" -t $wix); do

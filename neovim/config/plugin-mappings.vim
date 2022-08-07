@@ -348,23 +348,6 @@ EOF
 endif
 "}}}
 
-if utils#hasPlugin('nvim-snippy') "{{{
-  lua << EOF
-require('snippy').setup({
-    mappings = {
-        is = {
-            ['<Tab>'] = 'expand_or_advance',
-            ['<S-Tab>'] = 'previous',
-        },
-        nx = {
-            ['<leader>x'] = 'cut_text',
-        },
-    },
-})
-EOF
-endif
-"}}}
-
 if utils#hasPlugin('nvim-lspconfig') " {{{
   source $VIMPATH/config/plugins/nvim-lspconfig.vim
 endif
@@ -372,6 +355,10 @@ endif
 
 if utils#hasPlugin('nvim-treesitter') "{{{
   source $VIMPATH/config/plugins/nvim-treesitter.vim
+endif
+" }}}
+
+if utils#hasPlugin('copilot.vim') "{{{
 endif
 " }}}
 

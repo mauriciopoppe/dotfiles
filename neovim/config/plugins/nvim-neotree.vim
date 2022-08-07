@@ -132,12 +132,15 @@ require("neo-tree").setup({
   filesystem = {
     filtered_items = {
       visible = false, -- when true, they will just be displayed differently than normal items
-      hide_dotfiles = true,
-      hide_gitignored = true,
+      hide_dotfiles = false,
+      hide_gitignored = false,
       hide_by_name = {
         ".DS_Store",
         "thumbs.db"
         --"node_modules"
+      },
+      hide_by_pattern = { -- uses glob style patterns
+        --"*.meta"
       },
       never_show = { -- remains hidden even if visible is toggled to true
         --".DS_Store",
@@ -153,7 +156,6 @@ require("neo-tree").setup({
                           -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
     use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
                                     -- instead of relying on nvim autocmd events.
-    async_directory_scan = true,
   },
   buffers = {
     show_unloaded = true,

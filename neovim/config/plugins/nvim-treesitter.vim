@@ -1,4 +1,15 @@
 lua <<EOF
+
+-- Identifies zsh as bash.
+-- https://github.com/nvim-treesitter/nvim-treesitter/issues/655#issuecomment-1021160477
+local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
+require('nvim-treesitter.parsers').ft_to_lang = function(ft)
+    if ft == 'zsh' then
+        return 'bash'
+    end
+    return ft_to_lang(ft)
+end
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {"bash", "c", "cpp", "css", "cmake", "dockerfile", "go", "gomod", "hcl", "html", "javascript", "json", "lua", "make", "markdown", "python", "rust", "scss", "typescript", "vim", "yaml"},
   highlight = {
@@ -14,20 +25,7 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true
   },
-}
-
--- hack from https://github.com/nvim-treesitter/nvim-treesitter/issues/655#issuecomment-1021160477
-local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
-require('nvim-treesitter.parsers').ft_to_lang = function(ft)
-    if ft == 'zsh' then
-        return 'bash'
-    end
-    return ft_to_lang(ft)
-end
-
-require'nvim-treesitter.configs'.setup {
   textobjects = {
-
     select = {
       enable = true,
       -- Automatically jump forward to textobj, similar to targets.vim

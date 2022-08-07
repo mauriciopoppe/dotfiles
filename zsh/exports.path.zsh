@@ -3,12 +3,13 @@
 
 # force $PATH to have unique values
 typeset -U path
-# fix path
-# - /usr/local/bin should be first (homebrew)
 path=(
+  # https://github.com/Homebrew/discussions/discussions/417#discussioncomment-326469
+  # This is the homebrew path.
+  /opt/homebrew/bin
+  ~/.local/bin
   /usr/local/bin
   /usr/local/sbin
-  ~/.local/bin
   # needed to build kubernetes in macos
   /opt/homebrew/opt/libtool/libexec/gnubin
   /opt/homebrew/opt/coreutils/libexec/gnubin

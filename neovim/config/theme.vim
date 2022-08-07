@@ -17,11 +17,7 @@ endif
 " ChangeBackground changes the background mode based on macOS's `Appearance`
 " setting. We also refresh the statusline colors to reflect the new mode.
 function! ChangeBackground()
-  if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    set background=dark   " for dark version of theme
-  else
-    set background=light  " for light version of theme
-  endif
+  set background=dark
 
   try
     colorscheme hybrid
