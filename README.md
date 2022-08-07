@@ -1,6 +1,5 @@
 # Mauricio Poppe's dotfiles
 
-[![travis](https://travis-ci.org/mauriciopoppe/dotfiles.svg?branch=master)](https://travis-ci.org/mauriciopoppe/dotfiles)
 ![platform macos](https://img.shields.io/badge/platform-macOS-orange.svg)
 ![platform linux](https://img.shields.io/badge/platform-linux-blue.svg)
 
@@ -78,7 +77,9 @@ can add whatever you need inside each installation script
 
 ## Screenshot
 
-![Screen Shot 2021-01-12 at 9 15 49 PM](https://user-images.githubusercontent.com/1616682/104409554-614f5880-551b-11eb-8c73-2f04d86ed30e.jpg)
+I talk about my workflow in this article: https://www.mauriciopoppe.com/notes/misc/mental-context-switching/
+
+[![asciicast](https://asciinema.org/a/h9bEclMKVl9SONRqMe3yoyryF.svg)](https://asciinema.org/a/h9bEclMKVl9SONRqMe3yoyryF)
 
 ## Study links
 
