@@ -27,9 +27,8 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-neo-tree/neo-tree.nvim', { 'tag': 'v2.34' }
 Plug 'mrbjarksen/neo-tree-diagnostics.nvim'
 
-Plug 'nvim-telescope/telescope.nvim'   " overlay for navigation
-" Plug 'lewis6991/gitsigns.nvim'
-Plug 'mhinz/vim-signify'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }   " overlay for navigation
+Plug 'mhinz/vim-signify'               " signs for navigation (also supports hg)
 
 Plug 'nvim-lualine/lualine.nvim' " statusline
 Plug 'ap/vim-buftabline'         " buffers tabline
@@ -101,7 +100,7 @@ Plug 'terryma/vim-multiple-cursors' " multiple cursors (<C-n><C-p><C-x>)
 Plug 'tpope/vim-commentary'         " commenting stuff
 Plug 'tpope/vim-repeat'             " . improved
 Plug 'tpope/vim-sleuth'             " indentation heuristics
-Plug 'tpope/vim-surround'           " change/delete surrounding characters
+Plug 'kylechui/nvim-surround'       " change/delete surrounding characters
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' } " code formatter
 
 " }}}
