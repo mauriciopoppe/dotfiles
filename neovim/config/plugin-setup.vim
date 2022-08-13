@@ -44,6 +44,7 @@ Plug 'rcarriga/nvim-dap-ui'	  " debugger ui
 " themes
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'w0ng/vim-hybrid'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 " FZF {{{
 

@@ -35,6 +35,8 @@ main() {
   print-step "installing plugins..."
   ${HOME}/.tmux/plugins/tpm/bin/install_plugins > /dev/null
 
+  print-step "if you want to toggle themes, run this command:"
+  print-step "~/.dotfiles/zsh/bin/change-background <dark|light>"
   print-step "complete!"
 }
 

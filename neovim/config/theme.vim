@@ -18,12 +18,28 @@ endif
 " setting. We also refresh the statusline colors to reflect the new mode.
 function! ChangeBackground()
   set background=dark
-
-  try
-    colorscheme hybrid
-  catch
-    echo 'could not set theme'
-  endtry
+  if filereadable(expand("~/.tmux.theme"))
+    let g:tmux_theme_lines = readfile(expand("~/.tmux.theme"))
+    if g:tmux_theme_lines[0] == "dark"
+      try
+        set background=dark
+        colorscheme hybrid
+        call v:lua.lualine_refresh_theme('dark')
+      catch
+        echo 'could not set theme'
+      endtry
+    elseif g:tmux_theme_lines[0] == "light"
+      try
+        set background=light
+        colorscheme tokyonight
+        call v:lua.lualine_refresh_theme('light')
+      catch
+        echo 'could not set theme'
+      endtry
+    else
+      echo 'theme not supported'
+    endif
+  endif
 
 endfunction
 

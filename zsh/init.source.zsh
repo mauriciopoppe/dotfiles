@@ -20,11 +20,6 @@ fi
 # functions
 ###############################################################################
 
-# use ag when indexing
-_fzf_compgen_path() {
-  ag -g "" "$1"
-}
-
 competitive() {
   g++ -std=c++17 -Wshadow -Wall $1 -O2 -Wno-unused-result && ./a.out
 }
@@ -35,13 +30,3 @@ competitive_boost() {
   g++ -std=c++11 -pedantic -lboost_system -Wextra -Wall -Wno-sign-compare -O2 -fsanitize=undefined $1 -o $FILENAME && $FILENAME
 }
 
-# terraform switch
-tfnew() {
-  tgenv use 0.23.17
-  tfenv use 0.12.24
-}
-
-tfold() {
-  tgenv use 0.18.3
-  tfenv use 0.11.14
-}

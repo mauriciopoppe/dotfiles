@@ -15,6 +15,11 @@ main() {
     fi
   fi
 
+  # The variable in .tmux.theme will be read by .tmux.conf to set the theme.
+  echo $mode > ~/.tmux.theme
+
+  cat ~/.tmux.theme
+
   # go over all the tmux sessions and change the theme.
   for session in $(tmux list-sessions -F "#{session_name}"); do
     for wix in $(tmux list-windows -F "${session}:#{window_index}" -t "$session"); do
@@ -26,11 +31,8 @@ main() {
     done
   done
 
-  if [[ $mode == "light" ]]; then
-    tmux source-file ${DOTFILES_DIRECTORY}/tmux/theme.light.conf
-  else
-    tmux source-file ${DOTFILES_DIRECTORY}/tmux/theme.dark.conf
-  fi
+  # reload tmux config.
+  tmux source-file ~/.tmux.conf
 }
 
 main $@
