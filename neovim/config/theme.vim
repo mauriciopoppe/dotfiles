@@ -31,7 +31,7 @@ function! ChangeBackground()
     elseif g:tmux_theme_lines[0] == "light"
       try
         set background=light
-        colorscheme tokyonight
+        colorscheme solarized8
         call v:lua.lualine_refresh_theme('light')
       catch
         echo 'could not set theme'
