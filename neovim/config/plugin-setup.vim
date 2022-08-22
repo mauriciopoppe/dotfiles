@@ -8,7 +8,11 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'github/copilot.vim'
+" Only enable copilot in my personal computer and not at work.
+let s:uname = match(system('uname -n'), "Mauricios-MBP")
+if trim(s:uname) != -1
+    Plug 'github/copilot.vim'
+endif
 Plug 'hrsh7th/nvim-cmp'     " completion engine
 Plug 'onsails/lspkind-nvim' " completion icons
 
