@@ -62,6 +62,11 @@ EOF
 endif
 " }}}
 
+if utils#hasPlugin('vim-oscyank') " {{{
+let g:oscyank_term = 'default'
+endif
+" }}}
+
 if utils#hasPlugin('nvim-surround') " {{{
 lua << EOF
 require('nvim-surround').setup()
