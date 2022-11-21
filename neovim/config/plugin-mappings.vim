@@ -376,7 +376,13 @@ if utils#hasPlugin('nvim-treesitter') "{{{
   source $VIMPATH/config/plugins/nvim-treesitter.vim
 endif
 " }}}
-"
+
+if utils#hasPlugin('nvim-treesitter-context') "{{{
+  lua << EOF
+EOF
+endif
+" }}}
+
 if utils#hasPlugin('lspsaga.nvim') "{{{
   source $VIMPATH/config/plugins/nvim-lspsaga.vim
 endif

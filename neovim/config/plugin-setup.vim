@@ -24,6 +24,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {
        \ 'do': ':TSUpdate',
        \ }  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter objects
+Plug 'nvim-treesitter/nvim-treesitter-context'     " header line that gives context
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'lewis6991/spellsitter.nvim'
 
