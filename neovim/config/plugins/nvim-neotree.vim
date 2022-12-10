@@ -109,6 +109,7 @@ require("neo-tree").setup({
       ["<2-LeftMouse>"] = "open",
       ["<cr>"] = "open",
       ["e"] = edit_and_close_sidebar,
+      ["o"] = edit_and_close_sidebar,
       ["S"] = "open_split",
       ["s"] = "open_vsplit",
       ["t"] = "open_tabnew",

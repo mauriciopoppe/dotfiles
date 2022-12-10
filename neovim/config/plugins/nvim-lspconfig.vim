@@ -22,7 +22,7 @@ function is_dir(path)
     return not f:read(0) and f:seek("end") ~= 0
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
   flags = {

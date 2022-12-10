@@ -1,25 +1,47 @@
 lua << EOF
+
+local deps_ok, dapui, dapui_widgets, dap = pcall(function()
+    return require "dapui", require "dap.ui.widgets", require "dap"
+end)
+
 local dap = require "dap"
+local keymap = vim.keymap.set
 
 dap.set_log_level('TRACE')
 
-function _G.dap_toggle_breakpoint()
-  dap.toggle_breakpoint()
+local function c(func, opts)
+    return function()
+        func(opts)
+    end
 end
-vim.api.nvim_set_keymap('n', '<Leader>bb', ':lua dap_toggle_breakpoint()<CR>', { noremap = true, silent = true })
 
-function _G.dap_continue()
-  dap.continue()
-end
-vim.api.nvim_set_keymap('n', '<Leader>br', ':lua dap_continue()<CR>', { noremap = true, silent = true })
+keymap('n', '<leader>db', c(dap.toggle_breakpoint))
 
--- nnoremap <leader>w :<C-u>call DebuggerStepInto()<CR>
--- nnoremap <leader>W :<C-u>call DebuggerStepOut()<CR>
--- nnoremap <leader>e :<C-u>call DebuggerStepOver()<CR>
+keymap("n", "<leader>d.", c(dap.run_to_cursor))
+keymap("n", "<leader>dJ", c(dap.down))
+keymap("n", "<leader>dK", c(dap.up))
+keymap("n", "<leader>dL", function()
+    dap.list_breakpoints()
+    vim.cmd.copen()
+end)
+keymap("n", "<leader>dX", function()
+    dap.terminate()
+    dapui.close()
+end)
+keymap("n", "<leader>da", c(dap.toggle_breakpoint))
+keymap("n", "<leader>dc", c(dap.continue))
+keymap("n", "<leader>dh", c(dap.step_back))
+keymap("n", "<leader>dj", c(dap.step_into))
+keymap("n", "<leader>dk", c(dap.step_out))
+keymap("n", "<leader>dl", c(dap.step_over))
+keymap("n", "<leader>dr", c(dap.run_last))
+keymap("n", "<leader>dx", c(dap.clear_breakpoints))
 
-vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("dap").step_into()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>W', ':lua require("dap").step_out()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>e', ':lua require("dap").step_over()<CR>', { noremap = true, silent = true })
+keymap("v", "<M-e>", c(dapui.eval))
+keymap("n", "<leader>d?", c(dapui_widgets.hover))
+
+vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "WarningMsg" })
+vim.fn.sign_define("DapStopped", { text = "▶", linehl = "CursorLine" })
 
 dap.adapters.go = function(callback, config)
   local stdout = vim.loop.new_pipe(false)
@@ -28,7 +50,7 @@ dap.adapters.go = function(callback, config)
   local port = config["port"] or 38697
   local opts = {
     stdio = {nil, stdout},
-    args = {"dap", "-l", "127.0.0.1:" .. port},
+    args = {"dap", "-l", "127.0.0.1:" .. port, "--log", "--log-output=dap"},
     detached = true
   }
   if config["request"] == "launch" then
@@ -65,6 +87,7 @@ dap.adapters.go = function(callback, config)
     100)
   end
 end
+
 -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
 dap.configurations.go = {
   {
@@ -91,19 +114,19 @@ dap.configurations.go = {
   -- debug remote process
   {
     type = "go",
-    name = "Debug remote",
+    name = "Debug kubernetes playground (remote)",
     debugAdapter = "dlv-dap",
     request = "attach",
     mode = "remote",
     host = "127.0.0.1",
     port = "56268",
     stopOnEntry = false,
-    -- substitutePath = {
-    --   {
-    --       from = "${workspaceFolder}",
-    --       to = "/go/src/github.com/mauriciopoppe/kubernetes-playground",
-    --   },
-    -- },
+    substitutePath = {
+      {
+          from = "${workspaceFolder}",
+          to = "/go/src/github.com/mauriciopoppe/kubernetes-playground",
+      },
+    },
   },
 --  {
 --    type = "go",
