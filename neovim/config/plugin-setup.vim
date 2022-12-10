@@ -45,6 +45,7 @@ Plug 'junegunn/limelight.vim'          " dim unfocussed paragraphs
 
 Plug 'mfussenegger/nvim-dap'      " debugger
 Plug 'rcarriga/nvim-dap-ui'	  " debugger ui
+Plug 'theHamsta/nvim-dap-virtual-text'
 
 " themes
 Plug 'kristijanhusak/vim-hybrid-material'
@@ -107,7 +108,9 @@ Plug 'tpope/vim-commentary'         " commenting stuff
 Plug 'tpope/vim-repeat'             " . improved
 Plug 'tpope/vim-sleuth'             " indentation heuristics
 Plug 'kylechui/nvim-surround'       " change/delete surrounding characters
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' } " code formatter
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'for': ['javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 " }}}
 

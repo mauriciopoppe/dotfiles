@@ -383,6 +383,12 @@ EOF
 endif
 " }}}
 
+if utils#hasPlugin('vim-prettier') "{{{
+  let g:prettier#autoformat = 1
+  let g:prettier#autoformat_require_pragma = 0
+endif
+" }}}
+
 if utils#hasPlugin('lspsaga.nvim') "{{{
   source $VIMPATH/config/plugins/nvim-lspsaga.vim
 endif
