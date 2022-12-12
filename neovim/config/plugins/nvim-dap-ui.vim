@@ -2,7 +2,6 @@ lua << EOF
 
 local dap, dapui = require("dap"), require("dapui")
 
-local keymap = vim.keymap.set
 local function c(func, opts)
     return function()
         func(opts)
@@ -52,6 +51,22 @@ dapui.setup({
       position = "bottom",
     },
   },
+  controls = {
+    -- Requires Neovim nightly (or 0.8 when released)
+    enabled = true,
+    -- Display controls in this element
+    element = "repl",
+    icons = {
+      pause = "",
+      play = "",
+      step_into = "",
+      step_over = "",
+      step_out = "",
+      step_back = "",
+      run_last = "",
+      terminate = "",
+    },
+  },
   floating = {
     max_height = nil, -- These can be integers or a float between 0 and 1.
     max_width = nil, -- Floats will be treated as percentage of your screen.
@@ -63,6 +78,7 @@ dapui.setup({
   windows = { indent = 1 },
   render = {
     max_type_length = nil, -- Can be integer or nil.
+    max_value_lines = 100, -- Can be integer or nil.
   }
 })
 
@@ -78,17 +94,5 @@ dap.listeners.after.event_initialized["dapui_config"] = c(dapui.open)
 dap.listeners.after.event_loadedSource["dapui_config"] = c(dapui.open)
 dap.listeners.after.event_exited["dapui_config"] = c(dapui.close)
 
--- preview window under cursor
-keymap('n', '<Leader>dp', function()
-  opts = {
-    width = 200,
-    height = 15,
-    enter = true,
-  }
-  dapui.float_element("scopes", opts)
-end)
-
--- eval visually highlighted word
--- vim.api.nvim_set_keymap('v', '<M-k>', ':lua require("dapui").eval()<CR>', { noremap = true, silent = true })
 
 EOF

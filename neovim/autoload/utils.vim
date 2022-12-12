@@ -27,10 +27,6 @@ function! utils#cursorJumpToLastPosition()
   end
 endfunction
 
-function! utils#standardFormat()
-  execute "!standard-format --write %"
-endfunction
-
 function! utils#runLastCommand()
   if !exists("g:VimuxRunnerIndex") || _VimuxHasRunner(g:VimuxRunnerIndex) == -1
     call VimuxOpenRunner()
@@ -40,13 +36,6 @@ function! utils#runLastCommand()
   call VimuxSendText('!!')
   call VimuxSendKeys("Enter Enter")
 endfunction
-
-" Simple re-format for minified Javascript
-function! utils#UnMinifyJavascript()
-  " requires js-beautify
-  execute "!js-beautify --replace --indent-size 2 -a %"
-endfunction
-command! UnMinify call utils#UnMinify()
 
 function! utils#execScript()
   if !exists("g:VimuxRunnerIndex") || _VimuxHasRunner(g:VimuxRunnerIndex) == -1

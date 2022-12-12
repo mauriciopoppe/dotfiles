@@ -18,7 +18,7 @@ Plug 'onsails/lspkind-nvim' " completion icons
 
 Plug 'dcampos/nvim-snippy' " snippet engine
 Plug 'dcampos/cmp-snippy'  " snippet engine adapter for nvim-cmp
-Plug 'honza/vim-snippets'  " collection of snippets
+Plug 'honza/vim-snippets'  " snippet collection
 
 Plug 'nvim-treesitter/nvim-treesitter', {
        \ 'do': ':TSUpdate',
@@ -31,41 +31,25 @@ Plug 'lewis6991/spellsitter.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-neo-tree/neo-tree.nvim', { 'tag': 'v2.34' }
 Plug 'mrbjarksen/neo-tree-diagnostics.nvim'
-
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }   " overlay for navigation
 Plug 'mhinz/vim-signify'               " signs for navigation (also supports hg)
-
 Plug 'nvim-lualine/lualine.nvim' " statusline
 Plug 'ap/vim-buftabline'         " buffers tabline
 Plug 'preservim/tagbar'          " right sidebaf for navigation
+
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }   " overlay for navigation
+Plug 'LinArcX/telescope-command-palette.nvim'    " custom command palette
 
 Plug 'nathanaelkane/vim-indent-guides' " indent guides
 Plug 'junegunn/goyo.vim'               " distraction free writing
 Plug 'junegunn/limelight.vim'          " dim unfocussed paragraphs
 
 Plug 'mfussenegger/nvim-dap'      " debugger
-Plug 'rcarriga/nvim-dap-ui'	  " debugger ui
-Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'rcarriga/nvim-dap-ui'       " debugger ui
+Plug 'theHamsta/nvim-dap-virtual-text' " debugger virtual text
 
-" themes
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'w0ng/vim-hybrid'
 Plug 'lifepillar/vim-solarized8'
-
-" FZF {{{
-
-" Plug 'junegunn/fzf', {
-"   \ 'dir': '~/.fzf',
-"   \ 'do': './install --all'
-"   \ }                   " fuzzy finder engine
-" Plug 'junegunn/fzf.vim' " fuzzy finder bindings for vim
-
-" }}}
-
-" autocomplete {{{
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'fannheyward/telescope-coc.nvim'  " plugin for coc actions in telescope
-" }}}
 
 " }}}
 
@@ -74,10 +58,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'ggandor/lightspeed.nvim'        " navigate to any visible part
 Plug 'tpope/vim-unimpaired'           " additional mappings
 Plug 'christoomey/vim-tmux-navigator' " tmux navigation
-" Plug 'easymotion/vim-easymotion'      " navigate to any visible part with 2-keystrokes
-" Plug 'rhysd/clever-f.vim'             " better f
 Plug 'bkad/CamelCaseMotion'           " better motion
-" Plug 'mileszs/ack.vim'                " search
 Plug 'mbbill/undotree'                " undo tree
 Plug 'samoshkin/vim-mergetool'        " better vim mergetool, needs setup in git config too
 
@@ -85,8 +66,7 @@ Plug 'samoshkin/vim-mergetool'        " better vim mergetool, needs setup in git
 
 " Integration with external commands/apps {{{
 
-" Plug 'w0rp/ale'
-Plug 'ojroques/vim-oscyank'  " clipboard over ssh through tmux
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}  " clipboard over ssh through tmux
 Plug 'tpope/vim-fugitive'    " git wrapper
 Plug 'benmills/vimux'        " run commands in a tmux split
 Plug 'tyru/open-browser.vim' " open browser
@@ -98,10 +78,8 @@ Plug 'tyru/open-browser.vim' " open browser
 " Plug 'Konfekt/FastFold'             " FastFold
 Plug 'dhruvasagar/vim-table-mode'   " table mode
 Plug 'itchyny/vim-cursorword'       " highlight ocurrences of the current word
-" Plug 'itchyny/vim-parenmatch'       " highlight ocurrences of the current word
 Plug 'jiangmiao/auto-pairs'         " auto close (, [, {, ', \", `
 Plug 'junegunn/vim-easy-align'      " alignment
-" Plug 'mattn/emmet-vim'              " html expansion
 Plug 'terryma/vim-expand-region'    " expand visual region
 Plug 'terryma/vim-multiple-cursors' " multiple cursors (<C-n><C-p><C-x>)
 Plug 'tpope/vim-commentary'         " commenting stuff

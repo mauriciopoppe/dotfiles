@@ -135,6 +135,7 @@ endfunction
 command! Bdi :call DeleteInactiveBufs()
 command! Only :call DeleteInactiveBufs()
 
+" Custom functions
 lua << EOF
   package.loaded['my/utils'] = nil
   require('my/utils').Setup()

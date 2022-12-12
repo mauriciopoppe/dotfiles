@@ -1,17 +1,3 @@
-nnoremap <silent> [ui]f :<C-u>Telescope live_grep<CR>
-nnoremap <silent> [ui]b :<C-u>Telescope buffers<CR>
-nnoremap <silent> [ui]o :<C-u>Telescope find_files<CR>
-nnoremap <silent> [ui]r :<C-u>Telescope resume<CR>
-nnoremap <silent> [ui]l :<C-u>Telescope current_buffer_fuzzy_find<CR>
-nnoremap <silent> [ui]w :<C-u>Telescope grep_string<CR>
-nnoremap <silent> [ui]q :<C-u>Telescope quickfix<CR>
-
-nnoremap <silent> <leader>a :<C-u>Telescope lsp_code_actions<CR>
-nnoremap <silent> <leader>d :<C-u>Telescope lsp_definitions<CR>
-nnoremap <silent> <leader>t :<C-u>Telescope lsp_type_definitions<CR>
-nnoremap <silent> <leader>i :<C-u>Telescope lsp_implementations<CR>
-nnoremap <silent> <leader>r :<C-u>Telescope lsp_references<CR>
-
 lua << EOF
 local actions = require("telescope.actions")
 local split_vertical_theme = {
@@ -26,7 +12,6 @@ local split_vertical_theme = {
     end,
   },
 }
-
 require("telescope").setup {
   defaults = {
     mappings = {
@@ -42,6 +27,35 @@ require("telescope").setup {
     },
     lsp_references = split_vertical_theme,
     lsp_implementations = split_vertical_theme,
+  },
+  extensions = {
+    command_palette = {
+      {"Vim",
+        { "Copy absolute path", ":lua require'my/utils'.CopyAbsolutePathToClipboard()" },
+        { "Copy relative path", ":lua require'my/utils'.CopyRelativePathToClipboard()" },
+        { "Copy filename", ":lua require'my/utils'.CopyFilenameToClipboard()" },
+      }
+    }
   }
 }
+
+require('telescope').load_extension('command_palette')
+
+local keymap = vim.keymap.set
+keymap("n", "[ui]f", ":<C-u>Telescope live_grep<CR>", { noremap = true, silent = true })
+keymap("n", "[ui]b", ":<C-u>Telescope buffers<CR>", { noremap = true, silent = true })
+keymap("n", "[ui]o", ":<C-u>Telescope find_files<CR>", { noremap = true, silent = true })
+keymap("n", "[ui]r", ":<C-u>Telescope resume<CR>", { noremap = true, silent = true })
+keymap("n", "[ui]l", ":<C-u>Telescope current_buffer_fuzzy_find<CR>", { noremap = true, silent = true })
+keymap("n", "[ui]p", ":<C-u>Telescope command_palette<CR>", { noremap = true, silent = true })
+keymap("n", "[ui]w", ":<C-u>Telescope grep_string<CR>", { noremap = true, silent = true })
+keymap("n", "[ui]q", ":<C-u>Telescope quickfix<CR>", { noremap = true, silent = true })
+
+keymap("n", "<leader>a", ":<C-u>Telescope lsp_code_actions<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>d", ":<C-u>Telescope lsp_definitions<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>t", ":<C-u>Telescope lsp_type_definitions<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>i", ":<C-u>Telescope lsp_implementations<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>r", ":<C-u>Telescope lsp_references<CR>", { noremap = true, silent = true })
+
 EOF
+

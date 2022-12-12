@@ -62,11 +62,6 @@ EOF
 endif
 " }}}
 
-if utils#hasPlugin('vim-oscyank') " {{{
-let g:oscyank_term = 'default'
-endif
-" }}}
-
 if utils#hasPlugin('nvim-surround') " {{{
 lua << EOF
 require('nvim-surround').setup()
@@ -521,7 +516,8 @@ endif
 "}}}
 
 if utils#hasPlugin('vim-oscyank') "{{{
-  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | OSCYankReg " | endif
+  let g:oscyank_term = 'default'
+  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
 endif
 "}}}
 

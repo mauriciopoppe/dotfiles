@@ -1,10 +1,7 @@
 lua << EOF
 
-local deps_ok, dapui, dapui_widgets, dap = pcall(function()
-    return require "dapui", require "dap.ui.widgets", require "dap"
-end)
-
 local dap = require "dap"
+local dapui = require "dapui"
 local keymap = vim.keymap.set
 
 dap.set_log_level('TRACE')
@@ -15,80 +12,103 @@ local function c(func, opts)
     end
 end
 
-keymap('n', '<leader>db', c(dap.toggle_breakpoint))
+-- preview window under cursor
+keymap('n', '<Leader>bp', function()
+  opts = { width = 200, height = 15, enter = true, }
+  dapui.float_element("scopes", opts)
+end)
 
-keymap("n", "<leader>d.", c(dap.run_to_cursor))
-keymap("n", "<leader>dJ", c(dap.down))
-keymap("n", "<leader>dK", c(dap.up))
-keymap("n", "<leader>dL", function()
+keymap("n", "<leader>b.", c(dap.run_to_cursor))
+keymap("n", "<leader>bJ", c(dap.down))
+keymap("n", "<leader>bK", c(dap.up))
+keymap("n", "<leader>bL", function()
     dap.list_breakpoints()
     vim.cmd.copen()
 end)
-keymap("n", "<leader>dX", function()
+keymap("n", "<leader>bX", function()
     dap.terminate()
     dapui.close()
 end)
-keymap("n", "<leader>da", c(dap.toggle_breakpoint))
-keymap("n", "<leader>dc", c(dap.continue))
-keymap("n", "<leader>dh", c(dap.step_back))
-keymap("n", "<leader>dj", c(dap.step_into))
-keymap("n", "<leader>dk", c(dap.step_out))
-keymap("n", "<leader>dl", c(dap.step_over))
-keymap("n", "<leader>dr", c(dap.run_last))
-keymap("n", "<leader>dx", c(dap.clear_breakpoints))
+keymap("n", "<leader>ba", c(dap.toggle_breakpoint))
+keymap("n", "<leader>bc", c(dap.continue))
+keymap("n", "<leader>bh", c(dap.step_back))
+keymap("n", "<leader>bj", c(dap.step_into))
+keymap("n", "<leader>bk", c(dap.step_out))
+keymap("n", "<leader>bl", c(dap.step_over))
+keymap("n", "<leader>br", c(dap.run_last))
+keymap("n", "<leader>bx", c(dap.clear_breakpoints))
 
 keymap("v", "<M-e>", c(dapui.eval))
-keymap("n", "<leader>d?", c(dapui_widgets.hover))
 
 vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "WarningMsg" })
 vim.fn.sign_define("DapStopped", { text = "▶", linehl = "CursorLine" })
 
+-- setup adapter for go config taken from
+-- https://github.com/leoluz/nvim-dap-go/blob/4dd9c899997599c93a28aadf864a7924a4031f3e/lua/dap-go.lua#L55
 dap.adapters.go = function(callback, config)
   local stdout = vim.loop.new_pipe(false)
+  local stderr = vim.loop.new_pipe(false)
   local handle
   local pid_or_err
-  local port = config["port"] or 38697
-  local opts = {
-    stdio = {nil, stdout},
-    args = {"dap", "-l", "127.0.0.1:" .. port, "--log", "--log-output=dap"},
-    detached = true
-  }
-  if config["request"] == "launch" then
-    -- opts["args"] = {"connect", "--allow-non-terminal-interactive", "127.0.0.1:" .. config["port"]}
-    -- print(vim.inspect(opts))
+  local host = config.host or "127.0.0.1"
+  local port = config.port or "38697"
+  local addr = string.format("%s:%s", host, port)
+  if config.request == "attach" and config.mode == "remote" then
+    local msg = string.format("connecting to server at '%s'...", addr)
+    print(msg)
+  else
+    local opts = {
+      stdio = {nil, stdout, stderr},
+      -- To enable debugging:
+      -- - Uncomment the following line
+      -- args = {"dap", "-l", addr, "--log", "debug", "--log-output", "dap", "--log-dest", "/tmp/dap.log"},
+      -- - Check ~/.cache/nvim/dap.log (I saw set breakpoint errors here)
+      args = {"dap", "-l", addr},
+      detached = true
+    }
+    print(config)
+    print(opts)
+
     handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
+      stdout:read_stop()
+      stderr:read_stop()
       stdout:close()
+      stderr:close()
       handle:close()
       if code ~= 0 then
-        print('dlv exited with code', code)
+        print("ERROR: dlv exited with code", code)
       end
     end)
-    assert(handle, 'Error running dlv: ' .. tostring(pid_or_err))
+    assert(handle, "Error running dlv: " .. tostring(pid_or_err))
+
     stdout:read_start(function(err, chunk)
       assert(not err, err)
       if chunk then
         vim.schedule(function()
-          require('dap.repl').append(chunk)
+          require("dap.repl").append(chunk)
         end)
       end
     end)
-    -- Wait for delve to start
-    vim.defer_fn(
-      function()
-        callback({type = "server", host = "127.0.0.1", port = port})
-      end,
-    100)
-  else
-    -- server is already up in remote mode (still needs to be deferred to avoid errors :()
-    vim.defer_fn(
-      function()
-        callback({type = "server", host = "127.0.0.1", port = port})
-      end,
-    100)
+    stderr:read_start(function(err, chunk)
+      assert(not err, err)
+      if chunk then
+        vim.schedule(function()
+          require("dap.repl").append(chunk)
+        end)
+      end
+    end)
   end
+
+  -- Wait for delve to start
+  vim.defer_fn(function()
+    callback({ type = "server", host = host, port = port })
+  end, 100)
 end
 
+-- Documents to read to configure nvim-dap:
+--
 -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+-- https://github.com/go-delve/delve/tree/master/Documentation/api/dap
 dap.configurations.go = {
   {
     type = "go",
@@ -111,10 +131,51 @@ dap.configurations.go = {
     mode = "test",
     program = "./${relativeFileDirname}"
   },
+  -- debug kube-controller-manager binary
+  {
+    type = "go",
+    name = "Debug kube-controller-manager (local)",
+    request = "launch",
+    mode = "exec",
+    program = "./_output/bin/kube-controller-manager",
+    args = {
+      "--kubeconfig=/Users/mauriciopoppe/.kube/config",
+      "--leader-elect=false",
+      "--controllers=*",
+    },
+    stopOnEntry = false,
+    substitutePath = {
+      {
+          from = "${workspaceFolder}",
+          to = "/Users/mauriciopoppe/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes",
+      },
+    },
+  },
+  -- To run a remote debug session, you need to run the following command:
+  --
+  -- dlv --listen :38697 --accept-multiclient --api-version=2 --headless \
+  --   exec ./_output/bin/kube-controller-manager -- \
+  --   --kubeconfig=${HOME}/.kube/config --leader-elect=false --controllers="*"
+  {
+    type = "go",
+    name = "Attach kube-controller-manager (remote)",
+    debugAdapter = "dlv-dap",
+    request = "attach",
+    mode = "remote",
+    host = "127.0.0.1",
+    port = "38697",
+    stopOnEntry = false,
+    substitutePath = {
+      {
+          from = "${workspaceFolder}",
+          to = "/Users/mauriciopoppe/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes",
+      },
+    },
+  },
   -- debug remote process
   {
     type = "go",
-    name = "Debug kubernetes playground (remote)",
+    name = "Attach kubernetes playground (remote)",
     debugAdapter = "dlv-dap",
     request = "attach",
     mode = "remote",

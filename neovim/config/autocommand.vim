@@ -25,6 +25,7 @@ augroup FTCheck
   autocmd FileType python,xml,html,jsp setlocal ts=4 sts=4 sw=4
   autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
   autocmd FileType go setlocal ts=4 sts=4 sw=4
+  autocmd FileType markdown setlocal ts=2 sts=2 sw=2
 
   " hide preview window
   " autocmd FileType go setlocal completeopt-=preview
