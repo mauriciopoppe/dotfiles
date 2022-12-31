@@ -31,12 +31,16 @@ keymap("n", "<leader>bX", function()
 end)
 keymap("n", "<leader>ba", c(dap.toggle_breakpoint))
 keymap("n", "<leader>bc", c(dap.continue))
-keymap("n", "<leader>bh", c(dap.step_back))
 keymap("n", "<leader>bj", c(dap.step_into))
 keymap("n", "<leader>bk", c(dap.step_out))
 keymap("n", "<leader>bl", c(dap.step_over))
 keymap("n", "<leader>br", c(dap.run_last))
 keymap("n", "<leader>bx", c(dap.clear_breakpoints))
+
+keymap("n", "H", c(dap.run_to_cursor))
+keymap("n", "J", c(dap.step_into))
+keymap("n", "K", c(dap.step_out))
+keymap("n", "L", c(dap.step_over))
 
 keymap("v", "<M-e>", c(dapui.eval))
 
@@ -172,7 +176,7 @@ dap.configurations.go = {
       },
     },
   },
-  -- debug remote process
+  -- debug my kubernetes-playground project
   {
     type = "go",
     name = "Attach kubernetes playground (remote)",

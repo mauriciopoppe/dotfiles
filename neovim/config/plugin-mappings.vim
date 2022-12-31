@@ -391,7 +391,12 @@ endif
 
 if utils#hasPlugin('copilot.vim') "{{{
   imap <silent><script><expr> <C-j> copilot#Accept("\<CR>")
+  " Instructions to disable copilot on certain filetypes.
+  " https://github.com/github/copilot.vim/blob/release/doc/copilot.txt
   let g:copilot_no_tab_map = v:true
+  let g:copilot_filetypes = {
+        \ 'dap-repl': v:false,
+        \ }
 endif
 " }}}
 

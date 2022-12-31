@@ -41,6 +41,8 @@ require("telescope").setup {
 
 require('telescope').load_extension('command_palette')
 
+local builtin = require('telescope.builtin')
+
 local keymap = vim.keymap.set
 keymap("n", "[ui]f", ":<C-u>Telescope live_grep<CR>", { noremap = true, silent = true })
 keymap("n", "[ui]b", ":<C-u>Telescope buffers<CR>", { noremap = true, silent = true })
@@ -56,6 +58,8 @@ keymap("n", "<leader>d", ":<C-u>Telescope lsp_definitions<CR>", { noremap = true
 keymap("n", "<leader>t", ":<C-u>Telescope lsp_type_definitions<CR>", { noremap = true, silent = true })
 keymap("n", "<leader>i", ":<C-u>Telescope lsp_implementations<CR>", { noremap = true, silent = true })
 keymap("n", "<leader>r", ":<C-u>Telescope lsp_references<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>ci", ":<C-u>Telescope lsp_incoming_calls<CR>", { noremap = true, silent = true })
+keymap("n", "<leader>co", ":<C-u>Telescope lsp_outgoing_calls<CR>", { noremap = true, silent = true })
 
 EOF
 
