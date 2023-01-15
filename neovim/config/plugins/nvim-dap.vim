@@ -37,15 +37,23 @@ keymap("n", "<leader>bl", c(dap.step_over))
 keymap("n", "<leader>br", c(dap.run_last))
 keymap("n", "<leader>bx", c(dap.clear_breakpoints))
 
-keymap("n", "H", c(dap.run_to_cursor))
-keymap("n", "J", c(dap.step_into))
-keymap("n", "K", c(dap.step_out))
-keymap("n", "L", c(dap.step_over))
-
 keymap("v", "<M-e>", c(dapui.eval))
 
 vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "WarningMsg" })
 vim.fn.sign_define("DapStopped", { text = "▶", linehl = "CursorLine" })
+
+dap.listeners.after.event_initialized["dap_debug_mappings"] = function()
+  vim.keymap.set("n", "H", c(dap.continue))
+  vim.keymap.set("n", "J", c(dap.step_into))
+  vim.keymap.set("n", "K", c(dap.step_out))
+  vim.keymap.set("n", "L", c(dap.step_over))
+end
+dap.listeners.after.event_exited["dap_debug_mappings"] = function()
+  vim.keymap.del('n', "H")
+  vim.keymap.del('n', "J")
+  vim.keymap.del('n', "K")
+  vim.keymap.del('n', "L")
+end
 
 -- setup adapter for go config taken from
 -- https://github.com/leoluz/nvim-dap-go/blob/4dd9c899997599c93a28aadf864a7924a4031f3e/lua/dap-go.lua#L55
