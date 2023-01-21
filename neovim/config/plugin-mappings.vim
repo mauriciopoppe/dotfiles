@@ -50,6 +50,14 @@ if utils#hasPlugin('nvim-cmp') " {{{
 endif
 " }}}
 
+if utils#hasPlugin('nvim-spectre') " {{{
+lua << EOF
+require('spectre').setup()
+EOF
+nnoremap [ui]s <cmd>lua require('spectre').open()<CR>
+endif
+" }}}
+
 if utils#hasPlugin('vim-latex-live-preview') " {{{
   let g:livepreview_previewer = 'skim'
 endif

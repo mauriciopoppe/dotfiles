@@ -35,6 +35,7 @@ Plug 'mhinz/vim-signify'               " signs for navigation (also supports hg)
 Plug 'nvim-lualine/lualine.nvim' " statusline
 Plug 'ap/vim-buftabline'         " buffers tabline
 Plug 'preservim/tagbar'          " right sidebaf for navigation
+Plug 'windwp/nvim-spectre'       " search and replace
 
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }   " overlay for navigation
 Plug 'LinArcX/telescope-command-palette.nvim'    " custom command palette
