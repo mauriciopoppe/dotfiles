@@ -56,7 +56,8 @@ Plug 'lifepillar/vim-solarized8'
 
 " Navigation {{{
 
-Plug 'ggandor/lightspeed.nvim'        " navigate to any visible part
+Plug 'ggandor/leap.nvim'              " navigate to any visible part
+Plug 'ggandor/flit.nvim'              " f/F/t/T navigation
 Plug 'tpope/vim-unimpaired'           " additional mappings
 Plug 'christoomey/vim-tmux-navigator' " tmux navigation
 Plug 'bkad/CamelCaseMotion'           " better motion

@@ -58,6 +58,26 @@ nnoremap [ui]s <cmd>lua require('spectre').open()<CR>
 endif
 " }}}
 
+if utils#hasPlugin('leap.nvim') " {{{
+lua require('leap').add_default_mappings()
+endif
+" }}}
+
+if utils#hasPlugin('flit.nvim') " {{{
+lua << EOF
+require('flit').setup {
+  keys = { f = 'f', F = 'F', t = 't', T = 'T' },
+  -- A string like "nv", "nvo", "o", etc.
+  labeled_modes = "v",
+  multiline = true,
+  -- Like `leap`s similar argument (call-specific overrides).
+  -- E.g.: opts = { equivalence_classes = {} }
+  opts = {}
+}
+EOF
+endif
+" }}}
+
 if utils#hasPlugin('vim-latex-live-preview') " {{{
   let g:livepreview_previewer = 'skim'
 endif
