@@ -51,29 +51,25 @@ function M.AutoWriteOnFocusLost()
   end
 end
 
-function M.FixLoader()
-  local function load(modulename)
-    local errmsg = ""
-    for path in string.gmatch(package.path, "([^;]+)") do
-      local filename = string.gsub(path, "%?", modulename)
-      local file = io.open(filename, "rb")
-      if file then
-        -- Compile and return the module
-        return assert(loadstring(assert(file:read("*a")), filename))
-      end
-      errmsg = errmsg.."\n\tno file '"..filename.."' (checked with custom loader)"
-    end
-    return errmsg
-  end
-  table.insert(package.loaders, 2, load)
+-- [[
+-- TrimWhitespace trims the whitespace at the end of all lines,
+-- it also preserves the cursor position and search
+-- ]]
+function M.TrimWhitespace()
+  local _s = vim.fn.getreg('@/')
+  local l = vim.fn.line(".")
+  local c = vim.fn.col(".")
+  vim.cmd("execute 'keeppatterns %s/\\s\\+$//e'")
+  vim.fn.setreg('@/', _s)
+  vim.fn.cursor(l, c)
 end
 
 function M.Setup()
   api.nvim_command('augroup autowrite')
     api.nvim_command('autocmd!')
+    api.nvim_command('autocmd BufWritePre * :lua require\'my/utils\'.TrimWhitespace()')
     api.nvim_command('autocmd FocusLost,BufLeave * :lua require\'my/utils\'.AutoWriteOnFocusLost()')
   api.nvim_command('augroup END')
-  M.FixLoader()
 end
 
 -- [[
@@ -83,12 +79,5 @@ function M.PluginLoaded(repository)
   return vim.g.plugs[repository] ~= nil
 end
 
-function M.RequireConfig(path)
-  local vimpath = os.getenv('VIMPATH')
-  -- escape . since it's a separator
-  -- vimpath = vimpath:gsub("[.]", "\\.")
-  -- print(vimpath)
-  require(vimpath .. '/' .. path)
-end
-
 return M
+

@@ -2,9 +2,6 @@ augroup mine
   " hide preview
   autocmd CompleteDone * pclose
 
-  " clear whitespace on buffer save
-  autocmd BufWritePre * :call utils#whitespace()
-
   " highlight yank
   au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=true}
 augroup END
