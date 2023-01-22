@@ -1,11 +1,64 @@
-augroup mine
-  " hide preview
-  autocmd CompleteDone * pclose
+local api = vim.api
 
-  " highlight yank
-  au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=true}
-augroup END
+-- [[
+-- TrimWhitespace trims the whitespace at the end of all lines,
+-- it also preserves the cursor position and search
+-- ]]
+function TrimWhitespace()
+  local _s = vim.fn.getreg('@/')
+  local l = vim.fn.line(".")
+  local c = vim.fn.col(".")
+  vim.cmd("execute 'keeppatterns %s/\\s\\+$//e'")
+  vim.fn.setreg('@/', _s)
+  vim.fn.cursor(l, c)
+end
 
+--[[
+-- AutoWriteOnFocusLost writes the current buffer if it's a normal buffer
+-- more info at https://neovim.io/doc/user/options.html#'buftype'
+--]]
+function AutoWriteOnFocusLost()
+  -- current_buffer_number = api.nvim_eval('bufnr("%")')
+  -- current_buffer_info = api.nvim_eval(string.format('getbufinfo(%s)[0]', current_buffer_number))
+  -- print(vim.inspect(current_buffer_info.name))
+  if vim.bo.buftype == "" then
+    local current_buffer_number = api.nvim_eval('bufnr("%")')
+    local current_buffer_info = api.nvim_eval(string.format('getbufinfo(%s)[0]', current_buffer_number))
+    if current_buffer_info.changed ~= 0 then
+      api.nvim_command('write')
+    end
+  end
+end
+
+local autowrite = vim.api.nvim_create_augroup('vimrc', { clear = true })
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = "*",
+  group = autowrite,
+  callback = TrimWhitespace,
+})
+vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
+  pattern = "*",
+  group = autowrite,
+  callback = AutoWriteOnFocusLost,
+})
+
+local setup = vim.api.nvim_create_augroup('setup', { clear = true })
+-- hide preview on complete
+vim.api.nvim_create_autocmd({ "CompleteDone" }, {
+  pattern = "*",
+  group = setup,
+  command = "pclose",
+})
+-- highlight yank
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+  pattern = "*",
+  group = setup,
+  callback = function()
+    vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=true}
+  end,
+})
+
+vim.cmd([[
 augroup FTCheck
   autocmd!
   autocmd BufRead,BufNewFile *.md           set ft=markdown
@@ -51,4 +104,4 @@ augroup FTCheck
   autocmd FileType proto setlocal wrap textwidth=120 wrapmargin=0 ts=4 sw=4
 
 augroup END
-
+]])

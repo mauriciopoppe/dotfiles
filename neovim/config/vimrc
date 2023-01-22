@@ -30,9 +30,9 @@ syntax enable
 
 call s:source_file('general.lua')
 call s:source_file('plugin-mappings.lua')
-call s:source_file('mappings.vim')
+call s:source_file('mappings.lua')
 call s:source_file('theme.vim')
-call s:source_file('autocommand.vim')
+call s:source_file('autocommand.lua')
 
 " at work alt.vim is a symlink to my work neovim config
 " see the output of `ls -la neovim/config/alt.vim`

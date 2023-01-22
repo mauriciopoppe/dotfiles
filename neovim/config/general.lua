@@ -5,8 +5,8 @@ vim.o.shell="/bin/zsh"
 vim.o.number=true
 -- hide last line message (e.g. hide --INSERT--)
 vim.o.showmode=false
--- wrap text at 80 characters
-vim.o.textwidth=80
+-- wrap text at 120 characters
+vim.o.textwidth=120
 -- column width indicator
 vim.o.colorcolumn="+1"
 -- hiden instead of unload a buffer when abandoned
