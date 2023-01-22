@@ -37,6 +37,8 @@ set softtabstop=2
 set shiftwidth=2
 " how many places should a tab be seen as
 set tabstop=4
+" enable break indent
+set breakindent
 " }}}
 " Display settings {{{
 
@@ -104,7 +106,7 @@ set fillchars="fold: "
 " }}}
 " Omni completion settings {{{
 
-set completeopt=menu,menuone,noselect
+set completeopt=menuone,noselect
 
 " quiet messages in auto completion
 " set shortmess+=c

@@ -31,23 +31,20 @@ Plug 'lewis6991/spellsitter.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-neo-tree/neo-tree.nvim', { 'tag': 'v2.34' }
 Plug 'mrbjarksen/neo-tree-diagnostics.nvim'
-Plug 'mhinz/vim-signify'               " signs for navigation (also supports hg)
+Plug 'mhinz/vim-signify'         " signs for navigation (also supports hg)
 Plug 'nvim-lualine/lualine.nvim' " statusline
 Plug 'ap/vim-buftabline'         " buffers tabline
 Plug 'preservim/tagbar'          " right sidebaf for navigation
 Plug 'windwp/nvim-spectre'       " search and replace
 
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }   " overlay for navigation
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }   " overlay for navigation
 Plug 'LinArcX/telescope-command-palette.nvim'    " custom command palette
-
-Plug 'nathanaelkane/vim-indent-guides' " indent guides
-Plug 'junegunn/goyo.vim'               " distraction free writing
-Plug 'junegunn/limelight.vim'          " dim unfocussed paragraphs
 
 Plug 'mfussenegger/nvim-dap'      " debugger
 Plug 'rcarriga/nvim-dap-ui'       " debugger ui
 Plug 'theHamsta/nvim-dap-virtual-text' " debugger virtual text
 
+Plug 'nathanaelkane/vim-indent-guides' " indent guides
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'w0ng/vim-hybrid'
 Plug 'lifepillar/vim-solarized8'
@@ -68,29 +65,26 @@ Plug 'samoshkin/vim-mergetool'        " better vim mergetool, needs setup in git
 
 " Integration with external commands/apps {{{
 
-Plug 'ojroques/vim-oscyank', {'branch': 'main'}  " clipboard over ssh through tmux
+Plug 'ojroques/vim-oscyank', { 'branch': 'main' }  " clipboard over ssh through tmux
 Plug 'tpope/vim-fugitive'    " git wrapper
 Plug 'benmills/vimux'        " run commands in a tmux split
-Plug 'tyru/open-browser.vim' " open browser
 
 "}}}
 
 " Code manipulation {{{
 
-" Plug 'Konfekt/FastFold'             " FastFold
-Plug 'dhruvasagar/vim-table-mode'   " table mode
-Plug 'itchyny/vim-cursorword'       " highlight ocurrences of the current word
+Plug 'RRethy/vim-illuminate'        " highlight ocurrences of the current word
 Plug 'jiangmiao/auto-pairs'         " auto close (, [, {, ', \", `
 Plug 'junegunn/vim-easy-align'      " alignment
 Plug 'terryma/vim-expand-region'    " expand visual region
-Plug 'terryma/vim-multiple-cursors' " multiple cursors (<C-n><C-p><C-x>)
+Plug 'mg979/vim-visual-multi'       " multiple cursors (<C-n><C-p><C-x>)
 Plug 'tpope/vim-commentary'         " commenting stuff
 Plug 'tpope/vim-repeat'             " . improved
-Plug 'tpope/vim-sleuth'             " indentation heuristics
+Plug 'tpope/vim-sleuth'             " Detect tabstop and shiftwidth automatically
 Plug 'kylechui/nvim-surround'       " change/delete surrounding characters
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
-  \ 'for': ['javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+  \ 'for': [ 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html' ] }
 
 " }}}
 
@@ -120,11 +114,8 @@ Plug 'pprovost/vim-ps1'      " ft for powershell scripts :(
 " Plug 'yoppi/fluentd.vim'
 
 " Go
-" Plug 'fatih/vim-go', { 'tag': 'v1.19', 'do': ':GoInstallBinaries' }
 Plug 'ray-x/go.nvim'
 Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'sebdah/vim-delve'
-" Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 
 " Terraform
 " Plug 'hashivim/vim-terraform'
@@ -134,8 +125,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 " Other {{{
 
 Plug 'tpope/vim-obsession'           " session management
-" Plug 'embear/vim-localvimrc'         " local vimrc
-Plug 'editorconfig/editorconfig-vim' " editorconfig
+Plug 'gpanders/editorconfig.nvim'    " editorconfig
 
 " }}}
 

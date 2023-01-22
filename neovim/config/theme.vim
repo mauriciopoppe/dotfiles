@@ -10,9 +10,7 @@ let g:pencil_higher_contrast_ui = 1
 let g:pencil_neutral_code_bg = 1
 let g:pencil_spell_undercurl = 1
 
-if has('nvim') || has('termguicolors')
-  set termguicolors
-endif
+set termguicolors
 
 " ChangeBackground changes the background mode based on macOS's `Appearance`
 " setting. We also refresh the statusline colors to reflect the new mode.
