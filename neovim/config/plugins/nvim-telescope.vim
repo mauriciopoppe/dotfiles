@@ -40,6 +40,7 @@ require("telescope").setup {
 }
 
 require('telescope').load_extension('command_palette')
+require('telescope').load_extension('vim_bookmarks')
 
 local builtin = require('telescope.builtin')
 
@@ -52,6 +53,7 @@ keymap("n", "[ui]l", ":<C-u>Telescope current_buffer_fuzzy_find<CR>", { noremap 
 keymap("n", "[ui]p", ":<C-u>Telescope command_palette<CR>", { noremap = true, silent = true })
 keymap("n", "[ui]w", ":<C-u>Telescope grep_string<CR>", { noremap = true, silent = true })
 keymap("n", "[ui]q", ":<C-u>Telescope quickfix<CR>", { noremap = true, silent = true })
+keymap("n", "[ui]m", ":<C-u>Telescope vim_bookmarks all<CR>", { noremap = true, silent = true })
 
 keymap("n", "<leader>a", ":<C-u>Telescope lsp_code_actions<CR>", { noremap = true, silent = true })
 keymap("n", "<leader>d", ":<C-u>Telescope lsp_definitions<CR>", { noremap = true, silent = true })

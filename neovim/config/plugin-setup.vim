@@ -8,10 +8,11 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-" Only enable copilot in my personal computer and not at work.
-let s:uname = match(system('uname -n'), "Mauricios-MBP")
+" Only enable copilot (or codeium) in my personal computer and not at work.
+let s:uname = match(system('uname -a'), "Darwin.*Mauricios-MacBook-Pro.*arm64")
 if trim(s:uname) != -1
-    Plug 'github/copilot.vim'
+    " Plug 'github/copilot.vim'
+    Plug 'Exafunction/codeium.vim'
 endif
 Plug 'hrsh7th/nvim-cmp'     " completion engine
 Plug 'onsails/lspkind-nvim' " completion icons
@@ -39,6 +40,7 @@ Plug 'windwp/nvim-spectre'       " search and replace
 
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }   " overlay for navigation
 Plug 'LinArcX/telescope-command-palette.nvim'    " custom command palette
+Plug 'tom-anders/telescope-vim-bookmarks.nvim'   " vim bookmarks loader
 
 Plug 'mfussenegger/nvim-dap'      " debugger
 Plug 'rcarriga/nvim-dap-ui'       " debugger ui
@@ -60,6 +62,7 @@ Plug 'christoomey/vim-tmux-navigator' " tmux navigation
 Plug 'bkad/CamelCaseMotion'           " better motion
 Plug 'mbbill/undotree'                " undo tree
 Plug 'samoshkin/vim-mergetool'        " better vim mergetool, needs setup in git config too
+Plug 'MattesGroeger/vim-bookmarks'    " toggle bookmarks per line, use telescope to find them
 
 " }}}
 

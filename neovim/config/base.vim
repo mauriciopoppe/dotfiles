@@ -4,7 +4,6 @@
 
 " Global Mappings "{{{
 " , is the leader
-" ; the secondary leader
 let g:mapleader=","
 
 " Release keymappings prefixes (remapped later)
@@ -14,10 +13,8 @@ nnoremap ,        <Nop>
 xnoremap ,        <Nop>
 nnoremap ;        <Nop>
 xnoremap ;        <Nop>
-nnoremap m        <Nop>
-xnoremap m        <Nop>
 
-" ui prefix
+" ; the secondary leader, mapped to [ui]
 nnoremap [ui] <Nop>
 xnoremap [ui] <Nop>
 nmap ; [ui]
@@ -32,24 +29,14 @@ if ! isdirectory(expand($VARPATH))
 endif
 
 " }}}
+
 " load additional settings (file's not tracked by git) "{{{
 if filereadable(expand('$VIMPATH/.vault.vim'))
 	execute 'source' expand('$VIMPATH/.vault.vim')
 endif
 
 " }}}
-" Load less plugins while SSHing to remote machines {{{
-if len($SSH_CLIENT)
-	let $VIM_MINIMAL = 1
-endif
-
-" }}}
 " Disable default plugins "{{{
-
-" Disable menu.vim
-if has('gui_running')
-  set guioptions=Mc
-endif
 
 " Disable pre-bundled plugins
 let g:loaded_getscript = 1
