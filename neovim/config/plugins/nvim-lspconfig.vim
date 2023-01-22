@@ -40,7 +40,22 @@ if not is_google3 then
     flags = {
       debounce_text_changes = 150,
     },
-    capabilities = capabilities
+    capabilities = capabilities,
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        env = {
+          -- Enable analysis of files with the tag linux.
+          -- Without this we can't analyze files that have a linux impl of a function.
+          --
+          -- Similar issue upstream https://github.com/golang/go/issues/29202
+          -- Setting additional opts for gopls https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-v050
+          GOFLAGS = "-tags=linux"
+        },
+      },
+    },
   }
 end
 

@@ -49,6 +49,7 @@ dap.listeners.after.event_initialized["dap_debug_mappings"] = function()
   vim.keymap.set("n", "L", c(dap.step_over))
 end
 dap.listeners.after.event_exited["dap_debug_mappings"] = function()
+  -- TODO: this isn't working, need to figure out how to remove the keymaps
   vim.keymap.del('n', "H")
   vim.keymap.del('n', "J")
   vim.keymap.del('n', "K")
@@ -72,9 +73,9 @@ dap.adapters.go = function(callback, config)
     local opts = {
       stdio = {nil, stdout, stderr},
       -- To enable debugging:
-      -- - Uncomment the following line
-      -- args = {"dap", "-l", addr, "--log", "debug", "--log-output", "dap", "--log-dest", "/tmp/dap.log"},
+      -- - Uncomment the following line (and comment the other args line below)
       -- - Check ~/.cache/nvim/dap.log (I saw set breakpoint errors here)
+      -- args = {"dap", "-l", addr, "--log", "debug", "--log-output", "dap", "--log-dest", "/tmp/dap.log"},
       args = {"dap", "-l", addr},
       detached = true
     }
@@ -198,6 +199,27 @@ dap.configurations.go = {
       {
           from = "${workspaceFolder}",
           to = "/go/src/github.com/mauriciopoppe/kubernetes-playground",
+      },
+    },
+  },
+  {
+    type = "go",
+    name = "Attach kubelet (remote)",
+    debugAdapter = "dlv-dap",
+    request = "attach",
+    mode = "remote",
+    host = "127.0.0.1",
+    port = "56268",
+    stopOnEntry = false,
+    -- I started the kubelet in kind through delve listening on port 56268
+    -- next I connected to it through `dlv connect :56268`
+    -- inside it I run `sources` and it printed the list of files in the kubelet
+    -- together with the right path, later I added this path to the substitutePath
+    -- option in the config below
+    substitutePath = {
+      {
+          from = "${workspaceFolder}",
+          to = "/go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes",
       },
     },
   },
