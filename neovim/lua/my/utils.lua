@@ -2,6 +2,13 @@ local api = vim.api
 local M = {}
 
 -- [[
+-- Checks if a plugin was loaded by vim-plug.
+-- ]]
+function M.PluginLoaded(repository)
+  return vim.g.plugs[repository] ~= nil
+end
+
+-- [[
 -- CopyAbsolutePathToClipboard copies the absolute path of the focused file to the clipboard.
 -- ]]
 function M.CopyAbsolutePathToClipboard()
@@ -70,13 +77,6 @@ function M.Setup()
     api.nvim_command('autocmd BufWritePre * :lua require\'my/utils\'.TrimWhitespace()')
     api.nvim_command('autocmd FocusLost,BufLeave * :lua require\'my/utils\'.AutoWriteOnFocusLost()')
   api.nvim_command('augroup END')
-end
-
--- [[
--- Checks if a plugin was loaded by vim-plug.
--- ]]
-function M.PluginLoaded(repository)
-  return vim.g.plugs[repository] ~= nil
 end
 
 return M
