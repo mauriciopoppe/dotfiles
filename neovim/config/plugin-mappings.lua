@@ -9,27 +9,35 @@ if utils.PluginLoaded('vim-oscyank') then
 end
 
 if utils.PluginLoaded('neo-tree.nvim') then
-  vim.cmd([[ source $VIMPATH/config/plugins/nvim-neotree.vim ]])
+  vim.cmd([[ source $VIMPATH/config/plugins/nvim-neotree.lua ]])
 end
 
 if utils.PluginLoaded('nvim-dap') then
-  vim.cmd([[ source $VIMPATH/config/plugins/nvim-dap.vim ]])
+  vim.cmd([[ source $VIMPATH/config/plugins/nvim-dap.lua ]])
 end
 
 if utils.PluginLoaded('nvim-dap-ui') then
-  vim.cmd([[ source $VIMPATH/config/plugins/nvim-dap-ui.vim ]])
+  vim.cmd([[ source $VIMPATH/config/plugins/nvim-dap-ui.lua ]])
 end
 
 if utils.PluginLoaded('lualine.nvim') then
-  vim.cmd([[ source $VIMPATH/config/plugins/nvim-lualine.vim ]])
+  vim.cmd([[ source $VIMPATH/config/plugins/nvim-lualine.lua ]])
 end
 
 if utils.PluginLoaded('telescope.nvim') then
-  vim.cmd([[ source $VIMPATH/config/plugins/nvim-telescope.vim ]])
+  vim.cmd([[ source $VIMPATH/config/plugins/nvim-telescope.lua ]])
 end
 
 if utils.PluginLoaded('nvim-cmp') then
-  vim.cmd([[ source $VIMPATH/config/plugins/nvim-cmp.vim ]])
+  vim.cmd([[ source $VIMPATH/config/plugins/nvim-cmp.lua ]])
+end
+
+if utils.PluginLoaded('nvim-lspconfig') then
+  vim.cmd([[ source $VIMPATH/config/plugins/nvim-lspconfig.lua ]])
+end
+
+if utils.PluginLoaded('nvim-treesitter') then
+  vim.cmd([[ source $VIMPATH/config/plugins/nvim-treesitter.lua ]])
 end
 
 if utils.PluginLoaded('nvim-spectre') then
@@ -97,14 +105,6 @@ autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
 autocmd FileType go nnoremap <silent> <Leader>k :<C-u>GoDoc<CR>
   ]])
   require('go').setup()
-end
-
-if utils.PluginLoaded('nvim-lspconfig') then
-  vim.cmd([[ source $VIMPATH/config/plugins/nvim-lspconfig.vim ]])
-end
-
-if utils.PluginLoaded('nvim-treesitter') then
-  vim.cmd([[ source $VIMPATH/config/plugins/nvim-treesitter.vim ]])
 end
 
 if utils.PluginLoaded('vim-prettier') then

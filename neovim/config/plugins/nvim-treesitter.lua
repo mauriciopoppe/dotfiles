@@ -1,5 +1,3 @@
-lua <<EOF
-
 -- Identifies zsh as bash.
 -- https://github.com/nvim-treesitter/nvim-treesitter/issues/655#issuecomment-1021160477
 local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
@@ -56,9 +54,10 @@ require'nvim-treesitter.configs'.setup {
     -- },
   },
 }
-EOF
 
+vim.cmd([[
 set foldmethod=expr
 setlocal foldlevelstart=99
 set foldexpr=nvim_treesitter#foldexpr()
+]])
 

@@ -1,4 +1,3 @@
-lua << EOF
 local actions = require("telescope.actions")
 local split_vertical_theme = {
   theme = "dropdown",
@@ -62,6 +61,4 @@ keymap("n", "<leader>i", ":<C-u>Telescope lsp_implementations<CR>", { noremap = 
 keymap("n", "<leader>r", ":<C-u>Telescope lsp_references<CR>", { noremap = true, silent = true })
 keymap("n", "<leader>ci", ":<C-u>Telescope lsp_incoming_calls<CR>", { noremap = true, silent = true })
 keymap("n", "<leader>co", ":<C-u>Telescope lsp_outgoing_calls<CR>", { noremap = true, silent = true })
-
-EOF
 

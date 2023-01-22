@@ -1,8 +1,4 @@
-nnoremap [ui]e :Neotree toggle<CR>
-nnoremap [ui]a :Neotree reveal<CR>
-nnoremap [ui]x :Neotree diagnostics toggle bottom<CR>
 
-lua << EOF
 
 local neotree = require("neo-tree/command/init")
 local cc = require("neo-tree.sources.filesystem.commands")
@@ -119,7 +115,6 @@ require("neo-tree").setup({
       ["H"] = "toggle_hidden",
       ["R"] = "refresh",
       ["/"] = "fuzzy_finder",
-      ["f"] = "filter_on_submit",
       ["<c-x>"] = "clear_filter",
       ["a"] = "add",
       ["A"] = "add_directory",
@@ -187,4 +182,9 @@ require("neo-tree").setup({
     }
   }
 })
-EOF
+
+vim.cmd([[
+nnoremap [ui]e :Neotree toggle<CR>
+nnoremap [ui]a :Neotree reveal<CR>
+nnoremap [ui]x :Neotree diagnostics toggle bottom<CR>
+]])

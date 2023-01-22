@@ -1,5 +1,3 @@
-lua << EOF
-
 local dap = require "dap"
 local dapui = require "dapui"
 local keymap = vim.keymap.set
@@ -240,4 +238,3 @@ dap.configurations.go = {
 --  }
 }
 
-EOF

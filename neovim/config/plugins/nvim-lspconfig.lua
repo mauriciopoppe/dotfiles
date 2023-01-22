@@ -1,6 +1,5 @@
-" https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
-" https://github.com/neovim/nvim-lspconfig
-lua <<EOF
+-- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
+-- https://github.com/neovim/nvim-lspconfig
 
 local nvim_lsp = require('lspconfig')
 
@@ -91,5 +90,3 @@ require'lspconfig'.sumneko_lua.setup {
     },
   },
 }
-
-EOF
