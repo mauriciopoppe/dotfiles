@@ -66,10 +66,10 @@ let g:loaded_zipPlugin = 1
 let g:glsl_file_extensions = '*.glsl,*.vert,*.frag'
 "}}}
 
-" https://neovim.io/doc/user/starting.html#shada-file
-" shared data
-augroup MyAutoCmd
-	autocmd CursorHold * if exists(':rshada') | rshada | wshada | endif
-augroup END
+" " https://neovim.io/doc/user/starting.html#shada-file
+" " shared data
+" augroup MyAutoCmd
+" 	autocmd CursorHold * if exists(':rshada') | rshada | wshada | endif
+" augroup END
 
 " vim: set ts=2 sw=2 tw=80 noet :
