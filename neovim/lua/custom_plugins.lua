@@ -1,9 +1,9 @@
 return {
-  --  " lua utility functions
+  -- lua utility functions
   "nvim-lua/plenary.nvim",
-  --   " lua UI library
+  -- lua UI library
   "MunifTanjim/nui.nvim",
-  --  " common confs for nvim-lsp
+  -- common confs for nvim-lsp
   "neovim/nvim-lspconfig",
 
   --
@@ -22,25 +22,30 @@ return {
       vim.g.copilot_filetypes = {
         ['dap-repl'] = false,
       }
+    end,
+    enabled = function()
+      -- don't enable at work
+      local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")
+      return is_local_env ~= nil
     end
   },
-  --     " completion engine
+  -- completion engine
   "hrsh7th/nvim-cmp",
   -- " completion icons
   "onsails/lspkind-nvim",
 
   -- " snippet engine
   "dcampos/nvim-snippy",
-  --  " snippet engine adapter for nvim-cmp
+  -- snippet engine adapter for nvim-cmp
   "dcampos/cmp-snippy",
-  --  " snippet collection
+  -- snippet collection
   "honza/vim-snippets",
 
   --
   "nvim-treesitter/nvim-treesitter",
   -- " treesitter objects
   "nvim-treesitter/nvim-treesitter-textobjects",
-  --     " header line that gives context
+  -- header line that gives context
   "nvim-treesitter/nvim-treesitter-context",
   --
   "JoosepAlviste/nvim-ts-context-commentstring",
@@ -60,7 +65,7 @@ return {
   },
   --
   "mrbjarksen/neo-tree-diagnostics.nvim",
-  --         " signs for navigation (also supports hg)
+  -- signs for navigation (also supports hg)
   {
     "mhinz/vim-signify",
     config = function()
@@ -72,11 +77,11 @@ return {
 
   -- " statusline
   "nvim-lualine/lualine.nvim",
-  --         " buffers tabline
+  -- buffers tabline
   "ap/vim-buftabline",
-  --          " right sidebaf for navigation
+  -- right sidebaf for navigation
   "preservim/tagbar",
-  --       " search and replace
+  -- search and replace
   {
     "windwp/nvim-spectre",
     config = function()
@@ -91,14 +96,14 @@ return {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
   },
-  --    " custom command palette
+  -- custom command palette
   "LinArcX/telescope-command-palette.nvim",
-  --   " vim bookmarks loader
+  -- vim bookmarks loader
   "tom-anders/telescope-vim-bookmarks.nvim",
 
-  --      " debugger
+  -- debugger
   "mfussenegger/nvim-dap",
-  --       " debugger ui
+  -- debugger ui
   "rcarriga/nvim-dap-ui",
   -- " debugger virtual text
   "theHamsta/nvim-dap-virtual-text",
@@ -117,7 +122,7 @@ return {
   --
   "lifepillar/vim-solarized8",
 
-  --              " navigate to any visible part
+  -- navigate to any visible part
   {
     "ggandor/leap.nvim",
     config = function()
@@ -125,7 +130,7 @@ return {
       leap.add_default_mappings()
     end
   },
-  --              " f/F/t/T navigation
+  -- f/F/t/T navigation
   {
     "ggandor/flit.nvim",
     config = function()
@@ -140,11 +145,11 @@ return {
       }
     end
   },
-  --           " additional mappings
+  -- additional mappings
   "tpope/vim-unimpaired",
-  -- " tmux navigation
+  -- tmux navigation
   "christoomey/vim-tmux-navigator",
-  --           " better motion
+  -- better motion
   {
     "bkad/CamelCaseMotion",
     config = function()
@@ -161,9 +166,9 @@ return {
       ]])
     end
   },
-  --                " undo tree
+  -- undo tree
   "mbbill/undotree",
-  --        " better vim mergetool, needs setup in git config too
+  -- better vim mergetool, needs setup in git config too
   {
     "samoshkin/vim-mergetool",
     config = function()
@@ -175,7 +180,7 @@ return {
       ]])
     end
   },
-  --    " toggle bookmarks per line, use telescope to find them
+  -- toggle bookmarks per line, use telescope to find them
   "MattesGroeger/vim-bookmarks",
   --, { 'branch': 'main' }  " clipboard over ssh through tmux
   {
@@ -185,7 +190,7 @@ return {
       vim.cmd([[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]])
     end
   },
-  --    " git wrapper
+  -- git wrapper
   {
     "tpope/vim-fugitive",
     config = function()
@@ -200,7 +205,7 @@ return {
       ]])
     end
   },
-  --        " run commands in a tmux split
+  -- run commands in a tmux split
   {
     "benmills/vimux",
     config = function()
@@ -213,11 +218,11 @@ return {
     end
   },
 
-  --        " highlight ocurrences of the current word
+  -- highlight ocurrences of the current word
   "RRethy/vim-illuminate",
-  --         " auto close (, [, {, ', \", `
+  -- auto close (, [, {, ', \", `
   "jiangmiao/auto-pairs",
-  --      " alignment
+  -- alignment
   {
     "junegunn/vim-easy-align",
     config = function()
@@ -229,11 +234,11 @@ return {
       ]])
     end
   },
-  --    " expand visual region
+  -- expand visual region
   "terryma/vim-expand-region",
-  --       " multiple cursors (<C-n><C-p><C-x>)
+  -- multiple cursors (<C-n><C-p><C-x>)
   "mg979/vim-visual-multi",
-  --         " commenting stuff
+  -- commenting stuff
   {
     "tpope/vim-commentary",
     config = function()
@@ -245,11 +250,11 @@ return {
       ]])
     end
   },
-  --             " . improved
+  -- . improved
   "tpope/vim-repeat",
-  --             " Detect tabstop and shiftwidth automatically
+  -- Detect tabstop and shiftwidth automatically
   "tpope/vim-sleuth",
-  --       " change/delete surrounding characters
+  -- change/delete surrounding characters
   {
     "kylechui/nvim-surround",
     config = function ()
@@ -266,7 +271,7 @@ return {
   },
 
   --
-  "Valloric/MatchTagAlways",
+  -- "Valloric/MatchTagAlways",
   --
   "pangloss/vim-javascript",
 
@@ -302,9 +307,9 @@ return {
     end
   },
 
-  --           " session management
+  -- session management
   "tpope/vim-obsession",
-  --    " editorconfig
+  -- editorconfig
   "gpanders/editorconfig.nvim",
 
 }

@@ -37,4 +37,20 @@ if vim.loop.fs_stat(abspath) then
   vim.cmd("source " .. abspath)
 end
 
-require("lazy").setup("custom_plugins")
+require("lazy").setup("custom_plugins", {
+  ui = {
+    icons = {
+      cmd = "⌘",
+      config = "🛠",
+      event = "📅",
+      ft = "📂",
+      init = "⚙",
+      keys = "🗝",
+      plugin = "🔌",
+      runtime = "💻",
+      source = "📄",
+      start = "🚀",
+      task = "📌",
+    },
+  },
+})
