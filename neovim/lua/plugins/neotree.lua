@@ -1,9 +1,14 @@
 return {
   "mrbjarksen/neo-tree-diagnostics.nvim",
   {
-  "nvim-neo-tree/neo-tree.nvim",
-  branch = "v2.x",
-  config = function()
+    "nvim-neo-tree/neo-tree.nvim",
+    keys = {
+      { "[ui]e", ":Neotree toggle<CR>" },
+      { "[ui]a", ":Neotree reveal<CR>" },
+      { "[ui]x", ":Neotree diagnostics toggle bottom<CR>" },
+    },
+    branch = "v2.x",
+    config = function()
 local neotree = require("neo-tree/command/init")
 local cc = require("neo-tree.sources.filesystem.commands")
 
@@ -186,12 +191,6 @@ require("neo-tree").setup({
     }
   }
 })
-
-vim.cmd([[
-nnoremap [ui]e :Neotree toggle<CR>
-nnoremap [ui]a :Neotree reveal<CR>
-nnoremap [ui]x :Neotree diagnostics toggle bottom<CR>
-]])
   end
   }
 }

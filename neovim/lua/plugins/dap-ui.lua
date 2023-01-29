@@ -2,6 +2,14 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap" },
+    keys = {
+      {
+        "<leader>bc",
+        function()
+          require('dap').continue()
+        end
+      }
+    },
     config = function()
 local dap, dapui = require("dap"), require("dapui")
 
@@ -95,6 +103,8 @@ dapui.setup({
 dap.listeners.after.event_initialized["dapui_config"] = c(dapui.open)
 dap.listeners.after.event_loadedSource["dapui_config"] = c(dapui.open)
 dap.listeners.after.event_exited["dapui_config"] = c(dapui.close)
+
+vim.keymap.set("v", "<M-e>", c(dapui.eval))
     end
   }
 }

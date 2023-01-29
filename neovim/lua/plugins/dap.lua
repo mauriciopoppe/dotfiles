@@ -3,10 +3,10 @@ return {
     "mfussenegger/nvim-dap",
     config = function()
 local dap = require "dap"
-local dapui = require "dapui"
+-- local dapui = require "dapui"
 local keymap = vim.keymap.set
 
-dap.set_log_level('TRACE')
+-- dap.set_log_level('TRACE')
 
 local function c(func, opts)
     return function()
@@ -27,19 +27,18 @@ keymap("n", "<leader>bL", function()
     dap.list_breakpoints()
     vim.cmd.copen()
 end)
-keymap("n", "<leader>bX", function()
+vim.keymap.set("n", "<leader>bX", function()
     dap.terminate()
-    dapui.close()
-end)
+end, { remap = false })
 keymap("n", "<leader>ba", c(dap.toggle_breakpoint))
-keymap("n", "<leader>bc", c(dap.continue))
+
+-- NOTE: this mapping is the trigger to lazy load nvim-dap-ui
+-- keymap("n", "<leader>bc", c(dap.continue))
 keymap("n", "<leader>bj", c(dap.step_into))
 keymap("n", "<leader>bk", c(dap.step_out))
 keymap("n", "<leader>bl", c(dap.step_over))
 keymap("n", "<leader>br", c(dap.run_last))
 keymap("n", "<leader>bx", c(dap.clear_breakpoints))
-
-keymap("v", "<M-e>", c(dapui.eval))
 
 vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "WarningMsg" })
 vim.fn.sign_define("DapStopped", { text = "▶", linehl = "CursorLine" })
