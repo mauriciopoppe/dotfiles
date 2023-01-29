@@ -1,3 +1,22 @@
+return {
+  --
+  "hrsh7th/cmp-nvim-lsp",
+  --
+  "hrsh7th/cmp-buffer",
+  --
+  "hrsh7th/cmp-path",
+  --
+  "hrsh7th/cmp-cmdline",
+  -- " snippet engine
+  "dcampos/nvim-snippy",
+  -- snippet engine adapter for nvim-cmp
+  "dcampos/cmp-snippy",
+  -- snippet collection
+  "honza/vim-snippets",
+  "onsails/lspkind-nvim",
+  {
+  "hrsh7th/nvim-cmp",
+  config = function()
 local cmp = require'cmp'
 local lspkind = require('lspkind')
 local snippy = require("snippy")
@@ -84,3 +103,6 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
+  end
+  }
+}

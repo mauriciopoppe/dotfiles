@@ -1,3 +1,7 @@
+return {
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
 -- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
 -- https://github.com/neovim/nvim-lspconfig
 
@@ -89,4 +93,7 @@ require'lspconfig'.sumneko_lua.setup {
       },
     },
   },
+}
+    end
+  }
 }

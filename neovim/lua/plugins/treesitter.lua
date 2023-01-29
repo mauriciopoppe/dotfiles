@@ -1,3 +1,13 @@
+return {
+  -- " treesitter objects
+  "nvim-treesitter/nvim-treesitter-textobjects",
+  -- header line that gives context
+  "nvim-treesitter/nvim-treesitter-context",
+  --
+  "JoosepAlviste/nvim-ts-context-commentstring",
+  {
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
 -- Identifies zsh as bash.
 -- https://github.com/nvim-treesitter/nvim-treesitter/issues/655#issuecomment-1021160477
 local ft_to_lang = require('nvim-treesitter.parsers').ft_to_lang
@@ -61,3 +71,6 @@ setlocal foldlevelstart=99
 set foldexpr=nvim_treesitter#foldexpr()
 ]])
 
+    end
+  }
+}

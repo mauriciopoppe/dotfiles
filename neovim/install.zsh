@@ -34,7 +34,6 @@ main() {
   #
   symlink "${base}/init.lua" "${HOME}/.config/nvim/init.lua"
   symlink "${base}/plugin" "${HOME}/.config/nvim/plugin"
-  symlink "${base}/after" "${HOME}/.config/nvim/after"
   symlink "${base}/lua" "${HOME}/.config/nvim/lua"
 
   # NOTE: after the installation of nvim

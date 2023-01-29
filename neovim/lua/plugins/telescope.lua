@@ -1,3 +1,12 @@
+return {
+  -- custom command palette
+  "LinArcX/telescope-command-palette.nvim",
+  -- vim bookmarks loader
+  "tom-anders/telescope-vim-bookmarks.nvim",
+  {
+  "nvim-telescope/telescope.nvim",
+  branch = "0.1.x",
+  config = function()
 local actions = require("telescope.actions")
 local split_vertical_theme = {
   theme = "dropdown",
@@ -62,3 +71,6 @@ keymap("n", "<leader>r", ":<C-u>Telescope lsp_references<CR>", { noremap = true,
 keymap("n", "<leader>ci", ":<C-u>Telescope lsp_incoming_calls<CR>", { noremap = true, silent = true })
 keymap("n", "<leader>co", ":<C-u>Telescope lsp_outgoing_calls<CR>", { noremap = true, silent = true })
 
+  end
+}
+}

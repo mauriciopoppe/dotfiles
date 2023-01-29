@@ -3,17 +3,7 @@ return {
   "nvim-lua/plenary.nvim",
   -- lua UI library
   "MunifTanjim/nui.nvim",
-  -- common confs for nvim-lsp
-  "neovim/nvim-lspconfig",
 
-  --
-  "hrsh7th/cmp-nvim-lsp",
-  --
-  "hrsh7th/cmp-buffer",
-  --
-  "hrsh7th/cmp-path",
-  --
-  "hrsh7th/cmp-cmdline",
   --
   {
     "Exafunction/codeium.vim",
@@ -29,26 +19,6 @@ return {
       return is_local_env ~= nil
     end
   },
-  -- completion engine
-  "hrsh7th/nvim-cmp",
-  -- " completion icons
-  "onsails/lspkind-nvim",
-
-  -- " snippet engine
-  "dcampos/nvim-snippy",
-  -- snippet engine adapter for nvim-cmp
-  "dcampos/cmp-snippy",
-  -- snippet collection
-  "honza/vim-snippets",
-
-  --
-  "nvim-treesitter/nvim-treesitter",
-  -- " treesitter objects
-  "nvim-treesitter/nvim-treesitter-textobjects",
-  -- header line that gives context
-  "nvim-treesitter/nvim-treesitter-context",
-  --
-  "JoosepAlviste/nvim-ts-context-commentstring",
   --
   {
     "lewis6991/spellsitter.nvim",
@@ -57,14 +27,8 @@ return {
     end
   },
 
-  --
   "kyazdani42/nvim-web-devicons",
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-  },
-  --
-  "mrbjarksen/neo-tree-diagnostics.nvim",
+
   -- signs for navigation (also supports hg)
   {
     "mhinz/vim-signify",
@@ -75,8 +39,6 @@ return {
     end
   },
 
-  -- " statusline
-  "nvim-lualine/lualine.nvim",
   -- buffers tabline
   "ap/vim-buftabline",
   -- right sidebaf for navigation
@@ -84,35 +46,22 @@ return {
   -- search and replace
   {
     "windwp/nvim-spectre",
+    keys = {
+      { "[ui]s", function() require("spectre").open() end, desc = "Search & replace" }
+    },
     config = function()
       local spectre = require('spectre')
       spectre.setup()
-      vim.keymap.set('n', '[ui]s', spectre.open)
     end
   },
-
-  -- overlay for navigation
-  {
-    "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-  },
-  -- custom command palette
-  "LinArcX/telescope-command-palette.nvim",
-  -- vim bookmarks loader
-  "tom-anders/telescope-vim-bookmarks.nvim",
-
-  -- debugger
-  "mfussenegger/nvim-dap",
-  -- debugger ui
-  "rcarriga/nvim-dap-ui",
-  -- " debugger virtual text
-  "theHamsta/nvim-dap-virtual-text",
 
   -- " indent guides
   {
     "nathanaelkane/vim-indent-guides",
+    keys = {
+      { "<Leader>ti", ":<C-u>IndentGuidesToggle<CR>", desc = "Toggle indent guides" }
+    },
     config = function ()
-      vim.keymap.set('n', '<Leader>ti', ':<C-u>IndentGuidesToggle<CR>', { silent = true })
     end
   },
   --
@@ -311,6 +260,5 @@ return {
   "tpope/vim-obsession",
   -- editorconfig
   "gpanders/editorconfig.nvim",
-
 }
 

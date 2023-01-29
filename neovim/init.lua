@@ -1,8 +1,24 @@
 -- init.lua
 --
--- Inspired by:
--- - https://github.com/tjdevries/config_manager/tree/master/xdg_config/nvim
--- - https://github.com/folke/lazy.nvim
+--[[
+
+File structure:
+
+./init.lua - Is this file
+./plugin/*.{lua,vim} - These are configurations for core stuff (outside custom plugin setup)
+./lua/plugins.lua - Loaded through lazy.nvim, it's the config to load plugins
+./lua/plugins/*.lua - Additional configs which are more complex
+
+For more info about the plugin load order run:
+
+:Lazy
+
+Inspired by:
+
+- https://github.com/tjdevries/config_manager/tree/master/xdg_config/nvim
+- https://github.com/folke/lazy.nvim
+
+--]]
 vim.g.mapleader = ","
 vim.keymap.set("n", "<Space>", "<Nop>")
 vim.keymap.set("x", "<Space>", "<Nop>")
@@ -16,6 +32,9 @@ vim.keymap.set("n", "[ui]", "<Nop>")
 vim.keymap.set("x", "[ui]", "<Nop>")
 vim.keymap.set("n", ";", "[ui]", { remap = true })
 vim.keymap.set("x", ";", "[ui]", { remap = true })
+
+-- Turn off builtin plugins I do not use.
+require('my.disable_builtin')
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -37,7 +56,7 @@ if vim.loop.fs_stat(abspath) then
   vim.cmd("source " .. abspath)
 end
 
-require("lazy").setup("custom_plugins", {
+require("lazy").setup("plugins", {
   ui = {
     icons = {
       cmd = "⌘",

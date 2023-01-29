@@ -1,3 +1,7 @@
+return {
+  {
+    "nvim-lualine/lualine.nvim",
+    config = function()
 -- I took these colors by looking at the theme I applied to iTerm
 local themes = {
   dark = {
@@ -64,3 +68,6 @@ end
 
 -- Set the dark theme by default.
 lualine_refresh_theme('dark')
+    end
+  }
+}
