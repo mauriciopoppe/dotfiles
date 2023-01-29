@@ -5,7 +5,8 @@ local M = {}
 -- Checks if a plugin was loaded by vim-plug.
 -- ]]
 function M.PluginLoaded(repository)
-  return vim.g.plugs[repository] ~= nil
+  return true
+  -- return vim.g.plugs[repository] ~= nil
 end
 
 -- [[

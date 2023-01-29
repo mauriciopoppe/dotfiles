@@ -19,17 +19,15 @@ function! ChangeBackground()
       try
         set background=dark
         colorscheme hybrid
-        call v:lua.lualine_refresh_theme('dark')
       catch
-        echo 'could not set theme'
+        echo 'could not set theme dark'
       endtry
     elseif g:tmux_theme_lines[0] == "light"
       try
         set background=light
         colorscheme solarized8
-        call v:lua.lualine_refresh_theme('light')
       catch
-        echo 'could not set theme'
+        echo 'could not set theme light'
       endtry
     else
       echo 'theme not supported'

@@ -24,9 +24,6 @@ main() {
     sudo apt-get install neovim
   fi
 
-  print-step "installing neovim python package..."
-  -install-vim-plug
-
   print-step "neovim symlinks..."
 
   # if the whole `neovim` folder is symlinked to `~/.config/nvim` then
@@ -35,14 +32,10 @@ main() {
   #
   # To avoid this unwanted behavior just sync some files/folders
   #
-  symlink "${base}/init.vim" "${HOME}/.config/nvim/init.vim"
-  # symlink "${base}/plugin/utils.vim" "${HOME}/.config/nvim/plugin/utils.vim"
-  # symlink "${base}/UltiSnips" "${HOME}/.config/nvim/UltiSnips"
-  symlink "${base}/config" "${HOME}/.config/nvim/config"
+  symlink "${base}/init.lua" "${HOME}/.config/nvim/init.lua"
+  symlink "${base}/plugin" "${HOME}/.config/nvim/plugin"
+  symlink "${base}/after" "${HOME}/.config/nvim/after"
   symlink "${base}/lua" "${HOME}/.config/nvim/lua"
-
-  print-step "installing plugins..."
-  nvim +PlugInstall +qall
 
   # NOTE: after the installation of nvim
   # fix for <C-h> not working well within nvim

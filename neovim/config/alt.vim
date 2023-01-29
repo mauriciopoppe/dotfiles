@@ -1,1 +1,0 @@
-/usr/local/google/home/mauriciopoppe/.dotfiles-google/vim/alt.vim

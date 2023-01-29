@@ -9,15 +9,15 @@ local on_attach = function(client, bufnr)
 end
 
 -- Checks if a path is a file.
-function is_file(path)
-    f = io.open(path)
+local function is_file(path)
+    local f = io.open(path)
     return f ~= nil
 end
 
 -- Checks if a path is a directory.
 -- From https://stackoverflow.com/questions/2833675/using-lua-check-if-file-is-a-directory
-function is_dir(path)
-    f = io.open(path)
+local function is_dir(path)
+    local f = io.open(path)
     return not f:read(0) and f:seek("end") ~= 0
 end
 

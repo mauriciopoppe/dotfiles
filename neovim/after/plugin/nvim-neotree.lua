@@ -1,5 +1,3 @@
-
-
 local neotree = require("neo-tree/command/init")
 local cc = require("neo-tree.sources.filesystem.commands")
 

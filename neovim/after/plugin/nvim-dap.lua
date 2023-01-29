@@ -12,7 +12,7 @@ end
 
 -- preview window under cursor
 keymap('n', '<Leader>bp', function()
-  opts = { width = 200, height = 15, enter = true, }
+  local opts = { width = 200, height = 15, enter = true, }
   dapui.float_element("scopes", opts)
 end)
 
