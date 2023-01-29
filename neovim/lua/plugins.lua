@@ -70,6 +70,22 @@ return {
   "w0ng/vim-hybrid",
   --
   "lifepillar/vim-solarized8",
+  {
+    "stevearc/dressing.nvim",
+    lazy = true,
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.input(...)
+      end
+    end,
+  },
 
   -- navigate to any visible part
   {
@@ -82,6 +98,7 @@ return {
   -- f/F/t/T navigation
   {
     "ggandor/flit.nvim",
+    dependencies = { "ggandor/leap.nvim" },
     config = function()
       require('flit').setup {
         keys = { f = 'f', F = 'F', t = 't', T = 'T' },

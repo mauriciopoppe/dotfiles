@@ -7,6 +7,8 @@ return {
   "JoosepAlviste/nvim-ts-context-commentstring",
   {
     "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = "BufReadPost",
     config = function()
 -- Identifies zsh as bash.
 -- https://github.com/nvim-treesitter/nvim-treesitter/issues/655#issuecomment-1021160477
@@ -23,15 +25,15 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
+  indent = {
+    enable = true
+  },
   incremental_selection = {
     enable = true,
     keymaps = {
       init_selection = "gnn",
       node_incremental = "gni",
     },
-  },
-  indent = {
-    enable = true
   },
   context_commentstring = {
     enable = true
