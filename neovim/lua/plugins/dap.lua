@@ -29,7 +29,8 @@ keymap("n", "<leader>bL", function()
 end)
 vim.keymap.set("n", "<leader>bX", function()
     dap.terminate()
-end, { remap = false })
+    require('dapui').close()
+end)
 keymap("n", "<leader>ba", c(dap.toggle_breakpoint))
 
 -- NOTE: this mapping is the trigger to lazy load nvim-dap-ui

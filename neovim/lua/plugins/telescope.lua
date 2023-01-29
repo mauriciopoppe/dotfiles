@@ -9,6 +9,7 @@ return {
     },
     branch = "0.1.x",
     keys = {
+      -- Mappings for a better UI
       { "[ui]f", ":<C-u>Telescope live_grep<CR>", desc = "[F]ind files" },
       { "[ui]b", ":<C-u>Telescope buffers<CR>", desc = "[B]uffers" },
       { "[ui]o", ":<C-u>Telescope find_files<CR>", desc = "[O]pen files" },
@@ -18,6 +19,7 @@ return {
       { "[ui]w", ":<C-u>Telescope grep_string<CR>", desc = "Search with [W]ord" },
       { "[ui]q", ":<C-u>Telescope quickfix<CR>", desc = "[Q]uickfix" },
       { "[ui]m", ":<C-u>Telescope vim_bookmarks all<CR>", desc = "Book[m]arks"},
+      -- Mappings to navigate on the code
       { "<leader>a", ":<C-u>Telescope lsp_code_actions<CR>", desc = "LSP code [a]ctions"},
       { "<leader>d", ":<C-u>Telescope lsp_definitions<CR>", desc = "LSP [d]efinitions" },
       { "<leader>t", ":<C-u>Telescope lsp_type_definitions<CR>", desc = "LSP [t]ype definitions" },

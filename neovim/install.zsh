@@ -33,6 +33,7 @@ main() {
   # To avoid this unwanted behavior just sync some files/folders
   #
   symlink "${base}/init.lua" "${HOME}/.config/nvim/init.lua"
+  symlink "${base}/lazy-lock.json" "${HOME}/.config/nvim/lazy-lock.json"
   symlink "${base}/plugin" "${HOME}/.config/nvim/plugin"
   symlink "${base}/lua" "${HOME}/.config/nvim/lua"
 
