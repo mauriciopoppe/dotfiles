@@ -66,7 +66,7 @@ bindkey "^[[1;3D" backward-word
 
 # ^u clears the line before executing the command.
 # ctrl+e = nvim
-bindkey -s "^e" "^unvim -S\n"
+bindkey -s "^e" "^unvim\n"
 # ctrl+g = git
 bindkey -s "^g" "^ugit fuzzy status\n"
 

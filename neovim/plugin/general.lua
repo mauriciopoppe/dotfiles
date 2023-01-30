@@ -96,6 +96,7 @@ vim.o.hlsearch = false
 
 -- Folding settings {{{
 
+vim.o.foldenable = false
 -- markers are used to specify folds
 vim.o.foldmethod = "marker"
 -- 2nd level folding

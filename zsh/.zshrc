@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+export XDG_CONFIG_HOME=$HOME/.config
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -72,7 +74,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 #
 # in my arm mac they're installed with Homebrew
 # in my linux they're installed with apt
-# 
+#
 # tools to install: sharkdp/fd
 if [[ $(uname -m) != *"arm"* ]]; then
   # human readable git diff
