@@ -11,7 +11,7 @@ return {
         ['dap-repl'] = false,
       }
     end,
-    enabled = function()
+    cond = function()
       -- don't enable at work
       local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")
       return is_local_env ~= nil
