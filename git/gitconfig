@@ -36,7 +36,6 @@
 
 [delta]
     features = decorations
-	side-by-side = true
 	navigate = false
 
 [alias]
