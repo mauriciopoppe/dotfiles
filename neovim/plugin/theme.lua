@@ -68,4 +68,8 @@ local function change_theme()
   reset_highlight()
 end
 
+-- Global way to change the theme, see zsh/bin/change-background
+_G.ChangeTheme = change_theme
+
 change_theme()
+

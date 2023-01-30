@@ -51,6 +51,8 @@ vim.o.list = true
 vim.o.listchars = "tab:⋮ ,extends:❯,precedes:❮,nbsp:␣"
 -- string to use at the start of lines that have been wrapped
 vim.o.showbreak = "↪"
+-- what to save on mksession
+-- vim.o.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 
 -- }}}
 -- Split settings {{{
@@ -107,9 +109,10 @@ vim.o.fillchars = "fold: "
 -- }}}
 -- Omni completion settings {{{
 
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 
 -- enable 24bit RGB color in the TUI
 vim.o.termguicolors = true
 
--- }}}
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0

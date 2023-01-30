@@ -1,3 +1,5 @@
+local Utils = require('my/utils')
+
 -- cleans from cache, useful if I make changes to my lua files and reload config
 package.loaded['my/utils'] = nil
 
@@ -78,3 +80,10 @@ vim.keymap.set("n", "˙", "^")
 -- ¬ = alt + l (move to the end of the line)
 vim.keymap.set("n", "¬", "$")
 
+-- lazy
+vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+
+vim.keymap.set("n", "<leader>gg", function()
+  Utils.float_term({ "lazygit" }, { cwd = Utils.get_root() })
+end, { desc = "Lazygit (root dir)" })
+vim.keymap.set("n", "<leader>gG", function() Utils.float_term({ "lazygit" }) end, { desc = "Lazygit (cwd)" })

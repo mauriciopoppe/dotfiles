@@ -27,9 +27,6 @@ cat << EOF
       ( basic )
         zsh|neovim|tmux
 
-      ( tools )
-        git|ctags|sshrc
-
       ( macOS specific )
         @macos/default|@macos/alfred|@macos/iTerm2|@macos/homebrew
 

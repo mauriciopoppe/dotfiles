@@ -68,5 +68,5 @@ bindkey "^[[1;3D" backward-word
 # ctrl+e = nvim
 bindkey -s "^e" "^unvim\n"
 # ctrl+g = git
-bindkey -s "^g" "^ugit fuzzy status\n"
+bindkey -s "^g" "^ulazygit\n"
 
