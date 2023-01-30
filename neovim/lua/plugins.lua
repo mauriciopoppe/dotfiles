@@ -1,8 +1,6 @@
 return {
   -- lua utility functions
   "nvim-lua/plenary.nvim",
-  -- lua UI library
-  "MunifTanjim/nui.nvim",
 
   --
   {
@@ -19,15 +17,6 @@ return {
       return is_local_env ~= nil
     end
   },
-  --
-  {
-    "lewis6991/spellsitter.nvim",
-    config = function ()
-      require("spellsitter").setup()
-    end
-  },
-
-  "kyazdani42/nvim-web-devicons",
 
   -- signs for navigation (also supports hg)
   {
@@ -38,6 +27,7 @@ return {
       }
     end
   },
+
   -- better diagnostics list and others
   {
     "folke/trouble.nvim",
@@ -48,6 +38,7 @@ return {
       { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
     },
   },
+
   -- todo comments
   {
     "folke/todo-comments.nvim",
@@ -65,8 +56,7 @@ return {
 
   -- buffers tabline
   "ap/vim-buftabline",
-  -- right sidebaf for navigation
-  "preservim/tagbar",
+
   -- search and replace
   {
     "windwp/nvim-spectre",
@@ -88,12 +78,8 @@ return {
     config = function ()
     end
   },
-  --
-  "kristijanhusak/vim-hybrid-material",
-  --
-  "w0ng/vim-hybrid",
-  --
-  "lifepillar/vim-solarized8",
+
+  -- improve core UI elements
   {
     "stevearc/dressing.nvim",
     lazy = true,
@@ -110,6 +96,11 @@ return {
       end
     end,
   },
+
+  -- themes
+  "kristijanhusak/vim-hybrid-material",
+  "w0ng/vim-hybrid",
+  "lifepillar/vim-solarized8",
 
   -- navigate to any visible part
   {
@@ -170,9 +161,10 @@ return {
       ]])
     end
   },
+
   -- toggle bookmarks per line, use telescope to find them
   "MattesGroeger/vim-bookmarks",
-  --, { 'branch': 'main' }  " clipboard over ssh through tmux
+
   {
     "ojroques/vim-oscyank",
     config = function()
@@ -180,6 +172,7 @@ return {
       vim.cmd([[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]])
     end
   },
+
   -- git wrapper
   {
     "tpope/vim-fugitive",
@@ -195,6 +188,7 @@ return {
       ]])
     end
   },
+
   -- run commands in a tmux split
   {
     "benmills/vimux",
@@ -209,9 +203,28 @@ return {
   },
 
   -- highlight ocurrences of the current word
-  "RRethy/vim-illuminate",
+  {
+    "RRethy/vim-illuminate",
+    event = "BufReadPost",
+    keys = {
+      { "]]", function() require("illuminate").goto_next_reference(false) end, desc = "Next Reference", },
+      { "[[", function() require("illuminate").goto_prev_reference(false) end, desc = "Prev Reference" },
+    },
+    config = function()
+      require("illuminate").configure({ delay = 200 })
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          local buffer = vim.api.nvim_get_current_buf()
+          pcall(vim.keymap.del, "n", "]]", { buffer = buffer })
+          pcall(vim.keymap.del, "n", "[[", { buffer = buffer })
+        end,
+      })
+    end,
+  },
+
   -- auto close (, [, {, ', \", `
   "jiangmiao/auto-pairs",
+
   -- alignment
   {
     "junegunn/vim-easy-align",
@@ -224,10 +237,10 @@ return {
       ]])
     end
   },
-  -- expand visual region
-  "terryma/vim-expand-region",
+
   -- multiple cursors (<C-n><C-p><C-x>)
   "mg979/vim-visual-multi",
+
   -- commenting stuff
   {
     "tpope/vim-commentary",
@@ -251,23 +264,24 @@ return {
       require("nvim-surround").setup()
     end,
   },
-  --
+
+  -- autoformat for some types
   {
     "prettier/vim-prettier",
+    ft = {
+      'javascript', 'typescript', 'css', 'less', 'scss', 'json',
+      'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'
+    },
     config = function ()
       vim.g["prettier#autoformat"] = 1
       vim.g["prettier#autoformat_require_pragma"] = 0
     end
   },
+  {
+    "pangloss/vim-javascript",
+    ft = { "javascript", "typescript" }
+  },
 
-  --
-  -- "Valloric/MatchTagAlways",
-  --
-  "pangloss/vim-javascript",
-
-  --
-  "godlygeek/tabular",
-  --
   {
     "rhysd/vim-gfm-syntax",
     config = function()
@@ -276,14 +290,22 @@ return {
       vim.g.gfm_syntax_enable_filetypes = {'markdown'}
     end
   },
-  --
+
+  -- go setup
   {
     "ray-x/go.nvim",
+    ft = { "go" },
     config = function ()
-      vim.cmd([[
-        autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
-        autocmd FileType go nnoremap <silent> <Leader>k :<C-u>GoDoc<CR>
-      ]])
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*.go",
+        callback = function () require("go.format").goimport() end,
+      })
+      vim.api.nvim_create_autocmd("Filetype", {
+        pattern = "go",
+        callback = function ()
+          vim.keymap.set("n", "<leader>k", ":<C-u>GoDoc<CR>", { silent = true })
+        end,
+      })
       require('go').setup()
     end
   },

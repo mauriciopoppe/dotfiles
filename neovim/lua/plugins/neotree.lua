@@ -1,7 +1,12 @@
 return {
-  "mrbjarksen/neo-tree-diagnostics.nvim",
   {
     "nvim-neo-tree/neo-tree.nvim",
+    dependencies = {
+      "kyazdani42/nvim-web-devicons",
+      "mrbjarksen/neo-tree-diagnostics.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
     keys = {
       { "[ui]e", ":Neotree toggle<CR>" },
       { "[ui]a", ":Neotree reveal<CR>" },
@@ -11,6 +16,8 @@ return {
     config = function()
 local neotree = require("neo-tree/command/init")
 local cc = require("neo-tree.sources.filesystem.commands")
+
+vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 -- edit_and_close_sidebar edits edits a file and closes the sidebar.
 local edit_and_close_sidebar = function(state)
