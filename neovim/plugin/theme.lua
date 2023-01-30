@@ -1,0 +1,71 @@
+local function fix_options()
+  vim.g.enable_bold_font = 1
+  vim.g.hybrid_custom_term_colors = 1
+  vim.g.hybrid_reduced_contrast = 1
+  vim.g.pencil_higher_contrast_ui = 1
+  vim.g.pencil_neutral_code_bg = 1
+  vim.g.pencil_spell_undercurl = 1
+end
+
+local function change_background()
+  vim.g.background = "dark"
+
+  local themeFile = vim.fn.readfile(vim.fn.expand("~/.tmux.theme"))
+  -- arrays are indexed at 1!
+  local theme = themeFile[1]
+  if theme == "dark" then
+    vim.g.background = "dark"
+    vim.cmd([[ colorscheme hybrid ]])
+  elseif theme == "light" then
+    vim.g.background = "light"
+    vim.cmd([[ colorscheme solarized8 ]])
+  else
+    print("No theme found")
+  end
+end
+
+local function reset_highlight()
+  vim.cmd([[
+  " Link highlight groups to improve buftabline colors
+  hi! link BufTabLineCurrent PreProc
+  hi! link BufTabLineActive Comment
+  hi! link BufTabLineHidden Comment
+  hi! link BufTabLineFill Comment
+
+  " clear background for SignColumn (any column that doesn't have a sign)
+  highlight clear SignColumn
+  " clear sign background
+  highlight SignifySignAdd    cterm=none ctermbg=none ctermfg=lightgreen
+  highlight SignifySignDelete cterm=none ctermbg=none ctermfg=red
+  highlight SignifySignChange cterm=none ctermbg=none ctermfg=yellow
+
+  " italic html attributes
+  highlight htmlArg cterm=italic
+  highlight Comment cterm=italic
+
+  " neomake errors
+  highlight link NeomakeError DiffDelete
+  highlight link NeomakeWarning Question
+  highlight NeomakeErrorSign cterm=none ctermbg=none ctermfg=red
+
+  " ale errors
+  highlight link ALEErrorSign DiffDelete
+  highlight link ALEWarningSign Question
+  highlight ALEErrorSign cterm=none ctermbg=none ctermfg=red
+
+  highlight Search cterm=none ctermfg=none ctermbg=8
+
+  " coc (autocomplete)
+  highlight CocHighlightText ctermbg=6
+  highlight link CocHighlightTextWrite CocHighlightText
+  highlight link CocHighlightTextRead CocHighlightText
+  ]])
+end
+
+local function change_theme()
+  fix_options()
+  change_background()
+  reset_highlight()
+end
+
+change_theme()
