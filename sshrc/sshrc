@@ -1,7 +1,0 @@
-
-# symlinked from install.zsh
-source $SSHHOME/.sshrc.d/aliases.zsh
-
-export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
-
-# vim: set ft=bash
