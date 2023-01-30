@@ -3,8 +3,6 @@ return {
     "mfussenegger/nvim-dap",
     config = function()
 local dap = require "dap"
--- local dapui = require "dapui"
-local keymap = vim.keymap.set
 
 -- dap.set_log_level('TRACE')
 
@@ -15,15 +13,15 @@ local function c(func, opts)
 end
 
 -- preview window under cursor
-keymap('n', '<Leader>bp', function()
+vim.keymap.set('n', '<Leader>bp', function()
   local opts = { width = 200, height = 15, enter = true, }
   dapui.float_element("scopes", opts)
 end)
 
-keymap("n", "<leader>b.", c(dap.run_to_cursor))
-keymap("n", "<leader>bJ", c(dap.down))
-keymap("n", "<leader>bK", c(dap.up))
-keymap("n", "<leader>bL", function()
+vim.keymap.set("n", "<leader>b.", c(dap.run_to_cursor))
+vim.keymap.set("n", "<leader>bJ", c(dap.down))
+vim.keymap.set("n", "<leader>bK", c(dap.up))
+vim.keymap.set("n", "<leader>bL", function()
     dap.list_breakpoints()
     vim.cmd.copen()
 end)
@@ -31,15 +29,16 @@ vim.keymap.set("n", "<leader>bX", function()
     dap.terminate()
     require('dapui').close()
 end)
-keymap("n", "<leader>ba", c(dap.toggle_breakpoint))
+vim.keymap.set("n", "<leader>ba", c(dap.toggle_breakpoint))
 
--- NOTE: this mapping is the trigger to lazy load nvim-dap-ui
--- keymap("n", "<leader>bc", c(dap.continue))
-keymap("n", "<leader>bj", c(dap.step_into))
-keymap("n", "<leader>bk", c(dap.step_out))
-keymap("n", "<leader>bl", c(dap.step_over))
-keymap("n", "<leader>br", c(dap.run_last))
-keymap("n", "<leader>bx", c(dap.clear_breakpoints))
+-- The following mapping is the trigger to lazy load nvim-dap-ui
+-- so it's commented here
+-- vim.keymap.set("n", "<leader>bc", c(dap.continue))
+vim.keymap.set("n", "<leader>bj", c(dap.step_into))
+vim.keymap.set("n", "<leader>bk", c(dap.step_out))
+vim.keymap.set("n", "<leader>bl", c(dap.step_over))
+vim.keymap.set("n", "<leader>br", c(dap.run_last))
+vim.keymap.set("n", "<leader>bx", c(dap.clear_breakpoints))
 
 vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "WarningMsg" })
 vim.fn.sign_define("DapStopped", { text = "▶", linehl = "CursorLine" })
@@ -81,8 +80,6 @@ dap.adapters.go = function(callback, config)
       args = {"dap", "-l", addr},
       detached = true
     }
-    print(config)
-    print(opts)
 
     handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
       stdout:read_stop()

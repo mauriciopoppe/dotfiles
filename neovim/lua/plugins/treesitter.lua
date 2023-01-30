@@ -1,12 +1,14 @@
 return {
-  -- " treesitter objects
-  "nvim-treesitter/nvim-treesitter-textobjects",
-  -- header line that gives context
-  "nvim-treesitter/nvim-treesitter-context",
-  --
-  "JoosepAlviste/nvim-ts-context-commentstring",
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      -- " treesitter objects
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      -- header line that gives context
+      "nvim-treesitter/nvim-treesitter-context",
+      --
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
     build = ":TSUpdate",
     event = "BufReadPost",
     config = function()

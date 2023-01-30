@@ -1,22 +1,21 @@
 return {
-  --
-  "hrsh7th/cmp-nvim-lsp",
-  --
-  "hrsh7th/cmp-buffer",
-  --
-  "hrsh7th/cmp-path",
-  --
-  "hrsh7th/cmp-cmdline",
-  -- " snippet engine
-  "dcampos/nvim-snippy",
-  -- snippet engine adapter for nvim-cmp
-  "dcampos/cmp-snippy",
-  -- snippet collection
-  "honza/vim-snippets",
-  "onsails/lspkind-nvim",
   {
-  "hrsh7th/nvim-cmp",
-  config = function()
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      -- snippet engine
+      "dcampos/nvim-snippy",
+      -- snippet engine adapter for nvim-cmp
+      "dcampos/cmp-snippy",
+      -- snippet collection
+      "honza/vim-snippets",
+      "onsails/lspkind-nvim",
+    },
+    event = "InsertEnter",
+    config = function()
 local cmp = require'cmp'
 local lspkind = require('lspkind')
 local snippy = require("snippy")
@@ -27,6 +26,9 @@ local has_words_before = function()
 end
 
 cmp.setup({
+  completion = {
+    completeopt = "menu,menuone,noinsert",
+  },
   snippet = {
     expand = function(args)
       snippy.expand_snippet(args.body) -- For `snippy` users.
