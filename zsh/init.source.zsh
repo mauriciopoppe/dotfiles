@@ -5,6 +5,15 @@ if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
 fi
 source "$fasd_cache"
 unset fasd_cache
+# unset aliases installed by fasd
+unalias a
+unalias s
+unalias d
+unalias f
+unalias sd
+unalias sf
+unalias z
+unalias zz
 
 # kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh)
 if [ $commands[kubectl] ]; then

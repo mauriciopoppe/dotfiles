@@ -104,6 +104,10 @@ zinit load hlissner/zsh-autopair
 zinit ice as"program" pick"bin/git-fuzzy"
 zinit light bigH/git-fuzzy
 
+# autoenv
+zinit ice from"gh" src"activate.sh"
+zinit load hyperupcall/autoenv
+
 # Scripts that are built at install (there's single default make target, "install",
 # and it constructs scripts by `cat'ing a few files). The make'' ice could also be:
 # `make"install PREFIX=$ZPFX"`, if "install" wouldn't be the only, default target.
