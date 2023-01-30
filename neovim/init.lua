@@ -6,8 +6,8 @@ File structure:
 
 ./init.lua - Is this file
 ./plugin/*.{lua,vim} - These are configurations for core stuff (outside custom plugin setup)
-./lua/plugins.lua - Loaded through lazy.nvim, it's the config to load plugins
-./lua/plugins/*.lua - Additional configs which are more complex
+./lua/plugins.lua - Root config for plugins, loaded by lazy.vim
+./lua/plugins/*.lua - Additional configs which are more complex, loaded by lazy.vim
 
 For more info about the plugin load order run:
 
@@ -17,6 +17,7 @@ Inspired by:
 
 - https://github.com/tjdevries/config_manager/tree/master/xdg_config/nvim
 - https://github.com/folke/lazy.nvim
+- https://www.lazyvim.org/
 
 --]]
 vim.g.mapleader = ","
@@ -33,7 +34,7 @@ vim.keymap.set("x", "[ui]", "<Nop>")
 vim.keymap.set("n", ";", "[ui]", { remap = true })
 vim.keymap.set("x", ";", "[ui]", { remap = true })
 
--- Turn off builtin plugins I do not use.
+-- Turn off builtin plugins I do not use
 require('my.disable_builtin')
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

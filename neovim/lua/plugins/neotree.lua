@@ -13,11 +13,21 @@ return {
       { "[ui]x", ":Neotree diagnostics toggle bottom<CR>" },
     },
     branch = "v2.x",
+    deactivate = function()
+      vim.cmd([[Neotree close]])
+    end,
+    init = function()
+      vim.g.neo_tree_remove_legacy_commands = 1
+      if vim.fn.argc() == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == "directory" then
+          require("neo-tree")
+        end
+      end
+    end,
     config = function()
 local neotree = require("neo-tree/command/init")
 local cc = require("neo-tree.sources.filesystem.commands")
-
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 -- edit_and_close_sidebar edits edits a file and closes the sidebar.
 local edit_and_close_sidebar = function(state)

@@ -2,14 +2,6 @@ local api = vim.api
 local M = {}
 
 -- [[
--- Checks if a plugin was loaded by vim-plug.
--- ]]
-function M.PluginLoaded(repository)
-  return true
-  -- return vim.g.plugs[repository] ~= nil
-end
-
--- [[
 -- CopyAbsolutePathToClipboard copies the absolute path of the focused file to the clipboard.
 -- ]]
 function M.CopyAbsolutePathToClipboard()
