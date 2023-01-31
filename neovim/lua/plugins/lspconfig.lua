@@ -66,7 +66,17 @@ return {
                 --
                 -- Similar issue upstream https://github.com/golang/go/issues/29202
                 -- Setting additional opts for gopls https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-v050
-                GOFLAGS = "-tags=linux"
+                GOFLAGS = "-tags=linux",
+
+                -- In the kubernetes codebase I got errors like:
+                -- Error when executing textDocument/implementation : packages.Load error: err: exit status 2:
+                -- # runtime/cgo
+                -- linux_syscall.c:67:13: error: implicit declaration of function 'setresgid' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                -- linux_syscall.c:67:13: note: did you mean 'setregid'?
+                --
+                -- Because of the runtime/cgo above I thought I could disable it
+                -- https://github.com/golang/go/issues/29202#issuecomment-496007059
+                CGO_ENABLED = "0",
               },
             },
           },
