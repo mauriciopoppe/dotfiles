@@ -48,9 +48,18 @@ return {
       -- Custom actions
       local command_center = require('command_center')
       command_center.add({
-        { desc = "Copy absolute path", cmd = Utils.CopyAbsolutePathToClipboard, },
-        { desc = "Copy relative path", cmd = Utils.CopyRelativePathToClipboard, },
-        { desc = "Copy filename only", cmd = Utils.CopyFilenameToClipboard, },
+        {
+          desc = "Copy absolute path",
+          cmd = function() vim.api.nvim_exec('let @" = expand("%:p") | execute \'OSCYankReg "\'', true) end,
+        },
+        {
+          desc = "Copy relative path",
+          cmd = function() vim.api.nvim_exec('let @" = expand("%") | execute \'OSCYankReg "\'', true) end,
+        },
+        {
+          desc = "Copy filename only",
+          cmd = function() vim.api.nvim_exec('let @" = expand("%:t") | execute \'OSCYankReg "\'', true) end,
+        },
       }, {
         mode = command_center.mode.ADD,
       })

@@ -22,27 +22,6 @@ local defaults = {
 ---@type LazyVimConfig
 local options = vim.tbl_deep_extend("force", defaults, opts or {})
 
---[[
-CopyAbsolutePathToClipboard copies the absolute path of the focused file to the clipboard.
---]]
-function M.CopyAbsolutePathToClipboard()
-  api.nvim_exec('let @" = expand("%:p") | execute \'OSCYankReg "\'', true)
-end
-
---[[
-CopyRelativePathToClipboard copies the relative path of the focused file to the clipboard.
---]]
-function M.CopyRelativePathToClipboard()
-  api.nvim_exec('let @" = expand("%") | execute \'OSCYankReg "\'', true)
-end
-
---[[
-CopyFilenameToClipboard copies the filename the focused file to the clipboard.
---]]
-function M.CopyFilenameToClipboard()
-  api.nvim_exec('let @" = expand("%:t") | execute \'OSCYankReg "\'', true)
-end
-
 -- returns the root directory based on:
 -- * lsp workspace folders
 -- * lsp root_dir
@@ -93,6 +72,35 @@ function M.float_term(cmd, opts)
     size = { width = 0.9, height = 0.9 },
   }, opts or {})
   require("lazy.util").float_term(cmd, opts)
+end
+
+---@param on_attach fun(client, buffer)
+function M.on_attach(on_attach)
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      local buffer = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      on_attach(client, buffer)
+    end,
+  })
+end
+
+-- Checks if we're in a google3 directory
+function M.is_google3()
+  -- Checks if a path is a file.
+  local function is_file(path)
+    local f = io.open(path)
+    return f ~= nil
+  end
+
+  -- Checks if a path is a directory.
+  -- From https://stackoverflow.com/questions/2833675/using-lua-check-if-file-is-a-directory
+  local function is_dir(path)
+    local f = io.open(path)
+    return not f:read(0) and f:seek("end") ~= 0
+  end
+
+  return is_file('BUILD') and not is_dir('BUILD')
 end
 
 setmetatable(M, {
