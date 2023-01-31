@@ -1,6 +1,27 @@
 local api = vim.api
 local M = {}
 
+---@class LazyVimConfig
+local defaults = {
+  -- icons used by other plugins
+  icons = {
+    diagnostics = {
+      Error = " ",
+      Warn = " ",
+      Hint = " ",
+      Info = " ",
+    },
+    git = {
+      added = " ",
+      modified = " ",
+      removed = " ",
+    },
+  },
+}
+
+---@type LazyVimConfig
+local options = vim.tbl_deep_extend("force", defaults, opts or {})
+
 --[[
 CopyAbsolutePathToClipboard copies the absolute path of the focused file to the clipboard.
 --]]
@@ -73,6 +94,16 @@ function M.float_term(cmd, opts)
   }, opts or {})
   require("lazy.util").float_term(cmd, opts)
 end
+
+setmetatable(M, {
+  __index = function(_, key)
+    if options == nil then
+      return vim.deepcopy(defaults)[key]
+    end
+    ---@cast options LazyVimConfig
+    return options[key]
+  end,
+})
 
 return M
 

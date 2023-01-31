@@ -5,14 +5,16 @@ return {
   --
   {
     "Exafunction/codeium.vim",
+    event = "InsertEnter",
     config = function()
+      vim.g.codeium_disable_bindings = 1
       vim.keymap.set('i', '<C-j>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
       vim.g.copilot_filetypes = {
         ['dap-repl'] = false,
       }
     end,
     cond = function()
-      -- don't enable at work
+      -- enable only if running in my personal laptop
       local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")
       return is_local_env ~= nil
     end
@@ -45,7 +47,7 @@ return {
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = "BufReadPost",
     config = true,
-   keys = {
+    keys = {
       { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
       { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
       { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
@@ -110,24 +112,21 @@ return {
       leap.add_default_mappings()
     end
   },
-  -- f/F/t/T navigation
+
+  -- easily jump to any location and enhanced f/t motions for Leap
   {
-    "ggandor/flit.nvim",
-    dependencies = { "ggandor/leap.nvim" },
-    config = function()
-      require('flit').setup {
-        keys = { f = 'f', F = 'F', t = 't', T = 'T' },
-        -- A string like "nv", "nvo", "o", etc.
-        labeled_modes = "v",
-        multiline = true,
-        -- Like `leap`s similar argument (call-specific overrides).
-        -- E.g.: opts = { equivalence_classes = {} }
-        opts = {}
-      }
-    end
+    "ggandor/leap.nvim",
+    event = "VeryLazy",
+    dependencies = { { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } } },
+    config = function(_, opts)
+      local leap = require("leap")
+      for k, v in pairs(opts) do
+        leap.opts[k] = v
+      end
+      leap.add_default_mappings(true)
+    end,
   },
-  -- additional mappings
-  "tpope/vim-unimpaired",
+
   -- tmux navigation
   "christoomey/vim-tmux-navigator",
   -- better motion
