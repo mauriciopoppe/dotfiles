@@ -172,33 +172,13 @@ return {
     end
   },
 
-  -- git wrapper
-  {
-    "tpope/vim-fugitive",
-    config = function()
-      vim.cmd([[
-      nnoremap <silent> <leader>gs :Git status<CR>
-      nnoremap <silent> <leader>gd :Git diff<CR>
-      nnoremap <silent> <leader>gD :Git diffoff<CR>
-      nnoremap <silent> <leader>gc :Git commit<CR>
-      nnoremap <silent> <leader>gb :Git blame<CR>
-      nnoremap <silent> <leader>gB :Git browse<CR>
-      nnoremap <silent> <leader>gp :Git push<CR>
-      ]])
-    end
-  },
-
   -- run commands in a tmux split
   {
     "benmills/vimux",
-    config = function()
-      vim.cmd([[
-      " Executes a command in a tmux split, if there's one available run it there
-      noremap <Leader>tp :VimuxPromptCommand<CR>
-      " Execute last command
-      noremap <Leader>tl :VimuxRunLastCommand<CR>
-      ]])
-    end
+    keys = {
+      { "<leader>tp", "<cmd>VimuxPromptCommand<cr>", desc = "Vimux prompt command" },
+      { "<leader>tl", "<cmd>VimuxRunLastCommand<cr>", desc = "Vimux last command" },
+    },
   },
 
   -- highlight ocurrences of the current word
@@ -238,7 +218,10 @@ return {
   },
 
   -- multiple cursors (<C-n><C-p><C-x>)
-  "mg979/vim-visual-multi",
+  {
+    "mg979/vim-visual-multi",
+    event = "VeryLazy"
+  },
 
   -- commenting stuff
   {

@@ -45,7 +45,6 @@
   "vim-buftabline": { "branch": "master", "commit": "73b9ef5dcb6cdf6488bc88adb382f20bc3e3262a" },
   "vim-commentary": { "branch": "master", "commit": "e87cd90dc09c2a203e13af9704bd0ef79303d755" },
   "vim-easy-align": { "branch": "master", "commit": "12dd6316974f71ce333e360c0260b4e1f81169c3" },
-  "vim-fugitive": { "branch": "master", "commit": "2febbe1f00be04f16daa6464cb39214a8566ec4b" },
   "vim-gfm-syntax": { "branch": "master", "commit": "95ec295ccc803afc925c01e6efe328779e1261e9" },
   "vim-hybrid": { "branch": "master", "commit": "cc58baabeabc7b83768e25b852bf89c34756bf90" },
   "vim-hybrid-material": { "branch": "master", "commit": "ad031275c63a05b6acb6014a2401d8719a290bd4" },
