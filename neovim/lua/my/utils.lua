@@ -20,7 +20,7 @@ local defaults = {
 }
 
 ---@type LazyVimConfig
-local options = vim.tbl_deep_extend("force", defaults, opts or {})
+local options = vim.tbl_deep_extend("force", defaults, {})
 
 -- returns the root directory based on:
 -- * lsp workspace folders
