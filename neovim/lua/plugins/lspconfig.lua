@@ -1,3 +1,116 @@
+-- The definition of the module M comes from
+-- https://github.com/LazyVim/LazyVim/blob/c5b22c0832603198f571ff68b6fb9d0c17f73d33/lua/lazyvim/plugins/lsp/keymaps.lua
+
+local Utils = require('my.utils')
+local M = {}
+
+-- Disable autoformat first
+M.autoformat = false
+
+function M.get_keymappings()
+  ---@class PluginLspKeys
+  -- stylua: ignore
+  M._keys = M._keys or {
+    -- { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
+    -- { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+    -- { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
+    -- { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+    -- { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+    -- { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
+    -- { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
+    { "K", vim.lsp.buf.hover, desc = "Hover" },
+    { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+    { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+    { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
+    { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },
+    { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
+    { "[e", M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
+    { "]w", M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
+    { "[w", M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
+    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+    { "<leader>cf", M.format, desc = "Format Document", has = "documentFormatting" },
+    { "<leader>cf", M.format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
+    { "<leader>cr", M.rename, expr = true, desc = "Rename", has = "rename" },
+  }
+  return M._keys
+end
+
+function M.rename()
+  if pcall(require, "inc_rename") then
+    return ":IncRename " .. vim.fn.expand("<cword>")
+  else
+    vim.lsp.buf.rename()
+  end
+end
+
+function M.diagnostic_goto(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
+end
+
+function M.on_attach_set_keymappings(client, buffer)
+  local Keys = require("lazy.core.handler.keys")
+  local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
+
+  for _, value in ipairs(M.get_keymappings()) do
+    local keys = Keys.parse(value)
+    if keys[2] == vim.NIL or keys[2] == false then
+      keymaps[keys.id] = nil
+    else
+      keymaps[keys.id] = keys
+    end
+  end
+
+  for _, keys in pairs(keymaps) do
+    if not keys.has or client.server_capabilities[keys.has .. "Provider"] then
+      local opts = Keys.opts(keys)
+      ---@diagnostic disable-next-line: no-unknown
+      opts.has = nil
+      opts.silent = true
+      opts.buffer = buffer
+      vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
+    end
+  end
+end
+
+function M.format()
+  local buf = vim.api.nvim_get_current_buf()
+  local ft = vim.bo[buf].filetype
+  local have_nls = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
+
+  vim.lsp.buf.format(vim.tbl_deep_extend("force", {
+    bufnr = buf,
+    filter = function(client)
+      if have_nls then
+        return client.name == "null-ls"
+      end
+      return client.name ~= "null-ls"
+    end,
+  }, {
+    -- Defaults come from the opts set for lspconfig in lazyvim
+    -- https://github.com/LazyVim/LazyVim/blob/c5b22c0832603198f571ff68b6fb9d0c17f73d33/lua/lazyvim/plugins/lsp/init.lua#L32
+    formatting_options = nil,
+    timeout_ms = nil,
+  }))
+end
+
+function M.on_attach_set_format(client, buffer)
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = vim.api.nvim_create_augroup("LspFormat." .. buffer, {}),
+      buffer = buffer,
+      callback = function()
+        if M.autoformat then
+          M.format()
+        end
+      end,
+    })
+  end
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -25,30 +138,18 @@ return {
       -- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
       -- https://github.com/neovim/nvim-lspconfig
 
-      local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
       local servers = {}
 
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
-      end
-
-      -- Checks if a path is a file.
-      local function is_file(path)
-        local f = io.open(path)
-        return f ~= nil
-      end
-
-      -- Checks if a path is a directory.
-      -- From https://stackoverflow.com/questions/2833675/using-lua-check-if-file-is-a-directory
-      local function is_dir(path)
-        local f = io.open(path)
-        return not f:read(0) and f:seek("end") ~= 0
+        M.on_attach_set_keymappings(client, bufnr)
+        M.on_attach_set_format(client, bufnr)
       end
 
       -- assume that there's a file BUILD in google 3 repos.
       -- the check makes sure that gopls is enabled only in non google3 repos.
-      local is_google3 = is_file('BUILD') and not is_dir('BUILD')
+      local is_google3 = Utils.is_google3()
       if not is_google3 then
         servers.gopls = {
           on_attach = on_attach,
@@ -110,6 +211,7 @@ return {
         },
       }
 
+      local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
       local function setup(server)
         local server_opts = servers[server] or {}
         server_opts.capabilities = capabilities
@@ -146,6 +248,23 @@ return {
 
     end
   },
+  -- formatters
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = "BufReadPre",
+    dependencies = { "mason.nvim" },
+    opts = function()
+      local nls = require("null-ls")
+      return {
+        sources = {
+          -- nls.builtins.formatting.prettierd,
+          nls.builtins.formatting.stylua,
+          nls.builtins.diagnostics.flake8,
+        },
+      }
+    end,
+  },
+  -- lsp package manager
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
