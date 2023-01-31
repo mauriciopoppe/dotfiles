@@ -74,17 +74,5 @@ function M.float_term(cmd, opts)
   require("lazy.util").float_term(cmd, opts)
 end
 
--- local lua_profiler = require('my/lua_profiler')
--- profiler = lua_profiler.newProfiler()
--- function M.profile_fn(fn)
---   profiler:start()
---   fn()
---   profiler:stop()
---   local outfile = io.open("profile.txt", "w+")
---   profiler:report(outfile)
---   outfile:close()
---   print("profile complete!")
--- end
-
 return M
 

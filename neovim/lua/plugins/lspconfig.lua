@@ -80,20 +80,10 @@ return {
         },
       }
 
-      local runtime_path = vim.split(package.path, ';')
-      table.insert(runtime_path, "lua/?.lua")
-      table.insert(runtime_path, "lua/?/init.lua")
-      -- vim.pretty_print(runtime_path)
       servers["sumneko_lua"] = {
         on_attach = on_attach,
         settings = {
           Lua = {
-            runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-              version = "LuaJIT",
-              -- Setup your lua path
-              path = runtime_path,
-            },
             diagnostics = {
               globals = {"vim"}
             },

@@ -15,6 +15,7 @@ end
 -- preview window under cursor
 vim.keymap.set('n', '<Leader>bp', function()
   local opts = { width = 200, height = 15, enter = true, }
+  local dapui = require('dapui')
   dapui.float_element("scopes", opts)
 end)
 
