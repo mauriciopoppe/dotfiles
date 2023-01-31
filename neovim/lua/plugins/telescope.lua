@@ -1,5 +1,3 @@
-local Utils = require("my/utils")
-
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -8,12 +6,15 @@ return {
       "FeiyouG/command_center.nvim",
       -- vim bookmarks loader
       "tom-anders/telescope-vim-bookmarks.nvim",
+      -- frecency
+      "nvim-telescope/telescope-frecency.nvim",
+      "kkharji/sqlite.lua",
     },
     branch = "0.1.x",
     keys = {
       -- Mappings for a better UI
       { "[ui]f", ":<C-u>Telescope live_grep<CR>", silent = true, desc = "[F]ind files" },
-      { "[ui]b", ":<C-u>Telescope buffers<CR>", silent = true, desc = "[B]uffers" },
+      { "[ui]b", ":<C-u>Telescope frecency workspace=CWD<CR>", silent = true, desc = "[B] Frecency" },
       { "[ui]o", ":<C-u>Telescope find_files<CR>", silent = true, desc = "[O]pen files" },
       { "[ui]r", ":<C-u>Telescope resume<CR>", silent = true, desc = "[R]esume" },
       { "[ui]l", ":<C-u>Telescope current_buffer_fuzzy_find<CR>", silent = true, desc = "Find in [L]ine" },
@@ -86,6 +87,7 @@ return {
 
       require('telescope').load_extension('command_center')
       require('telescope').load_extension('vim_bookmarks')
+      require('telescope').load_extension('frecency')
 
     end
   }
