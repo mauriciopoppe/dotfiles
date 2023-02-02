@@ -32,13 +32,31 @@ return {
       },
       -- snippet engine
       "saadparwaiz1/cmp_luasnip",
+      -- icons
       "onsails/lspkind-nvim",
+      -- suggestions
+      "jcdickinson/codeium.nvim",
     },
     event = "InsertEnter",
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
-      local lspkind = require("lspkind")
+
+      local sources = {
+        { name = "nvim_lsp" },
+        { name = "nvim_lsp_signature_help" },
+        { name = "luasnip" },
+        { name = "path" },
+      }
+
+      -- codeium isn't loaded at work so it's only
+      -- conditionally loaded as a source
+      local ok, codeium = pcall(require, "codeium")
+      if ok then
+        codeium.setup({ })
+        table.insert(sources, #sources+1, { name = "codeium" })
+        vim.pretty_print(sources)
+      end
 
       local function has_words_before()
         unpack = unpack or table.unpack
@@ -48,24 +66,16 @@ return {
 
       local accept_current_item = cmp.mapping.confirm({ select = true })
       cmp.setup({
-        completion = {
-          completeopt = "menu,menuone,noinsert",
-        },
         snippet = {
           expand = function(args)
             require("luasnip").lsp_expand(args.body)
           end,
-        },
-        window = {
-          -- completion = cmp.config.window.bordered(),
-          -- documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-y>"] = accept_current_item,
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<C-Space"] = cmp.mapping.complete(),
           ['<Tab>'] = cmp.mapping(function(fallback)
             if luasnip.expand_or_jumpable() then
               luasnip.expand_or_jump()
@@ -85,16 +95,14 @@ return {
             end
           end, { "i", "s" }),
         }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
-          { name = "luasnip" },
-          { name = "path" },
-        }, {
-          { name = "buffer", keyword_length = 3 }
-        }),
+        sources = cmp.config.sources(
+          sources,
+          -- The buffer sources is only visible if there are no suggestions
+          -- in the sources group
+          { { name = "buffer", keyword_length = 3 } }
+        ),
         formatting = {
-          format = lspkind.cmp_format({
+          format = require("lspkind").cmp_format({
             with_text = true, -- do not show text alongside icons
             maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 
@@ -136,8 +144,8 @@ return {
         sources = cmp.config.sources({
           { name = "path" },
         }, {
-            { name = "cmdline" },
-          }),
+          { name = "cmdline" },
+        }),
       })
     end,
   },

@@ -8,9 +8,9 @@ return {
       "MunifTanjim/nui.nvim",
     },
     keys = {
-      { "[ui]e", ":Neotree toggle<CR>" },
-      { "[ui]a", ":Neotree reveal<CR>" },
-      { "[ui]x", ":Neotree diagnostics toggle bottom<CR>" },
+      { "[ui]e", ":Neotree toggle<CR>", silent = true },
+      { "[ui]a", ":Neotree reveal<CR>", silent = true },
+      { "[ui]x", ":Neotree diagnostics toggle bottom<CR>", silent = true },
     },
     branch = "v2.x",
     init = function()
@@ -23,7 +23,7 @@ return {
       end
     end,
     config = function()
-local neotree = require("neo-tree/command/init")
+local neotree = require("neo-tree.command.init")
 local cc = require("neo-tree.sources.filesystem.commands")
 
 -- edit_and_close_sidebar edits edits a file and closes the sidebar.
@@ -31,21 +31,6 @@ local edit_and_close_sidebar = function(state)
   cc.open(state)
   neotree.execute({ action = "close" })
 end
-
--- debug
--- local utils = require('my/utils')
--- local pepperfish_profiler = require('mauricio/pepperfish_profiler')
--- profiler = pepperfish_profiler.newProfiler('call', 1000)
--- function _G.mauricio_open()
---   profiler:start()
---     neotree.execute({ reveal = true })
---   profiler:stop()
---   local outfile = io.open("profile.txt", "w+")
---   profiler:report(outfile)
---   outfile:close()
---   print("profile complete!")
--- end
--- vim.api.nvim_set_keymap('n', '[ui]c', [[<Cmd>lua mauricio_open()<CR>]], { noremap = true})
 
 -- If you want icons for diagnostic errors, you'll need to define them somewhere:
 vim.fn.sign_define("DiagnosticSignError",

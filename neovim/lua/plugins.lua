@@ -4,15 +4,12 @@ return {
 
   --
   {
-    "Exafunction/codeium.vim",
-    event = "InsertEnter",
-    config = function()
-      vim.g.codeium_disable_bindings = 1
-      vim.keymap.set('i', '<C-j>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-      vim.g.copilot_filetypes = {
-        ['dap-repl'] = false,
-      }
-    end,
+    "jcdickinson/codeium.nvim",
+    lazy = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
     cond = function()
       -- enable only if running in my personal laptop
       local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")
