@@ -35,7 +35,18 @@ return {
       -- icons
       "onsails/lspkind-nvim",
       -- suggestions
-      "jcdickinson/codeium.nvim",
+      {
+        "jcdickinson/codeium.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "MunifTanjim/nui.nvim",
+        },
+        cond = function()
+          -- enable only if running in my personal laptop
+          local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")
+          return is_local_env ~= nil
+        end
+      },
     },
     event = "InsertEnter",
     config = function()
@@ -49,13 +60,11 @@ return {
         { name = "path" },
       }
 
-      -- codeium isn't loaded at work so it's only
-      -- conditionally loaded as a source
+      -- codeium isn't loaded at work so it's only conditionally loaded as a source
       local ok, codeium = pcall(require, "codeium")
       if ok then
         codeium.setup({ })
         table.insert(sources, #sources+1, { name = "codeium" })
-        vim.pretty_print(sources)
       end
 
       local function has_words_before()
