@@ -1,4 +1,4 @@
-local Utils = require("my/utils")
+local Utils = require("my.utils")
 
 -- cleans from cache, useful if I make changes to my lua files and reload config
 package.loaded["my/utils"] = nil
@@ -79,6 +79,10 @@ vim.keymap.set("v", "˚", ":m '<.-2<CR>gv=gv", { silent = true })
 vim.keymap.set("n", "˙", "^")
 -- ¬ = alt + l (move to the end of the line)
 vim.keymap.set("n", "¬", "$")
+
+-- buffer movements
+vim.keymap.set("n", "[b", ":bprev<CR>")
+vim.keymap.set("n", "]b", ":bnext<CR>")
 
 -- lazy
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })

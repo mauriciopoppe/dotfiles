@@ -11,6 +11,7 @@ return {
       "kkharji/sqlite.lua",
     },
     branch = "0.1.x",
+    -- stylua: ignore
     keys = {
       -- Mappings for a better UI
       { "[ui]f", ":<C-u>Telescope live_grep<CR>", silent = true, desc = "[F]ind files" },

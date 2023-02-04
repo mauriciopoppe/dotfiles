@@ -5,40 +5,24 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     config = function()
-      -- I took these colors by looking at the theme I applied to iTerm
-      local themes = {
-        dark = {
-          bg1 = "#2d3c46",
-          fg1 = "#8abdb6",
-          bg2 = "#424f58",
-          fg2 = "#232c31",
-        },
-        light = {
-          bg1 = "#eee8d5",
-          fg1 = "#7eb3af",
-          bg2 = "#fdf6e3",
-          fg2 = "#657b83",
-        },
-      }
-
       local custom = require("lualine.themes.material")
       local icons = Utils.icons
+      local themes = Utils.themes
       local colors = {}
 
       function _G.lualine_refresh_theme(theme)
         colors = themes[theme]
 
         -- Change the background of lualine_c section for normal mode
-        custom.normal.a.bg = colors.fg1
-        custom.normal.a.fg = colors.fg2
-        custom.normal.b.bg = colors.bg2
-        custom.normal.b.fg = colors.fg1
-        -- custom.normal.b.fg = colors.fg1
-        custom.normal.c.bg = colors.bg1
-        custom.normal.c.fg = colors.fg1
+        custom.normal.a.bg = colors.dark
+        custom.normal.a.fg = colors.light
+        custom.normal.b.bg = colors.medium
+        custom.normal.b.fg = colors.dark
+        custom.normal.c.bg = colors.light
+        custom.normal.c.fg = colors.dark
 
-        custom.inactive.c.fg = colors.fg1
-        custom.inactive.c.bg = colors.bg1
+        custom.inactive.c.bg = colors.light
+        custom.inactive.c.fg = colors.dark
 
         local function fg(name)
           return function()
@@ -74,18 +58,18 @@ return {
               { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
             },
             lualine_x = {
-        -- stylua: ignore
-        {
-          function() return require("noice").api.status.command.get() end,
-          cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-          color = fg("Statement")
-        },
-        -- stylua: ignore
-        {
-          function() return require("noice").api.status.mode.get() end,
-          cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-          color = fg("Constant") ,
-        },
+              -- stylua: ignore
+              {
+                function() return require("noice").api.status.command.get() end,
+                cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+                color = fg("Statement")
+              },
+              -- stylua: ignore
+              {
+                function() return require("noice").api.status.mode.get() end,
+                cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+                color = fg("Constant") ,
+              },
               { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = fg("Special") },
               {
                 "diff",

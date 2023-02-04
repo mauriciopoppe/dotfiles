@@ -26,7 +26,7 @@ end
 
 local function reset_highlight()
   vim.cmd([[
-  " Link highlight groups to improve buftabline colors
+  " Buftabline colors
   hi! link BufTabLineCurrent PreProc
   hi! link BufTabLineActive Comment
   hi! link BufTabLineHidden Comment
@@ -38,27 +38,6 @@ local function reset_highlight()
   highlight SignifySignAdd    cterm=none ctermbg=none ctermfg=lightgreen
   highlight SignifySignDelete cterm=none ctermbg=none ctermfg=red
   highlight SignifySignChange cterm=none ctermbg=none ctermfg=yellow
-
-  " italic html attributes
-  highlight htmlArg cterm=italic
-  highlight Comment cterm=italic
-
-  " neomake errors
-  highlight link NeomakeError DiffDelete
-  highlight link NeomakeWarning Question
-  highlight NeomakeErrorSign cterm=none ctermbg=none ctermfg=red
-
-  " ale errors
-  highlight link ALEErrorSign DiffDelete
-  highlight link ALEWarningSign Question
-  highlight ALEErrorSign cterm=none ctermbg=none ctermfg=red
-
-  highlight Search cterm=none ctermfg=none ctermbg=8
-
-  " coc (autocomplete)
-  highlight CocHighlightText ctermbg=6
-  highlight link CocHighlightTextWrite CocHighlightText
-  highlight link CocHighlightTextRead CocHighlightText
   ]])
 end
 

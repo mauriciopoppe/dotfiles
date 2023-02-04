@@ -1,3 +1,5 @@
+local Utils = require("my.utils")
+
 return {
   -- lua utility functions
   "nvim-lua/plenary.nvim",
@@ -55,7 +57,11 @@ return {
   },
 
   -- buffers tabline
-  "ap/vim-buftabline",
+  -- akinsho/bufferline.nvim didn't change the colors as I was hoping :\
+  {
+    "ap/vim-buftabline",
+    event = "VeryLazy",
+  },
 
   -- search and replace
   {
@@ -99,6 +105,26 @@ return {
         require("lazy").load({ plugins = { "dressing.nvim" } })
         return vim.ui.input(...)
       end
+    end,
+  },
+
+  -- Better `vim.notify()`
+  {
+    "rcarriga/nvim-notify",
+    event = "VeryLazy",
+    config = function()
+      local notify = require("notify")
+      notify.setup({
+        background_colour = Utils.themes["dark"].transparent,
+        timeout = 2000,
+        max_height = function()
+          return math.floor(vim.o.lines * 0.75)
+        end,
+        max_width = function()
+          return math.floor(vim.o.columns * 0.75)
+        end,
+      })
+      vim.notify = notify
     end,
   },
 

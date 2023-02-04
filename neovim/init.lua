@@ -37,6 +37,9 @@ vim.keymap.set("x", ";", "[ui]", { remap = true })
 -- Turn off builtin plugins I do not use
 require("my.disable_builtin")
 
+-- enable 24bit RGB color in the TUI, required for some plugins
+vim.o.termguicolors = true
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({

@@ -126,8 +126,5 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.wildmode = "longest:full,full"
 vim.o.winminwidth = 5
 
--- enable 24bit RGB color in the TUI
-vim.o.termguicolors = true
-
 -- Disable markdown indentation settings (https://github.com/vim/vim/blob/master/runtime/ftplugin/markdown.vim)
 vim.g.markdown_recommended_style = 0

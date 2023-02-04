@@ -16,13 +16,28 @@ local defaults = {
       removed = " ",
     },
   },
+  -- I took these colors by looking at the theme I applied to iTerm
+  themes = {
+    dark = {
+      transparent = "#232c31",
+      light = "#2d3c46",
+      medium = "#424f58",
+      dark = "#8abdb6",
+    },
+    light = {
+      transparent = "#eee8d5",
+      light = "#fdf6e3",
+      medium = "#7eb3af",
+      dark = "#657b83",
+    },
+  },
 }
 
 ---@type LazyVimConfig
 local options = vim.tbl_deep_extend("force", defaults, {})
 
 function M.check_health()
-  vim.health.report_start("LazyVim")
+  vim.health.report_start("MySetup")
 
   if vim.fn.has("nvim-0.8.0") == 1 then
     vim.health.report_ok("Using Neovim >= 0.8.0")
@@ -117,7 +132,7 @@ function M.is_google3()
     return not f:read(0) and f:seek("end") ~= 0
   end
 
-  return is_file('BUILD') and not is_dir('BUILD')
+  return is_file("BUILD") and not is_dir("BUILD")
 end
 
 setmetatable(M, {
@@ -131,4 +146,3 @@ setmetatable(M, {
 })
 
 return M
-
