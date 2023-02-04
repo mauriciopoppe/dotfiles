@@ -35,7 +35,7 @@ vim.keymap.set("n", ";", "[ui]", { remap = true })
 vim.keymap.set("x", ";", "[ui]", { remap = true })
 
 -- Turn off builtin plugins I do not use
-require('my.disable_builtin')
+require("my.disable_builtin")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -74,4 +74,3 @@ local abspath = vim.fn.expand("~/.config/nvim/alt.vim")
 if vim.loop.fs_stat(abspath) then
   vim.cmd("source " .. abspath)
 end
-

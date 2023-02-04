@@ -72,4 +72,3 @@ end
 _G.ChangeTheme = change_theme
 
 change_theme()
-

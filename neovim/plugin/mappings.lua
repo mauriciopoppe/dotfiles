@@ -1,7 +1,7 @@
-local Utils = require('my/utils')
+local Utils = require("my/utils")
 
 -- cleans from cache, useful if I make changes to my lua files and reload config
-package.loaded['my/utils'] = nil
+package.loaded["my/utils"] = nil
 
 -- treat long lines as break lines
 vim.keymap.set("n", "j", "gj")
@@ -63,7 +63,7 @@ vim.keymap.set("n", "<leader>sv", ":so $MYVIMRC<CR>")
 
 -- space + \ = create a new vertical pane (the | key is over \)
 -- space + - = create a new horizontal pane
-vim.keymap.set("n", '<leader>\\', "<c-w>v<c-w>l")
+vim.keymap.set("n", "<leader>\\", "<c-w>v<c-w>l")
 vim.keymap.set("n", "<leader>-", "<c-w>s")
 
 -- move a line in normal mode while fixing the indentation
@@ -86,4 +86,6 @@ vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 vim.keymap.set("n", "<leader>gg", function()
   Utils.float_term({ "lazygit" }, { cwd = Utils.get_root() })
 end, { desc = "Lazygit (root dir)" })
-vim.keymap.set("n", "<leader>gG", function() Utils.float_term({ "lazygit" }) end, { desc = "Lazygit (cwd)" })
+vim.keymap.set("n", "<leader>gG", function()
+  Utils.float_term({ "lazygit" })
+end, { desc = "Lazygit (cwd)" })

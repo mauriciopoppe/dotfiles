@@ -1,11 +1,11 @@
 -- The definition of the module M comes from
 -- https://github.com/LazyVim/LazyVim/blob/c5b22c0832603198f571ff68b6fb9d0c17f73d33/lua/lazyvim/plugins/lsp/keymaps.lua
 
-local Utils = require('my.utils')
-local M = {}
-
--- Disable autoformat first
-M.autoformat = false
+local Utils = require("my.utils")
+local M = {
+  -- autoformat through null-ls enabled by default
+  autoformat = true,
+}
 
 function M.get_keymappings()
   ---@class PluginLspKeys
@@ -13,10 +13,10 @@ function M.get_keymappings()
   M._keys = M._keys or {
     -- { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
     -- { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-    -- { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
-    -- { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-    -- { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-    -- { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
+      -- { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
+      -- { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+      -- { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+      -- { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
     -- { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
     { "K", vim.lsp.buf.hover, desc = "Hover" },
     { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
@@ -80,21 +80,20 @@ function M.format()
   local buf = vim.api.nvim_get_current_buf()
   local ft = vim.bo[buf].filetype
   local have_nls = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
+  print(have_nls)
 
-  vim.lsp.buf.format(vim.tbl_deep_extend("force", {
+  vim.lsp.buf.format({
     bufnr = buf,
+    -- filter (function|nil): Predicate used to filter clients.
+    -- Receives a client as argument and must return a boolean.
+    -- Clients matching the predicate are included.
     filter = function(client)
       if have_nls then
         return client.name == "null-ls"
       end
       return client.name ~= "null-ls"
     end,
-  }, {
-    -- Defaults come from the opts set for lspconfig in lazyvim
-    -- https://github.com/LazyVim/LazyVim/blob/c5b22c0832603198f571ff68b6fb9d0c17f73d33/lua/lazyvim/plugins/lsp/init.lua#L32
-    formatting_options = nil,
-    timeout_ms = nil,
-  }))
+  })
 end
 
 function M.on_attach_set_format(client, buffer)
@@ -186,15 +185,19 @@ return {
 
       if Utils.is_google3() then
         -- configure ciderlsp on google3 repos
-        local nvim_lsp = require('lspconfig')
-        local configs = require('lspconfig.configs')
+        local nvim_lsp = require("lspconfig")
+        local configs = require("lspconfig.configs")
         configs.ciderlsp = {
-         default_config = {
-           cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'},
-           filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl'},
-           root_dir = nvim_lsp.util.root_pattern('BUILD'),
-           settings = {},
-         }
+          default_config = {
+            cmd = {
+              "/google/bin/releases/cider/ciderlsp/ciderlsp",
+              "--tooltag=nvim-lsp",
+              "--noforward_sync_responses",
+            },
+            filetypes = { "c", "cpp", "java", "proto", "textproto", "go", "python", "bzl" },
+            root_dir = nvim_lsp.util.root_pattern("BUILD"),
+            settings = {},
+          },
         }
         servers.ciderlsp = {
           on_attach = on_attach,
@@ -213,7 +216,7 @@ return {
         settings = {
           Lua = {
             diagnostics = {
-              globals = {"vim"}
+              globals = { "vim" },
             },
             workspace = {
               checkThirdParty = false,
@@ -222,13 +225,13 @@ return {
               callSnippet = "Replace",
             },
             telemetry = {
-              enable = false
-            }
+              enable = false,
+            },
           },
         },
       }
 
-      local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
       local function setup(server)
         local server_opts = servers[server] or {}
         server_opts.capabilities = capabilities
@@ -262,8 +265,7 @@ return {
 
       require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
       require("mason-lspconfig").setup_handlers({ setup })
-
-    end
+    end,
   },
   -- formatters
   {

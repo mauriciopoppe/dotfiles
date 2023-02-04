@@ -21,9 +21,9 @@ return {
       { "[ui]p", ":<C-u>Telescope command_center<CR>", silent = true, desc = "Command [P]alette" },
       { "[ui]w", ":<C-u>Telescope grep_string<CR>", silent = true, desc = "Search with [W]ord" },
       { "[ui]q", ":<C-u>Telescope quickfix<CR>", silent = true, desc = "[Q]uickfix" },
-      { "[ui]m", ":<C-u>Telescope vim_bookmarks all<CR>", silent = true, desc = "Book[m]arks"},
+      { "[ui]m", ":<C-u>Telescope vim_bookmarks all<CR>", silent = true, desc = "Book[m]arks" },
       -- Mappings to navigate on the code
-      { "<leader>a", ":<C-u>Telescope lsp_code_actions<CR>", silent = true, desc = "LSP code [a]ctions"},
+      { "<leader>a", ":<C-u>Telescope lsp_code_actions<CR>", silent = true, desc = "LSP code [a]ctions" },
       { "<leader>d", ":<C-u>Telescope lsp_definitions<CR>", silent = true, desc = "LSP [d]efinitions" },
       { "<leader>t", ":<C-u>Telescope lsp_type_definitions<CR>", silent = true, desc = "LSP [t]ype definitions" },
       { "<leader>i", ":<C-u>Telescope lsp_implementations<CR>", silent = true, desc = "LSP [i]mplementations" },
@@ -47,30 +47,36 @@ return {
       }
 
       -- Custom actions
-      local command_center = require('command_center')
+      local command_center = require("command_center")
       command_center.add({
         {
           desc = "Copy absolute path",
-          cmd = function() vim.api.nvim_exec('let @" = expand("%:p") | execute \'OSCYankReg "\'', true) end,
+          cmd = function()
+            vim.api.nvim_exec('let @" = expand("%:p") | execute \'OSCYankReg "\'', true)
+          end,
         },
         {
           desc = "Copy relative path",
-          cmd = function() vim.api.nvim_exec('let @" = expand("%") | execute \'OSCYankReg "\'', true) end,
+          cmd = function()
+            vim.api.nvim_exec('let @" = expand("%") | execute \'OSCYankReg "\'', true)
+          end,
         },
         {
           desc = "Copy filename only",
-          cmd = function() vim.api.nvim_exec('let @" = expand("%:t") | execute \'OSCYankReg "\'', true) end,
+          cmd = function()
+            vim.api.nvim_exec('let @" = expand("%:t") | execute \'OSCYankReg "\'', true)
+          end,
         },
       }, {
         mode = command_center.mode.ADD,
       })
 
-      require("telescope").setup {
+      require("telescope").setup({
         defaults = {
           mappings = {
             i = {
               ["<esc>"] = actions.close,
-              ["<C-c>"] = actions.close
+              ["<C-c>"] = actions.close,
             },
           },
         },
@@ -81,14 +87,12 @@ return {
           lsp_references = split_vertical_theme,
           lsp_implementations = split_vertical_theme,
         },
-        extensions = {
-        }
-      }
+        extensions = {},
+      })
 
-      require('telescope').load_extension('command_center')
-      require('telescope').load_extension('vim_bookmarks')
-      require('telescope').load_extension('frecency')
-
-    end
-  }
+      require("telescope").load_extension("command_center")
+      require("telescope").load_extension("vim_bookmarks")
+      require("telescope").load_extension("frecency")
+    end,
+  },
 }

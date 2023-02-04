@@ -3,9 +3,7 @@ return {
     "mfussenegger/nvim-dap",
     ft = { "go" },
     config = function()
-      local dap = require "dap"
-
-      -- dap.set_log_level('TRACE')
+      local dap = require("dap")
 
       local function c(func, opts)
         return function()
@@ -14,9 +12,9 @@ return {
       end
 
       -- preview window under cursor
-      vim.keymap.set('n', '<Leader>bp', function()
-        local opts = { width = 200, height = 15, enter = true, }
-        local dapui = require('dapui')
+      vim.keymap.set("n", "<Leader>bp", function()
+        local opts = { width = 200, height = 15, enter = true }
+        local dapui = require("dapui")
         dapui.float_element("scopes", opts)
       end)
 
@@ -29,7 +27,7 @@ return {
       end)
       vim.keymap.set("n", "<leader>bX", function()
         dap.terminate()
-        require('dapui').close()
+        require("dapui").close()
       end)
       vim.keymap.set("n", "<leader>ba", c(dap.toggle_breakpoint))
 
@@ -53,10 +51,10 @@ return {
       end
       dap.listeners.after.event_exited["dap_debug_mappings"] = function()
         -- TODO: this isn't working, need to figure out how to remove the keymaps
-        vim.keymap.del('n', "H")
-        vim.keymap.del('n', "J")
-        vim.keymap.del('n', "K")
-        vim.keymap.del('n', "L")
+        vim.keymap.del("n", "H")
+        vim.keymap.del("n", "J")
+        vim.keymap.del("n", "K")
+        vim.keymap.del("n", "L")
       end
 
       -- setup adapter for go config taken from
@@ -74,13 +72,13 @@ return {
           print(msg)
         else
           local opts = {
-            stdio = {nil, stdout, stderr},
+            stdio = { nil, stdout, stderr },
             -- To enable debugging:
             -- - Uncomment the following line (and comment the other args line below)
             -- - Check ~/.cache/nvim/dap.log (I saw set breakpoint errors here)
             -- args = {"dap", "-l", addr, "--log", "debug", "--log-output", "dap", "--log-dest", "/tmp/dap.log"},
-            args = {"dap", "-l", addr},
-            detached = true
+            args = { "dap", "-l", addr },
+            detached = true,
           }
 
           handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
@@ -128,14 +126,14 @@ return {
           type = "go",
           name = "Debug",
           request = "launch",
-          program = "${file}"
+          program = "${file}",
         },
         {
           type = "go",
           name = "Debug test", -- configuration for debugging test files
           request = "launch",
           mode = "test",
-          program = "${file}"
+          program = "${file}",
         },
         -- works with go.mod packages and sub packages
         {
@@ -143,7 +141,7 @@ return {
           name = "Debug test (go.mod)",
           request = "launch",
           mode = "test",
-          program = "./${relativeFileDirname}"
+          program = "./${relativeFileDirname}",
         },
         -- debug kube-controller-manager binary
         {
@@ -240,7 +238,6 @@ return {
         --    },
         --  }
       }
-
-    end
-  }
+    end,
+  },
 }

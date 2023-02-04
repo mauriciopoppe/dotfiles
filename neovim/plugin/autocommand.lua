@@ -5,11 +5,11 @@ local api = vim.api
 -- it also preserves the cursor position and search
 -- ]]
 function TrimWhitespace()
-  local _s = vim.fn.getreg('@/')
+  local _s = vim.fn.getreg("@/")
   local l = vim.fn.line(".")
   local c = vim.fn.col(".")
   vim.cmd("execute 'keeppatterns %s/\\s\\+$//e'")
-  vim.fn.setreg('@/', _s)
+  vim.fn.setreg("@/", _s)
   vim.fn.cursor(l, c)
 end
 
@@ -23,15 +23,15 @@ function AutoWriteOnFocusLost()
   -- print(vim.inspect(current_buffer_info.name))
   if vim.bo.buftype == "" then
     local current_buffer_number = api.nvim_eval('bufnr("%")')
-    local current_buffer_info = api.nvim_eval(string.format('getbufinfo(%s)[0]', current_buffer_number))
+    local current_buffer_info = api.nvim_eval(string.format("getbufinfo(%s)[0]", current_buffer_number))
     -- only save if the buffer contents changed and if the buffer has a name (e.g. if it's not a :new buffer)
     if current_buffer_info.changed ~= 0 and current_buffer_info.name ~= "" then
-      api.nvim_command('write')
+      api.nvim_command("write")
     end
   end
 end
 
-local autowrite = vim.api.nvim_create_augroup('vimrc', { clear = true })
+local autowrite = vim.api.nvim_create_augroup("vimrc", { clear = true })
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = "*",
   group = autowrite,
@@ -43,7 +43,7 @@ vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
   callback = AutoWriteOnFocusLost,
 })
 
-local setup = vim.api.nvim_create_augroup('setup', { clear = true })
+local setup = vim.api.nvim_create_augroup("setup", { clear = true })
 -- hide preview on complete
 vim.api.nvim_create_autocmd({ "CompleteDone" }, {
   pattern = "*",
@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   pattern = "*",
   group = setup,
   callback = function()
-    vim.highlight.on_yank {higroup="IncSearch", timeout=1000, on_visual=true}
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 1000, on_visual = true })
   end,
 })
 

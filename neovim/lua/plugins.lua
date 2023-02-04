@@ -22,9 +22,9 @@ return {
     "mhinz/vim-signify",
     config = function()
       vim.g.signify_vcs_cmds_diffmode = {
-        hg = 'hg cat %f -r p4base',
+        hg = "hg cat %f -r p4base",
       }
-    end
+    end,
   },
 
   -- better diagnostics list and others
@@ -44,9 +44,10 @@ return {
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = "BufReadPost",
     config = true,
+    -- stylua: ignore
     keys = {
-      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment", },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment", },
       { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
       { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
@@ -60,22 +61,27 @@ return {
   {
     "windwp/nvim-spectre",
     keys = {
-      { "[ui]s", function() require("spectre").open() end, desc = "Search & replace" }
+      {
+        "[ui]s",
+        function()
+          require("spectre").open()
+        end,
+        desc = "Search & replace",
+      },
     },
     config = function()
-      local spectre = require('spectre')
+      local spectre = require("spectre")
       spectre.setup()
-    end
+    end,
   },
 
   -- " indent guides
   {
     "nathanaelkane/vim-indent-guides",
     keys = {
-      { "<Leader>ti", ":<C-u>IndentGuidesToggle<CR>", desc = "Toggle indent guides" }
+      { "<Leader>ti", ":<C-u>IndentGuidesToggle<CR>", desc = "Toggle indent guides" },
     },
-    config = function ()
-    end
+    config = function() end,
   },
 
   -- improve core UI elements
@@ -105,9 +111,9 @@ return {
   {
     "ggandor/leap.nvim",
     config = function()
-      local leap = require('leap')
+      local leap = require("leap")
       leap.add_default_mappings()
-    end
+    end,
   },
 
   -- easily jump to any location and enhanced f/t motions for Leap
@@ -141,7 +147,7 @@ return {
       xmap <silent> b <Plug>CamelCaseMotion_b
       omap <silent> b <Plug>CamelCaseMotion_b
       ]])
-    end
+    end,
   },
   -- undo tree
   "mbbill/undotree",
@@ -155,7 +161,7 @@ return {
       nmap <expr> <C-Down> &diff? '<Plug>(MergetoolDiffExchangeDown)' : '<C-Down>'
       nmap <expr> <C-Up> &diff? '<Plug>(MergetoolDiffExchangeUp)' : '<C-Up>'
       ]])
-    end
+    end,
   },
 
   -- toggle bookmarks per line, use telescope to find them
@@ -164,9 +170,11 @@ return {
   {
     "ojroques/vim-oscyank",
     config = function()
-      vim.g.oscyank_term = 'default'
-      vim.cmd([[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]])
-    end
+      vim.g.oscyank_term = "default"
+      vim.cmd(
+        [[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]]
+      )
+    end,
   },
 
   -- run commands in a tmux split
@@ -182,9 +190,10 @@ return {
   {
     "RRethy/vim-illuminate",
     event = "BufReadPost",
+    -- stylua: ignore
     keys = {
       { "]]", function() require("illuminate").goto_next_reference(false) end, desc = "Next Reference", },
-      { "[[", function() require("illuminate").goto_prev_reference(false) end, desc = "Prev Reference" },
+      { "[[", function() require("illuminate").goto_prev_reference(false) end, desc = "Prev Reference", },
     },
     config = function()
       require("illuminate").configure({ delay = 200 })
@@ -211,13 +220,13 @@ return {
       " Start interactive EasyAlign for a motion/text object (e.g. gaip)
       nmap ga <Plug>(EasyAlign)
       ]])
-    end
+    end,
   },
 
   -- multiple cursors (<C-n><C-p><C-x>)
   {
     "mg979/vim-visual-multi",
-    event = "VeryLazy"
+    event = "VeryLazy",
   },
 
   -- commenting stuff
@@ -230,7 +239,7 @@ return {
       omap gc  <Plug>Commentary
       nmap gcc <Plug>CommentaryLine
       ]])
-    end
+    end,
   },
   -- . improved
   "tpope/vim-repeat",
@@ -239,7 +248,7 @@ return {
   -- change/delete surrounding characters
   {
     "kylechui/nvim-surround",
-    config = function ()
+    config = function()
       require("nvim-surround").setup()
     end,
   },
@@ -247,18 +256,16 @@ return {
   -- autoformat for some types
   {
     "prettier/vim-prettier",
-    ft = {
-      'javascript', 'typescript', 'css', 'less', 'scss', 'json',
-      'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'
-    },
-    config = function ()
+    -- stylua: ignore
+    ft = { "javascript", "typescript", "css", "less", "scss", "json", "graphql", "markdown", "vue", "svelte", "yaml", "html", },
+    config = function()
       vim.g["prettier#autoformat"] = 1
       vim.g["prettier#autoformat_require_pragma"] = 0
-    end
+    end,
   },
   {
     "pangloss/vim-javascript",
-    ft = { "javascript", "typescript" }
+    ft = { "javascript", "typescript" },
   },
 
   {
@@ -266,36 +273,38 @@ return {
     config = function()
       vim.g.gfm_syntax_enable_always = 0
       vim.g.gfm_syntax_highlight_emoji = 0
-      vim.g.gfm_syntax_enable_filetypes = {'markdown'}
-    end
+      vim.g.gfm_syntax_enable_filetypes = { "markdown" }
+    end,
   },
 
   -- go setup
   {
     "ray-x/go.nvim",
     ft = { "go" },
-    config = function ()
+    config = function()
       vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = "*.go",
-        callback = function () require("go.format").goimport() end,
+        callback = function()
+          require("go.format").goimport()
+        end,
       })
       vim.api.nvim_create_autocmd("Filetype", {
         pattern = "go",
-        callback = function ()
+        callback = function()
           vim.keymap.set("n", "<leader>k", ":<C-u>GoDoc<CR>", { silent = true })
         end,
       })
-      require('go').setup()
-    end
+      require("go").setup()
+    end,
   },
+
   --
   {
-
     "AndrewRadev/splitjoin.vim",
-    config = function ()
-      vim.g.splitjoin_split_mapping = ''
-      vim.g.splitjoin_join_mapping = ''
-    end
+    config = function()
+      vim.g.splitjoin_split_mapping = ""
+      vim.g.splitjoin_join_mapping = ""
+    end,
   },
 
   -- editorconfig
@@ -306,11 +315,11 @@ return {
     "folke/persistence.nvim",
     event = "BufReadPre",
     opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help" } },
+    -- stylua: ignore
     keys = {
-      { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
-      { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-      { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+      { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session", },
+      { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session", },
+      { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session", },
     },
-  }
+  },
 }
-
