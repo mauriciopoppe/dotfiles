@@ -80,7 +80,6 @@ function M.format()
   local buf = vim.api.nvim_get_current_buf()
   local ft = vim.bo[buf].filetype
   local have_nls = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0
-  print(have_nls)
 
   vim.lsp.buf.format({
     bufnr = buf,
@@ -267,6 +266,14 @@ return {
       require("mason-lspconfig").setup_handlers({ setup })
     end,
   },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    lazy = true,
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" },
+    },
+  },
   -- formatters
   {
     "jose-elias-alvarez/null-ls.nvim",
@@ -278,7 +285,12 @@ return {
         sources = {
           -- nls.builtins.formatting.prettierd,
           nls.builtins.formatting.stylua,
-          nls.builtins.diagnostics.flake8,
+          -- go
+          nls.builtins.formatting.gofmt,
+          nls.builtins.formatting.goimports,
+          -- common actions
+          nls.builtins.formatting.prettier,
+          -- nls.builtins.code_actions.refactoring,
         },
       }
     end,

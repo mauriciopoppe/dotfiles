@@ -253,21 +253,6 @@ return {
     end,
   },
 
-  -- autoformat for some types
-  {
-    "prettier/vim-prettier",
-    -- stylua: ignore
-    ft = { "javascript", "typescript", "css", "less", "scss", "json", "graphql", "markdown", "vue", "svelte", "yaml", "html", },
-    config = function()
-      vim.g["prettier#autoformat"] = 1
-      vim.g["prettier#autoformat_require_pragma"] = 0
-    end,
-  },
-  {
-    "pangloss/vim-javascript",
-    ft = { "javascript", "typescript" },
-  },
-
   {
     "rhysd/vim-gfm-syntax",
     config = function()

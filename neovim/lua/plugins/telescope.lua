@@ -35,13 +35,16 @@ return {
       local actions = require("telescope.actions")
       local split_vertical_theme = {
         theme = "dropdown",
+        -- option to set the filename width, this is useful for long go filenames
+        -- ref https://github.com/nvim-telescope/telescope.nvim/blob/203bf5609137600d73e8ed82703d6b0e320a5f36/lua/telescope/make_entry.lua#L456
+        fname_width = 60,
         layout_config = {
-          preview_cutoff = 1,
+          preview_cutoff = 5,
           width = function(_, max_columns, _)
             return math.min(max_columns, math.floor(vim.fn.winwidth(0) * 0.8))
           end,
           height = function(_, _, max_lines)
-            return math.min(max_lines, math.floor(vim.fn.winheight(0) * 0.8))
+            return math.min(max_lines, math.floor(vim.fn.winheight(0) * 0.5))
           end,
         },
       }
