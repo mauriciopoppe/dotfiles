@@ -26,6 +26,10 @@ vim.o.autoread = true
 -- time to wait for a mapped sequence to complete
 -- e.g. wait 500ms when typing `j` and after `k` to exit from insert mode
 vim.o.timeoutlen = 500
+-- grep
+vim.o.grepformat = "%f:%l:%c:%m"
+vim.o.grepprg = "rg --vimgrep"
+
 -- }}}
 -- Indentation settings {{{
 
@@ -35,6 +39,8 @@ vim.o.expandtab = true
 vim.o.softtabstop = 2
 -- how many columns are indented with the indent operations (<< and >>)
 vim.o.shiftwidth = 2
+-- round indent to multiple of shiftwidth
+vim.o.shiftround = true
 -- how many places should a tab be seen as
 vim.o.tabstop = 4
 -- enable break indent
@@ -53,6 +59,10 @@ vim.o.listchars = "tab:⋮ ,extends:❯,precedes:❮,nbsp:␣"
 vim.o.showbreak = "↪"
 -- what to save on mksession
 -- vim.o.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+vim.o.pumblend = 10
+vim.o.pumheight = 10
+-- always show signcolumn
+vim.o.signcolumn = "yes"
 
 -- }}}
 -- Split settings {{{
@@ -71,6 +81,7 @@ vim.o.backup = false
 vim.o.writebackup = false
 -- enable persistent undo with a filename = full path
 vim.o.undofile = true
+vim.o.undolevels = 10000
 -- undo files are stored inside the following path
 vim.o.undodir = vim.fn.expand("~/.config/nvim/undo")
 -- }}}
@@ -87,6 +98,8 @@ vim.o.spelllang = "en_us"
 vim.o.ignorecase = true
 -- make search case sensitive only if it contains uppercase letters
 vim.o.smartcase = true
+-- Insert indents automatically
+vim.opt.smartindent = true
 -- search again from top when it reaches the bottom
 vim.o.wrapscan = true
 -- don't highlight after search
@@ -110,9 +123,11 @@ vim.o.fillchars = "fold: "
 -- Omni completion settings {{{
 
 vim.o.completeopt = "menu,menuone,noselect"
+vim.o.wildmode = "longest:full,full"
+vim.o.winminwidth = 5
 
 -- enable 24bit RGB color in the TUI
 vim.o.termguicolors = true
 
--- Fix markdown indentation settings
+-- Disable markdown indentation settings (https://github.com/vim/vim/blob/master/runtime/ftplugin/markdown.vim)
 vim.g.markdown_recommended_style = 0

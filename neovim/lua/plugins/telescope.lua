@@ -38,10 +38,10 @@ return {
         layout_config = {
           preview_cutoff = 1,
           width = function(_, max_columns, _)
-            return math.min(max_columns, 180)
+            return math.min(max_columns, math.floor(vim.fn.winwidth(0) * 0.8))
           end,
           height = function(_, _, max_lines)
-            return math.min(max_lines, 30)
+            return math.min(max_lines, math.floor(vim.fn.winheight(0) * 0.8))
           end,
         },
       }
