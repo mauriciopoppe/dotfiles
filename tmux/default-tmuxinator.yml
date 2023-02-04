@@ -5,7 +5,7 @@ windows:
   - editor:
       layout: 7598,272x69,0,0{209x69,0,0,10,62x69,210,0[62x34,210,0,11,62x34,210,35,12]}
       panes:
-        - nvim -S
+        - nvim
         - null
         - null
 
