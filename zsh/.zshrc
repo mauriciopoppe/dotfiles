@@ -7,8 +7,8 @@ export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 ########
@@ -16,7 +16,7 @@ fi
 ########
 
 ### Added by Zinit's installer
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+ZINIT_HOME="${XDG_DATA_HOME}/zinit/zinit.git"
 if [[ ! -d $ZINIT_HOME ]]; then
     mkdir -p "$(dirname $ZINIT_HOME)"
     git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
@@ -39,12 +39,7 @@ safe-source() {
   [[ -s $1 ]] && source $1
 }
 
-# fix colors when running tmux inside zsh
-export TERM=xterm-256color
-[ -n "$TMUX" ] && export TERM=screen-256color
-
-# run nvim with italic comments
-alias nvim="TERM=xterm-256color-italic nvim"
+export TERM=tmux-256color
 
 #########
 # zinit #

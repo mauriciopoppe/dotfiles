@@ -32,9 +32,6 @@ alias gt="lazygit"
 alias pip="pip3"
 alias python="python3"
 
-# I don't know where nvim is aliased :\
-unalias nvim
-
 # tmux aliases
 alias ta='tmux attach -t'
 alias td='tmux detach'

@@ -38,8 +38,6 @@ export VISUAL=nvim
 # default editor
 export EDITOR="$VISUAL"
 
-export TERM=xterm-256color
-
 export HISTCONTROL=ignorespace
 
 # `fzf` default stdin command
