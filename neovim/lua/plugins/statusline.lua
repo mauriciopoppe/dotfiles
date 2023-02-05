@@ -21,6 +21,12 @@ return {
         custom.normal.c.bg = colors.light
         custom.normal.c.fg = colors.dark
 
+        custom.insert.b.bg = colors.medium
+        custom.insert.b.fg = colors.dark
+
+        custom.visual.b.bg = colors.medium
+        custom.visual.b.fg = colors.dark
+
         custom.inactive.c.bg = colors.light
         custom.inactive.c.fg = colors.dark
 
