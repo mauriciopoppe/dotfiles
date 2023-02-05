@@ -267,9 +267,7 @@ return {
           repl = "r",
           toggle = "t",
         },
-        -- Expand lines larger than the window
-        -- Requires >= 0.7
-        expand_lines = vim.fn.has("nvim-0.7") == 1,
+        expand_lines = true,
         -- Layouts define sections of the screen to place windows.
         -- The position can be "left", "right", "top" or "bottom".
         -- The size specifies the height/width depending on position. It can be an Int
@@ -313,19 +311,6 @@ return {
             run_last = "",
             terminate = "",
           },
-        },
-        floating = {
-          max_height = nil, -- These can be integers or a float between 0 and 1.
-          max_width = nil, -- Floats will be treated as percentage of your screen.
-          border = "single", -- Border style. Can be "single", "double" or "rounded"
-          mappings = {
-            close = { "q", "<Esc>" },
-          },
-        },
-        windows = { indent = 1 },
-        render = {
-          max_type_length = nil, -- Can be integer or nil.
-          max_value_lines = 100, -- Can be integer or nil.
         },
       })
 
