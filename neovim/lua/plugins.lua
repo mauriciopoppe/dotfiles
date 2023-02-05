@@ -131,6 +131,15 @@ return {
   -- themes
   "kristijanhusak/vim-hybrid-material",
   "w0ng/vim-hybrid",
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   config = function()
+  --     require("tokyonight").setup({
+  --       style = "night",
+  --     })
+  --   end,
+  -- },
+  -- -- "PHSix/nvim-hybrid",
   "lifepillar/vim-solarized8",
 
   -- navigate to any visible part

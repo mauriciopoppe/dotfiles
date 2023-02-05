@@ -8,8 +8,6 @@ local function fix_options()
 end
 
 local function change_background()
-  vim.g.background = "dark"
-
   local themeFile = vim.fn.readfile(vim.fn.expand("~/.tmux.theme"))
   -- arrays are indexed at 1!
   local theme = themeFile[1]
