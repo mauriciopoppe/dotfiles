@@ -13,10 +13,10 @@ local function change_background()
   local theme = themeFile[1]
   if theme == "dark" then
     vim.g.background = "dark"
-    vim.cmd([[ colorscheme hybrid ]])
+    vim.cmd.colorscheme("hybrid")
   elseif theme == "light" then
     vim.g.background = "light"
-    vim.cmd([[ colorscheme solarized8 ]])
+    vim.cmd.colorscheme("solarized8")
   else
     print("No theme found")
   end

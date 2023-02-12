@@ -136,14 +136,17 @@ return {
       -- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
       -- https://github.com/neovim/nvim-lspconfig
 
-      local servers = {}
-
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
         M.on_attach_set_keymappings(client, bufnr)
         M.on_attach_set_format(client, bufnr)
       end
+
+      -- servers is a list of customized servers that have their own config.
+      local servers = {
+        -- remember to set `mason = false` on lsp servers that don't can't be installed through mason
+      }
 
       -- assume that there's a file BUILD in google 3 repos.
       -- the check makes sure that gopls is enabled only in non google3 repos.
@@ -199,6 +202,7 @@ return {
           },
         }
         servers.ciderlsp = {
+          mason = false,
           on_attach = on_attach,
         }
       end

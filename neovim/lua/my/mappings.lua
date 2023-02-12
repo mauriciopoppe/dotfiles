@@ -3,6 +3,19 @@ local Utils = require("my.utils")
 -- cleans from cache, useful if I make changes to my lua files and reload config
 package.loaded["my/utils"] = nil
 
+vim.keymap.set("n", "<Space>", "<Nop>")
+vim.keymap.set("x", "<Space>", "<Nop>")
+vim.keymap.set("n", ",", "<Nop>")
+vim.keymap.set("x", ",", "<Nop>")
+vim.keymap.set("n", ";", "<Nop>")
+vim.keymap.set("x", ";", "<Nop>")
+
+-- ; the secondary leader, mapped to [ui]
+vim.keymap.set("n", "[ui]", "<Nop>")
+vim.keymap.set("x", "[ui]", "<Nop>")
+vim.keymap.set("n", ";", "[ui]", { remap = true })
+vim.keymap.set("x", ";", "[ui]", { remap = true })
+
 -- treat long lines as break lines
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")

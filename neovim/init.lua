@@ -5,7 +5,7 @@
 File structure:
 
 ./init.lua - Is this file
-./plugin/*.{lua,vim} - These are configurations for core stuff (outside custom plugin setup)
+./lua/my/*.lua - These are configurations for core stuff (outside custom plugin setup), loaded through this file
 ./lua/plugins.lua - Root config for plugins, loaded by lazy.vim
 ./lua/plugins/*.lua - Additional configs which are more complex, loaded by lazy.vim
 
@@ -21,21 +21,21 @@ Inspired by:
 
 --]]
 vim.g.mapleader = ","
-vim.keymap.set("n", "<Space>", "<Nop>")
-vim.keymap.set("x", "<Space>", "<Nop>")
-vim.keymap.set("n", ",", "<Nop>")
-vim.keymap.set("x", ",", "<Nop>")
-vim.keymap.set("n", ";", "<Nop>")
-vim.keymap.set("x", ";", "<Nop>")
 
--- ; the secondary leader, mapped to [ui]
-vim.keymap.set("n", "[ui]", "<Nop>")
-vim.keymap.set("x", "[ui]", "<Nop>")
-vim.keymap.set("n", ";", "[ui]", { remap = true })
-vim.keymap.set("x", ";", "[ui]", { remap = true })
+-- Load options before sourcing plugin modules
+-- https://github.com/LazyVim/LazyVim/blob/2e18998c9ed7d2fa773b782f3aa3c0d5ac5cc21d/lua/lazyvim/config/init.lua#L160-L163
+require("my.options")
 
--- Turn off builtin plugins I do not use
-require("my.disable_builtin")
+-- Load autocmds and keymaps lazyily
+vim.api.nvim_create_autocmd("User", {
+  group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
+  pattern = "VeryLazy",
+  callback = function()
+    require("my.autocommand")
+    require("my.mappings")
+    require("my.theme")
+  end,
+})
 
 -- enable 24bit RGB color in the TUI, required for some plugins
 vim.o.termguicolors = true
@@ -53,7 +53,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins", {
+require("lazy").setup({
+  spec = {
+    { import = "plugins" },
+  },
   ui = {
     icons = {
       cmd = "⌘",
@@ -67,6 +70,21 @@ require("lazy").setup("plugins", {
       source = "📄",
       start = "🚀",
       task = "📌",
+    },
+  },
+  performance = {
+    rtp = {
+      -- disable some rtp plugins
+      disabled_plugins = {
+        "gzip",
+        -- "matchit",
+        -- "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
     },
   },
 })

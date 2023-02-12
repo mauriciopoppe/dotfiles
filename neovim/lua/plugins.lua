@@ -129,7 +129,6 @@ return {
   },
 
   -- themes
-  "kristijanhusak/vim-hybrid-material",
   "w0ng/vim-hybrid",
   -- {
   --   "folke/tokyonight.nvim",
@@ -139,8 +138,10 @@ return {
   --     })
   --   end,
   -- },
-  -- -- "PHSix/nvim-hybrid",
-  "lifepillar/vim-solarized8",
+  -- {
+  --   "savq/melange-nvim",
+  -- },
+  -- "lifepillar/vim-solarized8",
 
   -- navigate to any visible part
   {
