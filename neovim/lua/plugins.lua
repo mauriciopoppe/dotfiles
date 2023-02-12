@@ -4,24 +4,10 @@ return {
   -- lua utility functions
   "nvim-lua/plenary.nvim",
 
-  ----
-  --{
-  --  "jcdickinson/codeium.nvim",
-  --  lazy = true,
-  --  dependencies = {
-  --    "nvim-lua/plenary.nvim",
-  --    "MunifTanjim/nui.nvim",
-  --  },
-  --  cond = function()
-  --    -- enable only if running in my personal laptop
-  --    local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")
-  --    return is_local_env ~= nil
-  --  end
-  --},
-
   -- signs for navigation (also supports hg)
   {
     "mhinz/vim-signify",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       vim.g.signify_vcs_cmds_diffmode = {
         hg = "hg cat %f -r p4base",

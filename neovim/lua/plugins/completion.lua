@@ -1,3 +1,5 @@
+local Utils = require("my.utils")
+
 return {
   -- snippets
   {
@@ -43,9 +45,7 @@ return {
           "MunifTanjim/nui.nvim",
         },
         cond = function()
-          -- enable only if running in my personal laptop
-          local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")
-          return is_local_env ~= nil
+          return Utils.is_personal()
         end,
       },
     },
@@ -62,9 +62,8 @@ return {
       }
 
       -- codeium isn't loaded at work so it's only conditionally loaded as a source
-      local ok, codeium = pcall(require, "codeium")
-      if ok then
-        codeium.setup({})
+      if Utils.is_personal() then
+        require("codeium").setup({})
         table.insert(sources, #sources + 1, { name = "codeium" })
       end
 
