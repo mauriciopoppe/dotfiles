@@ -36,21 +36,33 @@ local defaults = {
 ---@type LazyVimConfig
 local options = vim.tbl_deep_extend("force", defaults, {})
 
-function M.check_health()
-  vim.health.report_start("MySetup")
+-- Setup setups my options, needs to be sourced before require("lazy").setup()
+function M.setup()
+  vim.g.mapleader = ","
 
-  if vim.fn.has("nvim-0.8.0") == 1 then
-    vim.health.report_ok("Using Neovim >= 0.8.0")
+  -- Load options before sourcing plugin modules
+  -- https://github.com/LazyVim/LazyVim/blob/2e18998c9ed7d2fa773b782f3aa3c0d5ac5cc21d/lua/lazyvim/config/init.lua#L160-L163
+  require("my.options")
+
+  -- Load autocmds and keymaps lazyily
+  -- https://github.com/LazyVim/LazyVim/blob/2e18998c9ed7d2fa773b782f3aa3c0d5ac5cc21d/lua/lazyvim/config/init.lua#L160-L163
+  --
+  if vim.fn.argc(-1) == 0 then
+    -- autocmds and keymaps can wait to load
+    vim.api.nvim_create_autocmd("User", {
+      group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
+      pattern = "VeryLazy",
+      callback = function()
+        require("my.autocommand")
+        require("my.mappings")
+        require("my.theme")
+      end,
+    })
   else
-    vim.health.report_error("Neovim >= 0.8.0 is required")
-  end
-
-  for _, cmd in ipairs({ "git", "rg", "fd", "lazygit" }) do
-    if vim.fn.executable(cmd) == 1 then
-      vim.health.report_ok(("`%s` is installed"):format(cmd))
-    else
-      vim.health.report_warn(("`%s` is not installed"):format(cmd))
-    end
+    -- load them now so they affect the opened buffers
+    require("my.autocommand")
+    require("my.mappings")
+    require("my.theme")
   end
 end
 
@@ -133,6 +145,12 @@ function M.is_google3()
   end
 
   return is_file("BUILD") and not is_dir("BUILD")
+end
+
+-- Checks if neovim is running in my personal config.
+function M.is_personal()
+  local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")
+  return is_local_env ~= nil
 end
 
 setmetatable(M, {

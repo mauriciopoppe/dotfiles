@@ -128,3 +128,7 @@ vim.o.winminwidth = 5
 
 -- Disable markdown indentation settings (https://github.com/vim/vim/blob/master/runtime/ftplugin/markdown.vim)
 vim.g.markdown_recommended_style = 0
+
+-- enable 24bit RGB color in the TUI, required for some plugins
+vim.o.termguicolors = true
+

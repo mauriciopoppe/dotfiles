@@ -20,26 +20,6 @@ Inspired by:
 - https://www.lazyvim.org/
 
 --]]
-vim.g.mapleader = ","
-
--- Load options before sourcing plugin modules
--- https://github.com/LazyVim/LazyVim/blob/2e18998c9ed7d2fa773b782f3aa3c0d5ac5cc21d/lua/lazyvim/config/init.lua#L160-L163
-require("my.options")
-
--- Load autocmds and keymaps lazyily
-vim.api.nvim_create_autocmd("User", {
-  group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
-  pattern = "VeryLazy",
-  callback = function()
-    require("my.autocommand")
-    require("my.mappings")
-    require("my.theme")
-  end,
-})
-
--- enable 24bit RGB color in the TUI, required for some plugins
-vim.o.termguicolors = true
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -53,6 +33,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- My setup
+require("my.utils").setup()
+
+-- Custom setup copied from LazyVim starter
+-- https://github.com/LazyVim/starter/blob/main/lua/config/lazy.lua
 require("lazy").setup({
   spec = {
     { import = "plugins" },
@@ -71,6 +56,10 @@ require("lazy").setup({
       start = "🚀",
       task = "📌",
     },
+  },
+  install = {
+    -- try to load one of these colorschemes when starting an installation during startup
+    colorscheme = { "hybrid" },
   },
   performance = {
     rtp = {
