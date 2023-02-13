@@ -95,9 +95,16 @@ vim.keymap.set("n", "]b", ":bnext<CR>")
 -- lazy
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
+local function float_term(cmd, opts)
+  opts = vim.tbl_deep_extend("force", {
+    size = { width = 0.9, height = 0.9 },
+  }, opts or {})
+  require("lazy.util").float_term(cmd, opts)
+end
+
 vim.keymap.set("n", "<leader>gg", function()
-  Utils.float_term({ "lazygit" }, { cwd = Utils.get_root() })
+  float_term({ "lazygit" }, { cwd = Utils.get_root() })
 end, { desc = "Lazygit (root dir)" })
 vim.keymap.set("n", "<leader>gG", function()
-  Utils.float_term({ "lazygit" })
+  float_term({ "lazygit" })
 end, { desc = "Lazygit (cwd)" })

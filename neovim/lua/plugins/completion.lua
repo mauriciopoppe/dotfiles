@@ -62,7 +62,7 @@ return {
       }
 
       -- codeium isn't loaded at work so it's only conditionally loaded as a source
-      if Utils.is_personal() then
+      if Utils.is_personal() and Utils.connected_to_internet() then
         require("codeium").setup({})
         table.insert(sources, #sources + 1, { name = "codeium" })
       end

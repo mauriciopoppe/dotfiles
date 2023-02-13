@@ -1,7 +1,7 @@
 local M = {}
 
 ---@class LazyVimConfig
-local defaults = {
+local options = {
   -- icons used by other plugins
   icons = {
     diagnostics = {
@@ -33,9 +33,6 @@ local defaults = {
   },
 }
 
----@type LazyVimConfig
-local options = vim.tbl_deep_extend("force", defaults, {})
-
 -- Setup setups my options, needs to be sourced before require("lazy").setup()
 function M.setup()
   vim.g.mapleader = ","
@@ -64,6 +61,12 @@ function M.setup()
     require("my.mappings")
     require("my.theme")
   end
+
+  vim.schedule(function()
+    if not M.connected_to_internet() then
+      vim.notify("Not connected to the internet, some options might not be enabled")
+    end
+  end)
 end
 
 -- returns the root directory based on:
@@ -107,29 +110,7 @@ function M.get_root()
   return root
 end
 
--- : create a togglable terminal
--- Opens a floating terminal (interactive by default)
----@param cmd? string[]|string
----@param opts? LazyCmdOptions|{interactive?:boolean}
-function M.float_term(cmd, opts)
-  opts = vim.tbl_deep_extend("force", {
-    size = { width = 0.9, height = 0.9 },
-  }, opts or {})
-  require("lazy.util").float_term(cmd, opts)
-end
-
----@param on_attach fun(client, buffer)
-function M.on_attach(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local buffer = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      on_attach(client, buffer)
-    end,
-  })
-end
-
--- Checks if we're in a google3 directory
+-- is_google3 checks if we're in a google3 directory
 function M.is_google3()
   -- Checks if a path is a file.
   local function is_file(path)
@@ -141,24 +122,26 @@ function M.is_google3()
   -- From https://stackoverflow.com/questions/2833675/using-lua-check-if-file-is-a-directory
   local function is_dir(path)
     local f = io.open(path)
-    return not f:read(0) and f:seek("end") ~= 0
+    return f ~= nil and not f:read(0) and f:seek("end") ~= 0
   end
 
   return is_file("BUILD") and not is_dir("BUILD")
 end
 
--- Checks if neovim is running in my personal config.
+-- is_personal check if neovim is running in my personal laptop.
 function M.is_personal()
   local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")
   return is_local_env ~= nil
 end
 
+-- connected_to_internet checks if we're connected to the internet.
+function M.connected_to_internet()
+  local ping = vim.fn.system("ping -c1 google.com")
+  return string.match(ping, "1 packets received") ~= nil
+end
+
 setmetatable(M, {
   __index = function(_, key)
-    if options == nil then
-      return vim.deepcopy(defaults)[key]
-    end
-    ---@cast options LazyVimConfig
     return options[key]
   end,
 })
