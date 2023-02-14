@@ -154,7 +154,12 @@ return {
   },
 
   -- themes
-  "w0ng/vim-hybrid",
+  {
+    "w0ng/vim-hybrid",
+    config = function()
+      require("my.theme").setup()
+    end,
+  },
   -- {
   --   "folke/tokyonight.nvim",
   --   config = function()

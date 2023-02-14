@@ -52,14 +52,12 @@ function M.setup()
       callback = function()
         require("my.autocommand")
         require("my.mappings")
-        require("my.theme")
       end,
     })
   else
     -- load them now so they affect the opened buffers
     require("my.autocommand")
     require("my.mappings")
-    require("my.theme")
   end
 
   vim.schedule(function()

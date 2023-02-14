@@ -1,10 +1,8 @@
+local M = {}
+
 local function fix_options()
-  vim.g.enable_bold_font = 1
   vim.g.hybrid_custom_term_colors = 1
   vim.g.hybrid_reduced_contrast = 1
-  vim.g.pencil_higher_contrast_ui = 1
-  vim.g.pencil_neutral_code_bg = 1
-  vim.g.pencil_spell_undercurl = 1
 end
 
 local function change_background()
@@ -39,13 +37,10 @@ local function reset_highlight()
   ]])
 end
 
-local function change_theme()
+function M.setup()
   fix_options()
   change_background()
   reset_highlight()
 end
 
--- Global way to change the theme, see zsh/bin/change-background
-_G.ChangeTheme = change_theme
-
-change_theme()
+return M

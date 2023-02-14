@@ -57,10 +57,6 @@ require("lazy").setup({
       task = "📌",
     },
   },
-  install = {
-    -- try to load one of these colorschemes when starting an installation during startup
-    colorscheme = { "hybrid" },
-  },
   performance = {
     rtp = {
       -- disable some rtp plugins
