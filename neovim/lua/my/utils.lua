@@ -135,7 +135,7 @@ end
 -- connected_to_internet checks if we're connected to the internet.
 function M.connected_to_internet()
   local ping = vim.fn.system("ping -c1 google.com")
-  return string.match(ping, "1 packets received") ~= nil
+  return string.match(ping, "1.*received") ~= nil
 end
 
 setmetatable(M, {
