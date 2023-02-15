@@ -15,6 +15,14 @@ return {
     end,
   },
 
+  -- themes
+  {
+    "w0ng/vim-hybrid",
+    config = function()
+      require("my.theme").setup()
+    end,
+  },
+
   -- git signs
   {
     "lewis6991/gitsigns.nvim",
@@ -153,26 +161,6 @@ return {
     end,
   },
 
-  -- themes
-  {
-    "w0ng/vim-hybrid",
-    config = function()
-      require("my.theme").setup()
-    end,
-  },
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   config = function()
-  --     require("tokyonight").setup({
-  --       style = "night",
-  --     })
-  --   end,
-  -- },
-  -- {
-  --   "savq/melange-nvim",
-  -- },
-  -- "lifepillar/vim-solarized8",
-
   -- navigate to any visible part
   {
     "ggandor/leap.nvim",
@@ -216,7 +204,8 @@ return {
     end,
   },
   -- undo tree
-  "mbbill/undotree",
+  --"mbbill/undotree",
+
   -- better vim mergetool, needs setup in git config too
   {
     "samoshkin/vim-mergetool",
@@ -229,9 +218,6 @@ return {
       ]])
     end,
   },
-
-  -- toggle bookmarks per line, use telescope to find them
-  "MattesGroeger/vim-bookmarks",
 
   {
     "ojroques/vim-oscyank",
@@ -309,8 +295,24 @@ return {
   },
   -- . improved
   "tpope/vim-repeat",
+
   -- Detect tabstop and shiftwidth automatically
   "tpope/vim-sleuth",
+
+  -- editorconfig
+  "gpanders/editorconfig.nvim",
+
+  -- toggle bookmarks per line, use telescope to find them
+  {
+    "MattesGroeger/vim-bookmarks",
+    keys = {
+      { "mm", "<cmd>BookmarkToggle<cr>", desc = "Bookmark toggle" },
+    },
+    init = function()
+      vim.g.bookmark_no_default_key_mappings = 1
+    end,
+  },
+
   -- change/delete surrounding characters
   {
     "kylechui/nvim-surround",
@@ -357,9 +359,6 @@ return {
       vim.g.splitjoin_join_mapping = ""
     end,
   },
-
-  -- editorconfig
-  "gpanders/editorconfig.nvim",
 
   -- session management
   {

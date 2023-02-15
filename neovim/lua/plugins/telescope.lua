@@ -1,5 +1,10 @@
 return {
   {
+    "tom-anders/telescope-vim-bookmarks.nvim",
+    lazy = true,
+    dependencies = { "MattesGroeger/vim-bookmarks" },
+  },
+  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       -- custom command palette

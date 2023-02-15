@@ -60,6 +60,8 @@ function M.setup()
     require("my.mappings")
   end
 
+  -- theme is loaded as soon as the theme loads, see /neovim/lua/plugins.lua
+  -- and look for the import of the theme.lua file
   vim.schedule(function()
     if not M.connected_to_internet() then
       vim.notify("Not connected to the internet, some options might not be enabled")
