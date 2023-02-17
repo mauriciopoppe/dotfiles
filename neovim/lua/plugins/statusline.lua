@@ -7,11 +7,10 @@ return {
     config = function()
       local custom = require("lualine.themes.material")
       local icons = Utils.icons
-      local themes = Utils.themes
       local colors = {}
 
       function _G.lualine_refresh_theme(theme)
-        colors = themes[theme]
+        colors = Utils.themes[theme]
 
         -- Change the background of lualine_c section for normal mode
         custom.normal.a.bg = colors.dark
