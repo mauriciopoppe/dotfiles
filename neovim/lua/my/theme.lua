@@ -31,7 +31,7 @@ local function reset_highlight()
   hi! link BufTabLineFill Comment
 
   " MatchParen background color
-  hi MatchParen ctermbg=none guibg=#a3813e
+  hi MatchParen ctermbg=none guibg=#888888
 
   " clear background for SignColumn (any column that doesn't have a sign)
   highlight clear SignColumn
