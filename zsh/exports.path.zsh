@@ -22,13 +22,14 @@ path=(
   /opt/homebrew/opt/make/libexec/gnubin
   /opt/homebrew/opt/findutils/libexec/gnubin
   "$path[@]"
-)
-path+=(
-  # path to my scripts
+  # bun, the all in one JavaScript runtime
+  ~/.bun/bin
+  # krew, the kubernetes plugin manager
+  ${KREW_ROOT:-$HOME/.krew}/bin
+  # .dotfiles exports
   ${DOTFILES_DIRECTORY}/zsh/bin
   ${DOTFILES_DIRECTORY}/secret
   ${DOTFILES_DIRECTORY_ALT}/secret
-  ${KREW_ROOT:-$HOME/.krew}/bin
 )
 export PATH
 
@@ -51,13 +52,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 export FZF_DEFAULT_OPTS='--reverse --color=dark --inline-info --cycle'
 
 export GPG_TTY=$(tty)
-
 export GITHUB_USER=mauriciopoppe
 
 # git fuzzy
 export GF_GREP_COLOR='1;30;48;5;15'
-export GIT_FUZZY_STATUS_ADD_KEY=Ctrl-A
-export GIT_FUZZY_STATUS_EDIT_KEY=Ctrl-E
-export GIT_FUZZY_STATUS_COMMIT_KEY=Ctrl-C
-export GIT_FUZZY_STATUS_RESET_KEY=Ctrl-R
-export GIT_FUZZY_STATUS_DISCARD_KEY=Ctrl-U

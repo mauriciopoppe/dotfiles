@@ -152,9 +152,6 @@ unset -f safe-source
 ####################
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# # asdf version manager
-# [ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
@@ -165,3 +162,33 @@ if [ -f "$GCSDK/completion.zsh.inc" ]; then . "$GCSDK/completion.zsh.inc"; fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# fasd (https://github.com/clvv/fasd)
+fasd_cache="${HOME}/.fasd-init-cache"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+  fasd --init auto >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+# unset aliases installed by fasd
+unalias a
+unalias s
+unalias d
+unalias f
+unalias sd
+unalias sf
+unalias z
+unalias zz
+
+# kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh)
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
+
+# helm completion
+if [ $commands[helm] ]; then
+  source <(helm completion zsh | sed -E 's/\["(.+)"\]/\[\1\]/g')
+fi
+
+# bun completions
+[ -s "~/.bun/_bun" ] && source "~/.bun/_bun"

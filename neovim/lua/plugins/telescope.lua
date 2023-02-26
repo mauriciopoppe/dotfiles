@@ -95,7 +95,11 @@ return {
           lsp_references = split_vertical_theme,
           lsp_implementations = split_vertical_theme,
         },
-        extensions = {},
+        extensions = {
+          recent_files = {
+            only_cwd = true,
+          },
+        },
       })
 
       require("telescope").load_extension("command_center")
