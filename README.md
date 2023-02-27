@@ -77,7 +77,7 @@ can add whatever you need inside each installation script
 
 ## Screenshot
 
-I talk about my workflow in this article: https://www.mauriciopoppe.com/notes/misc/mental-context-switching/
+I talk about my workflow in this article: https://www.mauriciopoppe.com/notes/misc/productivity-skills
 
 [![asciicast](https://asciinema.org/a/h9bEclMKVl9SONRqMe3yoyryF.svg)](https://asciinema.org/a/h9bEclMKVl9SONRqMe3yoyryF)
 
