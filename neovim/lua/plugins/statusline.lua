@@ -103,8 +103,8 @@ return {
         })
       end
 
-      -- Set the dark theme by default.
-      lualine_refresh_theme("dark")
+      local theme_style = Utils.get_theme_style()
+      lualine_refresh_theme(theme_style)
     end,
   },
 }

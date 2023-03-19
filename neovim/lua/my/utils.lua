@@ -60,13 +60,13 @@ function M.setup()
     require("my.mappings")
   end
 
-  -- theme is loaded as soon as the theme loads, see /neovim/lua/plugins.lua
-  -- and look for the import of the theme.lua file
   vim.schedule(function()
     if not M.connected_to_internet() then
       vim.notify("Not connected to the internet, some options might not be enabled")
     end
   end)
+
+  -- theme is loaded as a dependency of plenary, see the first lines of /neovim/lua/plugins.lua
 end
 
 -- returns the root directory based on:
@@ -138,6 +138,18 @@ end
 function M.connected_to_internet()
   local ping = vim.fn.system("ping -c1 google.com")
   return string.match(ping, "1.*received") ~= nil
+end
+
+-- get_theme_style reads the theme style from the filesystem.
+-- The theme is set through /zsh/bin/change-background
+function M.get_theme_style()
+  local themeFile = vim.fn.readfile(vim.fn.expand("~/.tmux.theme"))
+  local theme_style = themeFile[1]
+  if theme_style == "dark" or theme_style == "light" then
+    return theme_style
+  else
+    error("theme must be dark or light")
+  end
 end
 
 setmetatable(M, {

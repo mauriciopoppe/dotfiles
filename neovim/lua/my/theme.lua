@@ -1,3 +1,5 @@
+local Utils = require("my.utils")
+
 local M = {}
 
 -- change_background changes the background based on the color
@@ -6,17 +8,13 @@ local function change_background()
   vim.g.hybrid_custom_term_colors = 1
   vim.g.hybrid_reduced_contrast = 1
 
-  local themeFile = vim.fn.readfile(vim.fn.expand("~/.tmux.theme"))
-  -- arrays are indexed at 1!
-  local theme = themeFile[1]
+  local theme = Utils.get_theme_style()
+  vim.o.background = theme
   if theme == "dark" then
-    vim.g.background = "dark"
     vim.cmd.colorscheme("hybrid")
   elseif theme == "light" then
-    vim.g.background = "light"
-    vim.cmd.colorscheme("solarized8")
-  else
-    vim.notify("theme=" .. theme .. " is not supported, only values accepted are light/dark")
+    vim.g.everforest_background = "medium"
+    vim.cmd.colorscheme("everforest")
   end
 end
 

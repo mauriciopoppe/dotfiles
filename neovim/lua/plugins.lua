@@ -2,7 +2,17 @@ local Utils = require("my.utils")
 
 return {
   -- lua utility functions
-  "nvim-lua/plenary.nvim",
+  {
+    "nvim-lua/plenary.nvim",
+    -- themes
+    dependencies = {
+      "sainnhe/everforest",
+      "w0ng/vim-hybrid",
+    },
+    config = function()
+      require("my.theme").setup()
+    end,
+  },
 
   -- signs for navigation (also supports hg)
   {
@@ -12,15 +22,6 @@ return {
       vim.g.signify_vcs_cmds_diffmode = {
         hg = "hg cat %f -r p4base",
       }
-    end,
-  },
-
-  -- themes
-  {
-    "w0ng/vim-hybrid",
-    priority = 1000,
-    config = function()
-      require("my.theme").setup()
     end,
   },
 
@@ -148,8 +149,9 @@ return {
     event = "VeryLazy",
     config = function()
       local notify = require("notify")
+      local theme_style = Utils.get_theme_style()
       notify.setup({
-        background_colour = Utils.themes["dark"].transparent,
+        background_colour = Utils.themes[theme_style].transparent,
         timeout = 2000,
         max_height = function()
           return math.floor(vim.o.lines * 0.75)
