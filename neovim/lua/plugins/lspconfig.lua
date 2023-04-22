@@ -214,7 +214,7 @@ return {
         },
       }
 
-      servers["sumneko_lua"] = {
+      servers["lua_ls"] = {
         on_attach = on_attach,
         settings = {
           Lua = {
@@ -284,17 +284,22 @@ return {
     event = "BufReadPre",
     dependencies = { "mason.nvim" },
     opts = function()
-      local nls = require("null-ls")
+      local null_ls = require("null-ls")
       return {
         sources = {
-          -- nls.builtins.formatting.prettierd,
-          nls.builtins.formatting.stylua,
-          -- go
-          nls.builtins.formatting.gofmt,
-          nls.builtins.formatting.goimports,
-          -- common actions
-          nls.builtins.formatting.prettier,
-          -- nls.builtins.code_actions.refactoring,
+          -- code actions
+          null_ls.builtins.code_actions.refactoring,
+          -- diagnostics
+          null_ls.builtins.diagnostics.codespell,
+          null_ls.builtins.diagnostics.tsc,
+          -- formatting
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.gofmt,
+          null_ls.builtins.formatting.goimports,
+          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.formatting.standardjs,
+          null_ls.builtins.formatting.standardts,
+          -- hover
         },
       }
     end,
@@ -306,10 +311,17 @@ return {
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       ensure_installed = {
+        "flake8",
+        "prettierd",
         "stylua",
         "shellcheck",
+        "codespell",
         "shfmt",
-        "flake8",
+        -- lsp
+        "clangd",
+        "gopls",
+        "lua-language-server",
+        "typescript-language-server",
       },
     },
     config = function(_, opts)
