@@ -6,8 +6,10 @@ return {
       "nvim-treesitter/nvim-treesitter-textobjects",
       -- header line that gives context
       "nvim-treesitter/nvim-treesitter-context",
-      --
+      -- nested language aware commenting
       "JoosepAlviste/nvim-ts-context-commentstring",
+      -- refactoring plugin
+      "ThePrimeagen/refactoring.nvim",
     },
     build = ":TSUpdate",
     event = "BufReadPost",
@@ -21,6 +23,9 @@ return {
         end
         return ft_to_lang(ft)
       end
+
+      -- show context when scrolling
+      require("treesitter-context").setup()
 
       require("nvim-treesitter.configs").setup({
         -- stylua: ignore

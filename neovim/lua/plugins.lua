@@ -234,7 +234,7 @@ return {
     config = function()
       vim.g.oscyank_term = "default"
       vim.cmd(
-        [[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]]
+        [[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankRegister "' | endif]]
       )
     end,
   },
