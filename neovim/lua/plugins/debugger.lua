@@ -159,7 +159,7 @@ return {
           substitutePath = {
             {
               from = "${workspaceFolder}",
-              to = "/Users/mauriciopoppe/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes",
+              to = "${env:HOME}/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes",
             },
           },
         },
@@ -180,7 +180,7 @@ return {
           substitutePath = {
             {
               from = "${workspaceFolder}",
-              to = "/Users/mauriciopoppe/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes",
+              to = "${env:HOME}/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes",
             },
           },
         },
