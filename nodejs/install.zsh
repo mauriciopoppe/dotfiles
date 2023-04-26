@@ -22,7 +22,8 @@ main() {
   local modules
   modules=(
     # essentials
-    standard                  # lint
+    eslint                    # lint
+    eslint-config-standard    # base config for eslint
     npm-check-updates         # `ncu` checks for updates
 
     # modules
@@ -30,14 +31,13 @@ main() {
     trash-cli                 # safe alternative to rm
     np                        # better npm publish
     tldr                      # man
-    typescript 
+    typescript
     typescript-language-server
   )
   npm install -g --quiet ${modules[@]}
 
   print-step "module symlinks..."
-  symlink "$DOTFILES_DIRECTORY/$base/.czrc" "$HOME/.czrc"
-  symlink "$DOTFILES_DIRECTORY/$base/.tern-project" "$HOME/.tern-project"
+  symlink "$DOTFILES_DIRECTORY/$base/.eslintrc" "$HOME/.eslintrc"
 }
 
 main $@

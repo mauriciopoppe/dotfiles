@@ -1,0 +1,4 @@
+{
+  "extends": "standard",
+  "space-before-function-paren": ["error", "always"]
+}

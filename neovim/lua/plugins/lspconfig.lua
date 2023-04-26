@@ -207,6 +207,16 @@ return {
         }
       end
 
+      servers.ruff_lsp = {
+        on_attach = on_attach,
+        init_options = {
+          settings = {
+            -- Any extra CLI arguments for `ruff` go here.
+            args = {},
+          },
+        },
+      }
+
       servers.tsserver = {
         on_attach = on_attach,
         flags = {
@@ -290,15 +300,14 @@ return {
           -- code actions
           null_ls.builtins.code_actions.refactoring,
           -- diagnostics
-          null_ls.builtins.diagnostics.codespell,
           null_ls.builtins.diagnostics.tsc,
+          null_ls.builtins.diagnostics.eslint,
+          null_ls.builtins.diagnostics.codespell,
           -- formatting
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.gofmt,
           null_ls.builtins.formatting.goimports,
-          null_ls.builtins.formatting.prettier,
-          null_ls.builtins.formatting.standardjs,
-          null_ls.builtins.formatting.standardts,
+          null_ls.builtins.formatting.prettierd,
           -- hover
         },
       }
@@ -311,12 +320,11 @@ return {
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       ensure_installed = {
-        "flake8",
         "prettierd",
         "stylua",
         "shellcheck",
-        "codespell",
         "shfmt",
+        "codespell",
         -- lsp
         "clangd",
         "gopls",
