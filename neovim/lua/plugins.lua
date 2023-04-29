@@ -230,12 +230,15 @@ return {
   },
 
   {
-    "ojroques/vim-oscyank",
+    "ojroques/nvim-osc52",
+    events = { "TextYankPost" },
     config = function()
-      vim.g.oscyank_term = "default"
-      vim.cmd(
-        [[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankRegister "' | endif]]
-      )
+      local function copy()
+        if vim.v.event.operator == "y" and vim.v.event.regname == "+" then
+          require("osc52").copy_register("+")
+        end
+      end
+      vim.api.nvim_create_autocmd("TextYankPost", { callback = copy })
     end,
   },
 
@@ -248,7 +251,7 @@ return {
     },
   },
 
-  -- highlight ocurrences of the current word
+  -- highlight occurrences of the current word
   {
     "RRethy/vim-illuminate",
     event = "BufReadPost",

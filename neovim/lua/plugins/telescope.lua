@@ -19,6 +19,7 @@ return {
     keys = {
       -- Mappings for a better UI
       { "[ui]f", ":<C-u>Telescope live_grep<CR>", silent = true, desc = "[F]ind files" },
+      { "[ui]g", ":<C-u>Telescope git_status<CR>", silent = true, desc = "[G]it status" },
       { "[ui]b", [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]], silent = true, desc = "[B] Recent Files" },
       { "[ui]o", ":<C-u>Telescope find_files<CR>", silent = true, desc = "[O]pen files" },
       { "[ui]r", ":<C-u>Telescope resume<CR>", silent = true, desc = "[R]esume" },
@@ -54,26 +55,27 @@ return {
         },
       }
 
+      local function with_path(expansion)
+        return function()
+          vim.fn.setreg("+", vim.fn.expand(expansion))
+          require("osc52").copy_register("+")
+        end
+      end
+
       -- Custom actions
       local command_center = require("command_center")
       command_center.add({
         {
           desc = "Copy absolute path",
-          cmd = function()
-            vim.api.nvim_exec('let @" = expand("%:p") | execute \'OSCYankReg "\'', true)
-          end,
+          cmd = with_path("%:p"),
         },
         {
           desc = "Copy relative path",
-          cmd = function()
-            vim.api.nvim_exec('let @" = expand("%") | execute \'OSCYankReg "\'', true)
-          end,
+          cmd = with_path("%"),
         },
         {
           desc = "Copy filename only",
-          cmd = function()
-            vim.api.nvim_exec('let @" = expand("%:t") | execute \'OSCYankReg "\'', true)
-          end,
+          cmd = with_path("%:t"),
         },
       }, {
         mode = command_center.mode.ADD,
