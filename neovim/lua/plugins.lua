@@ -100,15 +100,10 @@ return {
 
   -- search and replace
   {
-    "windwp/nvim-spectre",
+    "nvim-pack/nvim-spectre",
     keys = {
-      {
-        "[ui]s",
-        function()
-          require("spectre").open()
-        end,
-        desc = "Search & replace",
-      },
+      -- stylua: ignore
+      { "[ui]s", function() require("spectre").open() end, desc = "Search & replace", },
     },
     config = function()
       local spectre = require("spectre")

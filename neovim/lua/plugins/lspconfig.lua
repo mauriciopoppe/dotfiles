@@ -150,6 +150,20 @@ return {
       "smjonas/inc-rename.nvim",
     },
     opts = {
+      -- options for vim.diagnostic.config()
+      diagnostics = {
+        underline = true,
+        update_in_insert = false,
+        virtual_text = {
+          spacing = 4,
+          source = "if_many",
+          prefix = "●",
+          -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+          -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+          -- prefix = "icons",
+        },
+        severity_sort = true,
+      },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
@@ -274,6 +288,19 @@ return {
         },
       }
 
+      if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
+        opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
+          or function(diagnostic)
+            local icons = Utils.icons.diagnostics
+            for d, icon in pairs(icons) do
+              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                return icon
+              end
+            end
+          end
+      end
+      vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
       local function setup(server)
         local server_opts = servers[server] or {}
@@ -290,24 +317,27 @@ return {
         require("lspconfig")[server].setup(server_opts)
       end
 
-      local mlsp = require("mason-lspconfig")
-      local available = mlsp.get_available_servers()
-
+      local have_mason, mlsp = pcall(require, "mason-lspconfig")
+      local all_mslp_servers = {}
+      if have_mason then
+        all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+      end
       local ensure_installed = {} ---@type string[]
       for server, server_opts in pairs(servers) do
         if server_opts then
           server_opts = server_opts == true and {} or server_opts
           -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-          if server_opts.mason == false or not vim.tbl_contains(available, server) then
+          if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
             setup(server)
           else
             ensure_installed[#ensure_installed + 1] = server
           end
         end
       end
-
-      require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
-      require("mason-lspconfig").setup_handlers({ setup })
+      if have_mason then
+        mlsp.setup({ ensure_installed = ensure_installed })
+        mlsp.setup_handlers({ setup })
+      end
     end,
   },
   {
