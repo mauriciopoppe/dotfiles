@@ -57,8 +57,7 @@ return {
 
       local function with_path(expansion)
         return function()
-          vim.fn.setreg("+", vim.fn.expand(expansion))
-          require("osc52").copy_register("+")
+          require("osc52").copy(vim.fn.expand(expansion))
         end
       end
 

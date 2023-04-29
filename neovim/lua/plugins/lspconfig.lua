@@ -7,6 +7,7 @@ local M = {
   autoformat = true,
 }
 
+---@return (LazyKeys|{has?:string})[]
 function M.get_keymappings()
   ---@class PluginLspKeys
   -- stylua: ignore
@@ -20,7 +21,6 @@ function M.get_keymappings()
     -- { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
     { "K", vim.lsp.buf.hover, desc = "Hover" },
     { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
-    { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
     { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
     { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },
     { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
@@ -28,29 +28,30 @@ function M.get_keymappings()
     { "]w", M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
     { "[w", M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
     { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
-    { "<leader>cf", M.format, desc = "Format Document", has = "documentFormatting" },
-    { "<leader>cf", M.format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
-    { "<leader>cr", M.rename, expr = true, desc = "Rename", has = "rename" },
   }
+
+  -- enable better rename plugin
+  if require("lazy.core.config").plugins["inc-rename.nvim"] ~= nil then
+    M._keys[#M._keys + 1] = {
+      "<leader>cr",
+      function()
+        local inc_rename = require("inc_rename")
+        return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand("<cword>")
+      end,
+      expr = true,
+      desc = "Rename",
+      has = "rename",
+    }
+  else
+    M._keys[#M._keys + 1] = { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
+  end
   return M._keys
 end
 
-function M.rename()
-  if pcall(require, "inc_rename") then
-    return ":IncRename " .. vim.fn.expand("<cword>")
-  else
-    vim.lsp.buf.rename()
-  end
-end
-
-function M.diagnostic_goto(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
-end
-
+-- [[
+-- on_attach_set_keymappings attaches keymaps on read buffers.
+-- Copied from: https://github.com/LazyVim/LazyVim/blob/v2.12.1/lua/lazyvim/plugins/lsp/keymaps.lua#L68
+-- ]]
 function M.on_attach_set_keymappings(client, buffer)
   local Keys = require("lazy.core.handler.keys")
   local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
@@ -69,13 +70,29 @@ function M.on_attach_set_keymappings(client, buffer)
       local opts = Keys.opts(keys)
       ---@diagnostic disable-next-line: no-unknown
       opts.has = nil
-      opts.silent = true
+      opts.silent = opts.silent ~= false
       opts.buffer = buffer
-      vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
+      vim.keymap.set("n", keys[1], keys[2], opts)
     end
   end
 end
 
+-- [[
+-- diagnostic_goto moves to the next/previous diagnostic.
+-- Copied from: https://github.com/LazyVim/LazyVim/blob/v2.12.1/lua/lazyvim/plugins/lsp/keymaps.lua#L93
+-- ]]
+function M.diagnostic_goto(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
+end
+
+-- [[
+-- format applies a formatter through null-ls.
+-- Modified copy from: https://github.com/LazyVim/LazyVim/blob/v2.12.1/lua/lazyvim/plugins/lsp/format.lua#L22
+-- ]]
 function M.format()
   local buf = vim.api.nvim_get_current_buf()
   local ft = vim.bo[buf].filetype
@@ -95,11 +112,24 @@ function M.format()
   })
 end
 
-function M.on_attach_set_format(client, buffer)
+-- [[
+-- on_attach_set_format applies autoformatting to buffers on attach.
+-- Taken from: https://github.com/LazyVim/LazyVim/blob/v2.12.1/lua/lazyvim/plugins/lsp/format.lua#L42
+-- ]]
+function M.on_attach_set_format(client, buf)
+  -- dont format if client disabled it
+  if
+    client.config
+    and client.config.capabilities
+    and client.config.capabilities.documentFormattingProvider == false
+  then
+    return
+  end
+
   if client.supports_method("textDocument/formatting") then
     vim.api.nvim_create_autocmd("BufWritePre", {
-      group = vim.api.nvim_create_augroup("LspFormat." .. buffer, {}),
-      buffer = buffer,
+      group = vim.api.nvim_create_augroup("LspFormat." .. buf, {}),
+      buffer = buf,
       callback = function()
         if M.autoformat then
           M.format()
@@ -117,6 +147,7 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
+      "smjonas/inc-rename.nvim",
     },
     opts = {
       -- you can do any additional lsp server setup here
@@ -151,7 +182,28 @@ return {
       -- assume that there's a file BUILD in google 3 repos.
       -- the check makes sure that gopls is enabled only in non google3 repos.
       local is_google3 = Utils.is_google3()
-      if not is_google3 then
+      if is_google3 then
+        -- setup ciderlsp on google3 repos.
+        local nvim_lsp = require("lspconfig")
+        local configs = require("lspconfig.configs")
+        configs.ciderlsp = {
+          default_config = {
+            cmd = {
+              "/google/bin/releases/cider/ciderlsp/ciderlsp",
+              "--tooltag=nvim-lsp",
+              "--noforward_sync_responses",
+            },
+            filetypes = { "c", "cpp", "java", "proto", "textproto", "go", "python", "bzl" },
+            root_dir = nvim_lsp.util.root_pattern("BUILD"),
+            settings = {},
+          },
+        }
+        servers.ciderlsp = {
+          mason = false,
+          on_attach = on_attach,
+        }
+      else
+        -- setup gopls for non google3 repos.
         servers.gopls = {
           on_attach = on_attach,
           flags = {
@@ -182,28 +234,6 @@ return {
               },
             },
           },
-        }
-      end
-
-      if Utils.is_google3() then
-        -- configure ciderlsp on google3 repos
-        local nvim_lsp = require("lspconfig")
-        local configs = require("lspconfig.configs")
-        configs.ciderlsp = {
-          default_config = {
-            cmd = {
-              "/google/bin/releases/cider/ciderlsp/ciderlsp",
-              "--tooltag=nvim-lsp",
-              "--noforward_sync_responses",
-            },
-            filetypes = { "c", "cpp", "java", "proto", "textproto", "go", "python", "bzl" },
-            root_dir = nvim_lsp.util.root_pattern("BUILD"),
-            settings = {},
-          },
-        }
-        servers.ciderlsp = {
-          mason = false,
-          on_attach = on_attach,
         }
       end
 
@@ -288,7 +318,11 @@ return {
       { "nvim-treesitter/nvim-treesitter" },
     },
   },
-  -- formatters
+  {
+    "smjonas/inc-rename.nvim",
+    lazy = true,
+    config = true,
+  },
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = "BufReadPre",
