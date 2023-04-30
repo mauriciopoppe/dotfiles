@@ -76,7 +76,7 @@ return {
             -- To enable debugging:
             -- - Uncomment the following line (and comment the other args line below)
             -- - Check ~/.cache/nvim/dap.log (I saw set breakpoint errors here)
-            -- args = {"dap", "-l", addr, "--log", "debug", "--log-output", "dap", "--log-dest", "/tmp/dap.log"},
+            -- args = { "dap", "-l", addr, "--log", "debug", "--log-output", "dap", "--log-dest", "/tmp/dap.log" },
             args = { "dap", "-l", addr },
             detached = true,
           }
@@ -210,7 +210,7 @@ return {
           host = "127.0.0.1",
           port = "56268",
           stopOnEntry = false,
-          -- I started the kubelet in kind through delve listening on port 56268
+          -- I started the kubelet in kind through dlv listening on port 56268
           -- next I connected to it through `dlv connect :56268`
           -- inside it I run `sources` and it printed the list of files in the kubelet
           -- together with the right path, later I added this path to the substitutePath

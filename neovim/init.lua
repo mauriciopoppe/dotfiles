@@ -2,6 +2,9 @@
 --
 --[[
 
+My neovim config is a modified copy of LazyVim's config.
+I use a lot of its utility functions but not LazyVim directly, it's synced with LazyVim v2.12.1
+
 File structure:
 
 ./init.lua - Is this file
