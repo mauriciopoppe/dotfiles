@@ -291,15 +291,10 @@ return {
 
   -- commenting stuff
   {
-    "tpope/vim-commentary",
-    config = function()
-      vim.cmd([[
-      xmap gc  <Plug>Commentary
-      nmap gc  <Plug>Commentary
-      omap gc  <Plug>Commentary
-      nmap gcc <Plug>CommentaryLine
-      ]])
-    end,
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    opts = {},
+    main = "mini.comment",
   },
   -- . improved
   "tpope/vim-repeat",

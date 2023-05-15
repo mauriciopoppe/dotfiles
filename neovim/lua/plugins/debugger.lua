@@ -76,8 +76,9 @@ return {
             -- To enable debugging:
             -- - Uncomment the following line (and comment the other args line below)
             -- - Check ~/.cache/nvim/dap.log (I saw set breakpoint errors here)
-            -- args = { "dap", "-l", addr, "--log", "debug", "--log-output", "dap", "--log-dest", "/tmp/dap.log" },
-            args = { "dap", "-l", addr },
+            -- stylua: ignore
+            -- args = { "dap", "-l", addr, "--log", "--log-output", "rpc,dap", "--log-dest", "/tmp/dap.log", "--only-same-user=false" },
+            args = { "dap", "-l", addr, "--only-same-user=false" },
             detached = true,
           }
 
