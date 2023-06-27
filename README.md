@@ -53,7 +53,10 @@ can do this with all the first level directories of this repo e.g. `$ dotfiles
 
 ### Post installation
 
-- Remap <kbd>caps lock</kbd> to <kbd>control</kbd> *preferences > keyboard > modifier keys*
+- Install Alfred 4, remap <kbd>cmd+spacebar</kbd> following https://www.alfredapp.com/help/troubleshooting/cmd-space/.
+- Remap <kbd>caps lock</kbd> to <kbd>control</kbd> *preferences > search for: "keyboard shortcuts"*
+- Hide dock *preferences > search for: "dock"*
+- Update fonts in/out of tmux: `bash -x zsh/term/fix-terminfo.sh`
 - Install a patched font from [nerd fonts](https://www.nerdfonts.com/) (I'm currently using *Inconsolata go*)
 
 #### iTerm 2
@@ -64,11 +67,6 @@ can do this with all the first level directories of this repo e.g. `$ dotfiles
 
 - Set the downloaded font on iTerm *iTerm > preferences > profiles > text* (change it for both regular and non-ascii fonts)
 - Uncheck *use lion-style full screen* on General
-- Support italic fonts in and out of tmux https://github.com/nicknisi/dotfiles#terminal-capabilities
-
-```
-tic -x zsh/term/xterm-256color-italic.terminfo
-```
 
 ## What's included? And how to customize it?
 
