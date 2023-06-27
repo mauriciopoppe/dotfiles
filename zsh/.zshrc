@@ -66,6 +66,9 @@ zinit load zdharma-continuum/history-search-multi-word
 # Theme
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
+# fasd
+zinit load whjvenyl/fasd
+
 # these binaries are platform dependent, on the macOS arm64 they
 # need to be compiled instead of installed from a repo
 #
@@ -170,15 +173,6 @@ if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
 fi
 source "$fasd_cache"
 unset fasd_cache
-# unset aliases installed by fasd
-unalias a
-unalias s
-unalias d
-unalias f
-unalias sd
-unalias sf
-unalias z
-unalias zz
 
 # kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh)
 if [ $commands[kubectl] ]; then
