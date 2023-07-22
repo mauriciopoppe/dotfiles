@@ -3,7 +3,8 @@
 --[[
 
 My neovim config is a modified copy of LazyVim's config.
-I use a lot of its utility functions but not LazyVim directly, it's synced with LazyVim v2.12.1
+I use a lot of its utility functions but not LazyVim directly, it's synced with LazyVim v6.0.0
+(https://github.com/LazyVim/LazyVim/releases/tag/v6.0.0)
 
 File structure:
 
