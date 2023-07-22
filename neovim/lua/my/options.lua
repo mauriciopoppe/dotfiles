@@ -9,7 +9,7 @@ vim.o.showmode = false
 vim.o.textwidth = 120
 -- column width indicator
 vim.o.colorcolumn = "+1"
--- hiden instead of unload a buffer when abandoned
+-- hidden instead of unload a buffer when abandoned
 vim.o.hidden = true
 -- yank operation don't need to use the *-- register (system clipboard)
 vim.o.clipboard = "unnamedplus"
@@ -131,4 +131,3 @@ vim.g.markdown_recommended_style = 0
 
 -- enable 24bit RGB color in the TUI, required for some plugins
 vim.o.termguicolors = true
-
