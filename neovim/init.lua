@@ -9,7 +9,7 @@ I use a lot of its utility functions but not LazyVim directly, it's synced with 
 File structure:
 
 ./init.lua - Is this file
-./lua/my/*.lua - These are configurations for core stuff (outside custom plugin setup), loaded through this file
+./lua/my/*.lua - These are configurations for core stuff (outside custom plugin setup), loaded *manually* through my/utils
 ./lua/plugins.lua - Root config for plugins, loaded by lazy.vim
 ./lua/plugins/*.lua - Additional configs which are more complex, loaded by lazy.vim
 

@@ -7,7 +7,6 @@ local M = {
   autoformat = true,
 }
 
----@return (LazyKeys|{has?:string})[]
 function M.get_keymappings()
   ---@class PluginLspKeys
   -- stylua: ignore
@@ -53,7 +52,7 @@ end
 -- ]]
 function M.on_attach_set_keymappings(client, buffer)
   local Keys = require("lazy.core.handler.keys")
-  local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
+  local keymaps = {}
 
   for _, value in ipairs(M.get_keymappings()) do
     local keys = Keys.parse(value)
@@ -153,19 +152,14 @@ return {
       diagnostics = {
         underline = true,
         update_in_insert = false,
-        virtual_text = {
-          spacing = 4,
-          source = "if_many",
-          prefix = "●",
-          -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-          -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-          -- prefix = "icons",
-        },
+        -- Disable virtual_text since it's redundant due to lsp_lines.
+        -- https://git.sr.ht/~whynothugo/lsp_lines.nvim
+        virtual_text = false,
         severity_sort = true,
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
-      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+      ---@type table<string, fun(server:string, opts: any):boolean?>
       setup = {
         -- example to setup with typescript.nvim
         -- tsserver = function(_, opts)
