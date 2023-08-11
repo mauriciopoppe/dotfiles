@@ -77,10 +77,3 @@ require("lazy").setup({
     },
   },
 })
-
--- at work alt.vim is a symlink to my work neovim config
--- see the output of `ls -la neovim/config/alt.vim`
-local abspath = vim.fn.expand("~/.config/nvim/alt.vim")
-if vim.loop.fs_stat(abspath) then
-  vim.cmd("source " .. abspath)
-end

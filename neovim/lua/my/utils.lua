@@ -112,20 +112,8 @@ end
 
 -- is_google3 checks if we're in a google3 directory
 function M.is_google3()
-  -- Checks if a path is a file.
-  local function is_file(path)
-    local f = io.open(path)
-    return f ~= nil
-  end
-
-  -- Checks if a path is a directory.
-  -- From https://stackoverflow.com/questions/2833675/using-lua-check-if-file-is-a-directory
-  local function is_dir(path)
-    local f = io.open(path)
-    return f ~= nil and not f:read(0) and f:seek("end") ~= 0
-  end
-
-  return is_file("BUILD") and not is_dir("BUILD")
+  local pwd = os.getenv("PWD")
+  return pwd ~= nil and pwd:find("^/google") ~= nil
 end
 
 -- is_personal check if neovim is running in my personal laptop.

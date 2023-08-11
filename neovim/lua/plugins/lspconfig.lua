@@ -171,6 +171,7 @@ return {
       },
     },
     config = function(_, opts)
+      local nvim_lsp = require("lspconfig")
       -- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
       -- https://github.com/neovim/nvim-lspconfig
 
@@ -188,61 +189,50 @@ return {
 
       -- assume that there's a file BUILD in google 3 repos.
       -- the check makes sure that gopls is enabled only in non google3 repos.
-      local is_google3 = Utils.is_google3()
-      if is_google3 then
-        -- setup ciderlsp on google3 repos.
-        local nvim_lsp = require("lspconfig")
-        local configs = require("lspconfig.configs")
-        configs.ciderlsp = {
-          default_config = {
-            cmd = {
-              "/google/bin/releases/cider/ciderlsp/ciderlsp",
-              "--tooltag=nvim-lsp",
-              "--noforward_sync_responses",
-            },
-            filetypes = { "c", "cpp", "java", "proto", "textproto", "go", "python", "bzl" },
-            root_dir = nvim_lsp.util.root_pattern("BUILD"),
-            settings = {},
-          },
-        }
-        servers.ciderlsp = {
-          mason = false,
-          on_attach = on_attach,
-        }
-      else
-        -- setup gopls for non google3 repos.
-        servers.gopls = {
-          on_attach = on_attach,
-          flags = {
-            debounce_text_changes = 150,
-          },
-          settings = {
-            gopls = {
-              analyses = {
-                unusedparams = true,
-              },
-              env = {
-                -- Enable analysis of files with the tag linux.
-                -- Without this we can't analyze files that have a linux impl of a function.
-                --
-                -- Similar issue upstream https://github.com/golang/go/issues/29202
-                -- Setting additional opts for gopls https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-v050
-                GOFLAGS = "-tags=linux",
+      local lspconfigs = require("lspconfig.configs")
+      lspconfigs.ciderlsp = {
+        default_config = {
+          cmd = { "/google/bin/releases/cider/ciderlsp/ciderlsp", "--tooltag=nvim-lsp", "--noforward_sync_responses" },
+          filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textproto", "go", "python", "bzl" },
+          root_dir = nvim_lsp.util.root_pattern("google3/*BUILD"),
+          settings = {},
+        },
+      }
+      servers.ciderlsp = {
+        mason = false,
+        on_attach = on_attach,
+      }
 
-                -- In the kubernetes codebase I got errors like:
-                -- Error when executing textDocument/implementation : packages.Load error: err: exit status 2:
-                -- # runtime/cgo
-                -- linux_syscall.c:67:13: error: implicit declaration of function 'setresgid' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                -- linux_syscall.c:67:13: note: did you mean 'setregid'?
-                --
-                -- Because of the runtime/cgo above I thought I could disable it
-                -- https://github.com/golang/go/issues/29202#issuecomment-496007059
-                CGO_ENABLED = "0",
-              },
+      -- setup gopls for non google3 repos.
+      servers.gopls = {
+        on_attach = on_attach,
+        root_dir = nvim_lsp.util.root_pattern("go.work", "go.mod", ".git"),
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            env = {
+              -- Enable analysis of files with the tag linux.
+              -- Without this we can't analyze files that have a linux impl of a function.
+              --
+              -- Similar issue upstream https://github.com/golang/go/issues/29202
+              -- Setting additional opts for gopls https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-v050
+              GOFLAGS = "-tags=linux",
+
+              -- In the kubernetes codebase I got errors like:
+              -- Error when executing textDocument/implementation : packages.Load error: err: exit status 2:
+              -- # runtime/cgo
+              -- linux_syscall.c:67:13: error: implicit declaration of function 'setresgid' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+              -- linux_syscall.c:67:13: note: did you mean 'setregid'?
+              --
+              -- Because of the runtime/cgo above I thought I could disable it
+              -- https://github.com/golang/go/issues/29202#issuecomment-496007059
+              CGO_ENABLED = "0",
             },
           },
-        }
-      end
+        },
+      }
 
       servers.ruff_lsp = {
         on_attach = on_attach,
@@ -295,7 +285,9 @@ return {
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-      local function setup(server)
+
+      -- setup_server sets up an LSP server
+      local function setup_server(server)
         local server_opts = servers[server] or {}
         server_opts.capabilities = capabilities
         if opts.setup[server] then
@@ -321,7 +313,7 @@ return {
           server_opts = server_opts == true and {} or server_opts
           -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
           if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-            setup(server)
+            setup_server(server)
           else
             ensure_installed[#ensure_installed + 1] = server
           end
@@ -329,7 +321,6 @@ return {
       end
       if have_mason then
         mlsp.setup({ ensure_installed = ensure_installed })
-        mlsp.setup_handlers({ setup })
       end
     end,
   },
