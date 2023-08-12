@@ -321,6 +321,7 @@ return {
       end
       if have_mason then
         mlsp.setup({ ensure_installed = ensure_installed })
+        mlsp.setup_handlers({ setup_server })
       end
     end,
   },
