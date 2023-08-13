@@ -12,7 +12,7 @@ return {
       { "[ui]a", ":Neotree reveal<CR>", silent = true },
       { "[ui]x", ":Neotree diagnostics toggle bottom<CR>", silent = true },
     },
-    branch = "v2.x",
+    branch = "v3.x",
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
       if vim.fn.argc() == 1 then
@@ -34,12 +34,15 @@ return {
 
       require("neo-tree").setup({
         filesystem = {
-          bind_to_cwd = false,
-          follow_current_file = true,
+          follow_current_file = {
+            enabled = true,
+            leave_dirs_open = true,
+          },
           filtered_items = {
             hide_dotfiles = false,
             hide_gitignored = false,
           },
+          use_libuv_file_watcher = true,
         },
         window = {
           mappings = {
