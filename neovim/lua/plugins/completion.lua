@@ -19,6 +19,7 @@ return {
 
   {
     "hrsh7th/nvim-cmp",
+    version = false, -- last release is way too old
     dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
@@ -51,6 +52,7 @@ return {
     },
     event = "InsertEnter",
     config = function()
+      vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
@@ -128,7 +130,9 @@ return {
         },
         experimental = {
           native_menu = false,
-          ghost_text = true,
+          ghost_text = {
+            hl_group = "CmpGhostText",
+          },
         },
       })
 
