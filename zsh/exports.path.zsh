@@ -56,3 +56,8 @@ export GITHUB_USER=mauriciopoppe
 
 # git fuzzy
 export GF_GREP_COLOR='1;30;48;5;15'
+
+# use a development build of go if gotip is available
+if command -v gotip > /dev/null; then
+  export export PATH="$(gotip env GOROOT)/bin:$PATH"
+fi
