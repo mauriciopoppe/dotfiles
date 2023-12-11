@@ -327,7 +327,9 @@ return {
       dap.listeners.after.event_loadedSource["dapui_config"] = c(dapui.open)
       dap.listeners.after.event_exited["dapui_config"] = c(dapui.close)
 
-      vim.keymap.set("v", "<M-e>", c(dapui.eval))
+      vim.keymap.set("v", "<leader>be", function()
+        dapui.eval(nil, { enter = true })
+      end)
     end,
   },
 }
