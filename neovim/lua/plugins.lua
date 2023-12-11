@@ -25,14 +25,14 @@ local plugins = {
     end,
   },
 
-  {
-    "whynothugo/lsp_lines",
-    url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    config = function()
-      require("lsp_lines").setup()
-    end,
-  },
-
+  -- {
+  --   "whynothugo/lsp_lines",
+  --   url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+  --   config = function()
+  --     require("lsp_lines").setup()
+  --   end,
+  -- },
+  --
   -- git signs
   {
     "lewis6991/gitsigns.nvim",

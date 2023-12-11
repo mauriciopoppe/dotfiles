@@ -13,19 +13,19 @@ function M.get_keymappings()
   M._keys = M._keys or {
     -- { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
     -- { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-      -- { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
-      -- { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-      -- { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-      -- { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
+    -- { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
+    -- { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+    -- { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+    -- { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
     -- { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
-    { "gK", vim.lsp.buf.hover, desc = "Hover" },
-    { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
-    { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },
-    { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
-    { "[e", M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
-    { "]w", M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
-    { "[w", M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
-    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+    { "gK",         vim.lsp.buf.hover,                 desc = "Hover" },
+    { "]d",         M.diagnostic_goto(true),           desc = "Next Diagnostic" },
+    { "[d",         M.diagnostic_goto(false),          desc = "Prev Diagnostic" },
+    { "]e",         M.diagnostic_goto(true, "ERROR"),  desc = "Next Error" },
+    { "[e",         M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
+    { "]w",         M.diagnostic_goto(true, "WARN"),   desc = "Next Warning" },
+    { "[w",         M.diagnostic_goto(false, "WARN"),  desc = "Prev Warning" },
+    { "<leader>ca", vim.lsp.buf.code_action,           desc = "Code Action",    mode = { "n", "v" }, has = "codeAction" },
   }
 
   -- enable better rename plugin
@@ -143,9 +143,9 @@ end
 -- and have not disabled it in their client config
 function M.supports_format(client)
   if
-    client.config
-    and client.config.capabilities
-    and client.config.capabilities.documentFormattingProvider == false
+      client.config
+      and client.config.capabilities
+      and client.config.capabilities.documentFormattingProvider == false
   then
     return false
   end
@@ -159,9 +159,9 @@ end
 function M.on_attach_set_format(client, buf)
   -- dont format if client disabled it
   if
-    client.config
-    and client.config.capabilities
-    and client.config.capabilities.documentFormattingProvider == false
+      client.config
+      and client.config.capabilities
+      and client.config.capabilities.documentFormattingProvider == false
   then
     return
   end
@@ -196,7 +196,7 @@ return {
         update_in_insert = false,
         -- Disable virtual_text since it's redundant due to lsp_lines.
         -- https://git.sr.ht/~whynothugo/lsp_lines.nvim
-        virtual_text = false,
+        -- virtual_text = false,
         severity_sort = true,
       },
       -- you can do any additional lsp server setup here
@@ -249,6 +249,7 @@ return {
       servers.gopls = {
         on_attach = on_attach,
         root_dir = nvim_lsp.util.root_pattern("go.work", "go.mod", ".git"),
+        single_file_support = false,
         settings = {
           gopls = {
             analyses = {
@@ -261,7 +262,6 @@ return {
               -- Similar issue upstream https://github.com/golang/go/issues/29202
               -- Setting additional opts for gopls https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-v050
               GOFLAGS = "-tags=linux",
-
               -- In the kubernetes codebase I got errors like:
               -- Error when executing textDocument/implementation : packages.Load error: err: exit status 2:
               -- # runtime/cgo
@@ -315,14 +315,14 @@ return {
 
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
         opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
-          or function(diagnostic)
-            local icons = Utils.icons.diagnostics
-            for d, icon in pairs(icons) do
-              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                return icon
+            or function(diagnostic)
+              local icons = Utils.icons.diagnostics
+              for d, icon in pairs(icons) do
+                if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                  return icon
+                end
               end
             end
-          end
       end
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
