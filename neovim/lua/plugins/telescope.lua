@@ -15,12 +15,11 @@ return {
       "smartpde/telescope-recent-files",
     },
     branch = "0.1.x",
-    -- stylua: ignore
+    -- stylua: ignore start
     keys = {
       -- Mappings for a better UI
       { "[ui]f", ":<C-u>Telescope live_grep<CR>", silent = true, desc = "[F]ind files" },
       { "[ui]g", ":<C-u>Telescope git_status<CR>", silent = true, desc = "[G]it status" },
-      { "[ui]b", [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]], silent = true, desc = "[B] Recent Files" },
       { "[ui]o", ":<C-u>Telescope find_files<CR>", silent = true, desc = "[O]pen files" },
       { "[ui]r", ":<C-u>Telescope resume<CR>", silent = true, desc = "[R]esume" },
       { "[ui]l", ":<C-u>Telescope current_buffer_fuzzy_find<CR>", silent = true, desc = "Find in [L]ine" },
@@ -36,7 +35,9 @@ return {
       { "<leader>r", ":<C-u>Telescope lsp_references<CR>", silent = true, desc = "LSP [r]eferences" },
       { "<leader>ci", ":<C-u>Telescope lsp_incoming_calls<CR>", silent = true, desc = "LSP incoming calls [ci]" },
       { "<leader>co", ":<C-u>Telescope lsp_outgoing_calls<CR>", silent = true, desc = "LSP outgoing calls [co]" },
+      { "[ui]b", [[<cmd>lua  require('telescope').extensions.recent_files.pick()<CR>]], silent = true, desc = "[B] Recent Files" },
     },
+    -- stylua: ignore end
     config = function()
       local actions = require("telescope.actions")
       local split_vertical_theme = {
@@ -61,21 +62,24 @@ return {
         end
       end
 
+      local function copy_line_with_github_path()
+        local cwd = vim.loop.cwd()
+        local last_line_number, _ = unpack(vim.api.nvim_win_get_cursor(0))
+        -- remove prefix ~/go/src/<domain> with https://github.com
+        local github_project = cwd:gsub("^" .. vim.fn.expand("$HOME/go/src") .. "/[^/]*/", "https://github.com/")
+        local commit = vim.fn.system("git rev-parse HEAD")
+        local github_path =
+          table.concat({ github_project, "blob", commit, vim.fn.expand("%") .. "#L" .. last_line_number }, "/")
+        require("osc52").copy(github_path)
+      end
+
       -- Custom actions
       local command_center = require("command_center")
       command_center.add({
-        {
-          desc = "Copy absolute path",
-          cmd = with_path("%:p"),
-        },
-        {
-          desc = "Copy relative path",
-          cmd = with_path("%"),
-        },
-        {
-          desc = "Copy filename only",
-          cmd = with_path("%:t"),
-        },
+        { desc = "Copy absolute path", cmd = with_path("%:p") },
+        { desc = "Copy relative path", cmd = with_path("%") },
+        { desc = "Copy filename only", cmd = with_path("%:t") },
+        { desc = "Copy line with github sha", cmd = copy_line_with_github_path },
       }, {
         mode = command_center.mode.ADD,
       })
