@@ -69,7 +69,7 @@ return {
         local github_project = cwd:gsub("^" .. vim.fn.expand("$HOME/go/src") .. "/[^/]*/", "https://github.com/")
         local commit = vim.fn.system("git rev-parse HEAD")
         local github_path =
-          table.concat({ github_project, "blob", commit, vim.fn.expand("%") .. "#L" .. last_line_number }, "/")
+          table.concat({ github_project, "blob", commit, vim.fn.expand("%:.") .. "#L" .. last_line_number }, "/")
         require("osc52").copy(github_path)
       end
 
@@ -77,7 +77,7 @@ return {
       local command_center = require("command_center")
       command_center.add({
         { desc = "Copy absolute path", cmd = with_path("%:p") },
-        { desc = "Copy relative path", cmd = with_path("%") },
+        { desc = "Copy relative path", cmd = with_path("%:.") },
         { desc = "Copy filename only", cmd = with_path("%:t") },
         { desc = "Copy line with github sha", cmd = copy_line_with_github_path },
       }, {
