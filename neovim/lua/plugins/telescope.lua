@@ -62,11 +62,23 @@ return {
         end
       end
 
+      -- copy_line_with_github_path copies the line in the current buffer
+      -- in a github permalink that contains the repo, sha, file, line number.
       local function copy_line_with_github_path()
         local cwd = vim.loop.cwd()
         local last_line_number, _ = unpack(vim.api.nvim_win_get_cursor(0))
         -- remove prefix ~/go/src/<domain> with https://github.com
-        local github_project = cwd:gsub("^" .. vim.fn.expand("$HOME/go/src") .. "/[^/]*/", "https://github.com/")
+        local local_path_no_go_src = cwd:gsub("^" .. vim.fn.expand("$HOME/go/src/"), "")
+
+        -- special case: replace k8s.io with github.com because that's where the source code is.
+        if local_path_no_go_src:find("^(k8s.io)") ~= nil then
+          local_path_no_go_src = local_path_no_go_src:gsub("^k8s.io", "github.com/kubernetes")
+        end
+        if local_path_no_go_src:find("^(sigs.k8s.io)") ~= nil then
+          local_path_no_go_src = local_path_no_go_src:gsub("^sigs.k8s.io", "github.com/kubernetes-sigs")
+        end
+
+        local github_project = "https://" .. local_path_no_go_src
         local commit = vim.fn.system("git rev-parse HEAD")
         local github_path =
           table.concat({ github_project, "blob", commit, vim.fn.expand("%:.") .. "#L" .. last_line_number }, "/")
