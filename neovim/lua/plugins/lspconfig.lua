@@ -229,21 +229,23 @@ return {
         -- remember to set `mason = false` on lsp servers that don't can't be installed through mason
       }
 
-      -- assume that there's a file BUILD in google 3 repos.
-      -- the check makes sure that gopls is enabled only in non google3 repos.
-      local lspconfigs = require("lspconfig.configs")
-      lspconfigs.ciderlsp = {
-        default_config = {
-          cmd = { "/google/bin/releases/cider/ciderlsp/ciderlsp", "--tooltag=nvim-lsp", "--noforward_sync_responses" },
-          filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textproto", "go", "python", "bzl" },
-          root_dir = nvim_lsp.util.root_pattern("google3/*BUILD"),
-          settings = {},
-        },
-      }
-      servers.ciderlsp = {
-        mason = false,
-        on_attach = on_attach,
-      }
+      if Utils.is_google3() then
+        -- assume that there's a file BUILD in google 3 repos.
+        -- the check makes sure that gopls is enabled only in non google3 repos.
+        local lspconfigs = require("lspconfig.configs")
+        lspconfigs.ciderlsp = {
+          default_config = {
+            cmd = { "/google/bin/releases/cider/ciderlsp/ciderlsp", "--tooltag=nvim-lsp", "--noforward_sync_responses" },
+            filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textproto", "go", "python", "bzl" },
+            root_dir = nvim_lsp.util.root_pattern("google3/*BUILD"),
+            settings = {},
+          },
+        }
+        servers.ciderlsp = {
+          mason = false,
+          on_attach = on_attach,
+        }
+      end
 
       -- setup gopls for non google3 repos.
       servers.gopls = {
@@ -386,21 +388,26 @@ return {
     dependencies = { "mason.nvim" },
     opts = function()
       local null_ls = require("null-ls")
+      local sources = {
+        -- code actions
+        null_ls.builtins.code_actions.refactoring,
+        -- diagnostics
+        null_ls.builtins.diagnostics.tsc,
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.diagnostics.codespell,
+        -- formatting
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.prettierd,
+      }
+
+      -- skip go formatters if on google3
+      if not Utils.is_go_mod() then
+        sources[#sources + 1] = null_ls.builtins.formatting.gofmt
+        sources[#sources + 1] = null_ls.builtins.formatting.goimports
+      end
+
       return {
-        sources = {
-          -- code actions
-          null_ls.builtins.code_actions.refactoring,
-          -- diagnostics
-          null_ls.builtins.diagnostics.tsc,
-          null_ls.builtins.diagnostics.eslint,
-          null_ls.builtins.diagnostics.codespell,
-          -- formatting
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.gofmt,
-          null_ls.builtins.formatting.goimports,
-          null_ls.builtins.formatting.prettierd,
-          -- hover
-        },
+        sources = sources,
       }
     end,
   },

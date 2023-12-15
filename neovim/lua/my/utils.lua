@@ -116,6 +116,16 @@ function M.is_google3()
   return pwd ~= nil and pwd:find("^/google") ~= nil
 end
 
+-- is_go_mod checks if we're in a directory with the file go.mod
+function M.is_go_mod()
+  local f = io.open(os.getenv("PWD") .. "go.mod")
+  if f ~= nil then
+    io.close(f)
+    return true
+  end
+  return false
+end
+
 -- is_personal check if neovim is running in my personal laptop.
 function M.is_personal()
   local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin.*Mauricio.*arm")

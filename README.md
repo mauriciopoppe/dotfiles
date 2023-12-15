@@ -74,6 +74,13 @@ can do this with all the first level directories of this repo e.g. `$ dotfiles
 Refer to the file `install.zsh` that each folder has, after cloning the repo you
 can add whatever you need inside each installation script
 
+## UTM setup
+
+With UTM I run ubuntu as a VM to do development:
+
+- Remap `command` to nothing inside guest: https://linux.how2shout.com/how-to-disable-super-or-win-key-in-ubuntu-20-04-or-18-04/
+- Install alacrity
+
 ## Screenshot
 
 I talk about my workflow in this article: https://www.mauriciopoppe.com/notes/misc/productivity-skills

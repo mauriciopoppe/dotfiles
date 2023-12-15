@@ -25,14 +25,6 @@ local plugins = {
     end,
   },
 
-  -- {
-  --   "whynothugo/lsp_lines",
-  --   url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-  --   config = function()
-  --     require("lsp_lines").setup()
-  --   end,
-  -- },
-  --
   -- git signs
   {
     "lewis6991/gitsigns.nvim",
@@ -377,6 +369,7 @@ local plugins = {
 }
 
 -- At work I have a custom package that I'd also like to be loaded by lazy.nvim
+-- The strategy is to create a lua module under $XDG_DATA_HOME/nvim which is loaded here.
 -- The preparation steps are:
 --   - Somewhere at work create nvim_google3/lua/nvim_google3.lua
 --   - Symlink nvim_google3/ to $XDG_DATA_HOME/nvim/nvim_google3 (I do this in a hidden script)

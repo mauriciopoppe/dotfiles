@@ -8,7 +8,7 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       -- custom command palette
-      "FeiyouG/command_center.nvim",
+      "FeiyouG/commander.nvim",
       -- vim bookmarks loader
       "tom-anders/telescope-vim-bookmarks.nvim",
       -- recent files
@@ -23,10 +23,11 @@ return {
       { "[ui]o", ":<C-u>Telescope find_files<CR>", silent = true, desc = "[O]pen files" },
       { "[ui]r", ":<C-u>Telescope resume<CR>", silent = true, desc = "[R]esume" },
       { "[ui]l", ":<C-u>Telescope current_buffer_fuzzy_find<CR>", silent = true, desc = "Find in [L]ine" },
-      { "[ui]p", ":<C-u>Telescope command_center<CR>", silent = true, desc = "Command [P]alette" },
+      { "[ui]p", ":<C-u>Telescope commander<CR>", silent = true, desc = "Command [P]alette" },
       { "[ui]w", ":<C-u>Telescope grep_string<CR>", silent = true, desc = "Search with [W]ord" },
       { "[ui]q", ":<C-u>Telescope quickfix<CR>", silent = true, desc = "[Q]uickfix" },
       { "[ui]m", ":<C-u>Telescope vim_bookmarks all<CR>", silent = true, desc = "Book[m]arks" },
+      { "[ui]b", [[<cmd>lua  require('telescope').extensions.recent_files.pick()<CR>]], silent = true, desc = "[B] Recent Files", },
       -- Mappings to navigate on the code
       { "<leader>a", ":<C-u>Telescope lsp_code_actions<CR>", silent = true, desc = "LSP code [a]ctions" },
       { "<leader>d", ":<C-u>Telescope lsp_definitions<CR>", silent = true, desc = "LSP [d]efinitions" },
@@ -35,7 +36,7 @@ return {
       { "<leader>r", ":<C-u>Telescope lsp_references<CR>", silent = true, desc = "LSP [r]eferences" },
       { "<leader>ci", ":<C-u>Telescope lsp_incoming_calls<CR>", silent = true, desc = "LSP incoming calls [ci]" },
       { "<leader>co", ":<C-u>Telescope lsp_outgoing_calls<CR>", silent = true, desc = "LSP outgoing calls [co]" },
-      { "[ui]b", [[<cmd>lua  require('telescope').extensions.recent_files.pick()<CR>]], silent = true, desc = "[B] Recent Files" },
+      { "<leader>cr", function() require("telescope").extensions.refactoring.refactors() end, silent = true, desc = "Refactor", mode = { "n", "x" }, },
     },
     -- stylua: ignore end
     config = function()
@@ -70,7 +71,7 @@ return {
         -- remove prefix ~/go/src/<domain> with https://github.com
         local local_path_no_go_src = cwd:gsub("^" .. vim.fn.expand("$HOME/go/src/"), "")
 
-        -- special case: replace k8s.io with github.com because that's where the source code is.
+        -- special case: replace known go modules with github.com because that's where the source code is.
         if local_path_no_go_src:find("^(k8s.io)") ~= nil then
           local_path_no_go_src = local_path_no_go_src:gsub("^k8s.io", "github.com/kubernetes")
         end
@@ -86,14 +87,21 @@ return {
       end
 
       -- Custom actions
-      local command_center = require("command_center")
-      command_center.add({
+      local commander = require("commander")
+      commander.add({
         { desc = "Copy absolute path", cmd = with_path("%:p") },
         { desc = "Copy relative path", cmd = with_path("%:.") },
         { desc = "Copy filename only", cmd = with_path("%:t") },
         { desc = "Copy line with github sha", cmd = copy_line_with_github_path },
       }, {
-        mode = command_center.mode.ADD,
+        show = true,
+      })
+      commander.setup({
+        integration = {
+          telescope = {
+            enable = true,
+          },
+        },
       })
 
       require("telescope").setup({
@@ -119,9 +127,9 @@ return {
         },
       })
 
-      require("telescope").load_extension("command_center")
       require("telescope").load_extension("vim_bookmarks")
       require("telescope").load_extension("recent_files")
+      require("telescope").load_extension("refactoring")
     end,
   },
 }

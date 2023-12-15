@@ -61,6 +61,7 @@ require("lazy").setup({
       task = "📌",
     },
   },
+  concurrency = 5,
   performance = {
     rtp = {
       -- disable some rtp plugins
