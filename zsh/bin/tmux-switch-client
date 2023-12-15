@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-# zsh script that calls the ruby script, the reason
-# is that using the ruby shebang doesn't activate the asdf shim :(
-#
-# See the `source "$HOME/.asdf/asdf.sh"` file.
-ruby $DOTFILES_DIRECTORY/zsh/bin/tmux-switch-client.rb
+# asdf might need to be sourced from a zsh env so that's why this file exists.
+
+python3 $DOTFILES_DIRECTORY/zsh/bin/tmux-switch-client.py
