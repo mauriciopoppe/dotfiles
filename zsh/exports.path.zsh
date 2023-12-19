@@ -10,17 +10,6 @@ path=(
   ~/.local/bin
   /usr/local/bin
   /usr/local/sbin
-  # needed to build kubernetes in macos
-  /opt/homebrew/opt/libtool/libexec/gnubin
-  /opt/homebrew/opt/coreutils/libexec/gnubin
-  /opt/homebrew/opt/gnu-tar/libexec/gnubin
-  /opt/homebrew/opt/ed/libexec/gnubin
-  /opt/homebrew/opt/grep/libexec/gnubin
-  /opt/homebrew/opt/gnu-sed/libexec/gnubin
-  /opt/homebrew/opt/gsed/libexec/gnubin
-  /opt/homebrew/opt/gawk/libexec/gnubin
-  /opt/homebrew/opt/make/libexec/gnubin
-  /opt/homebrew/opt/findutils/libexec/gnubin
   "$path[@]"
   # bun, the all in one JavaScript runtime
   ~/.bun/bin

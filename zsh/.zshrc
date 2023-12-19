@@ -15,16 +15,8 @@ fi
 # init #
 ########
 
-# package manager
-if [[ ! -d "${HOME}/.asdf" ]]; then
-    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0
-    source "$HOME/.asdf/asdf.sh"
-    fpath=(${ASDF_DIR}/completions $fpath)
-    asdf update
-fi
-source "$HOME/.asdf/asdf.sh"
-
 ### Added by Zinit's installer
+
 ZINIT_HOME="${XDG_DATA_HOME}/zinit/zinit.git"
 if [[ ! -d $ZINIT_HOME ]]; then
     mkdir -p "$(dirname $ZINIT_HOME)"
@@ -113,15 +105,12 @@ zinit load hlissner/zsh-autopair
 zinit ice as"program" pick"bin/git-fuzzy"
 zinit light bigH/git-fuzzy
 
-# autoenv
-zinit ice from"gh" src"activate.sh"
-zinit load hyperupcall/autoenv
-
 # Scripts that are built at install (there's single default make target, "install",
 # and it constructs scripts by `cat'ing a few files). The make'' ice could also be:
 # `make"install PREFIX=$ZPFX"`, if "install" wouldn't be the only, default target.
 zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
 zinit light tj/git-extras
+
 #########################
 # script initialization #
 #########################
