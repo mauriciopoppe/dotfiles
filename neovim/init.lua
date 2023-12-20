@@ -45,6 +45,8 @@ require("my.utils").setup()
 require("lazy").setup({
   spec = {
     { import = "plugins" },
+    -- load my custom plugins for google3
+    { name = "nvim_google3", dir = os.getenv("DOTFILES_DIRECTORY_ALT") .. "/nvim_google3", import = "nvim_google3" },
   },
   ui = {
     icons = {

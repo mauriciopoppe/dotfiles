@@ -19,6 +19,7 @@ local plugins = {
     "mhinz/vim-signify",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
+      vim.g.signify_skip_filename_pattern = { "\\.pipertmp.*" }
       vim.g.signify_vcs_cmds_diffmode = {
         hg = "hg cat %f -r p4base",
       }
@@ -367,23 +368,5 @@ local plugins = {
     },
   },
 }
-
--- At work I have a custom package that I'd also like to be loaded by lazy.nvim
--- The strategy is to create a lua module under $XDG_DATA_HOME/nvim which is loaded here.
--- The preparation steps are:
---   - Somewhere at work create nvim_google3/lua/nvim_google3.lua
---   - Symlink nvim_google3/ to $XDG_DATA_HOME/nvim/nvim_google3 (I do this in a hidden script)
--- Now when this file loads make sure that $XDG_DATA_HOME/nvim/nvim_google3 is in the rtp
--- Finally we can do `require("nvim_google3")` which is loading the nvim_google3.lua file!
-local google3_config = vim.fn.stdpath("data") .. "/nvim_google3"
-if vim.loop.fs_stat(google3_config) then
-  vim.opt.rtp:prepend(google3_config)
-
-  -- iterate over every plugin declaration and append it to the plugins defined here.
-  local google3_plugins = require("nvim_google3")
-  for _, plugin in ipairs(google3_plugins) do
-    table.insert(plugins, plugin)
-  end
-end
 
 return plugins

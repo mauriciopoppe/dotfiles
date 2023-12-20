@@ -247,6 +247,7 @@ return {
           default_config = {
             cmd = { "/google/bin/releases/cider/ciderlsp/ciderlsp", "--tooltag=nvim-lsp", "--noforward_sync_responses" },
             filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textproto", "go", "python", "bzl" },
+            offset_encoding = "utf-16",
             root_dir = nvim_lsp.util.root_pattern("google3/*BUILD"),
             settings = {},
           },
