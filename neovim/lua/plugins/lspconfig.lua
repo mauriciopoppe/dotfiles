@@ -188,6 +188,13 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "smjonas/inc-rename.nvim",
+      {
+        "piloto/cmp-nvim-ciderlsp",
+        url = "sso://user/piloto/cmp-nvim-ciderlsp",
+        cond = function()
+          return Utils.is_google3()
+        end,
+      },
     },
     opts = {
       -- options for vim.diagnostic.config()
@@ -229,6 +236,9 @@ return {
         -- remember to set `mason = false` on lsp servers that don't can't be installed through mason
       }
 
+      -- advertise support for completion through cmp
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
       if Utils.is_google3() then
         -- assume that there's a file BUILD in google 3 repos.
         -- the check makes sure that gopls is enabled only in non google3 repos.
@@ -245,6 +255,8 @@ return {
           mason = false,
           on_attach = on_attach,
         }
+        -- from the internal piloto cmp-nvim-ciderlsp
+        capabilities = require("cmp_nvim_ciderlsp").update_capabilities(capabilities)
       end
 
       -- setup gopls for non google3 repos.
@@ -327,8 +339,6 @@ return {
           end
       end
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
-
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
       -- setup_server sets up an LSP server
       local function setup_server(server)

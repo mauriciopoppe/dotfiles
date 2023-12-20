@@ -1,8 +1,14 @@
 return {
   {
     "mfussenegger/nvim-dap",
+    -- stylua: ignore
+    keys = {
+      { "<leader>db", function() require("dap").toggle_breakpoint() end, },
+      { "<leader>dc", function() require("dap").continue() end, },
+    },
     dependencies = {
       "mfussenegger/nvim-dap-python",
+      ft = "python",
       -- stylua: ignore
       keys = {
         { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method" },

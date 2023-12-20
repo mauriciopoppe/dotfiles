@@ -49,6 +49,14 @@ return {
           return Utils.is_personal()
         end,
       },
+      -- ml autocompletion (ciderlsp)
+      {
+        "piloto/cmp-nvim-ciderlsp",
+        url = "sso://user/piloto/cmp-nvim-ciderlsp",
+        cond = function()
+          return Utils.is_google3()
+        end,
+      },
     },
     event = "InsertEnter",
     config = function()
@@ -67,6 +75,11 @@ return {
       if Utils.is_personal() and Utils.connected_to_internet() then
         require("codeium").setup({})
         table.insert(sources, #sources + 1, { name = "codeium" })
+      end
+
+      -- load ciderlsp completion
+      if Utils.is_google3() then
+        table.insert(sources, #sources + 1, { name = "nvim_ciderlsp" })
       end
 
       local function has_words_before()
@@ -125,6 +138,7 @@ return {
               luasnip = "[LuaSnip]",
               nvim_lua = "[Lua]",
               latex_symbols = "[Latex]",
+              nvim_ciderlsp = "[CiderLSP]",
             },
           }),
         },
