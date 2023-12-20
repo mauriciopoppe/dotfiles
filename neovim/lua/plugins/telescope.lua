@@ -1,3 +1,5 @@
+local utils = require("my.utils")
+
 return {
   {
     "tom-anders/telescope-vim-bookmarks.nvim",
@@ -63,36 +65,19 @@ return {
         end
       end
 
-      -- copy_line_with_github_path copies the line in the current buffer
-      -- in a github permalink that contains the repo, sha, file, line number.
-      local function copy_line_with_github_path()
-        local cwd = vim.loop.cwd()
-        local last_line_number, _ = unpack(vim.api.nvim_win_get_cursor(0))
-        -- remove prefix ~/go/src/<domain> with https://github.com
-        local local_path_no_go_src = cwd:gsub("^" .. vim.fn.expand("$HOME/go/src/"), "")
-
-        -- special case: replace known go modules with github.com because that's where the source code is.
-        if local_path_no_go_src:find("^(k8s.io)") ~= nil then
-          local_path_no_go_src = local_path_no_go_src:gsub("^k8s.io", "github.com/kubernetes")
-        end
-        if local_path_no_go_src:find("^(sigs.k8s.io)") ~= nil then
-          local_path_no_go_src = local_path_no_go_src:gsub("^sigs.k8s.io", "github.com/kubernetes-sigs")
-        end
-
-        local github_project = "https://" .. local_path_no_go_src
-        local commit = vim.fn.system("git rev-parse HEAD")
-        local github_path =
-          table.concat({ github_project, "blob", commit, vim.fn.expand("%:.") .. "#L" .. last_line_number }, "/")
-        require("osc52").copy(github_path)
-      end
-
       -- Custom actions
       local commander = require("commander")
       commander.add({
         { desc = "Copy absolute path", cmd = with_path("%:p") },
         { desc = "Copy relative path", cmd = with_path("%:.") },
         { desc = "Copy filename only", cmd = with_path("%:t") },
-        { desc = "Copy line with github sha", cmd = copy_line_with_github_path },
+        {
+          desc = "Copy line with github sha",
+          cmd = function()
+            local permalink = utils.get_github_permalink_at_current_line()
+            require("osc52").copy(permalink)
+          end,
+        },
       }, {
         show = true,
       })

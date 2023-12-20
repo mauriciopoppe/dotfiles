@@ -143,9 +143,9 @@ end
 -- and have not disabled it in their client config
 function M.supports_format(client)
   if
-      client.config
-      and client.config.capabilities
-      and client.config.capabilities.documentFormattingProvider == false
+    client.config
+    and client.config.capabilities
+    and client.config.capabilities.documentFormattingProvider == false
   then
     return false
   end
@@ -159,9 +159,9 @@ end
 function M.on_attach_set_format(client, buf)
   -- dont format if client disabled it
   if
-      client.config
-      and client.config.capabilities
-      and client.config.capabilities.documentFormattingProvider == false
+    client.config
+    and client.config.capabilities
+    and client.config.capabilities.documentFormattingProvider == false
   then
     return
   end
@@ -317,14 +317,14 @@ return {
 
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
         opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
-            or function(diagnostic)
-              local icons = Utils.icons.diagnostics
-              for d, icon in pairs(icons) do
-                if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                  return icon
-                end
+          or function(diagnostic)
+            local icons = Utils.icons.diagnostics
+            for d, icon in pairs(icons) do
+              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                return icon
               end
             end
+          end
       end
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
@@ -383,7 +383,7 @@ return {
     config = true,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     event = "BufReadPre",
     dependencies = { "mason.nvim" },
     opts = function()
@@ -397,6 +397,7 @@ return {
         null_ls.builtins.diagnostics.codespell,
         -- formatting
         null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.prettierd,
       }
 
@@ -423,11 +424,14 @@ return {
         "shellcheck",
         "shfmt",
         "codespell",
+        "black",
         -- lsp
         "clangd",
         "gopls",
         "lua-language-server",
         "typescript-language-server",
+        -- debugger
+        "debugpy",
       },
     },
     config = function(_, opts)

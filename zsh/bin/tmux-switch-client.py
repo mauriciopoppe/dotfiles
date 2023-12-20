@@ -6,8 +6,8 @@ import subprocess
 # Requires the binary `bookmark`, it should be under zsh/bin
 
 # Algorithm:
-# - get saved sessions (from the file ~/.bookmarks.data)
 # - get opened sessions (with tmux-list-session)
+# - get saved sessions (from the file ~/.bookmarks.data)
 # - create a list with unique items from both lists (sorted)
 # - ask to switch session with fzf
 # - switch session
@@ -155,6 +155,8 @@ def main():
             )
 
         # start tmuxinator at the directory.
+        # NOTE: At some point I wanted to use tmuxp, I didn't use because in my ~/.tmuxinator.yml
+        # I use ruby interpolations which I can't do in tmuxp.
         run_tmuxinator = cmd(["bash", "-c", f"cd '{c_name}' && tmuxinator start ."])
         if run_tmuxinator.returncode != 0:
             raise ValueError(
