@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# motd prints a nice message to start my day :)
+# it uses the https://api-ninjas.com/ API
+API_NINJAS_API_KEY=${API_NINJAS_API_KEY}
+
+random_fact=$(curl -H "X-Api-Key: ${API_NINJAS_API_KEY}" -s https://api.api-ninjas.com/v1/facts?limit=1 | jq '.[0].fact')
+random_joke=$(curl -H "X-Api-Key: ${API_NINJAS_API_KEY}" -s https://api.api-ninjas.com/v1/dadjokes?limit=1 | jq '.[0].joke')
+random_trivia=$(curl -H "X-Api-Key: ${API_NINJAS_API_KEY}" -s https://api.api-ninjas.com/v1/trivia?limit=1 | jq '.[0]')
+
+cat <<EOF
+First a random fact:
+> ${random_fact}
+
+Next a random trivia ($(echo $random_trivia | jq '.category')):
+> $(echo $random_trivia | jq '.question')?
+> $(echo $random_trivia | jq '.answer')
+
+Now a dad joke:
+> ${random_joke}
+
+😂
+EOF
+
+# vim ft=bash
