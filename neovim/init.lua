@@ -40,14 +40,22 @@ vim.opt.rtp:prepend(lazypath)
 -- My setup
 require("my.utils").setup()
 
+local spec = {
+  { import = "plugins" },
+}
+if os.getenv("DOTFILES_DIRECTORY_ALT") ~= nil then
+  local my_google3_module = {
+    name = "nvim_google3",
+    dir = os.getenv("DOTFILES_DIRECTORY_ALT") .. "/nvim_google3",
+    import = "nvim_google3",
+  }
+  table.insert(spec, my_google3_module)
+end
+
 -- Custom setup copied from LazyVim starter
 -- https://github.com/LazyVim/starter/blob/main/lua/config/lazy.lua
 require("lazy").setup({
-  spec = {
-    { import = "plugins" },
-    -- load my custom plugins for google3
-    { name = "nvim_google3", dir = os.getenv("DOTFILES_DIRECTORY_ALT") .. "/nvim_google3", import = "nvim_google3" },
-  },
+  spec = spec,
   ui = {
     icons = {
       cmd = "⌘",
