@@ -43,9 +43,10 @@ require("my.utils").setup()
 local spec = {
   { import = "plugins" },
 }
+-- Conditionally import my google3 stuff if it's available
+-- (it'd only be available at work).
 if os.getenv("DOTFILES_DIRECTORY_ALT") ~= nil then
   local my_google3_module = {
-    name = "nvim_google3",
     dir = os.getenv("DOTFILES_DIRECTORY_ALT") .. "/nvim_google3",
     import = "nvim_google3",
   }

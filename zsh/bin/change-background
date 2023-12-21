@@ -1,32 +1,20 @@
 #!/bin/bash
-
-set -ex
+set -euxo pipefail
 
 main() {
   mode="$1"
-  if [[ $OSTYPE =~ ^darwin ]]; then
-    if [[ $mode == "light" ]]; then
-      osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" >/dev/null
-    elif [[ $mode == "dark" ]]; then
-      osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" >/dev/null
-    else
-      echo "unknown arg, expected 'light' or 'dark'"
-      return
-    fi
-  fi
 
   # The variable in .tmux.theme will be read by .tmux.conf to set the theme.
   echo $mode > ~/.tmux.theme
-
   cat ~/.tmux.theme
 
-  # go over all the tmux sessions and change the theme.
+  # go over all the tmux sessions and change the vim theme.
   for session in $(tmux list-sessions -F "#{session_name}"); do
     for wix in $(tmux list-windows -F "${session}:#{window_index}" -t "$session"); do
       for pix in $(tmux list-panes -F "#{session_name}:#{window_index}.#{pane_index}" -t $wix); do
         is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
         tmux if-shell -t "$pix" "$is_vim" "send-keys -t $pix escape ENTER"
-        tmux if-shell -t "$pix" "$is_vim" "send-keys -t $pix ':call ChangeTheme()' ENTER"
+        tmux if-shell -t "$pix" "$is_vim" "send-keys -t $pix ':lua require('my.theme').setup()' ENTER"
       done
     done
   done

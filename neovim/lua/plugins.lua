@@ -6,8 +6,8 @@ local plugins = {
     "nvim-lua/plenary.nvim",
     -- themes
     dependencies = {
-      "sainnhe/everforest",
-      "w0ng/vim-hybrid",
+      "w0ng/vim-hybrid", -- dark
+      "mvpopuk/inspired-github.vim", -- light
     },
     config = function()
       require("my.theme").setup()

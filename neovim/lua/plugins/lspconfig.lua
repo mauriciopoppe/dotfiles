@@ -430,19 +430,20 @@ return {
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       ensure_installed = {
-        "prettierd",
-        "stylua",
         "shellcheck",
         "shfmt",
         "codespell",
-        "black",
+        -- formatter
+        "black", -- python
+        "prettierd", -- typescript/javascript
+        "stylua", -- lua
         -- lsp
-        "clangd",
         "gopls",
         "lua-language-server",
         "typescript-language-server",
         -- debugger
         "debugpy",
+        -- clangd (note: clangd is not compatible with the settings I have at work)
       },
     },
     config = function(_, opts)

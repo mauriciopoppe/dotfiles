@@ -18,17 +18,21 @@ local options = {
   },
   -- I took these colors by looking at the theme I applied to iTerm
   themes = {
+    -- Colors from w0ng/vim-hybrid
+    -- https://github.com/w0ng/vim-hybrid/blob/master/colors/hybrid.vim#L87
     dark = {
       transparent = "#232c31",
       light = "#2d3c46",
       medium = "#424f58",
       dark = "#8abdb6",
     },
+    -- Colors from mvpopuk/inspiried-github.vim
+    -- https://github.com/mvpopuk/inspired-github.vim/blob/main/config/lualine.lua
     light = {
       transparent = "#eee8d5",
-      light = "#fdf6e3",
-      medium = "#7eb3af",
-      dark = "#657b83",
+      light = "#ffffff",
+      medium = "#f5f5f5",
+      dark = "#383a42",
     },
   },
 }
