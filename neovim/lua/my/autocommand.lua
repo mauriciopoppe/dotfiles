@@ -58,6 +58,11 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
     vim.highlight.on_yank({ higroup = "IncSearch", timeout = 1000, on_visual = true })
   end,
 })
+local checktime = vim.api.nvim_create_augroup("checktime", { clear = true })
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = checktime,
+  command = "checktime",
+})
 
 vim.cmd([[
 augroup FTCheck

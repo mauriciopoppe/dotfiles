@@ -11,8 +11,10 @@ return {
       -- refactoring plugin
       "ThePrimeagen/refactoring.nvim",
     },
+    version = false,
     build = ":TSUpdate",
-    event = "BufReadPost",
+    event = "VeryLazy",
+    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     config = function()
       -- Identifies zsh as bash.
       -- https://github.com/nvim-treesitter/nvim-treesitter/issues/655#issuecomment-1021160477

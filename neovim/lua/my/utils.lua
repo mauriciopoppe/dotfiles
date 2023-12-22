@@ -45,7 +45,7 @@ function M.setup()
   -- https://github.com/LazyVim/LazyVim/blob/2e18998c9ed7d2fa773b782f3aa3c0d5ac5cc21d/lua/lazyvim/config/init.lua#L160-L163
   require("my.options")
 
-  -- Load autocmds and keymaps lazyily
+  -- Load autocmds and keymaps lazyly
   -- https://github.com/LazyVim/LazyVim/blob/2e18998c9ed7d2fa773b782f3aa3c0d5ac5cc21d/lua/lazyvim/config/init.lua#L160-L163
   --
   if vim.fn.argc(-1) == 0 then

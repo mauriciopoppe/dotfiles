@@ -84,11 +84,12 @@ local plugins = {
     config = true,
     -- stylua: ignore
     keys = {
-      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment", },
-      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment", },
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
       { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
       { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
     },
   },
 
@@ -102,6 +103,8 @@ local plugins = {
   -- search and replace
   {
     "nvim-pack/nvim-spectre",
+    build = false,
+    cmd = "Spectre",
     keys = {
       -- stylua: ignore
       { "[ui]s", function() require("spectre").open() end, desc = "Search & replace", },
@@ -184,6 +187,7 @@ local plugins = {
   -- better motion
   {
     "bkad/CamelCaseMotion",
+    event = "VeryLazy",
     config = function()
       vim.cmd([[
       nmap <silent> e <Plug>CamelCaseMotion_e
@@ -216,7 +220,7 @@ local plugins = {
 
   {
     "ojroques/nvim-osc52",
-    events = { "TextYankPost" },
+    events = { "TextYankPost", "VeryLazy" },
     config = function()
       local function copy()
         if vim.v.event.operator == "y" and vim.v.event.regname == "" then
@@ -243,35 +247,51 @@ local plugins = {
     event = "BufReadPost",
     -- stylua: ignore
     keys = {
-      { "]]", function() require("illuminate").goto_next_reference(false) end, desc = "Next Reference", },
-      { "[[", function() require("illuminate").goto_prev_reference(false) end, desc = "Prev Reference", },
+      { "]]", desc = "Next Reference" },
+      { "[[", desc = "Prev Reference" },
     },
-    config = function()
-      require("illuminate").configure({ delay = 200 })
+    opts = {
+      delay = 200,
+      large_file_cutoff = 2000,
+      large_file_overrides = {
+        providers = { "lsp" },
+      },
+    },
+    config = function(_, opts)
+      require("illuminate").configure(opts)
+
+      local function map(key, dir, buffer)
+        vim.keymap.set("n", key, function()
+          require("illuminate")["goto_" .. dir .. "_reference"](false)
+        end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+      end
+
+      map("]]", "next")
+      map("[[", "prev")
+
       vim.api.nvim_create_autocmd("FileType", {
         callback = function()
           local buffer = vim.api.nvim_get_current_buf()
-          pcall(vim.keymap.del, "n", "]]", { buffer = buffer })
-          pcall(vim.keymap.del, "n", "[[", { buffer = buffer })
+          map("]]", "next", buffer)
+          map("[[", "prev", buffer)
         end,
       })
     end,
   },
 
   -- auto close (, [, {, ', \", `
-  "jiangmiao/auto-pairs",
+  {
+    "jiangmiao/auto-pairs",
+    event = "VeryLazy",
+  },
 
   -- alignment
   {
     "junegunn/vim-easy-align",
-    config = function()
-      vim.cmd([[
-      " Start interactive EasyAlign in visual mode (e.g. vipga)
-      xmap ga <Plug>(EasyAlign)
-      " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-      nmap ga <Plug>(EasyAlign)
-      ]])
-    end,
+    keys = {
+      { "ga", ":<Plug>(EasyAlign) <CR>", desc = "Next Reference", mode = { "x", "n" } },
+    },
+    opts = {},
   },
 
   -- multiple cursors (<C-n><C-p><C-x>)
@@ -289,13 +309,13 @@ local plugins = {
   },
 
   -- . improved
-  "tpope/vim-repeat",
-
-  -- Detect tabstop and shiftwidth automatically
-  "tpope/vim-sleuth",
+  { "tpope/vim-repeat", event = "VeryLazy" },
 
   -- editorconfig
-  "gpanders/editorconfig.nvim",
+  {
+    "gpanders/editorconfig.nvim",
+    event = "VeryLazy",
+  },
 
   -- toggle bookmarks per line, use telescope to find them
   {
@@ -311,6 +331,7 @@ local plugins = {
   -- change/delete surrounding characters
   {
     "kylechui/nvim-surround",
+    event = "VeryLazy",
     config = function()
       require("nvim-surround").setup()
     end,
@@ -323,6 +344,13 @@ local plugins = {
       vim.g.gfm_syntax_highlight_emoji = 0
       vim.g.gfm_syntax_enable_filetypes = { "markdown" }
     end,
+  },
+
+  -- Automatically add closing tags for HTML and JSX
+  {
+    "windwp/nvim-ts-autotag",
+    event = "VeryLazy",
+    opts = {},
   },
 
   -- go setup

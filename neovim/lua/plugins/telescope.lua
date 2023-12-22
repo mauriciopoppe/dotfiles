@@ -15,6 +15,11 @@ return {
       "tom-anders/telescope-vim-bookmarks.nvim",
       -- recent files
       "smartpde/telescope-recent-files",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        enabled = vim.fn.executable("make") == 1,
+      },
     },
     branch = "0.1.x",
     -- stylua: ignore start
@@ -115,6 +120,7 @@ return {
       require("telescope").load_extension("vim_bookmarks")
       require("telescope").load_extension("recent_files")
       require("telescope").load_extension("refactoring")
+      require("telescope").load_extension("fzf")
     end,
   },
 }
