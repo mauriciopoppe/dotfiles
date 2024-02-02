@@ -135,10 +135,10 @@ return {
             menu = {
               buffer = "[Buffer]",
               nvim_lsp = "[LSP]",
+              nvim_ciderlsp = "[CiderLSP]",
               luasnip = "[LuaSnip]",
               nvim_lua = "[Lua]",
               latex_symbols = "[Latex]",
-              nvim_ciderlsp = "[CiderLSP]",
             },
           }),
         },

@@ -68,6 +68,7 @@ can do this with all the first level directories of this repo e.g. `$ dotfiles
 
 - Set the downloaded font on iTerm *iTerm > preferences > profiles > text* (change it for both regular and non-ascii fonts)
 - Uncheck *use lion-style full screen* on General
+- iTerm themes are located in the same folder.
 
 ## What's included? And how to customize it?
 

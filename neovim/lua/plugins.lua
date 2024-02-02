@@ -7,7 +7,7 @@ local plugins = {
     -- themes
     dependencies = {
       "w0ng/vim-hybrid", -- dark
-      "mvpopuk/inspired-github.vim", -- light
+      "mauriciopoppe/inspired-github.vim", -- light
     },
     config = function()
       require("my.theme").setup()
@@ -220,7 +220,7 @@ local plugins = {
 
   {
     "ojroques/nvim-osc52",
-    events = { "TextYankPost", "VeryLazy" },
+    event = { "TextYankPost", "VeryLazy" },
     config = function()
       local function copy()
         if vim.v.event.operator == "y" and vim.v.event.regname == "" then

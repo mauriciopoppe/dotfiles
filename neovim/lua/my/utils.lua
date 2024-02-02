@@ -30,7 +30,7 @@ local options = {
     -- https://github.com/mvpopuk/inspired-github.vim/blob/main/config/lualine.lua
     light = {
       transparent = "#eee8d5",
-      light = "#ffffff",
+      light = "#f5f5f5",
       medium = "#f5f5f5",
       dark = "#383a42",
     },

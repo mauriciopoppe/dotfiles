@@ -13,7 +13,6 @@ local function change_background()
   if theme == "dark" then
     vim.cmd.colorscheme("hybrid")
   elseif theme == "light" then
-    vim.g.everforest_background = "medium"
     vim.cmd.colorscheme("inspired-github")
   end
 end
