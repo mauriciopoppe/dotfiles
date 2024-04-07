@@ -306,6 +306,7 @@ return {
         flags = {
           debounce_text_changes = 150,
         },
+
       }
 
       servers["lua_ls"] = {
@@ -403,8 +404,6 @@ return {
         -- code actions
         null_ls.builtins.code_actions.refactoring,
         -- diagnostics
-        null_ls.builtins.diagnostics.tsc,
-        null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.diagnostics.codespell,
         -- formatting
         null_ls.builtins.formatting.stylua,

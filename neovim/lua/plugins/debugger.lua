@@ -3,16 +3,16 @@ return {
     "mfussenegger/nvim-dap",
     -- stylua: ignore
     keys = {
-      { "<leader>db", function() require("dap").toggle_breakpoint() end, },
-      { "<leader>dc", function() require("dap").continue() end, },
+      { "<leader>bb", function() require("dap").toggle_breakpoint() end, },
+      { "<leader>bc", function() require("dap").continue() end, },
     },
     dependencies = {
       "mfussenegger/nvim-dap-python",
       ft = "python",
       -- stylua: ignore
       keys = {
-        { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method" },
-        { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class" },
+        { "<leader>bPt", function() require('dap-python').test_method() end, desc = "Debug Method" },
+        { "<leader>bPc", function() require('dap-python').test_class() end, desc = "Debug Class" },
       },
       config = function()
         local path = require("mason-registry").get_package("debugpy"):get_install_path()
@@ -29,32 +29,32 @@ return {
       end
 
       -- preview window under cursor
-      vim.keymap.set("n", "<Leader>dp", function()
+      vim.keymap.set("n", "<Leader>bp", function()
         local opts = { width = 200, height = 15, enter = true }
         local dapui = require("dapui")
         dapui.float_element("scopes", opts)
       end)
 
-      vim.keymap.set("n", "<leader>d.", c(dap.run_to_cursor))
-      vim.keymap.set("n", "<leader>dj", c(dap.down))
-      vim.keymap.set("n", "<leader>dk", c(dap.up))
-      vim.keymap.set("n", "<leader>dL", function()
+      vim.keymap.set("n", "<leader>b.", c(dap.run_to_cursor))
+      vim.keymap.set("n", "<leader>bj", c(dap.down))
+      vim.keymap.set("n", "<leader>bk", c(dap.up))
+      vim.keymap.set("n", "<leader>bL", function()
         dap.list_breakpoints()
         vim.cmd.copen()
       end)
-      vim.keymap.set("n", "<leader>dt", function()
+      vim.keymap.set("n", "<leader>bt", function()
         dap.terminate()
         require("dapui").close()
       end)
-      vim.keymap.set("n", "<leader>db", c(dap.toggle_breakpoint))
+      vim.keymap.set("n", "<leader>bb", c(dap.toggle_breakpoint))
 
       -- The following mapping is the trigger to lazy load nvim-dap-ui
       -- so it's commented here
-      vim.keymap.set("n", "<leader>dj", c(dap.step_into))
-      vim.keymap.set("n", "<leader>dk", c(dap.step_out))
-      vim.keymap.set("n", "<leader>dl", c(dap.step_over))
-      vim.keymap.set("n", "<leader>dr", c(dap.run_last))
-      vim.keymap.set("n", "<leader>dx", c(dap.clear_breakpoints))
+      vim.keymap.set("n", "<leader>bj", c(dap.step_into))
+      vim.keymap.set("n", "<leader>bk", c(dap.step_out))
+      vim.keymap.set("n", "<leader>bl", c(dap.step_over))
+      vim.keymap.set("n", "<leader>br", c(dap.run_last))
+      vim.keymap.set("n", "<leader>bx", c(dap.clear_breakpoints))
 
       vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "WarningMsg" })
       vim.fn.sign_define("DapStopped", { text = "▶", linehl = "CursorLine" })
@@ -262,7 +262,7 @@ return {
     dependencies = { "mfussenegger/nvim-dap" },
     -- stylua: ignore
     keys = {
-      { "<leader>dc", function() require("dap").continue() end, },
+      { "<leader>bc", function() require("dap").continue() end, },
     },
     config = function()
       local dap, dapui = require("dap"), require("dapui")
@@ -343,7 +343,7 @@ return {
       dap.listeners.after.event_loadedSource["dapui_config"] = c(dapui.open)
       dap.listeners.after.event_exited["dapui_config"] = c(dapui.close)
 
-      vim.keymap.set("v", "<leader>de", function()
+      vim.keymap.set("v", "<leader>be", function()
         dapui.eval(nil, { enter = true })
       end)
     end,

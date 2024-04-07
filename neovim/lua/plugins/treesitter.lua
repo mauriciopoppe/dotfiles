@@ -48,9 +48,6 @@ return {
             node_incremental = "gni",
           },
         },
-        context_commentstring = {
-          enable = true,
-        },
         textobjects = {
           select = {
             enable = true,
