@@ -1,4 +1,4 @@
-local Utils = require("my.utils")
+local Utils = require("my.util")
 
 local M = {}
 

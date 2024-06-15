@@ -1,4 +1,5 @@
-local Utils = require("my.utils")
+local Config = require("my.config")
+local Utils = require("my.util")
 
 local plugins = {
   -- lua utility functions
@@ -10,7 +11,7 @@ local plugins = {
       "mauriciopoppe/inspired-github.vim", -- light
     },
     config = function()
-      require("my.theme").setup()
+      require("my.config.theme").setup()
     end,
   },
 
@@ -147,7 +148,7 @@ local plugins = {
       local notify = require("notify")
       local theme_style = Utils.get_theme_style()
       notify.setup({
-        background_colour = Utils.themes[theme_style].transparent,
+        background_colour = Config.themes[theme_style].transparent,
         timeout = 2000,
         max_height = function()
           return math.floor(vim.o.lines * 0.75)

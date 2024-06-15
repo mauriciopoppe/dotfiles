@@ -1,7 +1,7 @@
-local Utils = require("my.utils")
+local utils = require("my.util")
 
 -- cleans from cache, useful if I make changes to my lua files and reload config
-package.loaded["my/utils"] = nil
+package.loaded["my/util"] = nil
 
 vim.keymap.set({ "n", "x" }, "<Space>", "<Nop>")
 vim.keymap.set({ "n", "x" }, ",", "<Nop>")
@@ -103,8 +103,13 @@ local function float_term(cmd, opts)
 end
 
 vim.keymap.set("n", "<leader>gg", function()
-  float_term({ "lazygit" }, { cwd = Utils.get_root() })
+  float_term({ "lazygit" }, { cwd = utils.get_root() })
 end, { desc = "Lazygit (root dir)" })
 vim.keymap.set("n", "<leader>gG", function()
   float_term({ "lazygit" })
 end, { desc = "Lazygit (cwd)" })
+
+vim.keymap.set("n", "<leader>gp", function()
+  local permalink = utils.get_github_permalink_at_current_line()
+  require("osc52").copy(permalink)
+end, { desc = "Copy relative github path" })

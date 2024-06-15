@@ -38,7 +38,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- My setup
-require("my.utils").setup()
+require("my.config").setup()
 
 local spec = {
   { import = "plugins" },

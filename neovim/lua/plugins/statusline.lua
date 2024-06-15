@@ -1,4 +1,5 @@
-local Utils = require("my.utils")
+local Config = require("my.config")
+local Utils = require("my.util")
 
 return {
   {
@@ -6,11 +7,11 @@ return {
     event = "VeryLazy",
     config = function()
       local custom = require("lualine.themes.material")
-      local icons = Utils.icons
+      local icons = Config.icons
       local colors = {}
 
       function _G.lualine_refresh_theme(theme)
-        colors = Utils.themes[theme]
+        colors = Config.themes[theme]
 
         -- Change the background of lualine_c section for normal mode
         custom.normal.a.bg = colors.dark

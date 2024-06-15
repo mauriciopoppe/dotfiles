@@ -1,7 +1,7 @@
 -- The definition of the module M comes from
 -- https://github.com/LazyVim/LazyVim/blob/c5b22c0832603198f571ff68b6fb9d0c17f73d33/lua/lazyvim/plugins/lsp/keymaps.lua
 
-local Utils = require("my.utils")
+local Utils = require("my.util")
 local M = {
   -- autoformat through null-ls enabled by default
   autoformat = true,
@@ -73,6 +73,7 @@ function M.on_attach_set_keymappings(client, buffer)
       vim.keymap.set("n", keys[1], keys[2], opts)
     end
   end
+  print("done setting keymaps")
 end
 
 -- [[
@@ -226,9 +227,9 @@ return {
 
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
-      local on_attach = function(client, bufnr)
+      local on_attach = function(client, buffer)
+        M.on_attach_set_format(client, buffer)
         M.on_attach_set_keymappings(client, bufnr)
-        M.on_attach_set_format(client, bufnr)
       end
 
       -- servers is a list of customized servers that have their own config.
@@ -306,7 +307,6 @@ return {
         flags = {
           debounce_text_changes = 150,
         },
-
       }
 
       servers["lua_ls"] = {
@@ -418,6 +418,7 @@ return {
       end
 
       return {
+        debug = true,
         sources = sources,
       }
     end,

@@ -1,4 +1,4 @@
-local utils = require("my.utils")
+local utils = require("my.util")
 
 return {
   {
