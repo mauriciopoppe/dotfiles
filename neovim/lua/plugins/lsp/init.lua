@@ -2,183 +2,6 @@
 -- https://github.com/LazyVim/LazyVim/blob/c5b22c0832603198f571ff68b6fb9d0c17f73d33/lua/lazyvim/plugins/lsp/keymaps.lua
 
 local Utils = require("my.util")
-local M = {
-  -- autoformat through null-ls enabled by default
-  autoformat = true,
-}
-
-function M.get_keymappings()
-  ---@class PluginLspKeys
-  -- stylua: ignore
-  M._keys = M._keys or {
-    -- { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
-    -- { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-    -- { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
-    -- { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-    -- { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-    -- { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
-    -- { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
-    { "gK",         vim.lsp.buf.hover,                 desc = "Hover" },
-    { "]d",         M.diagnostic_goto(true),           desc = "Next Diagnostic" },
-    { "[d",         M.diagnostic_goto(false),          desc = "Prev Diagnostic" },
-    { "]e",         M.diagnostic_goto(true, "ERROR"),  desc = "Next Error" },
-    { "[e",         M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
-    { "]w",         M.diagnostic_goto(true, "WARN"),   desc = "Next Warning" },
-    { "[w",         M.diagnostic_goto(false, "WARN"),  desc = "Prev Warning" },
-    { "<leader>ca", vim.lsp.buf.code_action,           desc = "Code Action",    mode = { "n", "v" }, has = "codeAction" },
-  }
-
-  -- enable better rename plugin
-  if require("lazy.core.config").plugins["inc-rename.nvim"] ~= nil then
-    M._keys[#M._keys + 1] = {
-      "<leader>cr",
-      function()
-        local inc_rename = require("inc_rename")
-        return ":" .. inc_rename.config.cmd_name .. " " .. vim.fn.expand("<cword>")
-      end,
-      expr = true,
-      desc = "Rename",
-      has = "rename",
-    }
-  else
-    M._keys[#M._keys + 1] = { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
-  end
-  return M._keys
-end
-
--- [[
--- on_attach_set_keymappings attaches keymaps on read buffers.
--- Copied from: https://github.com/LazyVim/LazyVim/blob/v2.12.1/lua/lazyvim/plugins/lsp/keymaps.lua#L68
--- ]]
-function M.on_attach_set_keymappings(client, buffer)
-  local Keys = require("lazy.core.handler.keys")
-  local keymaps = {}
-
-  for _, value in ipairs(M.get_keymappings()) do
-    local keys = Keys.parse(value)
-    if keys[2] == vim.NIL or keys[2] == false then
-      keymaps[keys.id] = nil
-    else
-      keymaps[keys.id] = keys
-    end
-  end
-
-  for _, keys in pairs(keymaps) do
-    if not keys.has or client.server_capabilities[keys.has .. "Provider"] then
-      local opts = Keys.opts(keys)
-      ---@diagnostic disable-next-line: no-unknown
-      opts.has = nil
-      opts.silent = opts.silent ~= false
-      opts.buffer = buffer
-      vim.keymap.set("n", keys[1], keys[2], opts)
-    end
-  end
-  print("done setting keymaps")
-end
-
--- [[
--- diagnostic_goto moves to the next/previous diagnostic.
--- Copied from: https://github.com/LazyVim/LazyVim/blob/v2.12.1/lua/lazyvim/plugins/lsp/keymaps.lua#L93
--- ]]
-function M.diagnostic_goto(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
-end
-
--- [[
--- format applies a formatter through null-ls.
--- Modified copy from: https://github.com/LazyVim/LazyVim/blob/v2.12.1/lua/lazyvim/plugins/lsp/format.lua#L22
--- ]]
-function M.format()
-  local buf = vim.api.nvim_get_current_buf()
-  local formatters = M.get_formatters(buf)
-  local client_ids = vim.tbl_map(function(client)
-    return client.id
-  end, formatters.active)
-
-  if #client_ids == 0 then
-    return
-  end
-
-  vim.lsp.buf.format({
-    bufnr = buf,
-    filter = function(client)
-      return vim.tbl_contains(client_ids, client.id)
-    end,
-  })
-end
-
--- Gets all lsp clients that support formatting.
--- When a null-ls formatter is available for the current filetype,
--- only null-ls formatters are returned.
-function M.get_formatters(bufnr)
-  local ft = vim.bo[bufnr].filetype
-  -- check if we have any null-ls formatters for the current filetype
-  local null_ls = package.loaded["null-ls"] and require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") or {}
-
-  ---@class LazyVimFormatters
-  local ret = {
-    active = {},
-    available = {},
-    null_ls = null_ls,
-  }
-
-  local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-  for _, client in ipairs(clients) do
-    if M.supports_format(client) then
-      if (#null_ls > 0 and client.name == "null-ls") or #null_ls == 0 then
-        table.insert(ret.active, client)
-      else
-        table.insert(ret.available, client)
-      end
-    end
-  end
-
-  return ret
-end
-
--- Gets all lsp clients that support formatting
--- and have not disabled it in their client config
-function M.supports_format(client)
-  if
-    client.config
-    and client.config.capabilities
-    and client.config.capabilities.documentFormattingProvider == false
-  then
-    return false
-  end
-  return client.supports_method("textDocument/formatting") or client.supports_method("textDocument/rangeFormatting")
-end
-
--- [[
--- on_attach_set_format applies autoformatting to buffers on attach.
--- Taken from: https://github.com/LazyVim/LazyVim/blob/v2.12.1/lua/lazyvim/plugins/lsp/format.lua#L42
--- ]]
-function M.on_attach_set_format(client, buf)
-  -- dont format if client disabled it
-  if
-    client.config
-    and client.config.capabilities
-    and client.config.capabilities.documentFormattingProvider == false
-  then
-    return
-  end
-
-  if client.supports_method("textDocument/formatting") then
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = vim.api.nvim_create_augroup("LspFormat." .. buf, {}),
-      buffer = buf,
-      callback = function()
-        if M.autoformat then
-          M.format()
-        end
-      end,
-    })
-  end
-end
 
 return {
   {
@@ -219,6 +42,7 @@ return {
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
+      servers = {},
     },
     config = function(_, opts)
       local nvim_lsp = require("lspconfig")
@@ -228,14 +52,22 @@ return {
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, buffer)
-        M.on_attach_set_format(client, buffer)
-        M.on_attach_set_keymappings(client, bufnr)
+        local ok
+        local format = require("plugins.lsp.format")
+        ok, _ = pcall(format.on_attach, client, buffer)
+        if not ok then
+          vim.notify("Failed to call lsp.format.on_attach")
+        end
+
+        local keymaps = require("plugins.lsp.keymaps")
+        ok, _ = pcall(keymaps.on_attach, client, buffer)
+        if not ok then
+          vim.notify("Failed to call lsp.keymaps.on_attach")
+        end
       end
 
       -- servers is a list of customized servers that have their own config.
-      local servers = {
-        -- remember to set `mason = false` on lsp servers that don't can't be installed through mason
-      }
+      local servers = opts.servers
 
       -- advertise support for completion through cmp
       local capabilities = require("cmp_nvim_lsp").default_capabilities()

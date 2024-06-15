@@ -121,5 +121,38 @@ function M.get_github_permalink_at_current_line()
   return github_path
 end
 
+-- The following functions come from https://github.com/LazyVim/LazyVim/blob/eca86924510676667a3868efc512588749f6594e/lua/lazyvim/util/init.lua
+
+---@param name string
+function M.get_plugin(name)
+  return require("lazy.core.config").spec.plugins[name]
+end
+
+---@param name string
+---@param path string?
+function M.get_plugin_path(name, path)
+  local plugin = M.get_plugin(name)
+  path = path and "/" .. path or ""
+  return plugin and (plugin.dir .. path)
+end
+
+function M.has(plugin)
+  return M.get_plugin(plugin) ~= nil
+end
+
+---@param name string
+function M.opts(name)
+  local plugin = require("lazy.core.config").spec.plugins[name]
+  if not plugin then
+    return {}
+  end
+  local Plugin = require("lazy.core.plugin")
+  return Plugin.values(plugin, "opts", false)
+end
+
+function M.is_loaded(name)
+  local Config = require("lazy.core.config")
+  return Config.plugins[name] and Config.plugins[name]._.loaded
+end
 
 return M
