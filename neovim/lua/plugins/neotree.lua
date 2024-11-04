@@ -50,6 +50,8 @@ return {
             ["o"] = edit_and_close_sidebar,
             ["h"] = "close_node", -- override
             ["l"] = "open", -- override
+            ["<C-b>"] = { "scroll_preview", config = { direction = 10 } },
+            ["<C-f>"] = { "scroll_preview", config = { direction = -10 } },
           },
         },
       })

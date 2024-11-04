@@ -11,7 +11,6 @@ return {
       -- refactoring plugin
       "ThePrimeagen/refactoring.nvim",
     },
-    version = false,
     build = ":TSUpdate",
     event = "VeryLazy",
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
