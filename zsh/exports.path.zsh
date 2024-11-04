@@ -10,6 +10,11 @@ path=(
   ~/.local/bin
   /usr/local/bin
   /usr/local/sbin
+  # flutter start
+  ~/development/flutter/bin
+  ~/.pub-cache/bin
+  # flutter end
+  ~/.gem/bin
   "$path[@]"
   # bun, the all in one JavaScript runtime
   ~/.bun/bin
@@ -47,6 +52,6 @@ export GITHUB_USER=mauriciopoppe
 export GF_GREP_COLOR='1;30;48;5;15'
 
 # use a development build of go if gotip is available
-if command -v gotip > /dev/null; then
-  export export PATH="$(gotip env GOROOT)/bin:$PATH"
-fi
+# if command -v gotip > /dev/null; then
+#   export export PATH="$(gotip env GOROOT)/bin:$PATH"
+# fi
