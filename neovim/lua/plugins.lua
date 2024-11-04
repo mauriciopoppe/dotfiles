@@ -383,7 +383,6 @@ local plugins = {
       vim.g.splitjoin_join_mapping = ""
     end,
   },
-
   -- session management
   {
     "folke/persistence.nvim",

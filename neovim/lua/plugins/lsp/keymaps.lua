@@ -11,7 +11,7 @@ function M.get()
   -- stylua: ignore
   M._keys =  {
     { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-    { "gK", vim.lsp.buf.hover, desc = "Hover" },
+    { "gK",         vim.lsp.buf.hover, desc = "Hover" },
     { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
     { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
     { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
