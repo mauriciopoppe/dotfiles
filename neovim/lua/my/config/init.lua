@@ -33,7 +33,7 @@ local defaults = {
       transparent = "#eee8d5",
       light = "#f5f5f5",
       medium = "#f5f5f5",
-      dark = "#383a42",
+      dark = "#a2a2a2",
     },
   },
 }
