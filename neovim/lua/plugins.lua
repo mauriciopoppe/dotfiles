@@ -183,8 +183,10 @@ local plugins = {
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
   },
+
   -- tmux navigation
   "christoomey/vim-tmux-navigator",
+
   -- better motion
   {
     "bkad/CamelCaseMotion",
@@ -219,6 +221,7 @@ local plugins = {
     end,
   },
 
+  -- copy/paste that works even when in a remote session.
   {
     "ojroques/nvim-osc52",
     event = { "TextYankPost", "VeryLazy" },
@@ -338,6 +341,7 @@ local plugins = {
     end,
   },
 
+  -- github flavored markdown syntax
   {
     "rhysd/vim-gfm-syntax",
     config = function()
@@ -375,7 +379,7 @@ local plugins = {
     end,
   },
 
-  --
+  -- Split Join with J
   {
     "AndrewRadev/splitjoin.vim",
     config = function()
@@ -383,6 +387,7 @@ local plugins = {
       vim.g.splitjoin_join_mapping = ""
     end,
   },
+
   -- session management
   {
     "folke/persistence.nvim",

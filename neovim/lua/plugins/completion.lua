@@ -38,17 +38,6 @@ return {
       "saadparwaiz1/cmp_luasnip",
       -- icons
       "onsails/lspkind-nvim",
-      -- suggestions
-      {
-        "jcdickinson/codeium.nvim",
-        dependencies = {
-          "nvim-lua/plenary.nvim",
-          "MunifTanjim/nui.nvim",
-        },
-        cond = function()
-          return Utils.is_personal()
-        end,
-      },
       -- ml autocompletion (ciderlsp)
       {
         "piloto/cmp-nvim-ciderlsp",
@@ -70,12 +59,6 @@ return {
         { name = "luasnip" },
         { name = "path" },
       }
-
-      -- codeium isn't loaded at work so it's only conditionally loaded as a source
-      if Utils.is_personal() and Utils.connected_to_internet() then
-        require("codeium").setup({})
-        table.insert(sources, #sources + 1, { name = "codeium" })
-      end
 
       -- load ciderlsp completion
       if Utils.is_google3() then

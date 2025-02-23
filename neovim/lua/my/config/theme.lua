@@ -52,6 +52,11 @@ local function reset_highlight()
   " set and it won't override it.
   highlight GitGutterChange guifg=#d7af5f
   highlight GitSignsChange guifg=#d7af5f
+
+  " Changes the color of the context lines on top of the buffer.
+  hi! NormalFloat guibg=none
+  hi! TreesitterContext gui=underline guisp=#888888
+  hi! TreesitterContextLineNumberBottom gui=underline guisp=#888888
   ]])
 end
 

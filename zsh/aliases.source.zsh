@@ -2,9 +2,6 @@
 
 # day to day shortcuts
 alias c='clear'
-alias ls='ls -G'
-alias l.='ls -dahG .*'
-alias la='ls -lahG'
 alias ..='cd ../'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -24,20 +21,13 @@ alias help='tldr'
 
 # remaps
 alias grep='grep --color'
-# if hash bat 2> /dev/null; then
-#   alias cat="bat"
-# fi
-
-alias gt="lazygit"
 alias pip="pip3"
 alias python="python3"
-
-# tmux aliases
-alias ta='tmux attach -t'
-alias td='tmux detach'
+if hash eza 2> /dev/null; then
+  alias ls="eza"
+fi
 
 # k8s
-alias kc='kubectl'
 alias k='kubectl'
 
 alias h='howdoi -ac'
