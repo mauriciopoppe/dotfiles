@@ -1,4 +1,4 @@
-# !/bin/sh
+# !/bin/zsh
 
 # day to day shortcuts
 alias c='clear'

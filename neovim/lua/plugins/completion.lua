@@ -19,7 +19,7 @@ return {
 
   {
     "hrsh7th/nvim-cmp",
-    version = false, -- last release is way too old
+    tag = "v0.0.2",
     dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
@@ -165,4 +165,68 @@ return {
       })
     end,
   },
+
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "j-hui/fidget.nvim",
+    },
+    keys = {
+      { "[ui]ca", ":CodeCompanionActions<CR>", mode = { "n", "v" }, silent = true },
+      { "[ui]cc", ":CodeCompanionChat<CR>", silent = true },
+      { "[ui]ci", ":CodeCompanion ", silent = true },
+    },
+    cond = function()
+      return Utils.is_personal()
+    end,
+    config = function()
+      require("codecompanion").setup({
+        adapters = {
+          gemini = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              env = {
+                api_key = vim.env.GEMINI_API_KEY,
+              },
+            })
+          end,
+          ollama = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              schema = {
+                model = {
+                  default = "deepseek-r1",
+                },
+                num_ctx = {
+                  default = 16384,
+                },
+                num_predict = {
+                  default = -1,
+                },
+              },
+            })
+          end,
+        },
+        strategies = {
+          chat = {
+            adapter = "gemini",
+            keymaps = {
+              send = {
+                modes = { n = "<C-s>", i = "<C-s>" },
+              },
+              close = {
+                modes = { n = "Q", i = "<leader>w" },
+              },
+            },
+          },
+          inline = {
+            adapter = "gemini",
+          },
+        },
+      })
+    end,
+  },
+  init = function()
+    require("plugins.codecompanion.fidget-spinner"):init()
+  end,
 }

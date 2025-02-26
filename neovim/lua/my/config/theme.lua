@@ -55,7 +55,7 @@ local function reset_highlight()
 
   " Changes the color of the context lines on top of the buffer.
   hi! NormalFloat guibg=none
-  hi! TreesitterContext gui=underline guisp=#888888
+  hi! TreesitterContextBottom gui=underline guisp=#888888
   hi! TreesitterContextLineNumberBottom gui=underline guisp=#888888
   ]])
 end
