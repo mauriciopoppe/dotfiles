@@ -112,7 +112,9 @@ dotfiles-pre() {
   shift
   if [[ -e $cmd/install.zsh ]]; then
     cat $cmd/install.zsh
-    if read -q "choice?Press Y/y to continue with install: "; then
+    if [[ $FORCE_INSTALL == "y" ]]; then
+      source $cmd/install.zsh $@
+    elif read -q "choice?Press Y/y to continue with install: "; then
       source $cmd/install.zsh $@
     else
       echo
@@ -155,6 +157,22 @@ dotfiles-main() {
     dotfiles-help
   fi
 }
+
+FORCE_INSTALL=n
+while getopts 'y:h' opt; do
+  case "$opt" in
+    y)
+      arg="$OPTARG"
+      FORCE_INSTALL=y
+      shift
+      ;;
+   
+    ?|h)
+      echo "Usage: $(basename $0) [-y]"
+      exit 1
+      ;;
+  esac
+done
 
 dotfiles-main $@
 
