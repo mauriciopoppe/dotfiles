@@ -32,10 +32,6 @@ restart-shell() {
   printf "\n"
 }
 
-install-symlinks() {
-  stow -d $1
-}
-
 symlink() {
   if [[ $# -lt 2 ]]; then
     print-warning "symlink requires a source and a target, aborting"

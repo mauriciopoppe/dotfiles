@@ -92,6 +92,18 @@ dotfiles-pre() {
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     fi
   fi
+
+  if [[ $OSTYPE =~ ^linux ]]; then
+    if ! command-exists "unzip"; then
+      sudo apt-get install unzip -y
+    fi
+    if ! command-exists "make"; then
+      sudo apt-get install make -y
+    fi
+    if ! command-exists "codespell"; then
+      sudo apt-get install codespell -y
+    fi
+  fi
 }
 
 -dotfiles-install-single() {

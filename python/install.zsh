@@ -12,7 +12,7 @@ main() {
     pip3 install --upgrade pip
   fi
   if [[ $OSTYPE =~ ^linux ]]; then
-    sudo apt-get install python3 pip
+    sudo apt-get install python3 pip python3-venv
   fi
 
   print-step "installing python modules..."
