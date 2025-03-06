@@ -5,8 +5,9 @@
 typeset -U path
 path=(
   # https://github.com/Homebrew/discussions/discussions/417#discussioncomment-326469
-  # This is the homebrew path.
+  # homebrew start
   /opt/homebrew/bin
+  # homebrew end
   ~/.local/bin
   /usr/local/bin
   /usr/local/sbin
@@ -14,9 +15,10 @@ path=(
   ~/development/flutter/bin
   ~/.pub-cache/bin
   # flutter end
+  # gem start
   ~/.gem/bin
-  "$path[@]"
-  # bun, the all in one JavaScript runtime
+  # gem end
+  # bun start, the all in one JavaScript runtime
   ~/.bun/bin
   # krew, the kubernetes plugin manager
   ${KREW_ROOT:-$HOME/.krew}/bin
@@ -24,6 +26,8 @@ path=(
   ${DOTFILES_DIRECTORY}/zsh/bin
   ${DOTFILES_DIRECTORY}/secret
   ${DOTFILES_DIRECTORY_ALT}/secret
+
+  "$path[@]"
 )
 export PATH
 
