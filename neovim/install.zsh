@@ -15,9 +15,6 @@ main() {
       print-message "neovim already installed"
     fi
   fi
-  if [[ $OSTYPE =~ ^linux ]]; then
-    sudo apt-get install neovim
-  fi
 
   print-step "neovim symlinks..."
 

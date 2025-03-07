@@ -71,6 +71,7 @@ return {
 
       -- advertise support for completion through cmp
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      capabilities.offsetEncoding = { "utf-16" }
 
       if Utils.is_google3() then
         -- assume that there's a file BUILD in google 3 repos.
@@ -161,13 +162,32 @@ return {
         },
       }
 
-      servers["clangd"] = {
-        cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
-        init_options = {
-          fallbackFlags = { "-std=c++17" },
-        },
-        mason = false,
-      }
+      local function is_kernel()
+        local fpath = os.getenv("PWD") .. "/Kconfig"
+        local f = io.open(fpath)
+        if f ~= nil then
+          io.close(f)
+          return true
+        end
+        return false
+      end
+
+      if is_kernel() then
+        local nproc = vim.fn.systemlist("nproc")[1]
+        servers["clangd"] = {
+          on_attach = on_attach,
+          cmd = {
+            "clangd",
+            "--header-insertion=never",
+            "-j=" .. nproc,
+            "--completion-style=detailed",
+            "--function-arg-placeholders",
+            "--background-index",
+          },
+          filetypes = { "c", "cpp", "objc", "objcpp" },
+          mason = false,
+        }
+      end
 
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
         opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
@@ -244,7 +264,9 @@ return {
         -- code actions
         null_ls.builtins.code_actions.refactoring,
         -- diagnostics
-        null_ls.builtins.diagnostics.codespell,
+        null_ls.builtins.diagnostics.codespell.with({
+          extra_args = {"-I", "$DOTFILES_DIRECTORY/neovim/codespell/ignore-words.txt"}
+        }),
         -- formatting
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.black,
