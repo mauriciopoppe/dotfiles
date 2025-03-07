@@ -125,7 +125,7 @@ return {
         },
       }
 
-      servers.ruff_lsp = {
+      servers.ruff = {
         on_attach = on_attach,
         init_options = {
           settings = {
@@ -135,7 +135,7 @@ return {
         },
       }
 
-      servers.tsserver = {
+      servers.ts_ls = {
         on_attach = on_attach,
         flags = {
           debounce_text_changes = 150,
@@ -265,7 +265,7 @@ return {
         null_ls.builtins.code_actions.refactoring,
         -- diagnostics
         null_ls.builtins.diagnostics.codespell.with({
-          extra_args = {"-I", "$DOTFILES_DIRECTORY/neovim/codespell/ignore-words.txt"}
+          extra_args = { "-I", "$DOTFILES_DIRECTORY/neovim/codespell/ignore-words.txt" },
         }),
         -- formatting
         null_ls.builtins.formatting.stylua,

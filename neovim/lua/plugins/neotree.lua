@@ -41,6 +41,14 @@ return {
           filtered_items = {
             hide_dotfiles = false,
             hide_gitignored = false,
+            never_show_by_pattern = {
+              -- kernel ignores
+              "*.a",
+              "*.a.cmd",
+              "*.o",
+              "*.o.*",
+              "*modules.order*",
+            },
           },
           use_libuv_file_watcher = true,
         },
@@ -50,8 +58,8 @@ return {
             ["o"] = edit_and_close_sidebar,
             ["h"] = "close_node", -- override
             ["l"] = "open", -- override
-            ["<C-b>"] = { "scroll_preview", config = { direction = 10 } },
-            ["<C-f>"] = { "scroll_preview", config = { direction = -10 } },
+            -- ["<C-b>"] = { "scroll_preview", config = { direction = 10 } },
+            -- ["<C-f>"] = { "scroll_preview", config = { direction = -10 } },
           },
         },
       })
