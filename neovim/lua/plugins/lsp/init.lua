@@ -161,6 +161,14 @@ return {
         },
       }
 
+      servers["clangd"] = {
+        cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
+        init_options = {
+          fallbackFlags = { "-std=c++17" },
+        },
+        mason = false,
+      }
+
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
         opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
           or function(diagnostic)
@@ -275,7 +283,6 @@ return {
         "typescript-language-server",
         -- debugger
         "debugpy",
-        -- clangd (note: clangd is not compatible with the settings I have at work)
       },
     },
     config = function(_, opts)
