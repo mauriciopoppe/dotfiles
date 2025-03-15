@@ -1,3 +1,5 @@
+local Utils = require("my.util")
+
 return {
   {
     "mfussenegger/nvim-dap",
@@ -8,16 +10,7 @@ return {
     },
     dependencies = {
       "mfussenegger/nvim-dap-python",
-      ft = "python",
-      -- stylua: ignore
-      keys = {
-        { "<leader>bPt", function() require('dap-python').test_method() end, desc = "Debug Method" },
-        { "<leader>bPc", function() require('dap-python').test_class() end, desc = "Debug Class" },
-      },
-      config = function()
-        local path = require("mason-registry").get_package("debugpy"):get_install_path()
-        require("dap-python").setup(path .. "/venv/bin/python")
-      end,
+      "nvim-neotest/nvim-nio",
     },
     config = function()
       local dap = require("dap")
@@ -134,6 +127,18 @@ return {
         end, 100)
       end
 
+      local function kubernetes_path()
+        if Utils.is_linux() then
+          -- Assume that when building on linux it's for the same platform
+          -- so the binaries don't need to be compiled i.e. that the kubernetes
+          -- binaries will be in k8s.io/kubernetes/_output/bin
+          return "${env:HOME}/go/src/k8s.io/kubernetes"
+        end
+        -- Assume that if running on MacOS that the kubelet was cross-compiled,
+        -- therefore, the path to the binaries is different.
+        return "${env:HOME}/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes"
+      end
+
       -- Documents to read to configure nvim-dap:
       --
       -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
@@ -160,47 +165,6 @@ return {
           mode = "test",
           program = "./${relativeFileDirname}",
         },
-        -- debug kube-controller-manager binary
-        {
-          type = "go",
-          name = "Debug kube-controller-manager (local)",
-          request = "launch",
-          mode = "exec",
-          program = "./_output/bin/kube-controller-manager",
-          args = {
-            "--kubeconfig=/Users/mauriciopoppe/.kube/config",
-            "--leader-elect=false",
-            "--controllers=*",
-          },
-          stopOnEntry = false,
-          substitutePath = {
-            {
-              from = "${workspaceFolder}",
-              to = "${env:HOME}/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes",
-            },
-          },
-        },
-        -- To run a remote debug session, you need to run the following command:
-        --
-        -- dlv --listen :38697 --accept-multiclient --api-version=2 --headless \
-        --   exec ./_output/bin/kube-controller-manager -- \
-        --   --kubeconfig=${HOME}/.kube/config --leader-elect=false --controllers="*"
-        {
-          type = "go",
-          name = "Attach kube-controller-manager (remote)",
-          debugAdapter = "dlv-dap",
-          request = "attach",
-          mode = "remote",
-          host = "127.0.0.1",
-          port = "38697",
-          stopOnEntry = false,
-          substitutePath = {
-            {
-              from = "${workspaceFolder}",
-              to = "${env:HOME}/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes",
-            },
-          },
-        },
         -- debug my kubernetes-playground project
         {
           type = "go",
@@ -218,9 +182,29 @@ return {
             },
           },
         },
+        -- debug kube-controller-manager binary
         {
           type = "go",
-          name = "Attach kubelet (remote)",
+          name = "Debug kube-controller-manager (local)",
+          request = "launch",
+          mode = "exec",
+          program = "./_output/bin/kube-controller-manager",
+          args = {
+            "--kubeconfig=/Users/mauriciopoppe/.kube/config",
+            "--leader-elect=false",
+            "--controllers=*",
+          },
+          stopOnEntry = false,
+          substitutePath = {
+            {
+              from = "${workspaceFolder}",
+              to = kubernetes_path(),
+            },
+          },
+        },
+        {
+          type = "go",
+          name = "Attach to kubelet (remote)",
           debugAdapter = "dlv-dap",
           request = "attach",
           mode = "remote",
@@ -235,25 +219,31 @@ return {
           substitutePath = {
             {
               from = "${workspaceFolder}",
-              to = "/go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes",
+              to = kubernetes_path(),
             },
           },
         },
-        --  {
-        --    type = "go",
-        --    name = "Debug connect",
-        --    request = "attach",
-        --    mode = "remote",
-        --    port = "56268",
-        --    apiVersion = "2",
-        --    showLog = "true",
-        --    substitutePath = {
-        --      {
-        --          from = "${workspaceFolder}",
-        --          to = "/",
-        --      },
-        --    },
-        --  }
+        -- To run a remote debug session, you need to run the following command:
+        --
+        -- dlv --listen :38697 --accept-multiclient --api-version=2 --headless \
+        --   exec ./_output/bin/kube-controller-manager -- \
+        --   --kubeconfig=${HOME}/.kube/config --leader-elect=false --controllers="*"
+        {
+          type = "go",
+          name = "Attach to kube-controller-manager (remote)",
+          debugAdapter = "dlv-dap",
+          request = "attach",
+          mode = "remote",
+          host = "127.0.0.1",
+          port = "38697",
+          stopOnEntry = false,
+          substitutePath = {
+            {
+              from = "${workspaceFolder}",
+              to = "${env:HOME}/go/src/k8s.io/kubernetes/_output/local/go/src/k8s.io/kubernetes",
+            },
+          },
+        },
       }
     end,
   },
@@ -366,5 +356,18 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
       },
     },
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+      -- stylua: ignore
+      keys = {
+        { "<leader>bPt", function() require('dap-python').test_method() end, desc = "Debug Method" },
+        { "<leader>bPc", function() require('dap-python').test_class() end, desc = "Debug Class" },
+      },
+    config = function()
+      local path = require("mason-registry").get_package("debugpy"):get_install_path()
+      require("dap-python").setup(path .. "/venv/bin/python")
+    end,
   },
 }

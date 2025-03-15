@@ -82,6 +82,18 @@ function M.connected_to_internet()
   return string.match(ping, "1.*received") ~= nil
 end
 
+-- is_linux returns true if the platform is linux
+function M.is_linux()
+  local is_local_env = string.match(vim.fn.system("uname -a"), "Linux")
+  return is_local_env ~= nil
+end
+
+-- is_macos returns true if the platform is Darwin
+function M.is_macos()
+  local is_local_env = string.match(vim.fn.system("uname -a"), "Darwin")
+  return is_local_env ~= nil
+end
+
 -- get_theme_style reads the theme style from the filesystem.
 -- The theme is set through /zsh/bin/change-background
 function M.get_theme_style()
