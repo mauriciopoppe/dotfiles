@@ -140,6 +140,30 @@ return {
         },
       }
 
+      -- pyright is used for LSP's go to definition only, all other LSP capabilities
+      -- are provided by ruff.
+      servers.pyright = {
+        capabilities = vim.lsp.protocol.make_client_capabilities(),
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "off",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = "off",
+              autoImportCompletions = false,
+            },
+            linting = {
+              enabled = false,
+            },
+          },
+        },
+        -- Disable all diagnostics from Pyright
+        handlers = {
+          ["textDocument/publishDiagnostics"] = function() end,
+        },
+      }
+
       servers.ts_ls = {
         on_attach = on_attach,
         flags = {
@@ -304,6 +328,7 @@ return {
         "black", -- python
         "prettierd", -- typescript/javascript
         "stylua", -- lua
+        "pyright", -- python
         -- lsp
         "gopls",
         "lua-language-server",
