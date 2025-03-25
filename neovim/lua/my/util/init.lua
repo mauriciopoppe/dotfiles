@@ -62,9 +62,14 @@ end
 
 -- is_go_mod checks if we're in a directory with the file go.mod
 function M.is_go_mod()
-  local f = io.open(os.getenv("PWD") .. "go.mod")
+  local f = io.open(os.getenv("PWD") .. "/go.mod")
   if f ~= nil then
     io.close(f)
+    return true
+  end
+  local f2 = io.open(os.getenv("PWD") .. "/go.work")
+  if f2 ~= nil then
+    io.close(f2)
     return true
   end
   return false

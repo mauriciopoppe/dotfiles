@@ -46,8 +46,6 @@ return {
     },
     config = function(_, opts)
       local nvim_lsp = require("lspconfig")
-      local nvim_lsp_async = require("lspconfig.async")
-      local nvim_lsp_util = require("lspconfig.util")
       -- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
       -- https://github.com/neovim/nvim-lspconfig
 
@@ -101,29 +99,10 @@ return {
       -- If it's not setup then nvim-lspconfig will add the default config which
       -- is going to enable it, instead, assume that the config will be run
       -- in google3 but disable through autostart and through filetypes.
-      local mod_cache = nil
       servers.gopls = {
         on_attach = on_attach,
         autostart = Utils.is_go_mod(),
-        filetypes = { "go", "gomod", "gowork", "gotmpl" },
-        root_dir = function(fname)
-          -- see: https://github.com/neovim/nvim-lspconfig/issues/804
-          if not mod_cache then
-            local result = nvim_lsp_async.run_command({ "go", "env", "GOMODCACHE" })
-            if result and result[1] then
-              mod_cache = vim.trim(result[1])
-            else
-              mod_cache = vim.fn.system("go env GOMODCACHE")
-            end
-          end
-          if mod_cache and fname:sub(1, #mod_cache) == mod_cache then
-            local clients = nvim_lsp_util.get_lsp_clients({ name = "gopls" })
-            if #clients > 0 then
-              return clients[#clients].config.root_dir
-            end
-          end
-          return nvim_lsp_util.root_pattern("go.work", "go.mod", ".git")(fname)
-        end,
+        filetypes = { "go", "go.mod", "go.work", "gotmpl" },
         single_file_support = false,
         settings = {
           gopls = {
@@ -217,14 +196,14 @@ return {
 
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
         opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
-            or function(diagnostic)
-              local icons = Utils.icons.diagnostics
-              for d, icon in pairs(icons) do
-                if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                  return icon
-                end
+          or function(diagnostic)
+            local icons = Utils.icons.diagnostics
+            for d, icon in pairs(icons) do
+              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                return icon
               end
             end
+          end
       end
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
@@ -322,9 +301,9 @@ return {
         "shfmt",
         "codespell",
         -- formatter
-        "black",     -- python
+        "black", -- python
         "prettierd", -- typescript/javascript
-        "stylua",    -- lua
+        "stylua", -- lua
         -- lsp
         "gopls",
         "lua-language-server",
