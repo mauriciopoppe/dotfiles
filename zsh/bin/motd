@@ -6,9 +6,9 @@ set -euo pipefail
 # it uses the https://api-ninjas.com/ API
 API_NINJAS_API_KEY=${API_NINJAS_API_KEY}
 
-random_fact=$(curl -H "X-Api-Key: ${API_NINJAS_API_KEY}" -s https://api.api-ninjas.com/v1/facts?limit=1 | jq '.[0].fact')
-random_joke=$(curl -H "X-Api-Key: ${API_NINJAS_API_KEY}" -s https://api.api-ninjas.com/v1/dadjokes?limit=1 | jq '.[0].joke')
-random_trivia=$(curl -H "X-Api-Key: ${API_NINJAS_API_KEY}" -s https://api.api-ninjas.com/v1/trivia?limit=1 | jq '.[0]')
+random_fact=$(curl -H "X-Api-Key: ${API_NINJAS_API_KEY}" -s https://api.api-ninjas.com/v1/facts | jq '.[0].fact')
+random_joke=$(curl -H "X-Api-Key: ${API_NINJAS_API_KEY}" -s https://api.api-ninjas.com/v1/dadjokes | jq '.[0].joke')
+random_trivia=$(curl -H "X-Api-Key: ${API_NINJAS_API_KEY}" -s https://api.api-ninjas.com/v1/trivia | jq '.[0]')
 
 cat <<EOF
 First a random fact:
