@@ -49,8 +49,6 @@ return {
               "*.o.*",
               "*.ko",
               "*.ko.*",
-              "*.mod",
-              "*.mod.*",
               "*modules.order*",
             },
           },

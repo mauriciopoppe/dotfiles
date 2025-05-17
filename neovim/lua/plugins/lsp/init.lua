@@ -5,11 +5,54 @@ local Utils = require("my.util")
 
 return {
   {
+    "mason-org/mason-lspconfig.nvim",
+    tag = "v1.32.0",
+  },
+
+  -- lsp package manager
+  {
+    "williamboman/mason.nvim",
+    tag = "v1.11.0",
+    cmd = "Mason",
+    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+    opts = {
+      ensure_installed = {
+        "shellcheck",
+        "shfmt",
+        "codespell",
+        -- formatter
+        "black", -- python
+        "prettierd", -- typescript/javascript
+        "stylua", -- lua
+        "pyright", -- python
+        -- lsp
+        "gopls",
+        "lua-language-server",
+        "typescript-language-server",
+        -- debugger
+        "debugpy",
+      },
+    },
+    config = function(_, opts)
+      require("mason").setup(opts)
+      local mr = require("mason-registry")
+      for _, tool in ipairs(opts.ensure_installed) do
+        local p = mr.get_package(tool)
+        if not p:is_installed() then
+          p:install()
+        end
+      end
+    end,
+  },
+
+  -- lsp config
+  {
     "neovim/nvim-lspconfig",
     event = "BufReadPre",
+    tag = "v2.1.0",
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "smjonas/inc-rename.nvim",
       {
@@ -312,40 +355,6 @@ return {
         debug = true,
         sources = sources,
       }
-    end,
-  },
-  -- lsp package manager
-  {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
-    opts = {
-      ensure_installed = {
-        "shellcheck",
-        "shfmt",
-        "codespell",
-        -- formatter
-        "black", -- python
-        "prettierd", -- typescript/javascript
-        "stylua", -- lua
-        "pyright", -- python
-        -- lsp
-        "gopls",
-        "lua-language-server",
-        "typescript-language-server",
-        -- debugger
-        "debugpy",
-      },
-    },
-    config = function(_, opts)
-      require("mason").setup(opts)
-      local mr = require("mason-registry")
-      for _, tool in ipairs(opts.ensure_installed) do
-        local p = mr.get_package(tool)
-        if not p:is_installed() then
-          p:install()
-        end
-      end
     end,
   },
 }
