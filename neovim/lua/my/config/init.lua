@@ -47,25 +47,8 @@ function M.setup()
   -- Load options before sourcing plugin modules
   -- https://github.com/LazyVim/LazyVim/blob/2e18998c9ed7d2fa773b782f3aa3c0d5ac5cc21d/lua/lazyvim/config/init.lua#L160-L163
   require("my.config.options")
-
-  -- Load autocmds and keymaps lazyly
-  -- https://github.com/LazyVim/LazyVim/blob/2e18998c9ed7d2fa773b782f3aa3c0d5ac5cc21d/lua/lazyvim/config/init.lua#L160-L163
-  --
-  if vim.fn.argc(-1) == 0 then
-    -- autocmds and keymaps can wait to load
-    vim.api.nvim_create_autocmd("User", {
-      group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
-      pattern = "VeryLazy",
-      callback = function()
-        require("my.config.autocommand")
-        require("my.config.mappings")
-      end,
-    })
-  else
-    -- load them now so they affect the opened buffers
-    require("my.config.autocommand")
-    require("my.config.mappings")
-  end
+  require("my.config.autocommand")
+  require("my.config.mappings")
 
   vim.schedule(function()
     if not Utils.connected_to_internet() then

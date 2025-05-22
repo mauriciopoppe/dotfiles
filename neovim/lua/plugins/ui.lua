@@ -2,6 +2,14 @@ local Config = require("my.config")
 local Utils = require("my.util")
 
 return {
+
+  -- buffers tabline
+  -- akinsho/bufferline.nvim didn't change the colors as I was hoping :\
+  {
+    "ap/vim-buftabline",
+    event = "VeryLazy",
+  },
+
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
@@ -108,4 +116,5 @@ return {
       lualine_refresh_theme(theme_style)
     end,
   },
+
 }

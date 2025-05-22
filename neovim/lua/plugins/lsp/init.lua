@@ -2,6 +2,7 @@
 -- https://github.com/LazyVim/LazyVim/blob/c5b22c0832603198f571ff68b6fb9d0c17f73d33/lua/lazyvim/plugins/lsp/keymaps.lua
 
 local Utils = require("my.util")
+local LazyVim = require("lazyvim.util")
 
 return {
   {
@@ -11,7 +12,7 @@ return {
 
   -- lsp package manager
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     tag = "v1.11.0",
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
@@ -27,6 +28,8 @@ return {
         "pyright", -- python
         -- lsp
         "gopls",
+        "goimports",
+        "gofumpt",
         "lua-language-server",
         "typescript-language-server",
         -- debugger
@@ -96,11 +99,13 @@ return {
       -- after the language server attaches to the current buffer
       local on_attach = function(client, buffer)
         local ok
-        local format = require("plugins.lsp.format")
-        ok, _ = pcall(format.on_attach, client, buffer)
-        if not ok then
-          vim.notify("Failed to call lsp.format.on_attach")
-        end
+        -- local format = require("plugins.lsp.format")
+        -- ok, _ = pcall(format.on_attach, client, buffer)
+        -- if not ok then
+        --   vim.notify("Failed to call lsp.format.on_attach")
+        -- end
+        -- setup autoformat
+        LazyVim.format.register(LazyVim.lsp.formatter())
 
         local keymaps = require("plugins.lsp.keymaps")
         ok, _ = pcall(keymaps.on_attach, client, buffer)
@@ -326,35 +331,35 @@ return {
     lazy = true,
     config = true,
   },
-  {
-    "nvimtools/none-ls.nvim",
-    event = "BufReadPre",
-    dependencies = { "mason.nvim" },
-    opts = function()
-      local null_ls = require("null-ls")
-      local sources = {
-        -- code actions
-        null_ls.builtins.code_actions.refactoring,
-        -- diagnostics
-        null_ls.builtins.diagnostics.codespell.with({
-          extra_args = { "-I", "$DOTFILES_DIRECTORY/neovim/codespell/ignore-words.txt" },
-        }),
-        -- formatting
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.prettierd,
-      }
-
-      -- skip go formatters if on google3
-      if not Utils.is_go_mod() then
-        sources[#sources + 1] = null_ls.builtins.formatting.gofmt
-        sources[#sources + 1] = null_ls.builtins.formatting.goimports
-      end
-
-      return {
-        debug = true,
-        sources = sources,
-      }
-    end,
-  },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   event = "BufReadPre",
+  --   dependencies = { "mason.nvim" },
+  --   opts = function()
+  --     local null_ls = require("null-ls")
+  --     local sources = {
+  --       -- code actions
+  --       null_ls.builtins.code_actions.refactoring,
+  --       -- diagnostics
+  --       null_ls.builtins.diagnostics.codespell.with({
+  --         extra_args = { "-I", "$DOTFILES_DIRECTORY/neovim/codespell/ignore-words.txt" },
+  --       }),
+  --       -- formatting
+  --       null_ls.builtins.formatting.stylua,
+  --       null_ls.builtins.formatting.black,
+  --       null_ls.builtins.formatting.prettierd,
+  --     }
+  --
+  --     -- skip go formatters if on google3
+  --     if not Utils.is_go_mod() then
+  --       sources[#sources + 1] = null_ls.builtins.formatting.gofmt
+  --       sources[#sources + 1] = null_ls.builtins.formatting.goimports
+  --     end
+  --
+  --     return {
+  --       debug = true,
+  --       sources = sources,
+  --     }
+  --   end,
+  -- },
 }

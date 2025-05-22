@@ -40,6 +40,9 @@ vim.opt.rtp:prepend(lazypath)
 -- My setup
 require("my.config").setup()
 
+-- I know what I'm doing with the plugin loading order.
+vim.g.lazyvim_check_order = false
+
 local spec = {
   { import = "plugins" },
 }
