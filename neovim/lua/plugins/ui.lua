@@ -1,5 +1,7 @@
 local Config = require("my.config")
 local Utils = require("my.util")
+local LazyVim = require("lazyvim.util")
+local Snacks = require("snacks")
 
 return {
 
@@ -117,4 +119,21 @@ return {
     end,
   },
 
+  {
+    "snacks.nvim",
+    opts = {
+      notifier = { enabled = true },
+    },
+    -- stylua: ignore
+    -- keys = {
+    --   { "<leader>n", function()
+    --     if Snacks.config.picker and Snacks.config.picker.enabled then
+    --       Snacks.picker.notifications()
+    --     else
+    --       Snacks.notifier.show_history()
+    --     end
+    --   end, desc = "Notification History" },
+    --   { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+    -- },
+  },
 }

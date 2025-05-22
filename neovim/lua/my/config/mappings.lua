@@ -22,8 +22,8 @@ vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
 
 -- when jumping forward/backward center the screen
-vim.keymap.set("n", "<C-f>", "<C-f>zz")
-vim.keymap.set("n", "<C-b>", "<C-b>zz")
+-- vim.keymap.set("n", "<C-f>", "<C-f>zz")
+-- vim.keymap.set("n", "<C-b>", "<C-b>zz")
 
 -- move to the end of the pasted text on copy/paste
 vim.keymap.set("v", "y", "y`]")

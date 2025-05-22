@@ -46,7 +46,7 @@ return {
   },
 
   -- lua utility functions
-  { "nvim-lua/plenary.nvim" },
+  { "nvim-lua/plenary.nvim", lazy = true },
 
   -- " indent guides
   {
@@ -75,27 +75,6 @@ return {
     end,
   },
 
-  -- Better `vim.notify()`
-  {
-    "rcarriga/nvim-notify",
-    event = "VeryLazy",
-    config = function()
-      local notify = require("notify")
-      local theme_style = Utils.get_theme_style()
-      notify.setup({
-        background_colour = Config.themes[theme_style].transparent,
-        timeout = 2000,
-        max_height = function()
-          return math.floor(vim.o.lines * 0.75)
-        end,
-        max_width = function()
-          return math.floor(vim.o.columns * 0.75)
-        end,
-      })
-      vim.notify = notify
-    end,
-  },
-
   -- tmux navigation
   "christoomey/vim-tmux-navigator",
 
@@ -117,8 +96,6 @@ return {
       ]])
     end,
   },
-  -- undo tree
-  --"mbbill/undotree",
 
   -- better vim mergetool, needs setup in git config too
   {
