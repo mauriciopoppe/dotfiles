@@ -21,6 +21,9 @@ path=(
   # bun start, the all in one JavaScript runtime
   ~/.bun/bin
   # krew, the kubernetes plugin manager
+  # n start
+  ~/n/bin
+  # n end
   ${KREW_ROOT:-$HOME/.krew}/bin
   # .dotfiles exports
   ${DOTFILES_DIRECTORY}/zsh/bin
