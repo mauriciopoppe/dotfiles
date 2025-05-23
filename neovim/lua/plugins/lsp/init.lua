@@ -19,19 +19,19 @@ return {
     opts = {
       ensure_installed = {
         "shellcheck",
-        "shfmt",
         "codespell",
         -- formatter
+        "shfmt", -- sh
         "black", -- python
         "prettierd", -- typescript/javascript
         "stylua", -- lua
         "pyright", -- python
         -- lsp
-        "gopls",
-        "goimports",
-        "gofumpt",
-        "lua-language-server",
-        "typescript-language-server",
+        "gopls", -- go
+        "goimports", -- go
+        "gofumpt", -- go
+        "lua-language-server", -- lua
+        "vtsls", -- typescript
         -- debugger
         "debugpy",
       },
@@ -209,13 +209,6 @@ return {
         -- Disable all diagnostics from Pyright
         handlers = {
           ["textDocument/publishDiagnostics"] = function() end,
-        },
-      }
-
-      servers.ts_ls = {
-        on_attach = on_attach,
-        flags = {
-          debounce_text_changes = 150,
         },
       }
 

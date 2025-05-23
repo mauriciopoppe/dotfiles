@@ -17,8 +17,8 @@ vim.o.clipboard = "unnamedplus"
 vim.o.showmatch = false
 -- when switching buffers don't move to the start of the line
 vim.o.startofline = false
--- minimum number of lines shown above the cursor when scrolling
-vim.o.scrolloff = 5
+-- minimum number of lines shown above/below the cursor when scrolling
+vim.o.scrolloff = 15
 -- allow positioning the cursor in places where there is no characters
 vim.o.virtualedit = "block"
 -- read file changes on update

@@ -1,2 +1,3 @@
 # ignore.txt contains a list of words to be ignored by codespell
 filp
+Cornel
