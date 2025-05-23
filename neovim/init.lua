@@ -59,6 +59,9 @@ end
 -- Custom setup copied from LazyVim starter
 -- https://github.com/LazyVim/starter/blob/main/lua/config/lazy.lua
 require("lazy").setup({
+  defaults = {
+    version = false,
+  },
   spec = spec,
   ui = {
     icons = {
@@ -75,7 +78,6 @@ require("lazy").setup({
       task = "📌",
     },
   },
-  concurrency = 5,
   performance = {
     rtp = {
       -- disable some rtp plugins

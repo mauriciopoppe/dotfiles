@@ -28,12 +28,6 @@ return {
       "rcarriga/cmp-dap",
       -- snippets
       "L3MON4D3/LuaSnip",
-      {
-        "rafamadriz/friendly-snippets",
-        config = function()
-          require("luasnip.loaders.from_vscode").lazy_load()
-        end,
-      },
       -- snippet engine
       "saadparwaiz1/cmp_luasnip",
       -- icons
