@@ -55,8 +55,6 @@ function M.setup()
       vim.notify("Not connected to the internet, some options might not be enabled")
     end
   end)
-
-  -- theme is loaded as a dependency of plenary, see the first lines of /neovim/lua/plugins.lua
 end
 
 setmetatable(M, {

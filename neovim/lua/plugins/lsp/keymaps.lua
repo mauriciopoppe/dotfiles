@@ -1,6 +1,9 @@
 local M = {}
 local LazyVim = require("lazyvim.util")
 
+-- This file is synced from LazyVim, I don't use the upstream one because of the keys it sets.
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/keymaps.lua
+
 M._keys = nil
 
 function M.get()

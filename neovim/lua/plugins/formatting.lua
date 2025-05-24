@@ -18,7 +18,7 @@ function M.setup(_, opts)
   require("conform").setup(opts)
 end
 
-return {
+local spec = {
   {
     "stevearc/conform.nvim",
     dependencies = { "mason.nvim" },
@@ -73,6 +73,8 @@ return {
         },
         formatters_by_ft = {
           lua = { "stylua" },
+          javascript = { "prettier" },
+          typescript = { "prettier" },
           fish = { "fish_indent" },
           sh = { "shfmt" },
           go = { "goimports", "gofumpt" },
@@ -99,4 +101,7 @@ return {
     end,
     config = M.setup,
   },
+  -- { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.formatting.prettier", lazy = true },
 }
+
+return spec

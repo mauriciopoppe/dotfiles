@@ -1,6 +1,3 @@
-local Config = require("my.config")
-local Utils = require("my.util")
-
 return {
   -- Load LazyVim without any bundled plugin.
   --
@@ -8,6 +5,7 @@ return {
   -- * Don't add { "LazyVim/LazyVim", import = "lazyvim.plugins" } to neovim/init.lua
   -- * Load LazyVim with priority on this file.
   -- * Where needed, set the `var LazyVim = require("lazyvim.util")`
+  { "LazyVim/LazyVim", priority = 10000, lazy = false, opts = {}, cond = true, version = "*" },
   {
     "LazyVim/LazyVim",
     dependencies = {
@@ -27,7 +25,6 @@ return {
       end,
     },
   },
-  { "LazyVim/LazyVim", priority = 10000, lazy = false, opts = {}, cond = true, version = "*" },
 
   {
     "folke/snacks.nvim",
@@ -55,24 +52,6 @@ return {
       { "<Leader>ti", ":<C-u>IndentGuidesToggle<CR>", desc = "Toggle indent guides" },
     },
     config = function() end,
-  },
-
-  -- improve core UI elements
-  {
-    "stevearc/dressing.nvim",
-    lazy = true,
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.select(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.input(...)
-      end
-    end,
   },
 
   -- tmux navigation
