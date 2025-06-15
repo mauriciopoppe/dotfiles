@@ -245,6 +245,48 @@ return {
           },
         },
       }
+      -- Requires cpptools to be installed by Mason
+      dap.adapters.cppdbg = {
+        id = "cppdbg",
+        type = "executable",
+        command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7", -- if you use mason
+      }
+      dap.configurations.c = {
+        -- Start the kernel in qemu with the -s -S flags to enable debugging.
+        {
+          name = "Attach to QEMU (GDB Remote)",
+          type = "cppdbg",
+          request = "launch",
+          program = "${workspaceFolder}/vmlinux",
+          miDebuggerPath = "gdb",
+          miDebuggerServerAddress = "localhost:1234",
+          cwd = "${workspaceFolder}",
+          targetArchitecture = "arm64",
+          stopAtEntry = false,
+          setupCommands = {
+            {
+              text = "-enable-pretty-printing",
+              description = "enable pretty printing",
+              ignoreFailures = false,
+            },
+            {
+              text = "file /home/mauriciopoppe.linux/linux/kernel/vmlinux",
+              description = "load kernel symbols",
+              ignoreFailures = false,
+            },
+            {
+              text = "set architecture aarch64",
+              description = "Set target architecture",
+              ignoreFailures = false,
+            },
+            {
+              text = "source /home/mauriciopoppe.linux/linux/kernel/scripts/gdb/vmlinux-gdb.py",
+              description = "Load kernel GDB helper scripts",
+              ignoreFailures = false,
+            },
+          },
+        },
+      }
     end,
   },
   {

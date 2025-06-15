@@ -3,14 +3,12 @@
 --[[
 
 My neovim config is a modified copy of LazyVim's config.
-I use a lot of its utility functions but not LazyVim directly, it's synced with LazyVim v6.0.0
-(https://github.com/LazyVim/LazyVim/releases/tag/v6.0.0)
+I use a lot of its utility functions but not LazyVim directly.
 
 File structure:
 
 ./init.lua - Is this file
 ./lua/my/*.lua - These are configurations for core stuff (outside custom plugin setup), loaded *manually* through my/utils
-./lua/plugins.lua - Root config for plugins, loaded by lazy.vim
 ./lua/plugins/*.lua - Additional configs which are more complex, loaded by lazy.vim
 
 For more info about the plugin load order run:
