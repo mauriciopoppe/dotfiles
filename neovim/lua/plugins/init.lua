@@ -11,6 +11,7 @@ return {
     dependencies = {
       { "w0ng/vim-hybrid" },
       { "mauriciopoppe/inspired-github.vim" },
+      { "maxmx03/solarized.nvim" },
     },
     opts = {
       defaults = {

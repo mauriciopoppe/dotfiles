@@ -27,13 +27,14 @@ local defaults = {
       medium = "#424f58",
       dark = "#8abdb6",
     },
-    -- Colors from mvpopuk/inspiried-github.vim
-    -- https://github.com/mvpopuk/inspired-github.vim/blob/main/config/lualine.lua
+    -- Colors from solarized light.
+    -- I got the values by installing a color picker and brute-force
+    -- selecting eye-dropping the values until I liked them.
     light = {
-      transparent = "#eee8d5",
-      light = "#f5f5f5",
-      medium = "#f5f5f5",
-      dark = "#a2a2a2",
+      transparent = "#fcf3da",
+      light = "#fcf3da",
+      medium = "#eee8d5",
+      dark = "#586e75",
     },
   },
 }

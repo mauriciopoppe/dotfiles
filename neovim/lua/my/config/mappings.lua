@@ -76,19 +76,23 @@ vim.keymap.set("n", "<leader>-", "<c-w>s")
 
 -- move a line in normal mode while fixing the indentation
 vim.keymap.set("n", "∆", ":m .+1<CR>==", { silent = true })
+vim.keymap.set("n", "<a-j>", ":m .+1<CR>==", { silent = true })
 vim.keymap.set("n", "˚", ":m .-2<CR>==", { silent = true })
+vim.keymap.set("n", "<a-k>", ":m .-2<CR>==", { silent = true })
 
 -- move lines in visual mode while fixing the indentation
 vim.keymap.set("v", "∆", ":m '>.+1<CR>gv=gv", { silent = true })
+vim.keymap.set("v", "<a-j>", ":m '>.+1<CR>gv=gv", { silent = true })
 vim.keymap.set("v", "˚", ":m '<.-2<CR>gv=gv", { silent = true })
+vim.keymap.set("v", "<a-k>", ":m '<.-2<CR>gv=gv", { silent = true })
 
 -- movement inside a line
 -- ˙ = alt + h (move to the beginning of the line)
 vim.keymap.set("n", "˙", "^")
-vim.keymap.set("n", "<alt-h>", "^")
+vim.keymap.set("n", "<a-h>", "^")
 -- ¬ = alt + l (move to the end of the line)
 vim.keymap.set("n", "¬", "$")
-vim.keymap.set("n", "<alt-l>", "$")
+vim.keymap.set("n", "<a-l>", "$")
 
 -- buffer movements
 vim.keymap.set("n", "[b", ":bprev<CR>")

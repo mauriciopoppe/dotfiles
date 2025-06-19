@@ -8,7 +8,7 @@ keybinds clear-defaults=true {
         bind "n" { SwitchToMode "resize"; }
         bind "o" { SwitchToMode "session"; }
         bind "p" { SwitchToMode "pane"; }
-        bind "q" { Quit; }
+        bind "Q" { Quit; }
         bind "s" { SwitchToMode "scroll"; }
         bind "t" { SwitchToMode "tab"; }
         bind "-" { NewPane; SwitchToMode "normal"; }
@@ -289,7 +289,8 @@ load_plugins {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "mytheme"
+// theme "mytheme-{{ env \"MY_THEME\" }}"
+theme "mytheme-light"
 
 // Choose the base input mode of zellij.
 // Default: normal

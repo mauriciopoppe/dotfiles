@@ -9,22 +9,9 @@ main() {
   mode="$1"
 
   # The variable in .tmux.theme will be read by .tmux.conf to set the theme.
-  echo $mode > ~/.tmux.theme
-  cat ~/.tmux.theme
-
-  # go over all the tmux sessions and change the vim theme.
-  for session in $(tmux list-sessions -F "#{session_name}"); do
-    for wix in $(tmux list-windows -F "${session}:#{window_index}" -t "$session"); do
-      for pix in $(tmux list-panes -F "#{session_name}:#{window_index}.#{pane_index}" -t $wix); do
-        is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
-        tmux if-shell -t "$pix" "$is_vim" "send-keys -t $pix escape ENTER"
-        tmux if-shell -t "$pix" "$is_vim" "send-keys -t $pix ':lua require('my.theme').setup()' ENTER"
-      done
-    done
-  done
-
-  # reload tmux config.
-  tmux source-file ~/.tmux.conf
+  echo $mode >~/.tmux.theme
+  echo $mode >~/.zellij.theme
+  echo "window-theme = $mode" >~/.config/ghostty/ghostty.config.override
 }
 
 main $@
