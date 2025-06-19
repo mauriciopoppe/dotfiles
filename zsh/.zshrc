@@ -105,6 +105,10 @@ fi
 zinit ice wait lucid
 zinit load hlissner/zsh-autopair
 
+# zellij
+zinit ice from"gh-r" as"program"
+zinit load zellij-org/zellij
+
 # git fuzzy completion with fzf
 zinit ice as"program" pick"bin/git-fuzzy"
 zinit light bigH/git-fuzzy

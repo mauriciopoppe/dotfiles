@@ -85,8 +85,10 @@ vim.keymap.set("v", "˚", ":m '<.-2<CR>gv=gv", { silent = true })
 -- movement inside a line
 -- ˙ = alt + h (move to the beginning of the line)
 vim.keymap.set("n", "˙", "^")
+vim.keymap.set("n", "<alt-h>", "^")
 -- ¬ = alt + l (move to the end of the line)
 vim.keymap.set("n", "¬", "$")
+vim.keymap.set("n", "<alt-l>", "$")
 
 -- buffer movements
 vim.keymap.set("n", "[b", ":bprev<CR>")
