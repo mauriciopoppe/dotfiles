@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+python3 $DOTFILES_DIRECTORY/zsh/bin/zellij-switch-session.py
