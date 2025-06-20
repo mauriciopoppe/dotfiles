@@ -1,20 +1,20 @@
 themes {
-  // colors mapped from solarized light nvim theme.
-  // transparent = "#fcf3da", 252 243 218
-  // light = "#fcf3da",
-  // medium = "#eee8d5", 238 232 213
-  // dark = "#586e75", 88 110 117
+  // colors mapped from the lua light theme in neovim.
+  // transparent = "#ffffff",
+  // light = "#f6f8fa", -- rgb(246 248 250)
+  // medium = "#e8eaef", -- rgb(232 234 239)
+  // dark = "#778ba0", -- rgb(119 139 160)
   my-theme {
     text_unselected {
-        base 88 110 117
-        background 252 243 218
+        base 119 139 160
+        background 255 255 255
         emphasis_0 209 154 102
         emphasis_1 86 182 194
         emphasis_2 152 195 121
         emphasis_3 198 120 221
     }
     text_selected {
-        base 88 110 117
+        base 119 139 160
         background 29 32 37
         emphasis_0 209 154 102
         emphasis_1 86 182 194
@@ -22,16 +22,16 @@ themes {
         emphasis_3 198 120 221
     }
     ribbon_selected {
-        base 252 243 218
-        background 88 110 117
+        base 255 255 255
+        background 119 139 160
         emphasis_0 190 80 70
         emphasis_1 209 154 102
         emphasis_2 198 120 221
         emphasis_3 97 175 239
     }
     ribbon_unselected {
-        base 88 110 117
-        background 238 232 213
+        base 119 139 160
+        background 232 234 239
         emphasis_0 190 80 70
         emphasis_1 204 204 204
         emphasis_2 97 175 239

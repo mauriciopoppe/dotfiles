@@ -13,7 +13,7 @@ local function change_background()
   if theme == "dark" then
     vim.cmd.colorscheme("hybrid")
   elseif theme == "light" then
-    vim.cmd.colorscheme("solarized")
+    vim.cmd.colorscheme("github_light_default")
   end
 end
 

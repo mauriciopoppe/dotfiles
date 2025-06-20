@@ -31,10 +31,10 @@ local defaults = {
     -- I got the values by installing a color picker and brute-force
     -- selecting eye-dropping the values until I liked them.
     light = {
-      transparent = "#fcf3da",
-      light = "#fcf3da",
-      medium = "#eee8d5",
-      dark = "#586e75",
+      transparent = "#ffffff",
+      light = "#f6f8fa", -- rgb(246 248 250)
+      medium = "#e8eaef", -- rgb(232 234 239)
+      dark = "#778ba0", -- rgb(119 139 160)
     },
   },
 }

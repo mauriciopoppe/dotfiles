@@ -11,7 +11,7 @@ keybinds clear-defaults=true {
         bind "Q" { Quit; }
         bind "s" { SwitchToMode "scroll"; }
         bind "t" { SwitchToMode "tab"; }
-        bind "-" { NewPane; SwitchToMode "normal"; }
+        bind "-" { NewPane "down"; SwitchToMode "normal"; }
         bind "\\" { NewPane "right"; SwitchToMode "normal"; }
     }
     locked {

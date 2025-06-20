@@ -12,6 +12,7 @@ return {
       { "w0ng/vim-hybrid" },
       { "mauriciopoppe/inspired-github.vim" },
       { "maxmx03/solarized.nvim" },
+      { "projekt0n/github-nvim-theme" },
     },
     opts = {
       defaults = {

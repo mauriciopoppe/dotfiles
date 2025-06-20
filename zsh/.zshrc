@@ -106,7 +106,7 @@ zinit ice wait lucid
 zinit load hlissner/zsh-autopair
 
 # zellij
-zinit ice from"gh-r" as"program" ver="v0.42.2"
+zinit ice from"gh-r" as"program" ver"v0.42.2"
 zinit load zellij-org/zellij
 
 # git fuzzy completion with fzf
