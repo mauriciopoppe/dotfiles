@@ -12,6 +12,7 @@ main() {
   echo $mode >~/.tmux.theme
   echo $mode >~/.zellij.theme
   echo "window-theme = $mode" >~/.config/ghostty/ghostty.config.override
+  ln -sf ~/.config/zellij/themes/my-theme-${mode} ~/.config/zellij/themes/my-theme.kdl
 }
 
 main $@

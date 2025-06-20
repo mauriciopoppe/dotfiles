@@ -289,11 +289,8 @@ load_plugins {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-// theme "mytheme-{{ env \"MY_THEME\" }}"
-//
-// To start it with the value overridden use:
-// zellij options --theme mytheme-$(cat ~/.zellij.theme)
-theme "mytheme-light"
+// The theme is chosen by making a symlink with the `change-background` script
+theme "my-theme"
 
 // Choose the base input mode of zellij.
 // Default: normal
