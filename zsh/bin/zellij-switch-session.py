@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import pathlib
 import subprocess
 import os
 
@@ -31,15 +30,6 @@ def cmd(args):
         universal_newlines=True,
     )
     return cmd_run
-
-
-def find_closest_zellij_file(path):
-    pn = pathlib.Path(path)
-    while pn != pathlib.Path("/"):
-        if pn.joinpath(".zellij.kdl").is_file():
-            return pn
-        pn = pn.parent
-    return None
 
 
 def get_opened_sessions():
@@ -96,12 +86,6 @@ def main():
             "-c",
             "echo '{}' | fzf".format("\n".join(sessions_to_display)),
         ]
-        # [
-        #     "bash",
-        #     "-c",
-        #     # "zellij run -f -- echo '{}' | fzf".format("\n".join(sessions_to_display)),
-        #     "fzf",
-        # ],
     )
     chosen = chosen.stdout.strip()
     if len(chosen) == 0:
@@ -116,80 +100,11 @@ def main():
             "https://github.com/mostafaqanbaryan/zellij-switch/releases/download/0.2.1/zellij-switch.wasm",
             "--",
             f"--session {c_name} --cwd {c_path} --layout default",
-            # "-c",
-            # f'zellij pipe --plugin https://github.com/mostafaqanbaryan/zellij-switch/releases/download/0.2.1/zellij-switch.wasm -- "--session {c_basename} --cwd {c_absolute} --layout default"',
         ]
     )
     if switch_cmd.returncode != 0:
         raise ValueError(f"Failed to switch to {c_name}: {switch_cmd.stderr}")
     exit(0)
-
-    # The session chosen is opened in tmux so switch to it
-    # if len(c_opened) > 0:
-    #     switch_cmd = cmd(
-    #         [
-    #             "bash",
-    #             "-c",
-    #             f'zellij pipe --plugin https://github.com/mostafaqanbaryan/zellij-switch/releases/download/0.2.1/zellij-switch.wasm -- "--session {c_basename} --cwd {c_name} --layout default"',
-    #         ]
-    #     )
-    #     if switch_cmd.returncode != 0:
-    #         raise ValueError(
-    #             f"Failed to switch to {c_basename}: {switch_cmd.stderr}"
-    #         )
-    #     exit(0)
-    # else:
-    #     # Make sure that the bookmark is still valid.
-    #     list_files_in_bookmark = cmd(["bash", "-c", f"ls '{c_name}' > /dev/null"])
-    #     if list_files_in_bookmark.returncode != 0:
-    #         raise ValueError(
-    #             f"failed to list files in bookmark={c_name}: {list_files_in_bookmark.stderr}"
-    #         )
-    #
-    #     # The session chosen is bookmarked but not opened yet.
-    #     closest_dir = find_closest_zellij_file(c_name)
-    #     # Verify if we need to symlink a root ~/.zellij.layout.kld to the target session to open.
-    #     needs_symlink = False
-    #     if closest_dir is None:
-    #         needs_symlink = True
-    #
-    #     # If we need to symlink then create the symlink.
-    #     if needs_symlink:
-    #         cmd(
-    #             [
-    #                 "bash",
-    #                 "-c",
-    #                 f"cd '{c_name}' && ln -s ~/.config/zellij/layouts/example.kdl .layout.kdl",
-    #             ]
-    #         )
-    #
-    #     # Make sure that the symlink was created successfully in the target directory.
-    #     list_layout_file_in_bookmark = cmd(
-    #         [
-    #             "bash",
-    #             "-c",
-    #             f"cd {c_name} && ls .layout.kdl  > /dev/null 2>&1",
-    #         ]
-    #     )
-    #     if list_layout_file_in_bookmark.returncode != 0:
-    #         raise ValueError(
-    #             f"failed to list files in bookmark={c_name}: {list_layout_file_in_bookmark.stderr}"
-    #         )
-    #
-    #     # start zellij at the directory.
-    #     run_zellij = cmd(
-    #         [
-    #             "bash",
-    #             "-c",
-    #             f'zellij pipe --plugin https://github.com/mostafaqanbaryan/zellij-switch/releases/download/0.2.1/zellij-switch.wasm -- "--session {c_basename} --cwd {c_name} --layout default"',
-    #         ]
-    #     )
-    #     if run_zellij.returncode != 0:
-    #         raise ValueError(f"failed to run zellij at {c_name}: {run_zellij.stderr}")
-    #
-    #     # If we created a symlink before then we need to remove it because it was temporary.
-    #     if needs_symlink:
-    #         cmd(["bash", "-c", f"cd '{c_name}' && trash .layout.kdl"])
 
 
 main()
