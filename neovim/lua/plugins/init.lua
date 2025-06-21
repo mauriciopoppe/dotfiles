@@ -268,5 +268,7 @@ return {
     },
   },
 
+  -- syntax highlight
   { "imsnif/kdl.vim" },
+  { "mmarchini/bpftrace.vim" },
 }

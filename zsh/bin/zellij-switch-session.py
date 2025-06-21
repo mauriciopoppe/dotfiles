@@ -22,7 +22,6 @@ def format_session(name, opened, path):
 
 
 def cmd(args):
-    # print("cmd:", args)
     cmd_run = subprocess.run(
         args,
         stdout=subprocess.PIPE,

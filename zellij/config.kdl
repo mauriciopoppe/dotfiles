@@ -20,6 +20,7 @@ keybinds clear-defaults=true {
         bind "t" { SwitchToMode "tab"; }
         bind "-" { NewPane "down"; SwitchToMode "normal"; }
         bind "\\" { NewPane "right"; SwitchToMode "normal"; }
+        bind "Ctrl Space" { SwitchToMode "normal"; }
     }
     locked {
         bind "Ctrl Space" { SwitchToMode "tmux"; }
