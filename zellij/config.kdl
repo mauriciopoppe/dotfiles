@@ -9,6 +9,13 @@ keybinds clear-defaults=true {
         bind "o" { SwitchToMode "session"; }
         bind "p" { SwitchToMode "pane"; }
         bind "Q" { Quit; }
+        bind "Ctrl j" {
+            SwitchToMode "normal";
+            Run "zellij-switch-session" {
+                direction "Down";
+                close_on_exit true;
+            }
+        }
         bind "s" { SwitchToMode "scroll"; }
         bind "t" { SwitchToMode "tab"; }
         bind "-" { NewPane "down"; SwitchToMode "normal"; }
