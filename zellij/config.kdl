@@ -234,7 +234,7 @@ keybinds clear-defaults=true {
     renametab {
         bind "esc" { UndoRenameTab; SwitchToMode "tab"; }
     }
-    shared_among "renametab" "renamepane" {
+    shared_among "renametab" "renamepane" "tmux" {
         bind "Ctrl c" { SwitchToMode "normal"; }
     }
     renamepane {
