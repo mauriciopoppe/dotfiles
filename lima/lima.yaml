@@ -15,7 +15,16 @@ images:
   arch: "aarch64"
 mountTypesUnsupported: ["9p"]
 
+# My computer shows 10cpus
+#
+# Command: nproc
 cpus: 10
+# My computer has 32GiB of RAM, assign half of that to the VM
+# 
+# Commands:
+# hwmemsize=$(sysctl -n hw.memsize)
+# ramsize=$(expr $hwmemsize / $((1024**3)))
+# echo "System Memory: ${ramsize} GB"
 memory: 16GiB
 
 mounts:

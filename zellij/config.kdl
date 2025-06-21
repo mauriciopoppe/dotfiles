@@ -16,6 +16,8 @@ keybinds clear-defaults=true {
                 close_on_exit true;
             }
         }
+        bind "Ctrl f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
+        bind "f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "s" { SwitchToMode "scroll"; }
         bind "t" { SwitchToMode "tab"; }
         bind "-" { NewPane "down"; SwitchToMode "normal"; }
