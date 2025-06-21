@@ -3,7 +3,7 @@ themes {
   my-theme {
     text_unselected {
         base 204 204 204
-        background 29 32 37
+        background 42 44 51
         emphasis_0 209 154 102
         emphasis_1 86 182 194
         emphasis_2 152 195 121
@@ -11,23 +11,23 @@ themes {
     }
     text_selected {
         base 204 204 204
-        background 29 32 37
+        background 42 44 51
         emphasis_0 209 154 102
         emphasis_1 86 182 194
         emphasis_2 152 195 121
         emphasis_3 198 120 221
     }
     ribbon_selected {
-        base 29 32 37
-        background 152 195 121
+        base 138 189 182
+        background 67 79 88
         emphasis_0 190 80 70
         emphasis_1 209 154 102
         emphasis_2 198 120 221
         emphasis_3 97 175 239
     }
     ribbon_unselected {
-        base 29 32 37
-        background 171 178 191
+        base 138 189 182
+        background 42 44 51
         emphasis_0 190 80 70
         emphasis_1 204 204 204
         emphasis_2 97 175 239
