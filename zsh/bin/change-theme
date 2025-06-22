@@ -1,0 +1,23 @@
+#!/bin/bash
+set -euxo pipefail
+
+# Usage:
+#
+# change-theme [dark|light]
+#
+main() {
+  theme="$1"
+
+  if ! [[ "$theme" =~ ^(light|dark)$ ]]; then
+    echo "theme must be dark or light, you entered $theme"
+    exit 1
+  fi
+
+  # The variable in .tmux.theme will be read by .tmux.conf to set the theme.
+  echo $theme >~/.tmux.theme
+  echo $theme >~/.zellij.theme
+  echo "window-theme = $theme" >~/.config/ghostty/ghostty.config.override
+  ln -sf ~/.config/zellij/themes/my-theme-${theme} ~/.config/zellij/themes/my-theme.kdl
+}
+
+main $@

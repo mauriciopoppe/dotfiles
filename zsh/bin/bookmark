@@ -1,61 +1,31 @@
 #!/bin/bash
-# ----------------------------------------------------
-#          FILE:  zshmarks.plugin.zsh
-#   DESCRIPTION:  oh-my-zsh plugin file.
-#        AUTHOR:  Jocelyn Mallon
-#       VERSION:  1.7.0
-# ----------------------------------------------------
-
-# detect platform
-unameOut="$(uname -s)"
-case "${unameOut}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    CYGWIN*)    machine=Cygwin;;
-    MINGW*)     machine=MinGw;;
-    *)          machine="UNKNOWN:${unameOut}"
-esac
 
 # bookmark definition is just the current dir
-cur_dir="$(pwd)"
-bookmark="$cur_dir"
+bookmark="$(pwd)"
 BOOKMARKS_FILE="$HOME/.bookmarks.data"
 touch $BOOKMARKS_FILE
 
 # flag parser
-while [[ $# -gt 0 ]]
-do
-key="$1"
-case $key in
-    --list|-l)
+while [[ $# -gt 0 ]]; do
+  key="$1"
+  case $key in
+  --list | -l)
     bookmark_show=1
     shift # past value
     ;;
-    --strip-homedir)
-    bookmark_strip_homedir=1
-    shift # past value
-    ;;
-    --delete)
+  --delete)
     bookmark_delete=1
     shift # past value
     ;;
-    --edit)
+  --edit)
     bookmark_edit=1
     shift # past value
     ;;
-esac
+  esac
 done
 
 if [[ $bookmark_show -eq 1 ]]; then
-  if [[ $bookmark_strip_homedir == 1 ]]; then
-    if [[ $machine == "Mac" ]]; then
-      cat $BOOKMARKS_FILE | sed -E "s%${HOME}%¬%g"
-    elif [[ $machine == "Linux" ]]; then
-      cat $BOOKMARKS_FILE | sed -r "s%${HOME}%¬%g"
-    fi
-  else
-    cat $BOOKMARKS_FILE
-  fi
+  cat $BOOKMARKS_FILE
 elif [[ $bookmark_delete -eq 1 ]]; then
   if [[ -z $(grep "^$bookmark$" $BOOKMARKS_FILE 2>/dev/null) ]]; then
     echo "Directory '$bookmark' is not bookmarked"
@@ -68,8 +38,8 @@ elif [[ $bookmark_edit -eq 1 ]]; then
   nvim $BOOKMARKS_FILE
 else
   if [[ -z $(grep "^$bookmark$" $BOOKMARKS_FILE 2>/dev/null) ]]; then
-    echo $bookmark >> $BOOKMARKS_FILE
-    sort $BOOKMARKS_FILE > tmp && mv tmp $BOOKMARKS_FILE
+    echo $bookmark >>$BOOKMARKS_FILE
+    sort $BOOKMARKS_FILE >tmp && mv tmp $BOOKMARKS_FILE
     echo "Bookmark '$bookmark' saved"
   else
     echo "Bookmark already exists"

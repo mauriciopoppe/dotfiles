@@ -166,7 +166,7 @@ while getopts 'y:h' opt; do
       FORCE_INSTALL=y
       shift
       ;;
-   
+
     ?|h)
       echo "Usage: $(basename $0) [-y]"
       exit 1
