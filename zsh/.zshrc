@@ -44,7 +44,7 @@ safe-source() {
   [[ -s $1 ]] && source $1
 }
 
-export TERM=tmux-256color
+# export TERM=tmux-256color
 
 #########
 # zinit #
@@ -69,10 +69,8 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit load zdharma-continuum/history-search-multi-word
 
 # Theme
-zinit ice depth=1; zinit light romkatv/powerlevel10k
-
-# fasd
-zinit load whjvenyl/fasd
+zinit ice depth=1
+zinit light romkatv/powerlevel10k
 
 # these binaries are platform dependent, on the macOS arm64 they
 # need to be compiled instead of installed from a repo
@@ -112,6 +110,11 @@ zinit load zellij-org/zellij
 # git fuzzy completion with fzf
 zinit ice as"program" pick"bin/git-fuzzy"
 zinit light bigH/git-fuzzy
+
+zinit ice wait"2" as"command" from"gh-r" lucid \
+  atclone"./zoxide init zsh > init.zsh" \
+  atpull"%atclone" src"init.zsh" nocompile'!'
+zinit light ajeetdsouza/zoxide
 
 # Scripts that are built at install (there's single default make target, "install",
 # and it constructs scripts by `cat'ing a few files). The make'' ice could also be:
@@ -171,14 +174,6 @@ if [ -f "$GCSDK/completion.zsh.inc" ]; then . "$GCSDK/completion.zsh.inc"; fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# fasd (https://github.com/clvv/fasd)
-fasd_cache="${HOME}/.fasd-init-cache"
-if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-  fasd --init auto >| "$fasd_cache"
-fi
-source "$fasd_cache"
-unset fasd_cache
 
 # kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh)
 if [ $commands[kubectl] ]; then
