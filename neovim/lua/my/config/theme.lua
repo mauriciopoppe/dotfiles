@@ -3,7 +3,7 @@ local Utils = require("my.util")
 local M = {}
 
 -- change_background changes the background based on the color
--- written as a string to ~/.tmux.theme
+-- written as a string to ~/.theme
 local function change_background()
   vim.g.hybrid_custom_term_colors = 1
   vim.g.hybrid_reduced_contrast = 1

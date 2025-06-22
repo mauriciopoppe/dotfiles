@@ -299,7 +299,7 @@ load_plugins {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-// The theme is chosen by making a symlink with the `change-background` script
+// The theme is chosen by making a symlink with the `change-theme` script
 theme "my-theme"
 
 // Choose the base input mode of zellij.

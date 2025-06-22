@@ -100,9 +100,9 @@ function M.is_macos()
 end
 
 -- get_theme_style reads the theme style from the filesystem.
--- The theme is set through /zsh/bin/change-background
+-- The theme is set through /zsh/bin/change-theme
 function M.get_theme_style()
-  local themeFile = vim.fn.readfile(vim.fn.expand("~/.tmux.theme"))
+  local themeFile = vim.fn.readfile(vim.fn.expand("~/.theme"))
   local theme_style = themeFile[1]
   if theme_style == "dark" or theme_style == "light" then
     return theme_style

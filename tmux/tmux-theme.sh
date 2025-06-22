@@ -4,8 +4,8 @@
 # See .tmux.conf for details.
 
 theme=dark
-if [ -f ~/.tmux.theme ]; then
-    theme=$(cat ~/.tmux.theme)
+if [ -f ~/.theme ]; then
+    theme=$(cat ~/.theme)
 fi
 
 tmux source-file ${DOTFILES_DIRECTORY}/tmux/theme.${theme}.conf

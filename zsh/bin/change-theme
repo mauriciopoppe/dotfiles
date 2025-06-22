@@ -13,9 +13,8 @@ main() {
     exit 1
   fi
 
-  # The variable in .tmux.theme will be read by .tmux.conf to set the theme.
-  echo $theme >~/.tmux.theme
-  echo $theme >~/.zellij.theme
+  # The variable in .theme is read by many other legacy locations in this codebase.
+  echo $theme >~/.theme
   echo "window-theme = $theme" >~/.config/ghostty/ghostty.config.override
   ln -sf ~/.config/zellij/themes/my-theme-${theme} ~/.config/zellij/themes/my-theme.kdl
 }

@@ -29,8 +29,8 @@ main() {
   symlink "${base}/lua" "${HOME}/.config/nvim/lua"
 
   # This is needed for the tmux theme.
-  if [[ ! -f "${HOME}/.tmux.theme" ]]; then
-    echo dark > "${HOME}/.tmux.theme"
+  if [[ ! -f "${HOME}/.theme" ]]; then
+    change-theme dark
   fi
 }
 
