@@ -20,7 +20,7 @@ mountTypesUnsupported: ["9p"]
 # Command: nproc
 cpus: 10
 # My computer has 32GiB of RAM, assign half of that to the VM
-# 
+#
 # Commands:
 # hwmemsize=$(sysctl -n hw.memsize)
 # ramsize=$(expr $hwmemsize / $((1024**3)))
@@ -34,6 +34,11 @@ mounts:
   writable: true
 
 mountType: virtiofs
+
+portForwards:
+- guestPortRange: [1, 65535]
+  guestIPMustBeZero: true
+  hostIP: 0.0.0.0
 
 # In the guest run `cat /var/log/cloud-init-output.log` to see the logs.
 provision:
