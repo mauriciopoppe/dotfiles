@@ -162,18 +162,18 @@ unset -f safe-source
 ####################
 # sourced manually #
 ####################
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
-GCSDK=/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
-if [ -f "$GCSDK/path.zsh.inc" ]; then . "$GCSDK/path.zsh.inc"; fi
-if [ -f "$GCSDK/completion.zsh.inc" ]; then . "$GCSDK/completion.zsh.inc"; fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# fzf shell integration (https://github.com/junegunn/fzf#setting-up-shell-integration)
+if [ $commands[fzf] ]; then
+  source <(fzf --zsh)
+fi
 
 # kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh)
 if [ $commands[kubectl] ]; then

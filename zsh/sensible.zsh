@@ -69,5 +69,3 @@ bindkey "^[[1;3D" backward-word
 bindkey -s "^e" "^unvim\n"
 # ctrl+g = git
 bindkey -s "^g" "^ulazygit\n"
-# ctrl+j = launcher to switch sessions
-bindkey -s "^\\" "^uzellij-switch-session\n"

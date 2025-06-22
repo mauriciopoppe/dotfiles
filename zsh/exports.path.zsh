@@ -50,11 +50,22 @@ export HISTCONTROL=ignorespace
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 # --hidden: include hidden files in the search
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-fzf_color="bg+:#3F3F3F,bg:#4B4B4B,border:#6B6B6B,spinner:#98BC99,hl:#719872,fg:#D9D9D9,header:#719872,info:#BDBB72,pointer:#E12672,marker:#E17899,fg+:#D9D9D9,preview-bg:#3F3F3F,prompt:#98BEDE,hl+:#98BC99"
+
+# check the colors in neovim/lua/my/config/init.lua
+# default colors are for the dark mode, I entered the values to https://minsw.github.io/fzf-color-picker/
+fzf_color='
+ --color=fg:#ffffff,bg:#2a2c33,hl:#8abdb6
+ --color=fg+:#8abdb6,bg+:#424f58,hl+:#5fd7ff
+ --color=info:#afaf87,prompt:#d7005f,pointer:#8abdb6
+ --color=marker:#87ff00,spinner:#8abdb6,header:#87afaf'
 if [[ -f ~/.theme ]] && [[ $(cat ~/.theme) == *light* ]]; then
-  fzf_color="bg+:#D9D9D9,border:#C8C8C8,spinner:#719899,hl:#719872,fg:#616161,header:#719872,info:#727100,pointer:#E12672,marker:#E17899,fg+:#616161,preview-bg:#D9D9D9,prompt:#0099BD,hl+:#719899"
+  fzf_color='
+ --color=fg:#1d2025,bg:#ffffff,hl:#424f58
+ --color=fg+:#1d2025,bg+:#e8eaef,hl+:#424f58
+ --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff
+ --color=marker:#87ff00,spinner:#af5fff,header:#8abdb6'
 fi
-export FZF_DEFAULT_OPTS="--reverse --color=${fzf_color} --inline-info --cycle"
+export FZF_DEFAULT_OPTS="--reverse $fzf_color --inline-info --cycle"
 
 export GPG_TTY=$(tty)
 export GITHUB_USER=mauriciopoppe
