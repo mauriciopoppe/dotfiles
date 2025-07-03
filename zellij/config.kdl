@@ -5,7 +5,7 @@ keybinds clear-defaults=true {
     tmux {
         bind "g" { SwitchToMode "locked"; }
         bind "h" { SwitchToMode "move"; }
-        bind "n" { SwitchToMode "resize"; }
+        bind "r" { SwitchToMode "resize"; }
         bind "o" { SwitchToMode "session"; }
         bind "p" { SwitchToMode "pane"; }
         bind "Q" { Quit; }

@@ -44,7 +44,7 @@ safe-source() {
   [[ -s $1 ]] && source $1
 }
 
-# export TERM=tmux-256color
+export TERM=tmux-256color
 
 #########
 # zinit #
