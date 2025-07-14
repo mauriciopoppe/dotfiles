@@ -185,5 +185,7 @@ if [ $commands[helm] ]; then
   source <(helm completion zsh | sed -E 's/\["(.+)"\]/\[\1\]/g')
 fi
 
+[[ ! -f ~/.dvm/dvm.sh ]] || source ~/.dvm/dvm.sh
+
 # bun completions
 [ -s "~/.bun/_bun" ] && source "~/.bun/_bun"

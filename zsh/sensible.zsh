@@ -57,6 +57,9 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
 
+# remove command+l binding to delete a line
+bindkey -r "^L"
+
 # forward-delete char on osx with fn + delete
 bindkey "^[[3~" delete-char
 
