@@ -7,13 +7,16 @@ local LazyVim = require("lazyvim.util")
 return {
   {
     "mason-org/mason-lspconfig.nvim",
-    tag = "v1.32.0",
+    opts = {},
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
   },
 
   -- lsp package manager
   {
     "mason-org/mason.nvim",
-    tag = "v1.11.0",
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
@@ -52,7 +55,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = "BufReadPre",
-    tag = "v2.1.0",
     dependencies = {
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",

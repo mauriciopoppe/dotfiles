@@ -8,8 +8,35 @@ return {
   -- buffers tabline
   -- akinsho/bufferline.nvim didn't change the colors as I was hoping :\
   {
-    "ap/vim-buftabline",
+    "akinsho/bufferline.nvim",
     event = "VeryLazy",
+    config = function()
+      vim.opt.termguicolors = true
+      local colors = {}
+
+      function _G.bufferline_refresh_theme(theme)
+        colors = Config.themes[theme]
+        require("bufferline").setup({
+          highlights = {
+            background = {
+              bg = colors.light,
+            },
+            fill = {
+              bg = colors.light,
+            },
+            tab = {
+              bg = colors.light,
+            },
+            tab_close = {
+              bg = colors.light,
+            },
+          },
+        })
+      end
+
+      local theme_style = Utils.get_theme_style()
+      bufferline_refresh_theme(theme_style)
+    end,
   },
 
   {
