@@ -21,7 +21,7 @@ return {
         enabled = vim.fn.executable("make") == 1,
       },
     },
-    branch = "0.1.x",
+    branch = "master",
     -- stylua: ignore start
     keys = {
       -- Mappings for a better UI
