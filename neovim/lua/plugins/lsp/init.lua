@@ -5,15 +5,6 @@ local Utils = require("my.util")
 local LazyVim = require("lazyvim.util")
 
 return {
-  {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {},
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
-    },
-  },
-
   -- lsp package manager
   {
     "mason-org/mason.nvim",
@@ -51,18 +42,17 @@ return {
     end,
   },
 
-  -- lsp config
   {
-    "neovim/nvim-lspconfig",
-    event = "BufReadPre",
+    "mason-org/mason-lspconfig.nvim",
     dependencies = {
       "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
       "hrsh7th/cmp-nvim-lsp",
       "smjonas/inc-rename.nvim",
       {
         "piloto/cmp-nvim-ciderlsp",
         url = "sso://user/piloto/cmp-nvim-ciderlsp",
+        opts = { override_trigger_characters = true },
         cond = function()
           return Utils.is_google3()
         end,
@@ -93,55 +83,84 @@ return {
       servers = {},
     },
     config = function(_, opts)
-      local nvim_lsp = require("lspconfig")
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
-      -- https://github.com/neovim/nvim-lspconfig
-
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, buffer)
-        local ok
-        -- local format = require("plugins.lsp.format")
-        -- ok, _ = pcall(format.on_attach, client, buffer)
-        -- if not ok then
-        --   vim.notify("Failed to call lsp.format.on_attach")
-        -- end
-        -- setup autoformat
         LazyVim.format.register(LazyVim.lsp.formatter())
 
         local keymaps = require("plugins.lsp.keymaps")
-        ok, _ = pcall(keymaps.on_attach, client, buffer)
+        local ok, err = pcall(keymaps.on_attach, client, buffer)
         if not ok then
-          vim.notify("Failed to call lsp.keymaps.on_attach")
+          vim.notify("Failed to call lsp.keymaps.on_attach: " .. err)
         end
       end
 
+      -- Setup a default capability on all the servers.
       -- servers is a list of customized servers that have their own config.
       local servers = opts.servers
 
-      -- advertise support for completion through cmp
+      -- Setup defaults for all configs
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       capabilities.offsetEncoding = { "utf-16" }
+      if Utils.is_google3() then
+        capabilities = require("cmp_nvim_ciderlsp").update_capabilities(capabilities)
+      end
+      vim.lsp.config("*", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 
       if Utils.is_google3() then
-        -- assume that there's a file BUILD in google 3 repos.
-        -- the check makes sure that gopls is enabled only in non google3 repos.
-        local lspconfigs = require("lspconfig.configs")
-        lspconfigs.ciderlsp = {
-          default_config = {
-            cmd = { "/google/bin/releases/cider/ciderlsp/ciderlsp", "--tooltag=nvim-lsp", "--noforward_sync_responses" },
-            filetypes = { "c", "cpp", "java", "kotlin", "objc", "proto", "textproto", "go", "python", "bzl" },
-            offset_encoding = "utf-16",
-            root_dir = nvim_lsp.util.root_pattern("google3/*BUILD"),
-            settings = {},
-          },
-        }
         servers.ciderlsp = {
+          cmd = { "/google/bin/releases/cider/ciderlsp/ciderlsp", "--tooltag=nvim-lsp", "--noforward_sync_responses" },
+          filetypes = {
+            "c",
+            "cpp",
+            "objc",
+            "objcpp",
+            "java",
+            "kotlin",
+            "go",
+            "python",
+            "typescript",
+            "typescriptreact",
+            "proto",
+            "textpb",
+            "dart",
+            "bzl",
+            "cs",
+            "googlesql",
+            "eml",
+            "mlir",
+            "dataz",
+            "soy",
+            "graphql",
+
+            -- CiderLSP does have some support for more filetypes that are
+            -- not listed in the table above.
+            "borg",
+            "conf",
+            "css",
+            "gcl",
+            "html",
+            "javascript",
+            "javascriptreact",
+            "jslayout",
+            "json",
+            "markdown",
+            "ncl",
+            "piccolo",
+            "qflow",
+            "rust",
+            "scss",
+          },
+          offset_encoding = "utf-16",
+          root_directory = require("lspconfig").util.root_pattern("google3/*BUILD"),
+          settings = {},
+          -- This is a custom property so that mason doesn't initialize this server
+          -- because it's a custom made server configuration.
           mason = false,
-          on_attach = on_attach,
         }
-        -- from the internal piloto cmp-nvim-ciderlsp
-        capabilities = require("cmp_nvim_ciderlsp").update_capabilities(capabilities)
       end
 
       -- setup gopls for a non google3 path
@@ -150,7 +169,6 @@ return {
       -- is going to enable it, instead, assume that the config will be run
       -- in google3 but disable through autostart and through filetypes.
       servers.gopls = {
-        on_attach = on_attach,
         autostart = Utils.is_go_mod(),
         filetypes = { "go", "go.mod", "go.work", "gotmpl" },
         single_file_support = false,
@@ -181,7 +199,6 @@ return {
       }
 
       servers.ruff = {
-        on_attach = on_attach,
         init_options = {
           settings = {
             -- Any extra CLI arguments for `ruff` go here.
@@ -193,7 +210,6 @@ return {
       -- pyright is used for LSP's go to definition only, all other LSP capabilities
       -- are provided by ruff.
       servers.pyright = {
-        capabilities = vim.lsp.protocol.make_client_capabilities(),
         settings = {
           python = {
             analysis = {
@@ -215,7 +231,6 @@ return {
       }
 
       servers["lua_ls"] = {
-        on_attach = on_attach,
         settings = {
           Lua = {
             diagnostics = {
@@ -247,7 +262,6 @@ return {
       if is_kernel() then
         local nproc = vim.fn.systemlist("nproc")[1]
         servers["clangd"] = {
-          on_attach = on_attach,
           cmd = {
             "clangd",
             "--header-insertion=never",
@@ -274,43 +288,13 @@ return {
       end
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-      -- setup_server sets up an LSP server
-      local function setup_server(server)
-        local server_opts = servers[server] or {}
-        server_opts.capabilities = capabilities
-        if opts.setup[server] then
-          if opts.setup[server](server, server_opts) then
-            return
-          end
-        elseif opts.setup["*"] then
-          if opts.setup["*"](server, server_opts) then
-            return
-          end
-        end
-        require("lspconfig")[server].setup(server_opts)
+      for server, server_opts in pairs(servers) do
+        vim.lsp.config(server, server_opts)
+        vim.lsp.enable(server)
       end
 
-      local have_mason, mlsp = pcall(require, "mason-lspconfig")
-      local all_mslp_servers = {}
-      if have_mason then
-        all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
-      end
-      local ensure_installed = {} ---@type string[]
-      for server, server_opts in pairs(servers) do
-        if server_opts then
-          server_opts = server_opts == true and {} or server_opts
-          -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-          if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-            setup_server(server)
-          else
-            ensure_installed[#ensure_installed + 1] = server
-          end
-        end
-      end
-      if have_mason then
-        mlsp.setup({ ensure_installed = ensure_installed })
-        mlsp.setup_handlers({ setup_server })
-      end
+      local mlsp = require("mason-lspconfig")
+      mlsp.setup({ automatic_enable = false })
     end,
   },
   {
