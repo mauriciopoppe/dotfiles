@@ -22,7 +22,7 @@ local defaults = {
     -- Colors from w0ng/vim-hybrid
     -- https://github.com/w0ng/vim-hybrid/blob/master/colors/hybrid.vim#L87
     dark = {
-      transparent = "#232c31",
+      transparent = "#2a2c33",
       light = "#2d3c46",
       medium = "#424f58",
       dark = "#8abdb6",

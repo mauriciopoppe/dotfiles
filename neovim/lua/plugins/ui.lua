@@ -6,9 +6,12 @@ local Snacks = require("snacks")
 return {
 
   -- buffers tabline
-  -- akinsho/bufferline.nvim didn't change the colors as I was hoping :\
   {
-    "akinsho/bufferline.nvim",
+    "willothy/nvim-cokeline",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
     event = "VeryLazy",
     config = function()
       vim.opt.termguicolors = true
@@ -16,19 +19,36 @@ return {
 
       function _G.bufferline_refresh_theme(theme)
         colors = Config.themes[theme]
-        require("bufferline").setup({
-          highlights = {
-            background = {
-              bg = colors.light,
+        local bufferline = require("cokeline")
+
+        vim.api.nvim_set_hl(0, "TabLineFill", { bg = colors.transparent })
+
+        bufferline.setup({
+          default_hl = {
+            fg = function(buffer)
+              return buffer.is_focused and colors.dark or colors.medium
+            end,
+            bg = function(buffer)
+              return buffer.is_focused and colors.transparent or colors.transparent
+            end,
+          },
+          components = {
+            {
+              text = " ",
             },
-            fill = {
-              bg = colors.light,
+            {
+              text = function(buffer)
+                return buffer.filename
+              end,
+              bold = function(buffer)
+                return buffer.is_focused
+              end,
             },
-            tab = {
-              bg = colors.light,
-            },
-            tab_close = {
-              bg = colors.light,
+            {
+              text = " 󰖭 ",
+              on_click = function(_, _, _, _, buffer)
+                buffer:delete()
+              end,
             },
           },
         })

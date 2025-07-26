@@ -21,12 +21,6 @@ end
 -- colorscheme is loaded many times
 local function reset_highlight()
   vim.cmd([[
-  " Buftabline colors
-  hi! link BufTabLineCurrent PreProc
-  hi! link BufTabLineActive Comment
-  hi! link BufTabLineHidden Comment
-  hi! link BufTabLineFill Comment
-
   " MatchParen background color
   hi MatchParen ctermbg=none guibg=#888888
 

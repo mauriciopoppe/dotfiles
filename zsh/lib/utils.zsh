@@ -38,30 +38,30 @@ symlink() {
     return 1
   fi
 
-  local src=${1:a}
-  local tgt=${2:a}
+  local real=${1:a}
+  local img=${2:a}
 
-  if [[ ! -e $src ]]; then
-    print-warning "the file ${src} does not exist, aborting"
+  if [[ ! -e $real ]]; then
+    print-warning "the file ${real} does not exist, aborting"
     return 1
   fi
 
   # backup file
-  if [[ -e $tgt ]]; then
-    if [[ ! -e ${tgt}.backup ]]; then
+  if [[ -e $img ]]; then
+    if [[ ! -e ${img}.backup ]]; then
       # only move the file if it the backup doesn't exist, that
       # way multiple calls with the same args won't overwrite
       # the first file
-      print-warning "[FILE EXISTS] ${tgt} ... leaving original at ${tgt}.backup"
-      mv ${tgt} ${tgt}.backup
+      print-warning "[FILE EXISTS] ${img} ... leaving original at ${img}.backup"
+      mv ${img} ${img}.backup
     else
-      print-warning "[BACKUP EXISTS] ${tgt}.backup ... leaving it untouched and removing ${tgt}"
-      rm -f ${tgt}
+      print-warning "[BACKUP EXISTS] ${img}.backup ... leaving it untouched and removing ${img}"
+      rm -f ${img}
     fi
   fi
 
-  mkdir -p `dirname ${tgt}`
-  ln -nfs $src $tgt
+  mkdir -p `dirname ${img}`
+  ln -nfs $real $img
 
-  print-success "${src} -> ${tgt}"
+  print-success "${real} <- ${img}"
 }
