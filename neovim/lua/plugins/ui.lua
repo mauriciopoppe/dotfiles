@@ -1,6 +1,5 @@
 local Config = require("my.config")
 local Utils = require("my.util")
-local LazyVim = require("lazyvim.util")
 local Snacks = require("snacks")
 
 return {

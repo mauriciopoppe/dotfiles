@@ -29,7 +29,8 @@ vim.o.timeoutlen = 500
 -- grep
 vim.o.grepformat = "%f:%l:%c:%m"
 vim.o.grepprg = "rg --vimgrep"
-
+-- rounded borders on all floating windows
+vim.o.winborder = "rounded"
 -- }}}
 -- Indentation settings {{{
 
