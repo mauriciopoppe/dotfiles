@@ -96,6 +96,7 @@ return {
 
       require("telescope").setup({
         defaults = {
+          border = false,
           mappings = {
             i = {
               ["<esc>"] = actions.close,

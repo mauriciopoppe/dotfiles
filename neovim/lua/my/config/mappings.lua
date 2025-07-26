@@ -43,6 +43,15 @@ vim.keymap.set("v", "<C-c>", "<ESC>", { remap = true })
 vim.keymap.set("n", "<C-c>", "<ESC>", { remap = true })
 vim.keymap.set("c", "<C-c>", "<ESC>", { remap = true })
 
+-- Poweful <esc>.
+vim.keymap.set({ 'i', 's', 'n' }, '<esc>', function()
+    if require('luasnip').expand_or_jumpable() then
+        require('luasnip').unlink_current()
+    end
+    vim.cmd 'noh'
+    return '<esc>'
+end, { desc = 'Escape, clear hlsearch, and stop snippet session', expr = true })
+
 -- make Y behavior like D, and C
 vim.keymap.set("n", "Y", "y$")
 
