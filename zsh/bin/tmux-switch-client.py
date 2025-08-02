@@ -94,7 +94,9 @@ def main():
         [
             "bash",
             "-c",
-            "echo '{}' | fzf-tmux -d 15".format("\n".join(sessions_to_display)),
+            "echo '{}' | fzf --tmux bottom,100%,40% -d 15".format(
+                "\n".join(sessions_to_display)
+            ),
         ],
     )
     chosen = chosen.stdout.strip()

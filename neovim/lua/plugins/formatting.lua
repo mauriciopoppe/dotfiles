@@ -1,3 +1,4 @@
+-- Based on https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/formatting.lua
 local M = {}
 local LazyVim = require("lazyvim.util")
 
@@ -101,7 +102,6 @@ local spec = {
     end,
     config = M.setup,
   },
-  -- { "LazyVim/LazyVim", import = "lazyvim.plugins.extras.formatting.prettier", lazy = true },
 }
 
 return spec

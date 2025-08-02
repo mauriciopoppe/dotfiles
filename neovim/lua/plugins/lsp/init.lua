@@ -61,7 +61,9 @@ return {
     opts = {
       -- options for vim.diagnostic.config()
       diagnostics = {
-        virtual_lines = true,
+        virtual_lines = {
+          current_line = true,
+        },
         underline = true,
         update_in_insert = false,
         -- Disable virtual_text since it's redundant due to lsp_lines.
