@@ -2,8 +2,8 @@
 
 # asdf might need to be sourced from a zsh env so that's why this file exists.
 
-if ! type fzf-tmux > /dev/null; then
-  echo "fzf-tmux is required"
+if ! type fzf > /dev/null; then
+  echo "fzf is required"
   exit 1
 fi
 

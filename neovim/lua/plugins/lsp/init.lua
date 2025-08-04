@@ -282,7 +282,15 @@ return {
 
       for server, server_opts in pairs(servers) do
         vim.lsp.config(server, server_opts)
-        vim.lsp.enable(server)
+        if Utils.is_google3() then
+          if server == "ciderlsp" then
+            vim.lsp.enable(server)
+          end
+        else
+          if not server == "ciderlsp" then
+            vim.lsp.enable(server)
+          end
+        end
       end
 
       local mlsp = require("mason-lspconfig")
