@@ -28,6 +28,14 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
+# Called by p10k if the env var HTTP_PROXY is set
+function prompt_my_http_proxy_set() {
+  if [[ -z $HTTP_PROXY ]]; then
+    return
+  fi
+  p10k segment -i '' -f 'blue'
+}
+
 () {
   emulate -L zsh -o extended_glob
 
@@ -65,7 +73,6 @@
     # context                 # user@host
     status                    # exit code of the last command
     command_execution_time    # duration of the last command
-    my_http_proxy_set         # indicator if HTTP_PROXY var is set
     context                   # user@hostname
     time                      # current time
     # =========================[ Line #2 ]=========================
@@ -187,7 +194,7 @@
   # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
   # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
   # really need it.
-  typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
+  typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=false
 
   # If p10k is already loaded, reload configuration.
   # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.
