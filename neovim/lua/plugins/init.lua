@@ -183,12 +183,6 @@ return {
   -- . improved
   { "tpope/vim-repeat", event = "VeryLazy" },
 
-  -- editorconfig
-  {
-    "gpanders/editorconfig.nvim",
-    event = "VeryLazy",
-  },
-
   -- toggle bookmarks per line, use telescope to find them
   {
     "MattesGroeger/vim-bookmarks",

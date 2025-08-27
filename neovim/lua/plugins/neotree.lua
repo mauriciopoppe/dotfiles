@@ -8,9 +8,9 @@ return {
       "MunifTanjim/nui.nvim",
     },
     keys = {
-      { "[ui]e", ":Neotree toggle<CR>", silent = true },
-      { "[ui]a", ":Neotree reveal<CR>", silent = true },
-      { "[ui]x", ":Neotree diagnostics toggle bottom<CR>", silent = true },
+      { "[ui]e", ":Neotree filesystem toggle<CR>", silent = true },
+      { "[ui]a", ":Neotree filesystem reveal<CR>", silent = true },
+      { "[ui]t", ":Neotree document_symbols toggle<CR>", silent = true },
     },
     branch = "v3.x",
     init = function()
@@ -33,6 +33,12 @@ return {
       end
 
       require("neo-tree").setup({
+        sources = {
+          "filesystem",
+          "buffers",
+          "git_status",
+          "document_symbols",
+        },
         filesystem = {
           follow_current_file = {
             enabled = true,

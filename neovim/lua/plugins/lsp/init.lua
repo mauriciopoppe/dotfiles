@@ -287,7 +287,7 @@ return {
             vim.lsp.enable(server)
           end
         else
-          if not server == "ciderlsp" then
+          if server ~= "ciderlsp" then
             vim.lsp.enable(server)
           end
         end
