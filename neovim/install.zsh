@@ -27,11 +27,7 @@ main() {
   symlink "${base}/init.lua" "${HOME}/.config/nvim/init.lua"
   symlink "${base}/lazy-lock.json" "${HOME}/.config/nvim/lazy-lock.json"
   symlink "${base}/lua" "${HOME}/.config/nvim/lua"
-
-  # This is needed for the tmux theme.
-  if [[ ! -f "${HOME}/.theme" ]]; then
-    change-theme dark
-  fi
+  symlink "${base}/after" "${HOME}/.config/nvim/after"
 }
 
 main $@
