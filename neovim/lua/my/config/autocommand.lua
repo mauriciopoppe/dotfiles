@@ -78,8 +78,6 @@ augroup FTCheck
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx
 
   autocmd FileType c,cpp,cs,java setlocal commentstring=//\ %s
-  autocmd FileType python,xml,html,jsp setlocal ts=4 sts=4 sw=4
-  autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
   autocmd FileType go setlocal ts=4 sts=4 sw=4
   autocmd FileType markdown setlocal ts=2 sts=2 sw=2
 
