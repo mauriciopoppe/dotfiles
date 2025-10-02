@@ -66,7 +66,11 @@ return {
 
       local function with_path(expansion)
         return function()
-          require("osc52").copy(vim.fn.expand(expansion))
+          local text_to_copy = { vim.fn.expand(expansion) }
+          local copy_to_unnamedplus = require("vim.ui.clipboard.osc52").copy("+")
+          copy_to_unnamedplus(text_to_copy)
+          local copy_to_unnamed = require("vim.ui.clipboard.osc52").copy("*")
+          copy_to_unnamed(text_to_copy)
         end
       end
 
@@ -80,7 +84,7 @@ return {
           desc = "Copy line with github sha",
           cmd = function()
             local permalink = utils.get_github_permalink_at_current_line()
-            require("osc52").copy(permalink)
+            require("vim.ui.clipboard.osc52").copy(permalink)
           end,
         },
       }, {
