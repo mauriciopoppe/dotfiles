@@ -84,7 +84,7 @@ return {
           desc = "Copy line with github sha",
           cmd = function()
             local permalink = utils.get_github_permalink_at_current_line()
-            require("vim.ui.clipboard.osc52").copy(permalink)
+            require("vim.ui.clipboard.osc52").copy("+")({ permalink })
           end,
         },
       }, {
@@ -100,6 +100,7 @@ return {
 
       require("telescope").setup({
         defaults = {
+          border = false,
           mappings = {
             i = {
               ["<esc>"] = actions.close,
