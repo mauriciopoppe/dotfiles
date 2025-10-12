@@ -293,8 +293,10 @@ return {
         end
       end
 
-      local mlsp = require("mason-lspconfig")
-      mlsp.setup({ automatic_enable = false })
+      if not Utils.is_google3() then
+        local mlsp = require("mason-lspconfig")
+        mlsp.setup()
+      end
     end,
   },
   {
