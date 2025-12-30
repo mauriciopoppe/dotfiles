@@ -39,7 +39,7 @@ return {
         -- stylua: ignore
         ensure_installed = {
           "bash", "c", "cpp", "css", "cmake", "dockerfile", "go", "gomod", "hcl", "html",
-          "javascript", "json", "lua", "make", "markdown", "python", "rust", "scss", "typescript", "vim", "yaml"
+          "javascript", "json", "lua", "make", "markdown", "python", "rust", "scss", "typescript", "tsx", "vim", "yaml"
         },
         highlight = {
           enable = true,

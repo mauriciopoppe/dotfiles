@@ -75,7 +75,7 @@ augroup FTCheck
   autocmd BufRead,BufNewFile Brewfile       set ft=ruby
   autocmd BufRead,BufNewFile Dockerfile.*   set ft=dockerfile
 
-  autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx
+  autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
 
   autocmd FileType c,cpp,cs,java setlocal commentstring=//\ %s
   autocmd FileType python setlocal ts=2 sts=2 sw=2
