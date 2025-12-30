@@ -5,7 +5,7 @@ return {
   -- * Don't add { "LazyVim/LazyVim", import = "lazyvim.plugins" } to neovim/init.lua
   -- * Load LazyVim with priority on this file.
   -- * Where needed, set the `var LazyVim = require("lazyvim.util")`
-  { "LazyVim/LazyVim", priority = 10000, lazy = false, opts = {}, cond = true, version = "*" },
+  { "LazyVim/LazyVim", priority = 10000, lazy = false, opts = {}, cond = true, commit = "25abbf546d564dc484cf903804661ba12de45507" },
   {
     "LazyVim/LazyVim",
     dependencies = {
