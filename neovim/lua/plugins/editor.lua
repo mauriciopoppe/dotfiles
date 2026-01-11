@@ -177,4 +177,12 @@ return {
     event = "VeryLazy",
     opts = {},
   },
+
+  -- hex colorizer
+  {
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
+    opts = { -- set to setup table
+    },
+  },
 }

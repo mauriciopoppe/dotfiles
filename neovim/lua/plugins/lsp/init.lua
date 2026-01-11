@@ -26,6 +26,7 @@ return {
         "gofumpt", -- go
         "lua-language-server", -- lua
         "vtsls", -- typescript
+        "eslint-lsp", -- javascript/typescript linter
         -- debugger
         "debugpy",
       },
@@ -89,7 +90,13 @@ return {
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, buffer)
-        LazyVim.format.register(LazyVim.lsp.formatter())
+        -- disable LSP formatting because formatting is owned by prettierd.
+        if client.name == "vtsls" or client.name == "eslint" then
+          client.server_capabilities.documentFormattingProvider = false
+        end
+
+        -- No need to register a formatter since this is handled by conform.nvim
+        -- LazyVim.format.register(LazyVim.lsp.formatter())
 
         local keymaps = require("plugins.lsp.keymaps")
         local ok, err = pcall(keymaps.on_attach, client, buffer)
@@ -198,6 +205,13 @@ return {
               CGO_ENABLED = "0",
             },
           },
+        },
+      }
+
+      servers.eslint = {
+        settings = {
+          -- help eslint find the eslintrc when it's placed in a subfolder instead of the project root
+          workingDirectories = { mode = "auto" },
         },
       }
 
