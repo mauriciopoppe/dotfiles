@@ -78,8 +78,21 @@ dotfiles-pre() {
   dotfiles-temp-fix-path
   dotfiles-check-versions
 
+  if [[ $OSTYPE =~ ^linux ]]; then
+    if ! command-exists "gcc"; then
+      sudo apt-get install build-essential -y
+    fi
+    if ! command-exists "unzip"; then
+      sudo apt-get install unzip -y
+    fi
+    if ! command-exists "codespell"; then
+      sudo apt-get install codespell -y
+    fi
+  fi
+
   if ! command-exists "gcc"; then
-    print-error "The XCode Command Line Tools must be installed first."
+    print-error "gcc is not installed"
+    printf "The XCode Command Line Tools must be installed first."
     printf "  Download it from: https://developer.apple.com/downloads\n"
     printf "  Or install it with: xcode-select --install\n"
     exit 1
@@ -93,17 +106,6 @@ dotfiles-pre() {
     fi
   fi
 
-  if [[ $OSTYPE =~ ^linux ]]; then
-    if ! command-exists "unzip"; then
-      sudo apt-get install unzip -y
-    fi
-    if ! command-exists "make"; then
-      sudo apt-get install make -y
-    fi
-    if ! command-exists "codespell"; then
-      sudo apt-get install codespell -y
-    fi
-  fi
 }
 
 -dotfiles-install-single() {

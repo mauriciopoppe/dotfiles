@@ -34,10 +34,12 @@ path=(
 )
 export PATH
 
-# neovim
-export VISUAL=nvim
-
-# default editor
+# editor
+if [[ "$HOST" == "DietPi" ]] || [[ "$HOST" == "orangepi" ]]; then
+  export VISUAL=vim
+else
+  export VISUAL=nvim
+fi
 export EDITOR="$VISUAL"
 
 export HISTCONTROL=ignorespace

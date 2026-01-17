@@ -178,6 +178,22 @@ function prompt_my_http_proxy_set() {
   #               typed after changing current working directory.
   typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
 
+  # Custom OrangePi config
+  if [[ "$HOST" == "DietPi" ]] || [[ "$HOST" == "orangepi" ]]; then
+    # Show user@host on the left
+    typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+      context
+      dir
+      vcs
+      newline
+      prompt_char
+    )
+    # Use yellow for context on Pi
+    typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE="%F{$yellow}%n@%m%f"
+    # Enable context
+    typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_CONTENT_EXPANSION='${P9K_CONTENT}'
+  fi
+
   # Instant prompt mode.
   #
   #   - off:     Disable instant prompt. Choose this if you've tried instant prompt and found

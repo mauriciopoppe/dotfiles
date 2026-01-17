@@ -103,9 +103,9 @@ fi
 zinit ice wait lucid
 zinit load hlissner/zsh-autopair
 
-# zellij
-zinit ice from"gh-r" as"program" ver"v0.42.2"
-zinit load zellij-org/zellij
+# # zellij
+# zinit ice from"gh-r" as"program" ver"v0.42.2"
+# zinit load zellij-org/zellij
 
 # git fuzzy completion with fzf
 zinit ice as"program" pick"bin/git-fuzzy"
@@ -163,8 +163,6 @@ unset -f safe-source
 # sourced manually #
 ####################
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -185,6 +183,7 @@ if [ $commands[helm] ]; then
   source <(helm completion zsh | sed -E 's/\["(.+)"\]/\[\1\]/g')
 fi
 
+# docker version manager
 [[ ! -f ~/.dvm/dvm.sh ]] || source ~/.dvm/dvm.sh
 
 # bun completions
