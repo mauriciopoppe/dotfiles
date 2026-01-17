@@ -1,0 +1,9 @@
+#!/bin/bash
+export RESTIC_REPOSITORY="rclone:gdrive:orangepi-backups"
+export RESTIC_PASSWORD_FILE="$HOME/.restic_pwd"
+
+# Run backup
+restic backup ~/mnt/orangepi
+
+# Optional: Remove old snapshots (keep last 7 days, 4 weeks)
+restic forget --keep-daily 7 --keep-weekly 4 --prune
