@@ -175,12 +175,22 @@ fi
 
 # kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl/#using-zsh)
 if [ $commands[kubectl] ]; then
-  source <(kubectl completion zsh)
+  KUBECTL_COMPLETION_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/kubectl_completion.zsh"
+  if [[ ! -f $KUBECTL_COMPLETION_FILE ]]; then
+    mkdir -p "$(dirname "$KUBECTL_COMPLETION_FILE")"
+    kubectl completion zsh > "$KUBECTL_COMPLETION_FILE"
+  fi
+  source "$KUBECTL_COMPLETION_FILE"
 fi
 
 # helm completion
 if [ $commands[helm] ]; then
-  source <(helm completion zsh | sed -E 's/\["(.+)"\]/\[\1\]/g')
+  HELM_COMPLETION_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/helm_completion.zsh"
+  if [[ ! -f $HELM_COMPLETION_FILE ]]; then
+    mkdir -p "$(dirname "$HELM_COMPLETION_FILE")"
+    helm completion zsh | sed -E 's/\["(.+)"\]/\[\1\]/g' > "$HELM_COMPLETION_FILE"
+  fi
+  source "$HELM_COMPLETION_FILE"
 fi
 
 # docker version manager

@@ -9,6 +9,10 @@ is-macos() {
   [[ $OSTYPE =~ ^darwin ]] || return 1
 }
 
+is-pi() {
+  [[ "$HOST" == "DietPi" ]] || [[ "$HOST" == "orangepi" ]]
+}
+
 add-unique-line-to-file() {
   local line=${1}
   local file=${2}

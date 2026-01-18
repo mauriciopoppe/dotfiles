@@ -7,7 +7,7 @@ main() {
 
   print-step "installing python 3..."
 
-  if [[ $OSTYPE =~ ^darwin ]]; then
+  if is-macos; then
     brew install python3
     pip3 install --upgrade pip
   fi

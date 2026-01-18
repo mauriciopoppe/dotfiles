@@ -8,7 +8,7 @@ main() {
   print-header "neovim"
 
   print-step "installing neovim..."
-  if [[ $OSTYPE =~ ^darwin ]]; then
+  if is-macos; then
     if ! formula-exists neovim; then
       brew install neovim
     else
@@ -27,9 +27,6 @@ main() {
   symlink "${base}/init.lua" "${HOME}/.config/nvim/init.lua"
   symlink "${base}/lazy-lock.json" "${HOME}/.config/nvim/lazy-lock.json"
   symlink "${base}/lua" "${HOME}/.config/nvim/lua"
-  # This should run just once, delete once applied in workstation.
-  rm -rf "${HOME}/.config/nvim/after"
-  # symlink "${base}/after" "${HOME}/.config/nvim/after"
 }
 
 main $@
