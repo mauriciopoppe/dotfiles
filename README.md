@@ -3,10 +3,18 @@
 ![platform macos](https://img.shields.io/badge/platform-macOS-orange.svg)
 ![platform linux](https://img.shields.io/badge/platform-linux-blue.svg)
 
+## Core Stack
+
+- **Ghostty**: GPU-accelerated terminal emulator
+- **Zsh**: With Powerlevel10k and custom modules
+- **Tmux**: For session management
+- **Neovim**: IDE-like setup powered by Lazy.nvim
+
 ## Features
 
-- Installation fully automated with a simple [script](https://github.com/mauriciopoppe/dotfiles/blob/master/zsh/bin/dotfiles)
-- Install only what you need e.g. if you want to test my Neovim configuration execute `dotfiles neovim`
+- **Automated & Modular**: Installation is fully automated via the [dotfiles script](https://github.com/mauriciopoppe/dotfiles/blob/master/zsh/bin/dotfiles). You can install the entire suite or just specific modules (e.g., `dotfiles neovim`, `dotfiles ghostty`).
+- **Active Configuration**: Unlike passive symlink managers like **GNU Stow**, this setup actively provisions your environment. It handles package installation (Homebrew, Apt, NPM), compiles dependencies, and sets system defaults within the same workflow.
+- **Smart Adaptability**: While tools like **Chezmoi** offer great templating, this setup provides full imperative control. It intelligently detects your environment—whether it's macOS or Linux and dynamically adjusts the cmd prompt, default editors, and paths to match.
 
 ## Requirements
 
@@ -49,37 +57,26 @@ dotfiles tmux
 
 Which calls the `install.zsh` script located inside the `tmux/` folder, you
 can do this with all the first level directories of this repo e.g. `$ dotfiles
-[zsh|tmux|neovim|...]`
+[zsh|tmux|neovim|ghostty|...]`
 
 ### Post installation
 
-- Install Alfred 4, remap <kbd>cmd+spacebar</kbd> following https://www.alfredapp.com/help/troubleshooting/cmd-space/.
+- **Ghostty**: Run `dotfiles ghostty` to link the configuration.
+- Install Alfred 4/5, remap <kbd>cmd+spacebar</kbd> following https://www.alfredapp.com/help/troubleshooting/cmd-space/.
 - Remap <kbd>caps lock</kbd> to <kbd>control</kbd> *preferences > search for: "keyboard shortcuts"*
 - Hide dock *preferences > search for: "dock"*
 - Zoom with ctrl + scroll *preferences > search for: "Use scroll gesture with modifier keys to zoom"*
 - Update fonts in/out of tmux: `bash -x zsh/term/fix-terminfo.sh`
 - Install a patched font from [nerd fonts](https://www.nerdfonts.com/) (I'm currently using *Inconsolata go*)
 
-#### iTerm 2
-
-- Install the profiles located at `@macos/iTerm2/Profiles.json`, *iTerm > preferences > profiles > import JSON profiles*
-
-![Screen Shot 2021-01-12 at 9 05 27 PM](https://user-images.githubusercontent.com/1616682/104408983-24369680-551a-11eb-8208-7a45a6061d93.jpg)
-
-- Set the downloaded font on iTerm *iTerm > preferences > profiles > text* (change it for both regular and non-ascii fonts)
-- Uncheck *use lion-style full screen* on General
-- iTerm themes are located in the same folder.
-
 ## What's included? And how to customize it?
 
 Refer to the file `install.zsh` that each folder has, after cloning the repo you
 can add whatever you need inside each installation script
 
-## Screenshot
+## How do I use these tools?
 
 I talk about my workflow in this article: https://www.mauriciopoppe.com/notes/misc/productivity-skills
-
-[![asciicast](https://asciinema.org/a/h9bEclMKVl9SONRqMe3yoyryF.svg)](https://asciinema.org/a/h9bEclMKVl9SONRqMe3yoyryF)
 
 ## Study links
 
