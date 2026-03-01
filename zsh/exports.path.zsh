@@ -35,10 +35,9 @@ path=(
 export PATH
 
 # editor
+export VISUAL=nvim
 if [[ "$HOST" == "DietPi" ]] || [[ "$HOST" == "orangepi" ]]; then
   export VISUAL=vim
-else
-  export VISUAL=nvim
 fi
 export EDITOR="$VISUAL"
 
