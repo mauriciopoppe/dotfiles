@@ -45,6 +45,7 @@ safe-source() {
 }
 
 export TERM=tmux-256color
+export COLORTERM=truecolors
 
 #########
 # zinit #
