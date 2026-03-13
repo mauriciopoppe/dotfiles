@@ -55,17 +55,18 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 # check the colors in neovim/lua/my/config/init.lua
 # default colors are for the dark mode, I entered the values to https://minsw.github.io/fzf-color-picker/
 fzf_color='
- --color=fg:#ffffff,bg:#2a2c33,hl:#8abdb6
- --color=fg+:#8abdb6,bg+:#424f58,hl+:#5fd7ff
- --color=info:#afaf87,prompt:#d7005f,pointer:#8abdb6
- --color=marker:#87ff00,spinner:#8abdb6,header:#87afaf'
+  --color=fg:#ffffff,bg:#232c31,hl:#8abdb6
+  --color=fg+:#8abdb6,bg+:#424f58,hl+:#5fd7ff
+  --color=info:#afaf87,prompt:#d7005f,pointer:#8abdb6
+  --color=marker:#87ff00,spinner:#8abdb6,header:#87afaf'
 if [[ -f ~/.theme ]] && [[ $(cat ~/.theme) == *light* ]]; then
   fzf_color='
- --color=fg:#1d2025,bg:#ffffff,hl:#424f58
- --color=fg+:#1d2025,bg+:#e8eaef,hl+:#424f58
- --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff
- --color=marker:#87ff00,spinner:#af5fff,header:#8abdb6'
+  --color=fg:#1d2025,bg:#fdfcf5,hl:#424f58
+  --color=fg+:#1d2025,bg+:#e8eaef,hl+:#424f58
+  --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff
+  --color=marker:#87ff00,spinner:#af5fff,header:#8abdb6'
 fi
+
 export FZF_DEFAULT_OPTS="--reverse $fzf_color --inline-info --cycle"
 
 export GPG_TTY=$(tty)
