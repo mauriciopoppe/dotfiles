@@ -44,8 +44,8 @@ safe-source() {
   [[ -s $1 ]] && source $1
 }
 
-export TERM=tmux-256color
-export COLORTERM=truecolors
+# TERM is set by the terminal emulator or tmux
+export COLORTERM=truecolor
 
 #########
 # zinit #

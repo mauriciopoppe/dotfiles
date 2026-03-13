@@ -15,7 +15,18 @@ main() {
 
   # The variable in .theme is read by many other legacy locations in this codebase.
   echo $theme >~/.theme
-  echo "window-theme = $theme" >~/.config/ghostty/ghostty.config.override
+
+  # Ghostty config override
+  # match the background colors from tmux/theme.*.conf
+  if [[ "$theme" == "dark" ]]; then
+    echo "theme = Ghostty Default Style Dark" > ~/.config/ghostty/ghostty.config.override
+    echo "background = #232c31" >> ~/.config/ghostty/ghostty.config.override
+  else
+    echo "theme = GitHub-Light-Default" > ~/.config/ghostty/ghostty.config.override
+    echo "background = #fdfcf5" >> ~/.config/ghostty/ghostty.config.override
+  fi
+  echo "window-theme = $theme" >> ~/.config/ghostty/ghostty.config.override
+
   ln -sf ~/.config/zellij/themes/my-theme-${theme} ~/.config/zellij/themes/my-theme.kdl
 }
 

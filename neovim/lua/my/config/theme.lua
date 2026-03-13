@@ -48,6 +48,7 @@ local function reset_highlight()
   highlight GitSignsChange guifg=#d7af5f
 
   " Changes the color of the context lines on top of the buffer.
+  hi! Normal guibg=none
   hi! NormalFloat guibg=none
   hi! TreesitterContextBottom gui=underline guisp=#888888
   hi! TreesitterContextLineNumberBottom gui=underline guisp=#888888
