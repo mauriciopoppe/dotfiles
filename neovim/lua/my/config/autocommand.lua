@@ -58,6 +58,14 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
     vim.highlight.on_yank({ higroup = "IncSearch", timeout = 1000, on_visual = true })
   end,
 })
+-- disable undofile for temporary files
+vim.api.nvim_create_autocmd({ "BufWritePre", "BufReadPost", "BufNewFile" }, {
+  pattern = { "/tmp/*", "/private/var/*", "/var/*" },
+  group = setup,
+  callback = function()
+    vim.opt_local.undofile = false
+  end,
+})
 local checktime = vim.api.nvim_create_augroup("checktime", { clear = true })
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   group = checktime,
