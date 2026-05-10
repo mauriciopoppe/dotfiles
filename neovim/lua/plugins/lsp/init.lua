@@ -287,6 +287,7 @@ return {
             },
           },
           typescript = {
+            reportStyleChecksAsWarnings = false,
             updateImportsOnRename = "always",
             suggest = {
               completeFunctionCalls = true,
@@ -299,6 +300,9 @@ return {
               propertyDeclarationTypes = { enabled = true },
               variableTypes = { enabled = false },
             },
+          },
+          javascript = {
+            reportStyleChecksAsWarnings = false,
           },
         },
       }
