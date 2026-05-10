@@ -1,0 +1,60 @@
+#!/bin/zsh
+
+# cmux-smart-navigate <h|j|k|l>
+#
+# Smart pane switching for cmux.
+# If Vim/Nvim is running in the current pane, it sends the key to it.
+# Otherwise, it switches focus to the neighbor pane in cmux.
+
+direction=$1
+force=$2
+if [[ -z "$direction" ]]; then
+  echo "Usage: $0 <h|j|k|l> [--force]"
+  exit 1
+fi
+
+# 1. Identify current focused state
+identify=$(cmux identify)
+surface_ref=$(echo $identify | jq -r '.focused.surface_ref')
+workspace_ref=$(echo $identify | jq -r '.focused.workspace_ref')
+
+# 2. Check if Vim is running on this surface (skip if --force)
+if [[ "$force" != "--force" ]]; then
+  # 'cmux top --processes' provides the process tree per surface
+  is_vim=$(cmux top --processes --workspace $workspace_ref | \
+    grep -A 100 "$surface_ref" | \
+    grep -iqE "nvim|vim|fzf" && echo "true" || echo "false")
+
+  if [[ "$is_vim" == "true" ]]; then
+    # Send key to the surface
+    cmux send-key "ctrl+$direction"
+    exit 0
+  fi
+fi
+# 3. Navigate cmux
+# We use pixel frames to find the neighbor
+panes_json=$(cmux rpc pane.list "{\"workspace\": \"$workspace_ref\"}")
+focused_pane=$(echo $panes_json | jq -r '.panes[] | select(.focused == true)')
+
+cur_x=$(echo $focused_pane | jq -r '.pixel_frame.x')
+cur_y=$(echo $focused_pane | jq -r '.pixel_frame.y')
+cur_w=$(echo $focused_pane | jq -r '.pixel_frame.width')
+cur_h=$(echo $focused_pane | jq -r '.pixel_frame.height')
+
+# Find center of current pane to use as base for navigation
+mid_x=$(( cur_x + cur_w / 2 ))
+mid_y=$(( cur_y + cur_h / 2 ))
+
+case $direction in
+  h) target_x=$(( cur_x - 10 )); target_y=$mid_y ;;
+  j) target_x=$mid_x; target_y=$(( cur_y + cur_h + 10 )) ;;
+  k) target_x=$mid_x; target_y=$(( cur_y - 10 )) ;;
+  l) target_x=$(( cur_x + cur_w + 10 )); target_y=$mid_y ;;
+esac
+
+# Find pane that contains the target coordinates
+target_pane_ref=$(echo $panes_json | jq -r ".panes[] | select(.pixel_frame.x <= $target_x and .pixel_frame.x + .pixel_frame.width > $target_x and .pixel_frame.y <= $target_y and .pixel_frame.y + .pixel_frame.height > $target_y) | .ref")
+
+if [[ -n "$target_pane_ref" && "$target_pane_ref" != "null" ]]; then
+  cmux focus-pane --pane "$target_pane_ref"
+fi

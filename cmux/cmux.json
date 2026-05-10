@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion": 1,
+
+  // This file uses JSON with comments (JSONC).
+  // Mappings are INSTANT (handled by cmux directly).
+  "shortcuts" : {
+    "bindings" : {
+      // Navigation (Home row)
+      "focusLeft" : "ctrl+h",
+      "focusDown" : "ctrl+j",
+      "focusUp" : "ctrl+k",
+      "focusRight" : "ctrl+l",
+
+      // Manual Focus overrides
+      "focusLeft" : "cmd+opt+h",
+      "focusDown" : "cmd+opt+j",
+      "focusUp" : "cmd+opt+k",
+      "focusRight" : "cmd+opt+l",
+
+      // tmux-style splits (C-space as prefix)
+      "splitDown" : ["ctrl+space", "-"],
+      "splitRight" : ["ctrl+space", "\\"],
+
+      // Zoom
+      "toggleSplitZoom" : "cmd+shift+enter"
+    }
+  }
+}
