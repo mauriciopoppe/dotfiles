@@ -3,6 +3,7 @@
 *.local
 Session.vim
 @macos/iTerm2/com.googlecode.iterm2.plist
+.antigravitycli/
 
 # Created by https://www.gitignore.io/api/intellij
 # Edit at https://www.gitignore.io/?templates=intellij

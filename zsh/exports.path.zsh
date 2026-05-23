@@ -9,6 +9,9 @@ path=(
   /opt/homebrew/bin
   # homebrew end
   ~/.local/bin
+  # Antigravity start
+  ~/.antigravity/antigravity/bin
+  # Antigravity end
   /usr/local/bin
   /usr/local/sbin
   # flutter start
